@@ -9,11 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#09111f",
+        ink: "#12261d",
         mist: "#f6f0e6",
-        copper: "#d3a56d",
+        copper: "#c99c63",
         leaf: "#1c7b63",
-        ember: "#a95c3a"
+        ember: "#a95c3a",
+        powder: "#f7efdf",
+        olive: "#365241"
       },
       fontFamily: {
         sans: ["var(--font-manrope)"],
@@ -23,7 +25,7 @@ const config: Config = {
         glow: "0 0 120px rgba(211, 165, 109, 0.18)"
       },
       backgroundImage: {
-        "hero-radial": "radial-gradient(circle at top, rgba(28,123,99,0.22), transparent 38%), radial-gradient(circle at 80% 20%, rgba(169,92,58,0.18), transparent 24%), linear-gradient(180deg, #09111f 0%, #0d1730 42%, #09111f 100%)"
+        "hero-radial": "radial-gradient(circle at top, rgba(247,239,223,0.12), transparent 30%), radial-gradient(circle at 80% 18%, rgba(201,156,99,0.18), transparent 24%), radial-gradient(circle at 18% 72%, rgba(28,123,99,0.16), transparent 28%), linear-gradient(180deg, #102117 0%, #173126 44%, #102117 100%)"
       }
     }
   },

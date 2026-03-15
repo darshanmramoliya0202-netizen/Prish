@@ -111,3 +111,30 @@
 - Reason: Complete the requested framework hardening, real inquiry delivery integration, and deployment preparation phase.
 - Impact: The site now builds successfully on Next.js 16.1.6, `npm audit` reports zero vulnerabilities, and the inquiry flow is ready to deliver real emails once production SMTP secrets are configured.
 - Risk/Notes: Managed deployment creation failed twice due provider-side internal errors, and the Netlify CLI is not installed locally. To finish live deployment, use a CLI fallback or reattempt deployment later with final domain and SMTP values available.
+
+## 2026-03-15 18:34 IST
+- Files:
+  - `.gitignore`
+  - `CHANGE_LOG.md`
+- Change: Initialized a local Git repository, removed brochure/reference assets from version control via updated ignore rules, merged the remote GitHub repository history, and pushed the website codebase to GitHub for Netlify import.
+- Reason: Shift deployment strategy from failing direct site creation to a Git-based Netlify workflow.
+- Impact: The project is now available at `https://github.com/darshanmramoliya0202-netizen/Prish.git` and is ready to be imported into Netlify from GitHub.
+- Risk/Notes: Live deployment still requires a manual Netlify import plus environment variable configuration for the production domain and SMTP delivery.
+
+## 2026-03-15 18:55 IST
+- Files:
+  - `.gitignore`
+  - `app/globals.css`
+  - `tailwind.config.ts`
+  - `components/home-page.tsx`
+  - `components/ingredient-cloud.tsx`
+  - `components/origin-gallery.tsx`
+  - `components/export-map.tsx`
+  - `components/site-header.tsx`
+  - `components/site-footer.tsx`
+  - `components/site-shell.tsx`
+  - `CHANGE_LOG.md`
+- Change: Reworked the homepage into a lighter, food-powder-inspired and photo-led experience using brochure imagery, replaced the abstract ingredient orbit with a product collage, upgraded the export map with a more grounded world-trade treatment, and rebuilt the footer with stronger hierarchy and conversion cues.
+- Reason: Align the live site more closely with the user's preference for a warmer, less blue, less abstract, more agricultural/export-relevant visual language.
+- Impact: The homepage now feels more connected to real ingredients, farmers-to-export storytelling, and B2B credibility while keeping the site distinct from a brochure replica.
+- Risk/Notes: The brochure JPG assets are now intentionally readable in the workspace again for design use. Build and lint remain successful after the redesign.
