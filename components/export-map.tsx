@@ -48,8 +48,8 @@ export default function ExportMap() {
   const activeDestination = destinations[activeIndex];
 
   return (
-    <div className="relative h-[31rem] overflow-hidden rounded-[2.4rem] border border-[#dccfb7] bg-[linear-gradient(180deg,#f9f1df_0%,#efe0bf_100%)] p-6 shadow-[0_26px_80px_rgba(15,35,28,0.16)]">
-      <div className="absolute inset-[1.1rem] overflow-hidden rounded-[1.9rem] border border-[#dccfb7]">
+    <div className="relative h-[22rem] overflow-hidden rounded-2xl border border-[#dccfb7] bg-[linear-gradient(180deg,#f9f1df_0%,#efe0bf_100%)] p-4 shadow-[0_26px_80px_rgba(15,35,28,0.16)] sm:h-[28rem] sm:p-6 lg:h-[31rem]">
+      <div className="absolute inset-[0.6rem] overflow-hidden rounded-xl border border-[#dccfb7] sm:inset-[1.1rem] sm:rounded-[1.9rem]">
         <Image
           src={worldTradeBackdrop}
           alt="World trade backdrop highlighting India export movement"
@@ -61,11 +61,11 @@ export default function ExportMap() {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(248,239,219,0.32),rgba(18,43,34,0.72))]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_70%,rgba(247,228,181,0.28),transparent_16%),radial-gradient(circle_at_82%_18%,rgba(247,228,181,0.14),transparent_18%)]" />
       </div>
-      <div className="absolute left-[26%] top-[47%] h-24 w-24 rounded-full border border-[#f4c98d]/50 bg-[#efbb73]/20 shadow-[0_0_50px_rgba(210,152,74,0.24)]" />
-      <div className="absolute left-[29.5%] top-[50%] rounded-full border border-[#f4c98d]/55 bg-[#efbb73] px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#183225]">
+      <div className="absolute left-[26%] top-[47%] hidden h-24 w-24 rounded-full border border-[#f4c98d]/50 bg-[#efbb73]/20 shadow-[0_0_50px_rgba(210,152,74,0.24)] sm:block" />
+      <div className="absolute left-[29.5%] top-[50%] hidden rounded-full border border-[#f4c98d]/55 bg-[#efbb73] px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#183225] sm:block">
         India
       </div>
-      <div className="absolute left-[20%] top-[72%] rounded-[1.6rem] border border-[#d8c49c] bg-[#fff8ed]/88 px-5 py-4 text-xs leading-6 text-[#4b5d50] shadow-[0_16px_40px_rgba(24,50,37,0.14)] backdrop-blur-md">
+      <div className="absolute left-[20%] top-[72%] hidden rounded-[1.6rem] border border-[#d8c49c] bg-[#fff8ed]/88 px-5 py-4 text-xs leading-6 text-[#4b5d50] shadow-[0_16px_40px_rgba(24,50,37,0.14)] backdrop-blur-md sm:block">
         <p className="uppercase tracking-[0.28em] text-[#7d5c2c]">Origin node</p>
         <p className="mt-2 text-sm font-semibold text-[#173124]">Rajkot, Gujarat</p>
       </div>
@@ -74,7 +74,7 @@ export default function ExportMap() {
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.32, ease: "easeOut" }}
-        className="absolute left-6 top-6 z-20 max-w-[18rem] rounded-[1.6rem] border border-[#d8c49c] bg-[#fff8ed]/92 px-5 py-4 shadow-[0_16px_40px_rgba(24,50,37,0.14)] backdrop-blur-md"
+        className="absolute left-3 top-3 z-20 max-w-[14rem] rounded-xl border border-[#d8c49c] bg-[#fff8ed]/92 px-3 py-3 text-xs shadow-[0_16px_40px_rgba(24,50,37,0.14)] backdrop-blur-md sm:left-6 sm:top-6 sm:max-w-[18rem] sm:rounded-[1.6rem] sm:px-5 sm:py-4"
       >
         <p className="text-[11px] uppercase tracking-[0.28em] text-[#7d5c2c]">Market emphasis</p>
         <p className="mt-2 font-serif text-2xl text-[#173124]">{activeDestination.name}</p>
@@ -85,7 +85,7 @@ export default function ExportMap() {
         <motion.button
           key={destination.name}
           type="button"
-          className="absolute text-left"
+          className="absolute hidden text-left sm:block"
           style={{ top: destination.top, left: destination.left }}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -133,7 +133,7 @@ export default function ExportMap() {
         ))}
       </motion.div>
 
-      <div className="absolute inset-x-6 bottom-6 z-20 flex flex-wrap gap-2">
+      <div className="absolute inset-x-3 bottom-3 z-20 flex flex-wrap gap-1.5 sm:inset-x-6 sm:bottom-6 sm:gap-2">
         {destinations.map((destination, index) => (
           <button
             key={destination.name}

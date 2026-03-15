@@ -40,7 +40,7 @@ export default function OriginGallery() {
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-4 lg:grid-cols-[1.02fr_0.98fr] lg:grid-rows-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1.02fr_0.98fr] lg:grid-rows-2">
         {galleryCards.map((card, index) => (
           <motion.article
             key={card.title}
@@ -56,11 +56,11 @@ export default function OriginGallery() {
             onHoverStart={() => setActiveIndex(index)}
             onFocusCapture={() => setActiveIndex(index)}
             onClick={() => setActiveIndex(index)}
-            className={`group relative overflow-hidden rounded-[2rem] border border-[#dccfb7] bg-[#f8f0de] ${
-              index === 0 ? "lg:row-span-2" : ""
+            className={`group relative overflow-hidden rounded-2xl border border-[#dccfb7] bg-[#f8f0de] ${
+              index === 0 ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""
             }`}
           >
-            <div className={`relative ${index === 0 ? "h-full min-h-[32rem]" : "h-[15.5rem]"}`}>
+            <div className={`relative ${index === 0 ? "h-[16rem] sm:h-[20rem] lg:h-full lg:min-h-[32rem]" : "h-[14rem] sm:h-[15.5rem]"}`}>
               <Image
                 src={card.image}
                 alt={card.title}
@@ -90,7 +90,7 @@ export default function OriginGallery() {
         ))}
       </div>
 
-      <div className="rounded-[2rem] border border-[#dccfb7] bg-[#fff8ea] p-6 shadow-[0_18px_50px_rgba(19,45,34,0.08)]">
+      <div className="rounded-2xl border border-[#dccfb7] bg-[#fff8ea] p-4 shadow-[0_18px_50px_rgba(19,45,34,0.08)] sm:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-[#8a6433]">Gallery transition layer</p>

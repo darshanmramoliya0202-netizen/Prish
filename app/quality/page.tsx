@@ -15,11 +15,11 @@ export const metadata: Metadata = createPageMetadata({
 export default function QualityPage() {
   return (
     <SiteShell>
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-16 sm:px-8 lg:px-10 lg:pt-24">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#8a6433]">Quality & export readiness</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-5xl text-[#173124] sm:text-6xl">Processing control, documentation discipline, and quality signals buyers can evaluate clearly.</h1>
+            <h1 className="mt-5 max-w-4xl font-serif text-3xl text-[#173124] sm:text-5xl lg:text-6xl">Processing control, documentation discipline, and quality signals buyers can evaluate clearly.</h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5a7062]">
               Trust here is built through operational detail: how raw materials are handled, how consistency is protected, and how export-specific requirements are supported across markets.
             </p>

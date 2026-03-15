@@ -16,11 +16,11 @@ export const metadata: Metadata = createPageMetadata({
 export default function ProductsPage() {
   return (
     <SiteShell>
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-16 sm:px-8 lg:px-10 lg:pt-24">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#8a6433]">Products</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-5xl text-[#173124] sm:text-6xl">A richer ingredient system for buyers balancing formulation needs and export structure.</h1>
+            <h1 className="mt-5 max-w-4xl font-serif text-3xl text-[#173124] sm:text-5xl lg:text-6xl">A richer ingredient system for buyers balancing formulation needs and export structure.</h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5a7062]">
               The portfolio is organized around commercial use, product behavior, and buyer relevance — not brochure blocks. Each family is presented as part of a sourcing and formulation logic.
             </p>

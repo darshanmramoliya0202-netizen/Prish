@@ -17,11 +17,11 @@ export const metadata: Metadata = createPageMetadata({
 export default function InquiryPage() {
   return (
     <SiteShell>
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-16 sm:px-8 lg:px-10 lg:pt-24">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#8a6433]">Inquiry</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-5xl text-[#173124] sm:text-6xl">A proper intake flow for product, market, packaging, and partnership conversations.</h1>
+            <h1 className="mt-5 max-w-4xl font-serif text-3xl text-[#173124] sm:text-5xl lg:text-6xl">A proper intake flow for product, market, packaging, and partnership conversations.</h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5a7062]">
               This form is designed to collect the key context an export-oriented discussion needs: product interest, target market, commercial volume, and documentation or packaging expectations.
             </p>

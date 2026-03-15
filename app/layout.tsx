@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
+import FloatingElements from "@/components/floating-elements";
+import Preloader from "@/components/preloader";
+import ScrollProgress from "@/components/scroll-progress";
+import SmoothScrollProvider from "@/components/smooth-scroll-provider";
 import {
   defaultDescription,
   defaultKeywords,
@@ -84,7 +88,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
       <body>
         <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-        {children}
+        <SmoothScrollProvider>
+          <Preloader />
+          <ScrollProgress />
+          <FloatingElements />
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );

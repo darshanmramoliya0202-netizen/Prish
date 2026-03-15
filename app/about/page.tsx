@@ -17,7 +17,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function AboutPage() {
   return (
     <SiteShell>
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-16 sm:px-8 lg:px-10 lg:pt-24">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 rounded-[2.6rem] border border-[#dccfb7] bg-[#f7efdf]/96 p-8 shadow-[0_24px_70px_rgba(19,45,34,0.12)] lg:grid-cols-[1.05fr_0.95fr] sm:p-10">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#8a6433]">About</p>

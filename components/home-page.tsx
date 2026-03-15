@@ -16,11 +16,18 @@ import {
 } from "lucide-react";
 import AnimatedCounter from "@/components/animated-counter";
 import AnimatedSection from "@/components/animated-section";
+import ClipReveal from "@/components/clip-reveal";
 import ExportMap from "@/components/export-map";
+import HorizontalScroll from "@/components/horizontal-scroll";
 import IngredientCloud from "@/components/ingredient-cloud";
 import InquiryForm from "@/components/inquiry-form";
+import KineticText from "@/components/kinetic-text";
+import Marquee from "@/components/marquee";
 import OriginGallery from "@/components/origin-gallery";
+import PageTransition from "@/components/page-transition";
 import SiteShell from "@/components/site-shell";
+import TextReveal from "@/components/text-reveal";
+import TiltCard from "@/components/tilt-card";
 import {
   applicationSectors,
   contact,
@@ -44,9 +51,10 @@ export default function HomePage() {
 
   return (
     <SiteShell>
-      <section ref={heroRef} className="relative mx-auto max-w-7xl px-6 pb-20 pt-12 sm:px-8 lg:px-10 lg:pt-20">
+      <PageTransition>
+      <section ref={heroRef} className="relative mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 sm:pb-20 sm:pt-12 lg:px-10 lg:pt-20">
         <motion.div style={{ y: heroY, opacity: heroOpacity }}>
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,12 +70,12 @@ export default function HomePage() {
               <Sparkles className="h-4 w-4" />
               From Indian farms to global formulations
             </motion.div>
-            <h1 className="max-w-4xl font-serif text-5xl leading-[0.94] text-[#173124] sm:text-6xl lg:text-[5.6rem]">
-              India, translated into
+            <h1 className="max-w-4xl font-serif text-3xl leading-[0.96] text-[#173124] sm:text-5xl md:text-6xl lg:text-[5.6rem]">
+              <KineticText text="India, translated into" delay={0.2} />
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="block bg-gradient-to-r from-[#b98342] to-[#8a6433] bg-clip-text text-transparent"
               >
                 ingredient confidence for the world.
@@ -77,7 +85,7 @@ export default function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-8 max-w-2xl text-lg leading-8 text-[#5a7062] sm:text-xl"
+              className="mt-5 max-w-2xl text-base leading-7 text-[#5a7062] sm:mt-8 sm:text-lg sm:leading-8 lg:text-xl"
             >
               Prish Overseas pairs origin depth, controlled processing, and export composure to serve global formulation teams with traceable powders, dehydrated ingredients, rice, and spice-led supply.
             </motion.p>
@@ -134,9 +142,20 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      <section className="relative mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10">
+      <section className="relative mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-10">
+        <Marquee speed={35} className="py-4">
+          {["FSSAI Compliant", "ISO/HACCP Aligned", "2500+ MT Monthly Capacity", "280+ Sunshine Days", "100+ Specifications Supported", "No Artificial Colors", "Batch-wise Consistency", "Third-Party Testing", "Export Documentation Support", "Multi-Origin Sourcing"].map((item) => (
+            <span key={item} className="flex items-center gap-3 whitespace-nowrap text-sm text-[#5a7062]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#c99c63]" />
+              {item}
+            </span>
+          ))}
+        </Marquee>
+      </section>
+
+      <section className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-          <AnimatedSection className="rounded-2xl border border-[#e2d6bf] bg-white/50 p-8 backdrop-blur-sm">
+          <AnimatedSection className="rounded-2xl border border-[#e2d6bf] bg-white/50 p-5 backdrop-blur-sm sm:p-8">
             <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Why global buyers partner</p>
             <h2 className="mt-4 font-serif text-4xl text-[#173124]">Origin integrity, export composure, and ingredient depth from India.</h2>
             <p className="mt-5 text-sm leading-7 text-[#5a7062]">
@@ -148,25 +167,26 @@ export default function HomePage() {
               <AnimatedSection
                 key={pillar.title}
                 delay={index * 0.1}
-                className="group rounded-2xl border border-[#e2d6bf] bg-white/50 p-6 transition hover:border-[#c99c63]/40 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
               >
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#173124] text-white transition group-hover:bg-[#1f4433]">
-                  {index === 0 ? <Leaf className="h-5 w-5" /> : index === 1 ? <CircleDashed className="h-5 w-5" /> : index === 2 ? <BadgeCheck className="h-5 w-5" /> : <Boxes className="h-5 w-5" />}
-                </div>
-                <h3 className="text-2xl font-serif text-[#173124]">{pillar.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#5a7062]">{pillar.description}</p>
+                <TiltCard className="group h-full rounded-2xl border border-[#e2d6bf] bg-white/50 p-6 transition hover:border-[#c99c63]/40 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#173124] text-white transition group-hover:bg-[#1f4433]">
+                    {index === 0 ? <Leaf className="h-5 w-5" /> : index === 1 ? <CircleDashed className="h-5 w-5" /> : index === 2 ? <BadgeCheck className="h-5 w-5" /> : <Boxes className="h-5 w-5" />}
+                  </div>
+                  <h3 className="text-2xl font-serif text-[#173124]">{pillar.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#5a7062]">{pillar.description}</p>
+                </TiltCard>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10">
+      <section className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
         <AnimatedSection className="mb-10">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">A more human export story</p>
-              <h2 className="mt-4 max-w-3xl font-serif text-5xl text-[#173124]">Farm roots, process discipline, and container-ready execution.</h2>
+              <h2 className="mt-4 max-w-3xl font-serif text-3xl text-[#173124] sm:text-5xl">Farm roots, process discipline, and container-ready execution.</h2>
             </div>
             <p className="max-w-xl text-sm leading-7 text-[#5a7062]">
               Sourcing geography, controlled production, and export movement — told through real imagery.
@@ -176,13 +196,13 @@ export default function HomePage() {
         <OriginGallery />
       </section>
 
-      <section className="relative mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10">
+      <section className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
         <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
           <AnimatedSection className="rounded-2xl border border-[#e2d6bf] bg-white/50 p-8 backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">{leadershipContext.eyebrow}</p>
             <h2 className="mt-4 max-w-3xl font-serif text-5xl leading-[1.02] text-[#173124]">{leadershipContext.title}</h2>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-[#5a7062]">{leadershipContext.summary}</p>
-            <p className="mt-5 max-w-3xl text-sm leading-7 text-[#5a7062]">{leadershipContext.interpretation}</p>
+            <TextReveal text={leadershipContext.summary} className="mt-6 max-w-3xl text-base leading-8 text-[#5a7062]" />
+            <TextReveal text={leadershipContext.interpretation} className="mt-5 max-w-3xl text-sm leading-7 text-[#5a7062]" />
 
             <motion.div
               key={activePillar.title}
@@ -260,7 +280,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="portfolio" className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
+      <section id="portfolio" className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
         <AnimatedSection className="mb-12">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -297,7 +317,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
+      <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <AnimatedSection className="rounded-2xl border border-[#e2d6bf] bg-white/50 p-8 backdrop-blur-sm">
             <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Application focus</p>
@@ -345,7 +365,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
+      <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
         <AnimatedSection className="mb-10">
           <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Global reach</p>
           <h2 className="mt-4 max-w-2xl font-serif text-5xl text-[#173124]">A calm export presence moving from India into key commercial markets.</h2>
@@ -385,13 +405,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="contact" className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:pb-28">
+      <section id="contact" className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:pb-28">
         <AnimatedSection className="mb-12">
           <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Inquiry experience</p>
           <h2 className="mt-4 max-w-3xl font-serif text-5xl text-[#173124]">A proper intake flow for buyers who need more than a generic contact button.</h2>
         </AnimatedSection>
         <InquiryForm mode="compact" />
       </section>
+      </PageTransition>
     </SiteShell>
   );
 }
