@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import heroPowders from "@/brochure/Brochure Draft 4 edit lite_page-0001.jpg";
@@ -14,13 +15,43 @@ const ingredientNodes = [
 ] as const;
 
 export default function IngredientCloud() {
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [isInteractive, setIsInteractive] = useState(false);
+
+  const handlePointerMove = (event: MouseEvent<HTMLDivElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+
+    setPointer({ x, y });
+    setIsInteractive(true);
+  };
+
+  const resetPointer = () => {
+    setPointer({ x: 0, y: 0 });
+    setIsInteractive(false);
+  };
+
   return (
-    <div className="relative h-[32rem] overflow-hidden rounded-[2.6rem] border border-[#dccfb7] bg-[linear-gradient(180deg,#f7efdf_0%,#ecdcb9_100%)] p-4 shadow-[0_28px_80px_rgba(8,24,18,0.18)]">
+    <div
+      className="relative h-[32rem] overflow-hidden rounded-[2.6rem] border border-[#dccfb7] bg-[linear-gradient(180deg,#f7efdf_0%,#ecdcb9_100%)] p-4 shadow-[0_28px_80px_rgba(8,24,18,0.18)]"
+      onMouseMove={handlePointerMove}
+      onMouseLeave={resetPointer}
+    >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(211,165,109,0.24),transparent_22%),radial-gradient(circle_at_14%_84%,rgba(28,123,99,0.16),transparent_22%)]" />
       <motion.div
+        animate={{
+          x: pointer.x * 26,
+          y: pointer.y * 20,
+          opacity: isInteractive ? 0.95 : 0.5
+        }}
+        transition={{ type: "spring", stiffness: 120, damping: 20 }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,245,221,0.95),rgba(255,245,221,0.02)_68%)] blur-3xl"
+      />
+      <motion.div
         initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, ease: "easeOut" }}
+        animate={{ opacity: 1, x: pointer.x * 18, y: pointer.y * 14, rotate: pointer.x * 2.2 }}
+        transition={{ duration: 0.75, ease: "easeOut", type: "spring", stiffness: 100, damping: 18 }}
         className="absolute inset-x-4 top-4 h-[62%] overflow-hidden rounded-[2.2rem] border border-[#d7c8aa]"
       >
         <Image
@@ -44,8 +75,8 @@ export default function IngredientCloud() {
       </motion.div>
       <motion.div
         initial={{ opacity: 0, x: 18 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+        animate={{ opacity: 1, x: pointer.x * -14, y: pointer.y * -10, rotate: pointer.x * -1.4 }}
+        transition={{ duration: 0.7, delay: 0.1, ease: "easeOut", type: "spring", stiffness: 100, damping: 18 }}
         className="absolute right-4 top-6 w-[42%] overflow-hidden rounded-[1.9rem] border border-[#d7c8aa] bg-[#f7efdf] shadow-[0_24px_50px_rgba(21,49,36,0.14)]"
       >
         <div className="relative h-40">
@@ -65,8 +96,8 @@ export default function IngredientCloud() {
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, delay: 0.16, ease: "easeOut" }}
+        animate={{ opacity: 1, x: pointer.x * -10, y: pointer.y * 12, rotate: pointer.x * 1.6 }}
+        transition={{ duration: 0.75, delay: 0.16, ease: "easeOut", type: "spring", stiffness: 100, damping: 18 }}
         className="absolute bottom-4 left-4 w-[48%] overflow-hidden rounded-[1.9rem] border border-[#d7c8aa] bg-[#f7efdf] shadow-[0_24px_50px_rgba(21,49,36,0.14)]"
       >
         <div className="relative h-36">
@@ -89,7 +120,7 @@ export default function IngredientCloud() {
           key={node.label}
           className="absolute rounded-full border border-[#dbc79d] bg-[#fff7e9] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#365241] shadow-[0_10px_30px_rgba(25,48,36,0.12)]"
           style={{ top: node.top, left: node.left }}
-          animate={{ y: [0, -8, 0] }}
+          animate={{ y: [pointer.y * (index % 2 === 0 ? -5 : 5), -8 + pointer.y * 4, pointer.y * (index % 2 === 0 ? -5 : 5)] }}
           transition={{ duration: 3.8 + index * 0.45, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
         >
           <span>{node.label}</span>

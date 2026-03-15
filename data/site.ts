@@ -76,6 +76,39 @@ export const tradeFlow = [
   }
 ];
 
+export const worldviewPillars = [
+  {
+    title: "One Earth",
+    text: "Agricultural sourcing is approached with respect for land, seasonality, and ingredient integrity rather than short-term commodity movement."
+  },
+  {
+    title: "One Family",
+    text: "The Indian idea of Vasudhaiva Kutumbakam informs partnership thinking: growers, processors, formulators, importers, and logistics teams are part of one connected value chain."
+  },
+  {
+    title: "One Future",
+    text: "Enduring trade relationships are built through quality discipline, fair dealing, documentation clarity, and dependable execution across borders."
+  }
+] as const;
+
+export const leadershipContext = {
+  eyebrow: "India's outward vision",
+  title: "Vasudhaiva Kutumbakam, reinterpreted for modern global trade.",
+  summary:
+    "Originating in India, the phrase Vasudhaiva Kutumbakam expresses a worldview in which the world is one family. In official public messaging, Prime Minister Narendra Modi has framed this spirit through the expression 'One Earth, One Family, One Future' as a vision for globally connected progress.",
+  interpretation:
+    "For Prish Overseas, that philosophy becomes practical: respectful sourcing, responsible processing, transparent export relationships, and a commercial attitude that treats long-term international buyers as partners rather than transactions.",
+  sourceNote:
+    "Framed from public official themes associated with India's G20 messaging and the Prime Minister's public articulation of One Earth, One Family, One Future."
+} as const;
+
+export const partnershipSignals = [
+  "Relationships valued above one-off transactions",
+  "Indian origin presented with dignity and global readiness",
+  "Trust earned through consistency, not slogans",
+  "Shared growth across farms, factories, and destination markets"
+] as const;
+
 export const markets = ["United States", "European Union", "GCC Region", "Southeast Asia"];
 
 export const contact = {

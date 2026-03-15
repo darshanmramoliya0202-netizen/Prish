@@ -1,17 +1,52 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import worldTradeBackdrop from "@/brochure/Brochure Draft 4 edit lite_page-0003.jpg";
 
 const destinations = [
-  { name: "United States", region: "North America", top: "21%", left: "67%" },
-  { name: "European Union", region: "Europe", top: "37%", left: "55%" },
-  { name: "GCC Region", region: "Middle East", top: "52%", left: "59%" },
-  { name: "Southeast Asia", region: "Asia", top: "69%", left: "76%" }
+  {
+    name: "United States",
+    region: "North America",
+    top: "21%",
+    left: "67%",
+    focus: "Premium botanical, supplement, and formulation-led ingredient programs."
+  },
+  {
+    name: "European Union",
+    region: "Europe",
+    top: "37%",
+    left: "55%",
+    focus: "Documentation-sensitive buyers prioritizing consistency, compliance, and long-term supply trust."
+  },
+  {
+    name: "GCC Region",
+    region: "Middle East",
+    top: "52%",
+    left: "59%",
+    focus: "Fast-moving food trade, dependable export handling, and reliable commercial responsiveness."
+  },
+  {
+    name: "Southeast Asia",
+    region: "Asia",
+    top: "69%",
+    left: "76%",
+    focus: "Adaptable regional supply relationships shaped by practical packaging and shipment readiness."
+  }
+] as const;
+
+const routePaths = [
+  { left: "38%", top: "54%", width: "20%", rotate: "-23deg" },
+  { left: "38%", top: "55%", width: "14%", rotate: "-8deg" },
+  { left: "38%", top: "56%", width: "17%", rotate: "9deg" },
+  { left: "38%", top: "57%", width: "24%", rotate: "17deg" }
 ] as const;
 
 export default function ExportMap() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeDestination = destinations[activeIndex];
+
   return (
     <div className="relative h-[31rem] overflow-hidden rounded-[2.4rem] border border-[#dccfb7] bg-[linear-gradient(180deg,#f9f1df_0%,#efe0bf_100%)] p-6 shadow-[0_26px_80px_rgba(15,35,28,0.16)]">
       <div className="absolute inset-[1.1rem] overflow-hidden rounded-[1.9rem] border border-[#dccfb7]">
@@ -34,27 +69,50 @@ export default function ExportMap() {
         <p className="uppercase tracking-[0.28em] text-[#7d5c2c]">Origin node</p>
         <p className="mt-2 text-sm font-semibold text-[#173124]">Rajkot, Gujarat</p>
       </div>
+      <motion.div
+        key={activeDestination.name}
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.32, ease: "easeOut" }}
+        className="absolute left-6 top-6 z-20 max-w-[18rem] rounded-[1.6rem] border border-[#d8c49c] bg-[#fff8ed]/92 px-5 py-4 shadow-[0_16px_40px_rgba(24,50,37,0.14)] backdrop-blur-md"
+      >
+        <p className="text-[11px] uppercase tracking-[0.28em] text-[#7d5c2c]">Market emphasis</p>
+        <p className="mt-2 font-serif text-2xl text-[#173124]">{activeDestination.name}</p>
+        <p className="mt-3 text-sm leading-7 text-[#4b5d50]">{activeDestination.focus}</p>
+      </motion.div>
 
       {destinations.map((destination, index) => (
-        <motion.div
+        <motion.button
           key={destination.name}
-          className="absolute"
+          type="button"
+          className="absolute text-left"
           style={{ top: destination.top, left: destination.left }}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, delay: 0.1 * index }}
+          animate={{ y: activeIndex === index ? -6 : 0, scale: activeIndex === index ? 1.03 : 1 }}
+          onMouseEnter={() => setActiveIndex(index)}
+          onFocus={() => setActiveIndex(index)}
+          onClick={() => setActiveIndex(index)}
         >
           <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.55, 1, 0.55] }}
+            animate={{
+              scale: activeIndex === index ? [1, 1.22, 1] : [1, 1.1, 1],
+              opacity: activeIndex === index ? [0.8, 1, 0.8] : [0.45, 0.7, 0.45]
+            }}
             transition={{ duration: 2.8 + index * 0.35, repeat: Number.POSITIVE_INFINITY }}
             className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#efbb73]/30 blur-md"
           />
-          <div className="relative rounded-[1.45rem] border border-[#d8c49c] bg-[#fff8ed]/90 px-4 py-3 shadow-[0_18px_40px_rgba(24,50,37,0.16)] backdrop-blur-md">
+          <div className={`relative rounded-[1.45rem] border px-4 py-3 shadow-[0_18px_40px_rgba(24,50,37,0.16)] backdrop-blur-md transition ${
+            activeIndex === index
+              ? "border-[#c99c63] bg-[#fff2d8]"
+              : "border-[#d8c49c] bg-[#fff8ed]/90"
+          }`}>
             <p className="text-[11px] uppercase tracking-[0.28em] text-[#7d5c2c]">{destination.region}</p>
             <p className="mt-1 text-sm font-semibold text-[#173124]">{destination.name}</p>
           </div>
-        </motion.div>
+        </motion.button>
       ))}
 
       <motion.div
@@ -64,11 +122,34 @@ export default function ExportMap() {
         transition={{ duration: 0.8 }}
         className="absolute inset-0"
       >
-        <div className="absolute left-[38%] top-[54%] h-px w-[20%] rotate-[-23deg] bg-gradient-to-r from-[#e2a75a]/80 to-transparent" />
-        <div className="absolute left-[38%] top-[55%] h-px w-[14%] rotate-[-8deg] bg-gradient-to-r from-[#e2a75a]/80 to-transparent" />
-        <div className="absolute left-[38%] top-[56%] h-px w-[17%] rotate-[9deg] bg-gradient-to-r from-[#e2a75a]/80 to-transparent" />
-        <div className="absolute left-[38%] top-[57%] h-px w-[24%] rotate-[17deg] bg-gradient-to-r from-[#e2a75a]/80 to-transparent" />
+        {routePaths.map((path, index) => (
+          <motion.div
+            key={`${path.left}-${path.top}`}
+            animate={{ opacity: activeIndex === index ? 1 : 0.24, scaleX: activeIndex === index ? 1.08 : 1 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
+            className="absolute h-px bg-gradient-to-r from-[#e2a75a]/80 to-transparent origin-left"
+            style={{ left: path.left, top: path.top, width: path.width, transform: `rotate(${path.rotate})` }}
+          />
+        ))}
       </motion.div>
+
+      <div className="absolute inset-x-6 bottom-6 z-20 flex flex-wrap gap-2">
+        {destinations.map((destination, index) => (
+          <button
+            key={destination.name}
+            type="button"
+            onMouseEnter={() => setActiveIndex(index)}
+            onClick={() => setActiveIndex(index)}
+            className={`rounded-full border px-4 py-3 text-xs font-semibold uppercase tracking-[0.22em] shadow-[0_10px_24px_rgba(24,50,37,0.12)] transition ${
+              activeIndex === index
+                ? "border-[#c99c63] bg-[#173124] text-[#fff8ed]"
+                : "border-[#d8c49c] bg-[#fff8ed]/88 text-[#496052] hover:border-[#c99c63] hover:text-[#173124]"
+            }`}
+          >
+            {destination.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

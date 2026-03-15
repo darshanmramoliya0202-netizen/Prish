@@ -138,3 +138,19 @@
 - Reason: Align the live site more closely with the user's preference for a warmer, less blue, less abstract, more agricultural/export-relevant visual language.
 - Impact: The homepage now feels more connected to real ingredients, farmers-to-export storytelling, and B2B credibility while keeping the site distinct from a brochure replica.
 - Risk/Notes: The brochure JPG assets are now intentionally readable in the workspace again for design use. Build and lint remain successful after the redesign.
+
+## 2026-03-15 20:56 IST
+- Files:
+  - `data/site.ts`
+  - `components/section-heading.tsx`
+  - `components/ingredient-cloud.tsx`
+  - `components/origin-gallery.tsx`
+  - `components/export-map.tsx`
+  - `components/home-page.tsx`
+  - `app/about/page.tsx`
+  - `next.config.mjs`
+  - `CHANGE_LOG.md`
+- Change: Added an India-rooted philosophy layer around Vasudhaiva Kutumbakam and One Earth, One Family, One Future, integrated a public-source PM Modi portrait, unified homepage/about contrast onto premium light reading surfaces, and implemented a dedicated interaction pass across the hero collage, values section, gallery transitions, and export map.
+- Reason: Move the site closer to the original goal of feeling premium, interactive, memorable, and distinctly India-rooted rather than reading like a standard export brochure site.
+- Impact: The homepage now has stronger motion depth, more user-driven interaction, more readable section hierarchy, and a clearer cultural/business worldview that differentiates the brand experience.
+- Risk/Notes: Remote portrait imagery depends on Wikimedia availability through configured remote image hosts. Lint and production build pass after the interaction and readability changes.

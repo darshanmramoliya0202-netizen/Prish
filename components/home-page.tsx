@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -17,7 +19,18 @@ import IngredientCloud from "@/components/ingredient-cloud";
 import InquiryForm from "@/components/inquiry-form";
 import OriginGallery from "@/components/origin-gallery";
 import SiteShell from "@/components/site-shell";
-import { applicationSectors, contact, experiencePillars, markets, productFamilies, stats, tradeFlow } from "@/data/site";
+import {
+  applicationSectors,
+  contact,
+  experiencePillars,
+  leadershipContext,
+  markets,
+  partnershipSignals,
+  productFamilies,
+  stats,
+  tradeFlow,
+  worldviewPillars
+} from "@/data/site";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -25,6 +38,9 @@ const fadeUp = {
 };
 
 export default function HomePage() {
+  const [activePillarIndex, setActivePillarIndex] = useState(1);
+  const activePillar = worldviewPillars[activePillarIndex];
+
   return (
     <SiteShell>
       <section className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 sm:px-8 lg:px-10 lg:pt-24">
@@ -135,17 +151,117 @@ export default function HomePage() {
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeUp}
           transition={{ duration: 0.6 }}
-          className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between"
+          className="mb-10 rounded-[2.2rem] border border-[#dccfb7] bg-[#f7efdf]/95 p-8 shadow-[0_18px_50px_rgba(19,45,34,0.08)]"
         >
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-copper/80">A more human export story</p>
-            <h2 className="mt-4 max-w-3xl font-serif text-5xl text-mist">Farm roots, process discipline, and container-ready execution shown through real imagery.</h2>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">A more human export story</p>
+              <h2 className="mt-4 max-w-3xl font-serif text-5xl text-[#173124]">Farm roots, process discipline, and container-ready execution shown through real imagery.</h2>
+            </div>
+            <p className="max-w-xl text-sm leading-7 text-[#496052]">
+              The homepage now leans into sourcing geography, controlled production, and export movement instead of abstract visual metaphors.
+            </p>
           </div>
-          <p className="max-w-xl text-sm leading-7 text-mist/68">
-            The homepage now leans into sourcing geography, controlled production, and export movement instead of abstract visual metaphors.
-          </p>
         </motion.div>
         <OriginGallery />
+      </section>
+
+      <section className="relative mx-auto max-w-7xl px-6 py-14 sm:px-8 lg:px-10">
+        <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+            className="rounded-[2.3rem] border border-[#dccfb7] bg-[#f7efdf] p-8 shadow-[0_20px_60px_rgba(19,45,34,0.1)]"
+          >
+            <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">{leadershipContext.eyebrow}</p>
+            <h2 className="mt-4 max-w-3xl font-serif text-5xl leading-[1.02] text-[#173124]">{leadershipContext.title}</h2>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-[#496052]">{leadershipContext.summary}</p>
+            <p className="mt-5 max-w-3xl text-sm leading-7 text-[#496052]">{leadershipContext.interpretation}</p>
+
+            <motion.div
+              key={activePillar.title}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.28, ease: "easeOut" }}
+              className="mt-6 rounded-[1.8rem] border border-[#dccfb7] bg-[#fff8ea] p-5 shadow-[0_10px_24px_rgba(19,45,34,0.06)]"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-xs uppercase tracking-[0.28em] text-[#8a6433]">Current worldview lens</p>
+                <div className="rounded-full border border-[#d8c49c] bg-[#f7efdf] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#365241]">
+                  {String(activePillarIndex + 1).padStart(2, "0")}
+                </div>
+              </div>
+              <p className="mt-3 font-serif text-2xl text-[#173124]">{activePillar.title}</p>
+              <p className="mt-2 text-sm leading-7 text-[#496052]">{activePillar.text}</p>
+            </motion.div>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {worldviewPillars.map((pillar, index) => (
+                <motion.button
+                  key={pillar.title}
+                  type="button"
+                  onMouseEnter={() => setActivePillarIndex(index)}
+                  onFocus={() => setActivePillarIndex(index)}
+                  onClick={() => setActivePillarIndex(index)}
+                  whileHover={{ y: -6 }}
+                  animate={{
+                    y: activePillarIndex === index ? -4 : 0,
+                    scale: activePillarIndex === index ? 1.01 : 1
+                  }}
+                  className={`rounded-[1.7rem] border p-5 text-left transition ${
+                    activePillarIndex === index
+                      ? "border-[#c99c63] bg-[#173124] text-[#fff8ed] shadow-[0_18px_40px_rgba(23,49,36,0.18)]"
+                      : "border-[#dccfb7] bg-[#fff8ea] text-[#173124]"
+                  }`}
+                >
+                  <p className="text-xs uppercase tracking-[0.28em] text-[#8a6433]">{pillar.title}</p>
+                  <p className={`mt-3 text-sm leading-7 ${activePillarIndex === index ? "text-[#f3ead7]" : "text-[#496052]"}`}>{pillar.text}</p>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="rounded-[2.3rem] border border-[#dccfb7] bg-[#fff8ea] p-8 shadow-[0_20px_60px_rgba(19,45,34,0.08)]"
+          >
+            <div className="overflow-hidden rounded-[1.8rem] border border-[#dccfb7] bg-[#f2e4c8]">
+              <div className="relative h-[22rem] w-full">
+                <Image
+                  src="https://commons.wikimedia.org/wiki/Special:FilePath/Official%20Photograph%20of%20Prime%20Minister%20Narendra%20Modi%20Portrait.png"
+                  alt="Official portrait of Prime Minister Narendra Modi"
+                  fill
+                  sizes="(min-width: 1024px) 28vw, 100vw"
+                  className="object-cover object-top"
+                />
+              </div>
+            </div>
+            <div className="mt-6">
+              <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Shared prosperity lens</p>
+              <h3 className="mt-4 font-serif text-4xl leading-tight text-[#173124]">An India-rooted philosophy translated into export behaviour.</h3>
+              <p className="mt-4 text-sm leading-7 text-[#496052]">The spiritual language remains timeless, but its business expression is practical: trust, continuity, quality, and dignity in cross-border trade.</p>
+              <div className="mt-6 space-y-3">
+                {partnershipSignals.map((signal) => (
+                  <div key={signal} className="rounded-[1.2rem] border border-[#dccfb7] bg-[#f7efdf] px-4 py-3 text-sm text-[#294135] shadow-[0_8px_20px_rgba(19,45,34,0.04)]">
+                    {signal}
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-xs leading-6 text-[#6a796f]">{leadershipContext.sourceNote}</p>
+              <Link href="/about" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#173124] transition hover:text-[#365241]">
+                Explore the philosophy in detail
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       <section id="portfolio" className="relative mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-10">
@@ -155,16 +271,18 @@ export default function HomePage() {
           viewport={{ once: true, amount: 0.25 }}
           variants={fadeUp}
           transition={{ duration: 0.6 }}
-          className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
+          className="mb-12 rounded-[2.2rem] border border-[#dccfb7] bg-[#f7efdf]/95 p-8 shadow-[0_18px_50px_rgba(19,45,34,0.08)]"
         >
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-copper/80">Portfolio architecture</p>
-            <h2 className="mt-4 max-w-3xl font-serif text-5xl text-mist">A portfolio shaped for formulation, sourcing clarity, and export rhythm.</h2>
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Portfolio architecture</p>
+              <h2 className="mt-4 max-w-3xl font-serif text-5xl text-[#173124]">A portfolio shaped for formulation, sourcing clarity, and export rhythm.</h2>
+            </div>
+            <Link href="/products" className="inline-flex items-center gap-2 text-sm font-semibold text-[#173124] transition hover:text-[#365241]">
+              See detailed category mapping
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
-          <Link href="/products" className="inline-flex items-center gap-2 text-sm text-copper transition hover:text-[#e0b885]">
-            See detailed category mapping
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
         </motion.div>
 
         <div className="grid gap-6 lg:grid-cols-3">
@@ -260,6 +378,12 @@ export default function HomePage() {
       </section>
 
       <section className="relative mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-10">
+        <div className="mb-10 rounded-[2.2rem] border border-[#dccfb7] bg-[#f7efdf]/95 p-8 shadow-[0_18px_50px_rgba(19,45,34,0.08)]">
+          <div className="flex flex-col gap-3">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Global reach</p>
+            <h2 className="max-w-2xl font-serif text-5xl text-[#173124]">A calm export presence moving from India into key commercial markets.</h2>
+          </div>
+        </div>
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
             initial="hidden"
@@ -269,10 +393,6 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-copper/80">Global reach</p>
-              <h2 className="mt-4 max-w-2xl font-serif text-5xl text-mist">A calm export presence moving from India into key commercial markets.</h2>
-            </div>
             <ExportMap />
           </motion.div>
           <motion.div
@@ -320,10 +440,10 @@ export default function HomePage() {
           viewport={{ once: true, amount: 0.25 }}
           variants={fadeUp}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-12 rounded-[2.2rem] border border-[#dccfb7] bg-[#f7efdf]/95 p-8 shadow-[0_18px_50px_rgba(19,45,34,0.08)]"
         >
-          <p className="text-xs uppercase tracking-[0.35em] text-copper/80">Inquiry experience</p>
-          <h2 className="mt-4 max-w-3xl font-serif text-5xl text-mist">A proper intake flow for buyers who need more than a generic contact button.</h2>
+          <p className="text-xs uppercase tracking-[0.35em] text-[#8a6433]">Inquiry experience</p>
+          <h2 className="mt-4 max-w-3xl font-serif text-5xl text-[#173124]">A proper intake flow for buyers who need more than a generic contact button.</h2>
         </motion.div>
         <InquiryForm mode="compact" />
       </section>
