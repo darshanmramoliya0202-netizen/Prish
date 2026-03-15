@@ -112,7 +112,7 @@ export default function AboutPage() {
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {originRegions.map((region, index) => (
             <div key={region.region} className="flex gap-4 rounded-[2rem] border border-[#dccfb7] bg-[#fff8ea] p-6 shadow-[0_14px_34px_rgba(24,50,37,0.08)]">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-copper text-sm font-semibold text-ink">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#173124] text-sm font-semibold text-white">
                 {String(index + 1).padStart(2, "0")}
               </div>
               <div>

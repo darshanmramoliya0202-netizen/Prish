@@ -20,29 +20,29 @@ export default function InquiryPage() {
       <section className="mx-auto max-w-7xl px-6 pb-16 pt-16 sm:px-8 lg:px-10 lg:pt-24">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-copper/80">Inquiry</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-5xl text-mist sm:text-6xl">A proper intake flow for product, market, packaging, and partnership conversations.</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-mist/68">
+            <p className="text-xs uppercase tracking-[0.4em] text-[#8a6433]">Inquiry</p>
+            <h1 className="mt-5 max-w-4xl font-serif text-5xl text-[#173124] sm:text-6xl">A proper intake flow for product, market, packaging, and partnership conversations.</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5a7062]">
               This form is designed to collect the key context an export-oriented discussion needs: product interest, target market, commercial volume, and documentation or packaging expectations.
             </p>
-            <div className="mt-8 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6">
-              <p className="text-xs uppercase tracking-[0.34em] text-copper/80">Direct contact</p>
-              <div className="mt-4 space-y-2 text-sm leading-7 text-mist/66">
+            <div className="mt-8 rounded-2xl border border-[#e2d6bf] bg-white/50 p-6">
+              <p className="text-xs uppercase tracking-[0.34em] text-[#8a6433]">Direct contact</p>
+              <div className="mt-4 space-y-2 text-sm leading-7 text-[#5a7062]">
                 {contact.address.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
-                <a href={`mailto:${contact.email}`} className="block transition hover:text-mist">
+                <a href={`mailto:${contact.email}`} className="block transition hover:text-[#173124]">
                   {contact.email}
                 </a>
                 {contact.phones.map((phone) => (
-                  <a key={phone} href={`tel:${phone.replace(/\s+/g, "")}`} className="block transition hover:text-mist">
+                  <a key={phone} href={`tel:${phone.replace(/\s+/g, "")}`} className="block transition hover:text-[#173124]">
                     {phone}
                   </a>
                 ))}
               </div>
             </div>
           </div>
-          <div className="rounded-[2rem] border border-copper/20 bg-copper/10 p-6 sm:p-8">
+          <div className="rounded-2xl border border-[#d8c49c] bg-[#fff8ea] p-6 sm:p-8">
             <SectionHeading
               eyebrow="Inquiry topics"
               title="Structured around real buyer questions."
@@ -50,7 +50,7 @@ export default function InquiryPage() {
             />
             <div className="mt-8 flex flex-wrap gap-3">
               {inquiryTopics.map((topic) => (
-                <span key={topic} className="rounded-full border border-white/10 bg-white/5 px-4 py-3 text-xs uppercase tracking-[0.18em] text-mist/78">
+                <span key={topic} className="rounded-full border border-[#e2d6bf] bg-white/60 px-4 py-3 text-xs uppercase tracking-[0.18em] text-[#5a7062]">
                   {topic}
                 </span>
               ))}

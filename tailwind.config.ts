@@ -25,7 +25,7 @@ const config: Config = {
         glow: "0 0 120px rgba(211, 165, 109, 0.18)"
       },
       backgroundImage: {
-        "hero-radial": "radial-gradient(circle at top, rgba(247,239,223,0.12), transparent 30%), radial-gradient(circle at 80% 18%, rgba(201,156,99,0.18), transparent 24%), radial-gradient(circle at 18% 72%, rgba(28,123,99,0.16), transparent 28%), linear-gradient(180deg, #102117 0%, #173126 44%, #102117 100%)"
+        "hero-radial": "radial-gradient(circle at top, rgba(255,250,240,0.9), transparent 36%), radial-gradient(circle at 80% 18%, rgba(201,156,99,0.12), transparent 28%), radial-gradient(circle at 18% 72%, rgba(107,148,95,0.08), transparent 30%), linear-gradient(180deg, #faf4e8 0%, #f5eedf 44%, #f8f1e4 100%)"
       }
     }
   },
