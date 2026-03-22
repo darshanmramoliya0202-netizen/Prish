@@ -33,6 +33,12 @@ import SeedJourney from "@/components/seed-journey";
 import SpecTable from "@/components/spec-table";
 import RoleSelector from "@/components/role-selector";
 import SampleBuilder from "@/components/sample-builder";
+import SoilToScale from "@/components/soil-to-scale";
+import IndiaMomentum from "@/components/india-momentum";
+import BentoGrid from "@/components/bento-grid";
+import GlassBox from "@/components/glass-box";
+import FounderFeed from "@/components/founder-feed";
+import ReelsProducts from "@/components/reels-products";
 import {
   applicationSectors,
   contact,
@@ -158,7 +164,13 @@ export default function HomePage() {
         </Marquee>
       </section>
 
+      <SoilToScale />
+
+      <IndiaMomentum />
+
       <TrustBadges />
+
+      <BentoGrid />
 
       <section className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
@@ -206,6 +218,8 @@ export default function HomePage() {
       </section>
 
       <SeedJourney />
+
+      <GlassBox />
 
       <section className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
         <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
@@ -292,6 +306,8 @@ export default function HomePage() {
       </section>
 
       <SpecTable />
+
+      <ReelsProducts />
 
       <section id="portfolio" className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
         <AnimatedSection className="mb-12">
@@ -417,6 +433,8 @@ export default function HomePage() {
           </AnimatedSection>
         </div>
       </section>
+
+      <FounderFeed />
 
       <SampleBuilder />
 
