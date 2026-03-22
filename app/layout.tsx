@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 import FloatingElements from "@/components/floating-elements";
 import Preloader from "@/components/preloader";
@@ -15,10 +15,10 @@ import {
   siteName
 } from "@/data/seo";
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-cormorant",
-  weight: ["400", "500", "600", "700"]
+  variable: "--font-playfair",
+  weight: ["400", "500", "600", "700", "800", "900"]
 });
 
 const manrope = Manrope({
@@ -85,7 +85,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const organizationSchema = getOrganizationSchema();
 
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${manrope.variable}`}>
       <body>
         <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <SmoothScrollProvider>

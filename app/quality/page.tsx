@@ -18,17 +18,17 @@ export default function QualityPage() {
       <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[#8a6433]">Quality & export readiness</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-3xl text-[#173124] sm:text-5xl lg:text-6xl">Processing control, documentation discipline, and quality signals buyers can evaluate clearly.</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5a7062]">
+            <p className="text-xs uppercase tracking-[0.4em] text-saffron">Quality & export readiness</p>
+            <h1 className="mt-5 max-w-4xl font-serif text-3xl text-[#0f172a] sm:text-5xl lg:text-6xl">Processing control, documentation discipline, and quality signals buyers can evaluate clearly.</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-500">
               Trust here is built through operational detail: how raw materials are handled, how consistency is protected, and how export-specific requirements are supported across markets.
             </p>
           </div>
           <div className="grid gap-4">
             {qualitySignals.map((signal) => (
-              <div key={signal.title} className="rounded-2xl border border-[#e2d6bf] bg-white/50 p-6">
-                <p className="text-xs uppercase tracking-[0.34em] text-[#8a6433]">{signal.title}</p>
-                <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5a7062]">
+              <div key={signal.title} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <p className="text-xs uppercase tracking-[0.34em] text-saffron">{signal.title}</p>
+                <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-500">
                   {signal.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -47,10 +47,10 @@ export default function QualityPage() {
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {processJourney.map((step, index) => (
-            <div key={step.title} className="rounded-2xl border border-[#e2d6bf] bg-white/50 p-6">
-              <p className="text-xs uppercase tracking-[0.32em] text-[#8a6433]">Stage {String(index + 1).padStart(2, "0")}</p>
-              <h2 className="mt-4 font-serif text-3xl text-[#173124]">{step.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-[#5a7062]">{step.text}</p>
+            <div key={step.title} className="rounded-2xl border border-slate-200 bg-white p-6">
+              <p className="text-xs uppercase tracking-[0.32em] text-saffron">Stage {String(index + 1).padStart(2, "0")}</p>
+              <h2 className="mt-4 font-serif text-3xl text-[#0f172a]">{step.title}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-500">{step.text}</p>
             </div>
           ))}
         </div>
@@ -58,25 +58,25 @@ export default function QualityPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-10 lg:pb-24">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-[#e2d6bf] bg-white/50 p-6 sm:p-8">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
             <SectionHeading
               eyebrow="Packaging matrix"
               title="Formats aligned to handling, storage, and buyer preference."
               description="Packaging support is presented as a trade-enabling service, not an afterthought."
             />
-            <ul className="mt-8 space-y-4 text-sm leading-7 text-[#5a7062]">
+            <ul className="mt-8 space-y-4 text-sm leading-7 text-slate-500">
               {packagingMatrix.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-[#d8c49c] bg-[#fff8ea] p-6 sm:p-8">
+          <div className="rounded-2xl border border-slate-300 bg-slate-50 p-6 sm:p-8">
             <SectionHeading
               eyebrow="Documentation support"
               title="Destination-aware export support for serious commercial conversations."
               description="Beyond production, the workflow includes the paperwork and timing discipline global buyers expect."
             />
-            <ul className="mt-8 space-y-4 text-sm leading-7 text-[#5a7062]">
+            <ul className="mt-8 space-y-4 text-sm leading-7 text-slate-500">
               {documentationSupport.map((item) => (
                 <li key={item}>{item}</li>
               ))}

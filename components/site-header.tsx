@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navigation } from "@/data/content";
+import GeoBanner from "@/components/geo-banner";
 
 export default function SiteHeader() {
   const pathname = usePathname();
@@ -21,19 +22,21 @@ export default function SiteHeader() {
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   return (
+    <>
+    <GeoBanner />
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-[#e2d6bf]/70 bg-white/80 shadow-[0_4px_30px_rgba(0,0,0,0.06)] backdrop-blur-2xl"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-white/10 bg-[#0f172a]/95 shadow-[0_4px_30px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
+          : "border-b border-transparent bg-[#0f172a]"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-8 lg:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
         <Link href="/" className="group min-w-fit">
-          <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#173124] transition group-hover:text-[#8a6433]">
+          <p className="text-sm font-bold uppercase tracking-[0.35em] text-white transition group-hover:text-saffron">
             Prish Overseas
           </p>
-          <p className="mt-1 text-xs tracking-wide text-[#6b7f72]">
+          <p className="mt-1 text-[11px] tracking-wide text-slate-400">
             Indian-origin ingredients for global formulations
           </p>
         </Link>
@@ -47,13 +50,13 @@ export default function SiteHeader() {
                 href={item.href}
                 className="relative px-4 py-2 text-sm transition"
               >
-                <span className={active ? "font-semibold text-[#173124]" : "text-[#4d6254] hover:text-[#173124]"}>
+                <span className={active ? "font-semibold text-saffron" : "text-slate-300 hover:text-white"}>
                   {item.label}
                 </span>
                 {active && (
                   <motion.div
                     layoutId="nav-pill"
-                    className="absolute inset-x-1 -bottom-1 h-0.5 rounded-full bg-[#c99c63]"
+                    className="absolute inset-x-1 -bottom-1 h-0.5 rounded-full bg-saffron"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -65,16 +68,16 @@ export default function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/inquiry"
-            className="hidden items-center gap-2 rounded-full bg-[#173124] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f4433] hover:shadow-[0_8px_24px_rgba(23,49,36,0.2)] lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-saffron px-5 py-2.5 text-sm font-semibold text-[#0f172a] transition hover:bg-[#fbbf24] hover:shadow-[0_8px_24px_rgba(245,158,11,0.25)] lg:inline-flex"
           >
-            Start an Inquiry
+            Request Sample
             <ArrowUpRight className="h-4 w-4" />
           </Link>
 
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-[#173124] transition hover:bg-[#f0e8d6] lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-white transition hover:bg-white/10 lg:hidden"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -88,9 +91,9 @@ export default function SiteHeader() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-[#e2d6bf]/60 bg-white/95 backdrop-blur-2xl lg:hidden"
+            className="overflow-hidden border-t border-white/10 bg-[#0f172a]/98 backdrop-blur-2xl lg:hidden"
           >
-            <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
+            <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
               {navigation.map((item) => {
                 const active = pathname === item.href;
                 return (
@@ -99,8 +102,8 @@ export default function SiteHeader() {
                     href={item.href}
                     className={`rounded-xl px-4 py-3 text-sm transition ${
                       active
-                        ? "bg-[#f5eedf] font-semibold text-[#173124]"
-                        : "text-[#4d6254] hover:bg-[#faf5eb]"
+                        ? "bg-white/10 font-semibold text-saffron"
+                        : "text-slate-300 hover:bg-white/5 hover:text-white"
                     }`}
                   >
                     {item.label}
@@ -109,9 +112,9 @@ export default function SiteHeader() {
               })}
               <Link
                 href="/inquiry"
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#173124] px-5 py-3 text-sm font-semibold text-white"
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-saffron px-5 py-3 text-sm font-semibold text-[#0f172a]"
               >
-                Start an Inquiry
+                Request Sample
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </nav>
@@ -119,5 +122,6 @@ export default function SiteHeader() {
         )}
       </AnimatePresence>
     </header>
+    </>
   );
 }
