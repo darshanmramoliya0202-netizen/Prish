@@ -54,11 +54,11 @@ export default function TrustBadges() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.08),transparent_50%)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 text-center">
-          <p className="text-xs uppercase tracking-[0.4em] text-saffron">Quality Command Center</p>
-          <h2 className="mx-auto mt-4 max-w-2xl font-serif text-3xl text-white sm:text-4xl lg:text-5xl">
-            Certifications & compliance signals global buyers evaluate first.
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-emerald-400">Quality & Compliance</p>
+          <h2 className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl">
+            Certifications global buyers evaluate first.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-400">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-slate-300">
             Every shipment is backed by documentation discipline, processing control, and destination-aware compliance readiness.
           </p>
         </div>
@@ -77,26 +77,26 @@ export default function TrustBadges() {
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition hover:border-saffron/30 hover:bg-white/[0.08]"
               >
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-saffron/10 text-saffron transition group-hover:bg-saffron/20">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition group-hover:bg-emerald-500/20">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <span className="rounded-full border border-saffron/30 bg-saffron/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-saffron">
+                  <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
                     {cert.status}
                   </span>
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-white">{cert.name}</h3>
                 <p className="mt-1 text-xs text-slate-400">{cert.fullName}</p>
-                <p className="mt-3 text-sm leading-6 text-slate-400">{cert.description}</p>
+                <p className="mt-3 text-sm leading-6 text-slate-300">{cert.description}</p>
               </motion.div>
             );
           })}
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-slate-500">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-slate-400">
           <span>Destination-country specification flexibility</span>
-          <span className="hidden h-1 w-1 rounded-full bg-saffron/50 sm:block" />
+          <span className="hidden h-1 w-1 rounded-full bg-emerald-500/50 sm:block" />
           <span>Customizable certifications based on buyer needs</span>
-          <span className="hidden h-1 w-1 rounded-full bg-saffron/50 sm:block" />
+          <span className="hidden h-1 w-1 rounded-full bg-emerald-500/50 sm:block" />
           <span>Batch-wise consistency documentation</span>
         </div>
       </div>

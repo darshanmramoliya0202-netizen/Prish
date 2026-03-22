@@ -73,11 +73,11 @@ export default function SampleBuilder() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
       <div className="mb-10">
-        <p className="text-xs uppercase tracking-[0.4em] text-saffron">Smart Sampling</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Smart Sampling</p>
         <h2 className="mt-4 max-w-2xl font-serif text-3xl text-[#0f172a] sm:text-4xl lg:text-5xl">
           Build a custom sample kit — tailored to your formulation needs.
         </h2>
-        <p className="mt-4 max-w-xl text-sm leading-7 text-slate-500">
+        <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
           Select up to 6 products, choose grades and quantities, and submit a personalized sample request. No generic forms — just the ingredients you need to evaluate.
         </p>
       </div>
@@ -88,9 +88,9 @@ export default function SampleBuilder() {
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <FlaskConical className="h-5 w-5 text-saffron" />
-              <p className="text-xs uppercase tracking-[0.3em] text-saffron">Select products</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-saffron">Select products</p>
             </div>
-            <p className="text-xs text-slate-400">{kit.length}/6 selected</p>
+            <p className="text-xs text-slate-500">{kit.length}/6 selected</p>
           </div>
           <div className="mt-4 grid gap-2 sm:grid-cols-2">
             {productSpecs.map((spec) => {
@@ -116,7 +116,7 @@ export default function SampleBuilder() {
                   </div>
                   <div>
                     <p className="font-medium">{spec.name}</p>
-                    <p className="text-[10px] text-slate-400">{spec.category}</p>
+                    <p className="text-[10px] text-slate-500">{spec.category}</p>
                   </div>
                 </button>
               );
@@ -130,11 +130,11 @@ export default function SampleBuilder() {
           <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
             <div className="flex items-center gap-3">
               <Package className="h-5 w-5 text-saffron" />
-              <p className="text-xs uppercase tracking-[0.3em] text-saffron">Your sample kit</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-saffron">Your sample kit</p>
             </div>
 
             {kit.length === 0 ? (
-              <p className="mt-4 text-center text-sm text-slate-400">Select products from the left to build your kit</p>
+              <p className="mt-4 text-center text-sm text-slate-500">Select products from the left to build your kit</p>
             ) : (
               <div className="mt-4 space-y-3">
                 <AnimatePresence>
@@ -186,7 +186,7 @@ export default function SampleBuilder() {
               animate={{ opacity: 1, y: 0 }}
               className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6"
             >
-              <p className="text-xs uppercase tracking-[0.3em] text-saffron">Your details</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-saffron">Your details</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <input
                   value={name}

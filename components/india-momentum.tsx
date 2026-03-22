@@ -100,7 +100,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-[0.5em] text-saffron"
+            className="text-xs font-semibold uppercase tracking-[0.5em] text-indigo-400"
           >
             India Momentum
           </motion.p>
@@ -108,7 +108,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
+            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl"
           >
             India&apos;s Momentum.{" "}
             <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
@@ -119,7 +119,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto mt-4 max-w-lg text-sm leading-7 text-slate-400"
+            className="mx-auto mt-4 max-w-lg text-base leading-7 text-slate-300"
           >
             Powering the next phase of global agri-trade — from the world&apos;s fastest-growing economy to your supply chain.
           </motion.p>
@@ -143,15 +143,15 @@ export default function IndiaMomentum() {
                   <MiniSparkline data={stat.sparkline} active={isInView} />
                 </div>
                 <motion.p
-                  className="mt-5 font-sans text-3xl font-bold text-white sm:text-4xl"
+                  className="mt-5 font-sans text-3xl font-bold text-white"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.6, delay: 0.3 + index * 0.1, type: "spring" }}
                 >
                   {stat.value}
                 </motion.p>
-                <p className="mt-2 text-sm font-medium text-slate-300">{stat.label}</p>
-                <p className="mt-1 text-[11px] text-slate-500">{stat.sublabel}</p>
+                <p className="mt-2 text-sm font-medium text-slate-200">{stat.label}</p>
+                <p className="mt-1 text-xs text-slate-400">{stat.sublabel}</p>
               </motion.div>
             );
           })}

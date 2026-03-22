@@ -102,7 +102,7 @@ export default function GeoBanner() {
             <button
               type="button"
               onClick={() => setDismissed(true)}
-              className="flex h-6 w-6 items-center justify-center rounded text-slate-500 transition hover:text-white"
+              className="flex h-6 w-6 items-center justify-center rounded text-slate-400 transition hover:text-white"
             >
               <X className="h-3.5 w-3.5" />
             </button>

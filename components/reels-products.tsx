@@ -58,10 +58,10 @@ export default function ReelsProducts() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_80%,rgba(245,158,11,0.06),transparent_50%)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12">
-          <p className="text-xs uppercase tracking-[0.5em] text-saffron">Product Spotlight</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-rose-400">Product Spotlight</p>
           <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-white sm:text-4xl">
             Swipe through specs.{" "}
-            <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
+            <span className="text-slate-400">
               Not paragraphs.
             </span>
           </h2>
@@ -103,7 +103,7 @@ export default function ReelsProducts() {
                     transition={{ delay: 0.2 }}
                   >
                     <h3 className="font-sans text-2xl font-bold text-white">{product.name}</h3>
-                    <p className="mt-1 text-xs uppercase tracking-wider text-saffron">{product.tagline}</p>
+                    <p className="mt-1 text-xs uppercase tracking-wider text-rose-300">{product.tagline}</p>
 
                     <div className="mt-4 space-y-2">
                       {product.specs.map((spec, i) => {
@@ -171,7 +171,7 @@ export default function ReelsProducts() {
                   <p className={`font-semibold transition ${i === activeIndex ? "text-white" : "text-slate-300"}`}>
                     {p.name}
                   </p>
-                  <p className={`mt-0.5 text-xs transition ${i === activeIndex ? "text-saffron" : "text-slate-500"}`}>
+                  <p className={`mt-0.5 text-xs transition ${i === activeIndex ? "text-rose-400" : "text-slate-400"}`}>
                     {p.tagline}
                   </p>
                   <div className="mt-2 flex gap-1.5">

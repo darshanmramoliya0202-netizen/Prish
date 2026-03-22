@@ -52,8 +52,8 @@ export default function RoleSelector() {
         <div className="border-b border-slate-100 px-5 py-4 sm:px-8 sm:py-5">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-saffron">Personalized experience</p>
-              <h2 className="mt-2 font-serif text-2xl text-[#0f172a] sm:text-3xl">What best describes your business?</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Personalized experience</p>
+              <h2 className="mt-2 font-sans text-2xl font-bold text-[#0f172a] sm:text-3xl">What best describes your business?</h2>
             </div>
             <button
               type="button"
@@ -63,7 +63,7 @@ export default function RoleSelector() {
               <X className="h-4 w-4" />
             </button>
           </div>
-          <p className="mt-2 max-w-lg text-sm text-slate-500">
+          <p className="mt-2 max-w-lg text-sm text-slate-600">
             Select your role to see tailored MOQs, packaging options, and relevant product categories.
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function RoleSelector() {
                 <h3 className={`mt-4 text-lg font-semibold transition ${isActive ? "text-white" : "text-[#0f172a]"}`}>
                   {role.title}
                 </h3>
-                <p className={`mt-1 text-xs transition ${isActive ? "text-saffron" : "text-slate-400"}`}>
+                <p className={`mt-1 text-xs transition ${isActive ? "text-saffron" : "text-slate-500"}`}>
                   {role.subtitle}
                 </p>
                 {isActive && (

@@ -84,34 +84,34 @@ export default function InquiryForm({ mode = "default" }: InquiryFormProps) {
       <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] backdrop-blur-sm sm:p-8">
         <div className="mb-8">
           <p className="text-xs uppercase tracking-[0.34em] text-saffron">Structured inquiry</p>
-          <h3 className="mt-4 font-serif text-4xl text-[#0f172a]">Tell us what your supply brief looks like.</h3>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-500">
+          <h3 className="mt-4 font-sans text-3xl font-bold text-[#0f172a]">Tell us what your supply brief looks like.</h3>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
             Share your market, product interest, and expected volume. The form is designed to route serious sourcing conversations more clearly than an email-only CTA.
           </p>
         </div>
 
         <div className={fieldGridClass}>
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Full name</span>
             <input value={form.name} onChange={(event) => updateField("name", event.target.value)} required className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
           </label>
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Company</span>
             <input value={form.company} onChange={(event) => updateField("company", event.target.value)} required className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
           </label>
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Email</span>
             <input type="email" value={form.email} onChange={(event) => updateField("email", event.target.value)} required className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
           </label>
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Phone / WhatsApp</span>
             <input value={form.phone} onChange={(event) => updateField("phone", event.target.value)} className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
           </label>
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Country</span>
             <input value={form.country} onChange={(event) => updateField("country", event.target.value)} required className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
           </label>
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Inquiry topic</span>
             <select value={form.inquiryType} onChange={(event) => updateField("inquiryType", event.target.value)} className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition focus:border-saffron focus:ring-2 focus:ring-saffron/20">
               {inquiryTopics.map((topic) => (
@@ -132,21 +132,21 @@ export default function InquiryForm({ mode = "default" }: InquiryFormProps) {
             className="hidden"
             aria-hidden="true"
           />
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Product interest</span>
             <input value={form.productInterest} onChange={(event) => updateField("productInterest", event.target.value)} placeholder="e.g. Jamun powder, turmeric powder, dehydrated onion" className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition placeholder:text-slate-400 focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
           </label>
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="space-y-2 text-sm text-slate-500">
+            <label className="space-y-2 text-sm text-slate-600">
               <span>Target market</span>
               <input value={form.targetMarket} onChange={(event) => updateField("targetMarket", event.target.value)} placeholder="e.g. EU, GCC, USA" className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition placeholder:text-slate-400 focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
             </label>
-            <label className="space-y-2 text-sm text-slate-500">
+            <label className="space-y-2 text-sm text-slate-600">
               <span>Expected monthly volume</span>
               <input value={form.monthlyVolume} onChange={(event) => updateField("monthlyVolume", event.target.value)} placeholder="e.g. 2 MT trial, 1 container monthly" className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-[#0f172a] outline-none transition placeholder:text-slate-400 focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
             </label>
           </div>
-          <label className="space-y-2 text-sm text-slate-500">
+          <label className="space-y-2 text-sm text-slate-600">
             <span>Project details</span>
             <textarea value={form.message} onChange={(event) => updateField("message", event.target.value)} required rows={isCompact ? 4 : 6} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 text-[#0f172a] outline-none transition placeholder:text-slate-400 focus:border-saffron focus:ring-2 focus:ring-saffron/20" />
           </label>

@@ -88,10 +88,10 @@ export default function BentoGrid() {
   return (
     <section ref={ref} className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
       <div className="mb-10">
-        <p className="text-xs uppercase tracking-[0.4em] text-saffron">At a Glance</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-amber-600">At a Glance</p>
         <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-[#0f172a] sm:text-4xl">
           Everything you need to know —{" "}
-          <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">in one view.</span>
+          <span className="text-slate-400">in one view.</span>
         </h2>
       </div>
 
@@ -115,7 +115,7 @@ export default function BentoGrid() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <p className="text-xs uppercase tracking-[0.3em] text-saffron">{item.overlay}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white">{item.overlay}</p>
                 </div>
               </>
             )}
@@ -126,7 +126,7 @@ export default function BentoGrid() {
                 <div className="flex h-full flex-col justify-between bg-[#0f172a] p-5">
                   <div className="flex items-center justify-between">
                     <Icon className="h-5 w-5 text-saffron" />
-                    <span className="rounded-full bg-saffron/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-saffron">
+                    <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-600">
                       Live
                     </span>
                   </div>
@@ -135,7 +135,7 @@ export default function BentoGrid() {
                       <AnimatedCounter value={item.value!} className="font-sans text-3xl font-bold text-white" />
                       <span className="text-sm text-slate-400">{item.unit}</span>
                     </div>
-                    <p className="mt-1 text-xs text-slate-500">{item.sublabel}</p>
+                    <p className="mt-1 text-xs text-slate-400">{item.sublabel}</p>
                   </div>
                 </div>
               );
@@ -145,12 +145,12 @@ export default function BentoGrid() {
               const Icon = item.icon!;
               return (
                 <div className="flex h-full flex-col justify-between bg-white p-5">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-saffron/10 text-saffron">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600">
                     <Icon className="h-4 w-4" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-[#0f172a]">{item.title}</p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">{item.text}</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-600">{item.text}</p>
                   </div>
                 </div>
               );

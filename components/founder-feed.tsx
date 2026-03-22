@@ -58,14 +58,14 @@ export default function FounderFeed() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
       <div className="mb-10">
-        <p className="text-xs uppercase tracking-[0.4em] text-saffron">Behind the Scenes</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-orange-500">Behind the Scenes</p>
         <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-[#0f172a] sm:text-4xl">
           The Founder&apos;s Feed.{" "}
           <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
             Raw & unfiltered.
           </span>
         </h2>
-        <p className="mt-3 max-w-lg text-sm leading-7 text-slate-500">
+        <p className="mt-3 max-w-lg text-base leading-7 text-slate-600">
           No stock photos. No corporate polish. Real moments from the ground — markets, labs, ports, and everything in between.
         </p>
       </div>

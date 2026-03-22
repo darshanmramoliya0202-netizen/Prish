@@ -36,7 +36,7 @@ export default function SiteHeader() {
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-white transition group-hover:text-saffron">
             Prish Overseas
           </p>
-          <p className="mt-1 text-[11px] tracking-wide text-slate-400">
+          <p className="mt-1 text-[11px] tracking-wide text-slate-300">
             Indian-origin ingredients for global formulations
           </p>
         </Link>

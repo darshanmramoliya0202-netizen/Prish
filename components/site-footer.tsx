@@ -10,10 +10,10 @@ export default function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.35em] text-white">Prish Overseas</p>
-            <h3 className="mt-5 max-w-lg font-serif text-3xl leading-tight text-white sm:text-4xl">
-              India&apos;s modern agricultural powerhouse — delivering premium ingredients globally.
+            <h3 className="mt-5 max-w-lg font-sans text-xl font-semibold leading-snug text-white sm:text-2xl">
+              Premium Indian-origin ingredients for global B2B buyers.
             </h3>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-slate-400">
+            <p className="mt-4 max-w-lg text-sm leading-7 text-slate-300">
               Bridging authentic Indian farming heritage with world-class processing, compliance, and logistics for B2B buyers across every continent.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -35,7 +35,7 @@ export default function SiteFooter() {
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-saffron">Explore</p>
-              <div className="mt-4 flex flex-col gap-3 text-sm text-slate-400">
+              <div className="mt-4 flex flex-col gap-3 text-sm text-slate-300">
                 {navigation.map((item) => (
                   <Link key={item.href} href={item.href} className="transition hover:text-white">
                     {item.label}
@@ -45,7 +45,7 @@ export default function SiteFooter() {
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-saffron">Markets</p>
-              <div className="mt-4 flex flex-col gap-3 text-sm text-slate-400">
+              <div className="mt-4 flex flex-col gap-3 text-sm text-slate-300">
                 {markets.map((market) => (
                   <p key={market}>{market}</p>
                 ))}
@@ -59,13 +59,13 @@ export default function SiteFooter() {
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-saffron">Contact</p>
               <p className="mt-3 font-semibold text-white">{contact.company}</p>
-              <div className="mt-2 space-y-1 text-sm text-slate-400">
+              <div className="mt-2 space-y-1 text-sm text-slate-300">
                 {contact.address.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
               </div>
             </div>
-            <div className="text-sm text-slate-400">
+            <div className="text-sm text-slate-300">
               <a href={`mailto:${contact.email}`} className="block transition hover:text-saffron">
                 {contact.email}
               </a>

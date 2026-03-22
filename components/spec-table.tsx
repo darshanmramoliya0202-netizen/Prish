@@ -16,11 +16,11 @@ export default function SpecTable() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
       <div className="mb-10">
-        <p className="text-xs uppercase tracking-[0.4em] text-saffron">Product Specifications</p>
-        <h2 className="mt-4 max-w-2xl font-serif text-3xl text-[#0f172a] sm:text-4xl lg:text-5xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Product Specifications</p>
+        <h2 className="mt-4 max-w-2xl font-sans text-3xl font-bold text-[#0f172a] sm:text-4xl">
           Technical data sheets B2B buyers actually need.
         </h2>
-        <p className="mt-4 max-w-xl text-sm leading-7 text-slate-500">
+        <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
           Moisture content, ash value, mesh size, and pungency — presented in clean, scannable format instead of dense paragraphs.
         </p>
       </div>
@@ -66,7 +66,7 @@ export default function SpecTable() {
         </AnimatePresence>
       </div>
 
-      <p className="mt-6 text-xs text-slate-400">
+      <p className="mt-6 text-xs text-slate-500">
         Specifications are indicative and can be customized per buyer and destination-country requirements. Third-party lab testing available on request.
       </p>
     </section>
@@ -87,7 +87,7 @@ function SpecCard({ spec, isExpanded, onToggle }: { spec: ProductSpec; isExpande
           </div>
           <div>
             <p className="font-semibold text-[#0f172a]">{spec.name}</p>
-            <p className="mt-0.5 text-xs text-slate-400">{spec.category}</p>
+            <p className="mt-0.5 text-xs text-slate-500">{spec.category}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -146,7 +146,7 @@ function SpecCard({ spec, isExpanded, onToggle }: { spec: ProductSpec; isExpande
 function QuickStat({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
   return (
     <div className="text-right">
-      <p className="text-[10px] uppercase tracking-wider text-slate-400">{label}</p>
+      <p className="text-[10px] uppercase tracking-wider text-slate-500">{label}</p>
       <p className="mt-0.5 text-xs font-semibold text-[#0f172a]">{value}</p>
     </div>
   );
@@ -159,7 +159,7 @@ function DetailCell({ icon: Icon, label, value }: { icon: React.ComponentType<{ 
         <Icon className="h-4 w-4" />
       </div>
       <div>
-        <p className="text-[10px] uppercase tracking-wider text-slate-400">{label}</p>
+        <p className="text-[10px] uppercase tracking-wider text-slate-500">{label}</p>
         <p className="mt-1 text-sm font-semibold text-[#0f172a]">{value}</p>
       </div>
     </div>
