@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import sourcingMap from "@/brochure/Brochure Draft 4 edit lite_page-0002.jpg";
-import exportExecution from "@/brochure/Brochure Draft 4 edit lite_page-0007.jpg";
+const sourcingMap = "/images/products/coriander-seeds.jpg";
+const exportExecution = "/images/products/cumin-powder.jpg";
 
 export default function SoilToScale() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ export default function SoilToScale() {
           style={{ objectPosition: "center 40%" }}
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/60 via-[#0f172a]/30 to-[#0f172a]/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-leaf-dark/60 via-leaf-dark/30 to-soil/85" />
       </motion.div>
 
       {/* Trade/global layer */}
@@ -47,7 +47,7 @@ export default function SoilToScale() {
           className="object-cover"
           style={{ objectPosition: "center 50%" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/70 via-[#0f172a]/40 to-[#0f172a]/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-leaf-dark/70 via-soil/40 to-soil/90" />
       </motion.div>
 
       {/* Animated trade arcs overlay */}
@@ -58,7 +58,7 @@ export default function SoilToScale() {
         {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute h-px origin-left bg-gradient-to-r from-saffron/60 via-saffron/30 to-transparent"
+            className="absolute h-px origin-left bg-gradient-to-r from-gold-warm/60 via-saffron/30 to-transparent"
             style={{
               top: `${30 + i * 10}%`,
               left: "30%",
@@ -79,7 +79,7 @@ export default function SoilToScale() {
         ))}
         {/* Pulsing India epicenter */}
         <motion.div
-          className="absolute left-[32%] top-[48%] h-4 w-4 rounded-full bg-saffron"
+          className="absolute left-[32%] top-[48%] h-4 w-4 rounded-full bg-gold-warm"
           animate={{
             scale: [1, 1.8, 1],
             opacity: [0.8, 0.3, 0.8]
@@ -87,7 +87,7 @@ export default function SoilToScale() {
           transition={{ duration: 2, repeat: Infinity }}
         />
         <motion.div
-          className="absolute left-[31%] top-[47%] h-6 w-6 rounded-full border border-saffron/40"
+          className="absolute left-[31%] top-[47%] h-6 w-6 rounded-full border border-gold-warm/40"
           animate={{
             scale: [1, 2.5, 1],
             opacity: [0.5, 0, 0.5]
@@ -104,7 +104,7 @@ export default function SoilToScale() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-xs uppercase tracking-[0.5em] text-saffron"
+              className="text-xs uppercase tracking-[0.5em] text-gold-warm"
             >
               Why India? Why Prish?
             </motion.p>
@@ -116,7 +116,7 @@ export default function SoilToScale() {
               className="mt-5 font-sans text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-7xl"
             >
               Rooted in Heritage.
-              <span className="block bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent">
                 Driving Global Growth.
               </span>
             </motion.h2>
@@ -136,7 +136,7 @@ export default function SoilToScale() {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#fafaf9] to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-cream to-transparent" />
     </section>
   );
 }

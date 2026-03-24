@@ -3,9 +3,9 @@
 import { useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import heroPowders from "@/brochure/Brochure Draft 4 edit lite_page-0001.jpg";
-import portfolioHighlight from "@/brochure/Brochure Draft 4 edit lite_page-0005.jpg";
-import ingredientHighlights from "@/brochure/Brochure Draft 4 edit lite_page-0006.jpg";
+const heroPowders = "/images/products/turmeric-raw.jpg";
+const portfolioHighlight = "/images/products/strawberry-powder.jpg";
+const ingredientHighlights = "/images/products/spinach-powder.jpg";
 
 const ingredientNodes = [
   { label: "Jamun powder", top: "7%", left: "59%" },

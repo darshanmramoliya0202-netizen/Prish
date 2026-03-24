@@ -27,16 +27,16 @@ export default function SiteHeader() {
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-white/10 bg-[#0f172a]/95 shadow-[0_4px_30px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
-          : "border-b border-transparent bg-[#0f172a]"
+          ? "border-b border-gold-warm/20 bg-leaf-dark/92 shadow-[0_10px_34px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+          : "border-b border-transparent bg-leaf-dark"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 sm:py-4 lg:px-10">
         <Link href="/" className="group min-w-fit">
-          <p className="text-sm font-bold uppercase tracking-[0.35em] text-white transition group-hover:text-saffron">
+          <p className="text-sm font-bold uppercase tracking-[0.35em] text-parchment transition group-hover:text-gold-warm">
             Prish Overseas
           </p>
-          <p className="mt-1 text-[11px] tracking-wide text-slate-300">
+          <p className="mt-1 text-[10px] tracking-[0.12em] text-wheat/80 sm:text-[11px]">
             Indian-origin ingredients for global formulations
           </p>
         </Link>
@@ -48,15 +48,15 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative px-4 py-2 text-sm transition"
+                className="relative px-4 py-2 text-sm transition duration-300"
               >
-                <span className={active ? "font-semibold text-saffron" : "text-slate-300 hover:text-white"}>
+                <span className={active ? "font-semibold text-gold-warm" : "text-parchment/70 hover:text-parchment"}>
                   {item.label}
                 </span>
                 {active && (
                   <motion.div
                     layoutId="nav-pill"
-                    className="absolute inset-x-1 -bottom-1 h-0.5 rounded-full bg-saffron"
+                    className="absolute inset-x-1 -bottom-1 h-0.5 rounded-full bg-gold-warm"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -68,7 +68,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/inquiry"
-            className="hidden items-center gap-2 rounded-full bg-saffron px-5 py-2.5 text-sm font-semibold text-[#0f172a] transition hover:bg-[#fbbf24] hover:shadow-[0_8px_24px_rgba(245,158,11,0.25)] lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full border border-gold-warm/30 bg-gold-warm px-5 py-2.5 text-sm font-semibold text-leaf-dark transition hover:-translate-y-0.5 hover:bg-[#f5c842] hover:shadow-[0_10px_26px_rgba(232,160,32,0.28)] lg:inline-flex"
           >
             Request Sample
             <ArrowUpRight className="h-4 w-4" />
@@ -77,7 +77,7 @@ export default function SiteHeader() {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-white transition hover:bg-white/10 lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-parchment transition duration-300 hover:bg-white/10 lg:hidden"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -91,7 +91,7 @@ export default function SiteHeader() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-white/10 bg-[#0f172a]/98 backdrop-blur-2xl lg:hidden"
+            className="overflow-hidden border-t border-parchment/10 bg-leaf-dark/98 backdrop-blur-2xl lg:hidden"
           >
             <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
               {navigation.map((item) => {
@@ -100,10 +100,10 @@ export default function SiteHeader() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`rounded-xl px-4 py-3 text-sm transition ${
+                    className={`rounded-xl px-4 py-3 text-sm transition duration-300 ${
                       active
-                        ? "bg-white/10 font-semibold text-saffron"
-                        : "text-slate-300 hover:bg-white/5 hover:text-white"
+                        ? "bg-white/10 font-semibold text-gold-warm"
+                        : "text-parchment/70 hover:bg-white/5 hover:text-parchment"
                     }`}
                   >
                     {item.label}
@@ -112,7 +112,7 @@ export default function SiteHeader() {
               })}
               <Link
                 href="/inquiry"
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-saffron px-5 py-3 text-sm font-semibold text-[#0f172a]"
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gold-warm px-5 py-3 text-sm font-semibold text-leaf-dark"
               >
                 Request Sample
                 <ArrowUpRight className="h-4 w-4" />

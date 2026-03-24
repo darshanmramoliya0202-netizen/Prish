@@ -81,20 +81,20 @@ export default function GeoBanner() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
-        className="relative border-b border-saffron/20 bg-gradient-to-r from-[#0f172a] to-[#1e293b]"
+        className="relative border-b border-gold-warm/20 bg-gradient-to-r from-leaf-dark to-soil"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6 lg:px-10">
           <div className="flex items-center gap-3 overflow-hidden">
-            <Globe className="hidden h-4 w-4 shrink-0 text-saffron sm:block" />
-            <p className="truncate text-xs text-slate-300 sm:text-sm">
-              <span className="font-semibold text-saffron">{config.region}:</span>{" "}
+            <Globe className="hidden h-4 w-4 shrink-0 text-gold-warm sm:block" />
+            <p className="truncate text-xs text-parchment/75 sm:text-sm">
+              <span className="font-semibold text-gold-warm">{config.region}:</span>{" "}
               {config.headline}
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             <Link
               href={config.ctaHref}
-              className="hidden items-center gap-1.5 rounded-full bg-saffron/10 px-3 py-1 text-xs font-semibold text-saffron transition hover:bg-saffron/20 sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-full bg-parchment/10 px-3 py-1 text-xs font-semibold text-gold-warm transition hover:bg-parchment/15 sm:inline-flex"
             >
               {config.cta}
               <ArrowRight className="h-3 w-3" />
@@ -102,7 +102,7 @@ export default function GeoBanner() {
             <button
               type="button"
               onClick={() => setDismissed(true)}
-              className="flex h-6 w-6 items-center justify-center rounded text-slate-400 transition hover:text-white"
+              className="flex h-6 w-6 items-center justify-center rounded text-parchment/45 transition hover:text-parchment"
             >
               <X className="h-3.5 w-3.5" />
             </button>

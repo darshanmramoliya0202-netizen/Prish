@@ -10,7 +10,7 @@ type SiteShellProps = {
 
 export default function SiteShell({ children }: SiteShellProps) {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-powder text-charcoal">
+    <main className="relative min-h-screen overflow-hidden bg-cream text-ink">
       <div className="relative">
         <SiteHeader />
         {children}

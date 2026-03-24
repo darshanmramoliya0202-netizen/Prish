@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import sourcingMap from "@/brochure/Brochure Draft 4 edit lite_page-0002.jpg";
-import labProcess from "@/brochure/Brochure Draft 4 edit lite_page-0004.jpg";
-import exportExecution from "@/brochure/Brochure Draft 4 edit lite_page-0007.jpg";
+const sourcingMap = "/images/products/raw-mango-powder.jpg";
+const labProcess = "/images/products/tomato-powder.jpg";
+const exportExecution = "/images/products/lemon-powder.jpg";
 
 const galleryCards = [
   {

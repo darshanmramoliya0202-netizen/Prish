@@ -16,11 +16,11 @@ export default function SpecTable() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
       <div className="mb-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Product Specifications</p>
-        <h2 className="mt-4 max-w-2xl font-sans text-3xl font-bold text-[#0f172a] sm:text-4xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Product Specifications</p>
+        <h2 className="mt-4 max-w-2xl font-serif text-3xl text-ink sm:text-4xl">
           Technical data sheets B2B buyers actually need.
         </h2>
-        <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
+        <p className="mt-4 max-w-xl text-base leading-7 text-ink-soft">
           Moisture content, ash value, mesh size, and pungency — presented in clean, scannable format instead of dense paragraphs.
         </p>
       </div>
@@ -34,8 +34,8 @@ export default function SpecTable() {
             onClick={() => { setActiveCategory(cat); setExpandedProduct(null); }}
             className={`rounded-full border px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] transition ${
               activeCategory === cat
-                ? "border-saffron bg-[#0f172a] text-white"
-                : "border-slate-200 bg-white text-slate-500 hover:border-saffron/30 hover:text-[#0f172a]"
+                ? "border-gold-warm bg-leaf-dark text-parchment"
+                : "border-wheat/30 bg-parchment/40 text-ink-soft hover:border-gold-warm/40 hover:text-ink"
             }`}
           >
             {cat}
@@ -66,7 +66,7 @@ export default function SpecTable() {
         </AnimatePresence>
       </div>
 
-      <p className="mt-6 text-xs text-slate-500">
+      <p className="mt-6 text-xs text-ink-soft">
         Specifications are indicative and can be customized per buyer and destination-country requirements. Third-party lab testing available on request.
       </p>
     </section>
@@ -75,19 +75,19 @@ export default function SpecTable() {
 
 function SpecCard({ spec, isExpanded, onToggle }: { spec: ProductSpec; isExpanded: boolean; onToggle: () => void }) {
   return (
-    <div className={`overflow-hidden rounded-2xl border transition ${isExpanded ? "border-saffron/30 shadow-card-light" : "border-slate-200"}`}>
+    <div className={`overflow-hidden rounded-2xl border transition ${isExpanded ? "border-gold-warm/30 bg-white/80 shadow-card-light" : "border-wheat/25 bg-white/70"}`}>
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between gap-4 bg-white px-5 py-4 text-left transition hover:bg-slate-50 sm:px-6"
+        className="flex w-full items-center justify-between gap-4 bg-transparent px-5 py-4 text-left transition hover:bg-parchment/35 sm:px-6"
       >
         <div className="flex items-center gap-4">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0f172a] text-xs font-bold text-saffron">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-leaf-dark text-xs font-bold text-gold-warm">
             {spec.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
           </div>
           <div>
-            <p className="font-semibold text-[#0f172a]">{spec.name}</p>
-            <p className="mt-0.5 text-xs text-slate-500">{spec.category}</p>
+            <p className="font-semibold text-ink">{spec.name}</p>
+            <p className="mt-0.5 text-xs text-ink-soft">{spec.category}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -98,7 +98,7 @@ function SpecCard({ spec, isExpanded, onToggle }: { spec: ProductSpec; isExpande
             <QuickStat icon={Clock} label="Shelf life" value={spec.shelfLife} />
           </div>
           <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronDown className="h-5 w-5 text-slate-400" />
+            <ChevronDown className="h-5 w-5 text-wheat" />
           </motion.div>
         </div>
       </button>
@@ -112,7 +112,7 @@ function SpecCard({ spec, isExpanded, onToggle }: { spec: ProductSpec; isExpande
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="border-t border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
+            <div className="border-t border-wheat/20 bg-parchment/35 px-5 py-5 sm:px-6">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <DetailCell icon={Droplets} label="Moisture Content" value={spec.moisture} />
                 <DetailCell icon={Flame} label="Ash Value" value={spec.ash} />
@@ -122,14 +122,14 @@ function SpecCard({ spec, isExpanded, onToggle }: { spec: ProductSpec; isExpande
                 {spec.shu && <DetailCell icon={Flame} label="Pungency (SHU)" value={spec.shu} />}
                 {spec.curcumin && <DetailCell icon={Flame} label="Curcumin Content" value={spec.curcumin} />}
               </div>
-              <div className="mt-4 rounded-xl border border-slate-200 bg-white p-4">
+              <div className="mt-4 rounded-xl border border-wheat/25 bg-white/80 p-4">
                 <div className="flex items-center gap-2">
                   <Package className="h-4 w-4 text-saffron" />
-                  <p className="text-xs uppercase tracking-[0.2em] text-saffron">Packaging Options</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-gold-warm">Packaging Options</p>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {spec.packaging.map((pkg) => (
-                    <span key={pkg} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-600">
+                    <span key={pkg} className="rounded-full border border-wheat/20 bg-parchment/40 px-3 py-1.5 text-xs text-ink-soft">
                       {pkg}
                     </span>
                   ))}
@@ -146,21 +146,21 @@ function SpecCard({ spec, isExpanded, onToggle }: { spec: ProductSpec; isExpande
 function QuickStat({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
   return (
     <div className="text-right">
-      <p className="text-[10px] uppercase tracking-wider text-slate-500">{label}</p>
-      <p className="mt-0.5 text-xs font-semibold text-[#0f172a]">{value}</p>
+      <p className="text-[10px] uppercase tracking-wider text-ink-soft">{label}</p>
+      <p className="mt-0.5 text-xs font-semibold text-ink">{value}</p>
     </div>
   );
 }
 
 function DetailCell({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-saffron/10 text-saffron">
+    <div className="flex items-start gap-3 rounded-xl border border-wheat/20 bg-white/85 p-4">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gold-warm/10 text-gold-warm">
         <Icon className="h-4 w-4" />
       </div>
       <div>
-        <p className="text-[10px] uppercase tracking-wider text-slate-500">{label}</p>
-        <p className="mt-1 text-sm font-semibold text-[#0f172a]">{value}</p>
+        <p className="text-[10px] uppercase tracking-wider text-ink-soft">{label}</p>
+        <p className="mt-1 text-sm font-semibold text-ink">{value}</p>
       </div>
     </div>
   );

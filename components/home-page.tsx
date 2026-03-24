@@ -17,6 +17,7 @@ import RoleSelector from "@/components/role-selector";
 import SampleBuilder from "@/components/sample-builder";
 import SoilToScale from "@/components/soil-to-scale";
 import IndiaMomentum from "@/components/india-momentum";
+import GlobalPartnerships from "@/components/global-partnerships";
 import BentoGrid from "@/components/bento-grid";
 import GlassBox from "@/components/glass-box";
 import FounderFeed from "@/components/founder-feed";
@@ -34,9 +35,10 @@ export default function HomePage() {
       <PageTransition>
 
       {/* ─── 1. HERO (light) ─── */}
-      <section ref={heroRef} className="relative mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 sm:pb-20 sm:pt-12 lg:px-10 lg:pt-20">
+      <section ref={heroRef} className="relative mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 sm:pb-24 sm:pt-12 lg:px-10 lg:pt-20">
+        <div className="absolute inset-x-4 top-0 -z-10 h-full rounded-[2.5rem] bg-hero-radial opacity-90 sm:inset-x-6 lg:inset-x-10" />
         <motion.div style={{ y: heroY, opacity: heroOpacity }}>
-          <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="grid items-center gap-10 sm:gap-14 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,18 +49,18 @@ export default function HomePage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 backdrop-blur-sm"
+              className="mb-7 inline-flex items-center gap-2 rounded-full border border-wheat/25 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gold-warm shadow-card-light backdrop-blur-sm"
             >
               <Sparkles className="h-4 w-4" />
               From Indian farms to global formulations
             </motion.div>
-            <h1 className="max-w-4xl font-sans text-3xl font-bold leading-[1.05] text-[#0f172a] sm:text-5xl md:text-6xl lg:text-[5rem]">
+            <h1 className="max-w-4xl font-serif text-3xl leading-[1.03] text-ink sm:text-5xl md:text-6xl lg:text-[5rem]">
               <KineticText text="India, translated into" delay={0.2} />
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="block bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent"
+                className="mt-1 block bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent"
               >
                 ingredient confidence.
               </motion.span>
@@ -67,7 +69,7 @@ export default function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-5 max-w-xl text-base leading-7 text-slate-600 sm:mt-8 sm:text-lg sm:leading-8"
+              className="mt-6 max-w-xl text-[15px] leading-8 text-ink-soft sm:mt-8 sm:text-lg sm:leading-9"
             >
               Traceable powders, dehydrated ingredients, and spice-led supply — processed with precision, documented for compliance, and shipped container-ready.
             </motion.p>
@@ -76,18 +78,18 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="mt-8 flex flex-col gap-3 sm:flex-row"
+              className="mt-10 flex flex-col gap-3 sm:flex-row"
             >
               <Link
                 href="/products"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#0f172a] px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1e293b] hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-leaf-dark px-7 py-3.5 text-sm font-semibold text-parchment transition duration-300 hover:-translate-y-0.5 hover:bg-soil hover:shadow-paper"
               >
                 Explore products
                 <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <Link
                 href="/inquiry"
-                className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-7 py-3.5 text-sm font-semibold text-[#0f172a] transition hover:border-[#0f172a] hover:bg-[#0f172a] hover:text-white"
+                className="inline-flex items-center justify-center rounded-full border border-wheat/25 bg-white/80 px-7 py-3.5 text-sm font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:border-gold-warm hover:text-gold-warm hover:shadow-card-light"
               >
                 Start an inquiry
               </Link>
@@ -97,14 +99,14 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.7 }}
-              className="mt-10 grid gap-4 sm:grid-cols-2"
+              className="mt-12 grid gap-4 sm:grid-cols-2"
             >
               {stats.map((stat, index) => (
-                <div key={stat.label} className="group rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-saffron/30 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
-                  <AnimatedCounter value={stat.value} className="font-sans text-3xl font-bold text-saffron" />
-                  <p className="mt-2 max-w-[16rem] text-sm leading-6 text-slate-600">{stat.label}</p>
+                <div key={stat.label} className="group rounded-[1.8rem] border border-wheat/25 bg-white/82 p-5 shadow-card-light transition duration-300 hover:-translate-y-0.5 hover:border-gold-warm/30 hover:shadow-paper">
+                  <AnimatedCounter value={stat.value} className="font-serif text-3xl text-gold-warm" />
+                  <p className="mt-2 max-w-[16rem] text-sm leading-6 text-ink-soft">{stat.label}</p>
                   <div
-                    className="mt-4 h-0.5 rounded-full bg-gradient-to-r from-saffron to-transparent transition-all duration-700 group-hover:w-full"
+                    className="mt-4 h-0.5 rounded-full bg-gradient-to-r from-gold-warm to-transparent transition-all duration-700 group-hover:w-full"
                     style={{ width: `${78 - index * 12}%` }}
                   />
                 </div>
@@ -128,8 +130,8 @@ export default function HomePage() {
       <section className="relative mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-10">
         <Marquee speed={35} className="py-3">
           {["FSSAI Compliant", "ISO/HACCP Aligned", "2500+ MT Capacity", "280+ Sunshine Days", "100+ Specs Supported", "No Artificial Colors", "Third-Party Testing", "Multi-Origin Sourcing"].map((item) => (
-            <span key={item} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-slate-500">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <span key={item} className="flex items-center gap-3 whitespace-nowrap text-sm font-medium text-ink-soft">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold-warm" />
               {item}
             </span>
           ))}
@@ -142,10 +144,13 @@ export default function HomePage() {
       {/* ─── 4. BENTO GRID (light — "at a glance" dashboard) ─── */}
       <BentoGrid />
 
-      {/* ─── 5. INDIA MOMENTUM (dark stats) ─── */}
+      {/* ─── 10. INDIA MOMENTUM ─── */}
       <IndiaMomentum />
 
-      {/* ─── 6. ROLE SELECTOR (light — personalized) ─── */}
+      {/* ─── 11. GLOBAL PARTNERSHIPS ─── */}
+      <GlobalPartnerships />
+
+      {/* ─── 12. ROLE SELECTOR (light — personalized) ─── */}
       <RoleSelector />
 
       {/* ─── 7. REELS PRODUCTS (dark — product showcase) ─── */}
@@ -160,33 +165,36 @@ export default function HomePage() {
       {/* ─── 10. SEED JOURNEY (dark — traceability) ─── */}
       <SeedJourney />
 
-      {/* ─── 11. GLOBAL REACH (light — map + markets) ─── */}
-      <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
+      {/* ─── 11. GLOBAL PARTNERSHIPS ─── */}
+      <GlobalPartnerships />
+
+      {/* ─── 12. GLOBAL REACH (light — map + markets) ─── */}
+      <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
         <AnimatedSection className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-600">Global Reach</p>
-          <h2 className="mt-4 max-w-2xl font-sans text-3xl font-bold text-[#0f172a] sm:text-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Global Reach</p>
+          <h2 className="mt-4 max-w-2xl font-serif text-3xl text-ink sm:text-4xl">
             Active across 4 market clusters,{" "}
-            <span className="text-slate-400">15+ countries.</span>
+            <span className="text-wheat">15+ countries.</span>
           </h2>
         </AnimatedSection>
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <AnimatedSection>
             <ExportMap />
           </AnimatedSection>
-          <AnimatedSection delay={0.1} className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+          <AnimatedSection delay={0.1} className="rounded-[2rem] border border-wheat/25 bg-white/82 p-6 shadow-paper sm:p-8">
             <div className="grid gap-3 sm:grid-cols-2">
               {markets.map((market, index) => (
-                <div key={market} className="rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-blue-200 hover:bg-white">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-blue-500">Market {String(index + 1).padStart(2, "0")}</p>
-                  <p className="mt-2 text-lg font-semibold text-[#0f172a]">{market}</p>
+                <div key={market} className="rounded-[1.4rem] border border-wheat/20 bg-parchment/35 p-4 transition hover:-translate-y-0.5 hover:border-gold-warm/25 hover:bg-white/85">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-gold-warm">Market {String(index + 1).padStart(2, "0")}</p>
+                  <p className="mt-2 text-lg font-semibold text-ink">{market}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <p className="font-semibold text-[#0f172a]">{contact.company}</p>
-              <p className="mt-1 text-sm text-slate-600">{contact.address.join(", ")}</p>
+            <div className="mt-4 rounded-[1.4rem] border border-wheat/20 bg-parchment/35 p-4">
+              <p className="font-semibold text-ink">{contact.company}</p>
+              <p className="mt-1 text-sm text-ink-soft">{contact.address.join(", ")}</p>
               <div className="mt-3 flex flex-wrap gap-3">
-                <Link href="/inquiry" className="inline-flex items-center gap-1.5 text-sm font-semibold text-saffron transition hover:text-turmeric">
+                <Link href="/inquiry" className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-warm transition hover:text-turmeric">
                   Get in touch <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
               </div>

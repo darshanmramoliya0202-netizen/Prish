@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrishOverseas — A Family Business from Surat | Honest Agri Exports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+/* ───────────────────────────────────────────
+   PHILOSOPHY: This site should feel like a
+   letter from a friend who happens to grow
+   the world's best spices. NOT a corporation.
+─────────────────────────────────────────── */
+
+:root {
+  --soil:       #2C1A0E;
+  --earth:      #5C3317;
+  --bark:       #8B5E3C;
+  --wheat:      #C89B6E;
+  --straw:      #E8D5B0;
+  --parchment:  #F5EDD8;
+  --cream:      #FAF6EE;
+  --leaf-dark:  #1A3318;
+  --leaf:       #2E5A28;
+  --sprout:     #4A7C40;
+  --grass:      #7AB56A;
+  --gold:       #C8860A;
+  --gold-warm:  #E8A020;
+  --saffron:    #D4721A;
+  --white:      #FEFCF8;
+  --ink:        #1C1208;
+  --ink-mid:    #3D2E1A;
+  --ink-soft:   #7A6650;
+
+  --font-head: 'Lora', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-hand: 'Caveat', cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* Paper texture on body */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9000;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 1;
+}
+
+/* ── NAV ─────────────────────────────────── */
+nav {
+  background: var(--leaf-dark);
+  padding: 0 6%;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 500;
+  border-bottom: 2px solid var(--gold);
+}
+.nav-brand {
+  display: flex; align-items: baseline; gap: 8px;
+}
+.nav-logo {
+  font-family: var(--font-head);
+  font-size: 20px; color: var(--parchment);
+  letter-spacing: -0.2px;
+}
+.nav-tagline {
+  font-family: var(--font-hand);
+  font-size: 14px; color: var(--gold-warm);
+  opacity: 0.8;
+}
+.nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+.nav-links a { font-size: 13px; color: rgba(245,237,216,0.7); transition: color 0.2s; letter-spacing: 0.01em; }
+.nav-links a:hover { color: var(--gold-warm); }
+.nav-wa {
+  display: flex; align-items: center; gap: 8px;
+  background: #25D366; color: white;
+  font-size: 13px; font-weight: 500;
+  padding: 9px 18px; border-radius: 4px;
+  border: none; cursor: pointer; transition: all 0.2s;
+  font-family: var(--font-body);
+  text-decoration: none;
+}
+.nav-wa:hover { background: #20C55E; }
+.wa-dot { width: 8px; height: 8px; background: white; border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+/* ── HERO: A LETTER, NOT A BANNER ─────── */
+#hero {
+  background: var(--leaf-dark);
+  padding: 0;
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+.hero-letter {
+  padding: 72px 8% 72px 8%;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative;
+}
+.hero-stamp {
+  position: absolute; top: 40px; right: 5%;
+  width: 80px; height: 80px;
+  border: 3px solid rgba(200,134,10,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-hand);
+  font-size: 10px;
+  color: rgba(200,134,10,0.5);
+  text-align: center;
+  transform: rotate(12deg);
+  line-height: 1.3;
+}
+.hero-date {
+  font-family: var(--font-hand);
+  font-size: 16px; color: var(--gold-warm);
+  margin-bottom: 24px; opacity: 0.8;
+}
+.hero-salutation {
+  font-family: var(--font-hand);
+  font-size: 22px; color: rgba(245,237,216,0.7);
+  margin-bottom: 12px;
+}
+.hero-h1 {
+  font-family: var(--font-head);
+  font-size: clamp(32px, 3.5vw, 50px);
+  line-height: 1.2; font-weight: 600;
+  color: var(--parchment);
+  margin-bottom: 20px;
+}
+.hero-h1 em { font-style: italic; color: var(--gold-warm); }
+.hero-body {
+  font-size: 16px; line-height: 1.8;
+  color: rgba(245,237,216,0.68);
+  max-width: 440px; margin-bottom: 32px;
+  font-weight: 300;
+}
+.hero-sig {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px;
+}
+.hero-sig-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--bark), var(--wheat));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-size: 20px; font-weight: 600;
+  color: var(--leaf-dark); flex-shrink: 0;
+  border: 2px solid var(--gold);
+}
+.hero-sig-text { }
+.hero-sig-name {
+  font-family: var(--font-hand);
+  font-size: 22px; color: var(--parchment);
+}
+.hero-sig-role { font-size: 12px; color: rgba(245,237,216,0.5); }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-wa {
+  display: flex; align-items: center; gap: 8px;
+  background: #25D366; color: white;
+  padding: 13px 24px; border-radius: 4px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  border: none; cursor: pointer; transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-wa:hover { background: #20C55E; transform: translateY(-1px); }
+.btn-ghost {
+  background: rgba(245,237,216,0.08);
+  color: rgba(245,237,216,0.75);
+  padding: 12px 24px; border-radius: 4px;
+  font-family: var(--font-body); font-size: 14px;
+  border: 1px solid rgba(245,237,216,0.2);
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-ghost:hover { background: rgba(245,237,216,0.13); border-color: rgba(245,237,216,0.4); }
+
+/* Hero right — farm visual */
+.hero-farm {
+  position: relative; overflow: hidden;
+  background:
+    linear-gradient(to bottom, rgba(26,51,24,0.2), rgba(26,51,24,0.85)),
+    linear-gradient(135deg, #2E5A28 0%, #1A3318 60%);
+}
+.hero-farm-emoji {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 140px; opacity: 0.12;
+}
+.hero-farm-cards {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px;
+}
+.season-card {
+  background: rgba(26,51,24,0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200,134,10,0.3);
+  border-radius: 10px; padding: 16px;
+  margin-bottom: 12px;
+}
+.season-label {
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gold-warm); margin-bottom: 8px; font-weight: 500;
+}
+.season-items { display: flex; flex-direction: column; gap: 6px; }
+.season-item {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px;
+}
+.season-name { color: var(--parchment); font-weight: 400; }
+.season-status {
+  font-size: 11px; padding: 2px 10px; border-radius: 12px;
+  font-weight: 500;
+}
+.status-ready { background: rgba(74,124,64,0.3); color: #7AB56A; border: 1px solid rgba(74,124,64,0.4); }
+.status-harvest { background: rgba(200,134,10,0.2); color: #E8A020; border: 1px solid rgba(200,134,10,0.35); }
+.status-soon { background: rgba(92,51,23,0.3); color: var(--wheat); border: 1px solid rgba(139,94,60,0.4); }
+.shipment-card {
+  background: rgba(26,51,24,0.7);
+  border: 1px solid rgba(245,237,216,0.1);
+  border-radius: 10px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.ship-icon { font-size: 24px; }
+.ship-text { }
+.ship-title { font-size: 13px; color: var(--parchment); font-weight: 500; }
+.ship-sub { font-size: 11px; color: rgba(245,237,216,0.5); }
+
+/* ── TRUST BAR ────────────────────────── */
+.trust-bar {
+  background: var(--soil);
+  padding: 12px 6%;
+  display: flex; align-items: center; gap: 0;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(200,134,10,0.2);
+}
+.trust-scroll {
+  display: flex; gap: 48px; align-items: center;
+  animation: scroll-left 28s linear infinite;
+  white-space: nowrap;
+}
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.trust-item-bar {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: rgba(232,213,176,0.65);
+  letter-spacing: 0.02em;
+}
+.trust-sep { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; margin: 0; flex-shrink: 0; }
+
+/* ── SECTION BASE ─────────────────────── */
+.section { padding: 80px 0; }
+.container { max-width: 1120px; margin: 0 auto; padding: 0 6%; }
+.section-eyebrow {
+  font-family: var(--font-hand);
+  font-size: 18px; color: var(--gold);
+  display: block; margin-bottom: 8px;
+}
+.section-h2 {
+  font-family: var(--font-head);
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 600; line-height: 1.2;
+  color: var(--ink);
+}
+.section-h2 em { font-style: italic; color: var(--saffron); }
+.section-h2.on-dark { color: var(--parchment); }
+.section-sub {
+  font-size: 15.5px; color: var(--ink-soft);
+  line-height: 1.75; margin-top: 12px;
+  max-width: 520px; font-weight: 300;
+}
+
+/* ── FOUNDER'S LETTER ─────────────────── */
+#founder { background: var(--parchment); border-top: 3px solid var(--straw); }
+.letter-paper {
+  background: var(--white);
+  border-radius: 4px;
+  padding: 52px 60px;
+  max-width: 780px; margin: 0 auto;
+  box-shadow: 0 2px 40px rgba(44,26,14,0.08), 0 1px 4px rgba(44,26,14,0.05);
+  position: relative;
+  border: 1px solid var(--straw);
+}
+/* Punched holes effect */
+.letter-paper::before {
+  content: '';
+  position: absolute; left: 28px; top: 0; bottom: 0;
+  width: 2px; background: rgba(200,134,10,0.15);
+}
+.letter-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 32px; padding-bottom: 20px;
+  border-bottom: 1px dashed var(--straw);
+}
+.letter-from { }
+.letter-from-name {
+  font-family: var(--font-head);
+  font-size: 18px; font-weight: 600; color: var(--leaf-dark);
+}
+.letter-from-detail { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+.letter-date { font-family: var(--font-hand); font-size: 16px; color: var(--ink-soft); }
+.letter-body {
+  font-family: var(--font-head);
+  font-size: 16.5px; line-height: 1.9;
+  color: var(--ink-mid);
+}
+.letter-body p { margin-bottom: 18px; }
+.letter-body p:last-child { margin-bottom: 0; }
+.letter-body strong { color: var(--leaf-dark); font-weight: 600; }
+.letter-body em { font-style: italic; color: var(--saffron); }
+.letter-footer {
+  margin-top: 32px; padding-top: 24px;
+  border-top: 1px dashed var(--straw);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.letter-sig-img {
+  font-family: var(--font-hand);
+  font-size: 34px; color: var(--leaf-dark);
+  line-height: 1;
+}
+.letter-sig-name { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+.letter-ps {
+  font-size: 13px; color: var(--ink-soft);
+  font-style: italic; max-width: 260px; text-align: right;
+}
+
+/* ── MEET THE FARMER ──────────────────── */
+#farmers { background: var(--leaf-dark); position: relative; overflow: hidden; }
+#farmers::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 2px 2px, rgba(200,134,10,0.05) 1px, transparent 0);
+  background-size: 36px 36px;
+}
+.farmers-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 20px; margin-top: 48px;
+}
+.farmer-card {
+  background: rgba(245,237,216,0.06);
+  border: 1px solid rgba(245,237,216,0.1);
+  border-radius: 12px; padding: 24px;
+  transition: all 0.3s;
+}
+.farmer-card:hover {
+  background: rgba(245,237,216,0.1);
+  border-color: rgba(200,134,10,0.3);
+  transform: translateY(-4px);
+}
+.farmer-avatar {
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin-bottom: 14px;
+  border: 2px solid rgba(200,134,10,0.35);
+}
+.farmer-name {
+  font-family: var(--font-head);
+  font-size: 17px; font-weight: 600; color: var(--parchment);
+  margin-bottom: 3px;
+}
+.farmer-crops { font-size: 12px; color: var(--gold-warm); margin-bottom: 10px; }
+.farmer-story { font-size: 13.5px; color: rgba(245,237,216,0.6); line-height: 1.65; font-style: italic; }
+.farmer-region {
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid rgba(245,237,216,0.1);
+  font-size: 12px; color: rgba(245,237,216,0.4);
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* ── HOW IT WORKS (honest journey) ──── */
+#journey { background: var(--cream); }
+.journey-steps {
+  margin-top: 48px;
+  position: relative;
+}
+.journey-steps::before {
+  content: '';
+  position: absolute; left: 28px; top: 28px; bottom: 28px;
+  width: 1px; background: var(--straw);
+}
+.journey-step {
+  display: flex; gap: 24px; margin-bottom: 32px;
+  align-items: flex-start;
+}
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-size: 20px; font-weight: 600;
+  flex-shrink: 0;
+  position: relative; z-index: 1;
+  border: 1.5px solid;
+}
+.step-num-1 { background: #EAF3DE; color: var(--leaf); border-color: var(--grass); }
+.step-num-2 { background: #FFF3DC; color: var(--gold); border-color: var(--gold-warm); }
+.step-num-3 { background: #FAF0E8; color: var(--saffron); border-color: var(--bark); }
+.step-num-4 { background: #EAF3DE; color: var(--leaf); border-color: var(--grass); }
+.step-num-5 { background: #FFF3DC; color: var(--gold); border-color: var(--gold-warm); }
+.step-body { padding-top: 10px; }
+.step-title {
+  font-family: var(--font-head);
+  font-size: 18px; font-weight: 600;
+  color: var(--ink); margin-bottom: 6px;
+}
+.step-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.7; max-width: 560px; }
+.step-note {
+  margin-top: 10px; padding: 10px 14px;
+  background: var(--parchment);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  font-size: 13px; color: var(--ink-mid);
+  font-style: italic; max-width: 500px;
+}
+.step-time {
+  font-size: 11px; background: var(--straw);
+  color: var(--ink-soft);
+  padding: 3px 10px; border-radius: 12px;
+  display: inline-block; margin-top: 8px;
+}
+
+/* ── PRODUCTS ─────────────────────────── */
+#products { background: var(--parchment); }
+.products-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px; margin-top: 48px;
+}
+.prod-card {
+  background: var(--white);
+  border: 1px solid var(--straw);
+  border-radius: 8px; overflow: hidden;
+  transition: all 0.25s;
+}
+.prod-card:hover { box-shadow: 0 10px 32px rgba(44,26,14,0.1); transform: translateY(-3px); border-color: var(--wheat); }
+.prod-img {
+  height: 140px; display: flex; align-items: center; justify-content: center;
+  font-size: 56px; position: relative;
+}
+.prod-season-tag {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 10px; padding: 3px 9px;
+  border-radius: 12px; font-weight: 500;
+}
+.tag-high { background: #EAF3DE; color: var(--leaf); }
+.tag-harvest { background: #FFF3DC; color: var(--gold); }
+.tag-limited { background: #FAF0E8; color: var(--saffron); }
+.prod-body { padding: 16px; }
+.prod-name {
+  font-family: var(--font-head);
+  font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--ink);
+}
+.prod-place { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
+.prod-specs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.prod-spec {
+  font-size: 11px; padding: 3px 8px;
+  background: var(--parchment); color: var(--ink-mid);
+  border-radius: 3px; border: 1px solid var(--straw);
+}
+.prod-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; border-top: 1px solid var(--straw);
+}
+.prod-moq { font-size: 12px; color: var(--ink-soft); }
+.prod-wa-btn {
+  font-size: 12px; font-weight: 500;
+  background: #25D366; color: white;
+  padding: 6px 13px; border-radius: 4px;
+  border: none; cursor: pointer; transition: all 0.15s;
+}
+.prod-wa-btn:hover { background: #20C55E; }
+
+/* ── TRANSPARENCY SECTION ─────────────── */
+#transparency { background: var(--leaf-dark); }
+.transp-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: start; margin-top: 48px;
+}
+.transp-docs { }
+.doc-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 0; border-bottom: 1px solid rgba(245,237,216,0.1);
+}
+.doc-item:last-child { border-bottom: none; }
+.doc-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.doc-info { }
+.doc-name { font-size: 14px; font-weight: 500; color: var(--parchment); margin-bottom: 3px; }
+.doc-desc { font-size: 13px; color: rgba(245,237,216,0.5); line-height: 1.5; }
+.doc-btn {
+  margin-top: 6px; font-size: 12px;
+  color: var(--gold-warm); background: none; border: none;
+  cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px;
+}
+.transp-honesty { }
+.honesty-title {
+  font-family: var(--font-head); font-size: 20px; font-weight: 600;
+  color: var(--parchment); margin-bottom: 20px;
+}
+.honesty-item {
+  background: rgba(245,237,216,0.05);
+  border: 1px solid rgba(245,237,216,0.1);
+  border-radius: 8px; padding: 18px;
+  margin-bottom: 12px;
+}
+.honesty-q { font-size: 14px; font-weight: 500; color: var(--parchment); margin-bottom: 8px; }
+.honesty-a { font-size: 13px; color: rgba(245,237,216,0.6); line-height: 1.65; }
+.honesty-tag {
+  display: inline-block; margin-bottom: 8px;
+  font-size: 10px; padding: 2px 8px; border-radius: 3px;
+  background: rgba(200,134,10,0.2); color: var(--gold-warm);
+  letter-spacing: 0.04em; font-weight: 500;
+}
+
+/* ── SEASON CALENDAR ─────────────────── */
+#seasons { background: var(--cream); }
+.calendar-grid {
+  display: grid; grid-template-columns: repeat(12, 1fr);
+  gap: 6px; margin-top: 40px; overflow-x: auto;
+}
+.month-col { min-width: 60px; }
+.month-label {
+  font-size: 11px; text-align: center; color: var(--ink-soft);
+  margin-bottom: 8px; font-weight: 500;
+}
+.month-now { color: var(--saffron); font-weight: 600; }
+.crop-row {
+  display: flex; gap: 6px; align-items: center;
+  margin-bottom: 6px;
+}
+.crop-label {
+  font-size: 12px; color: var(--ink); min-width: 120px;
+  display: flex; align-items: center; gap: 6px;
+}
+.crop-months { display: flex; gap: 3px; flex: 1; }
+.crop-month-box {
+  flex: 1; height: 20px; border-radius: 3px; min-width: 20px;
+}
+.cm-off { background: var(--straw); opacity: 0.4; }
+.cm-harvest { background: var(--gold); }
+.cm-available { background: var(--sprout); }
+.cm-peak { background: var(--leaf); }
+.cm-now { outline: 2px solid var(--saffron); outline-offset: 1px; }
+.cal-legend {
+  display: flex; gap: 20px; margin-top: 24px; flex-wrap: wrap;
+}
+.leg-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-soft); }
+.leg-box { width: 16px; height: 16px; border-radius: 3px; }
+
+/* ── TESTIMONIALS ─────────────────────── */
+#testimonials { background: var(--parchment); }
+.testi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 20px; margin-top: 48px;
+}
+.testi-card {
+  background: var(--white); border: 1px solid var(--straw);
+  border-radius: 8px; padding: 24px;
+  transition: all 0.25s;
+}
+.testi-card:hover { box-shadow: 0 8px 24px rgba(44,26,14,0.08); }
+.testi-mark {
+  font-family: var(--font-head);
+  font-size: 48px; color: var(--straw); line-height: 0.8;
+  margin-bottom: 14px;
+}
+.testi-text {
+  font-family: var(--font-head);
+  font-size: 14px; font-style: italic;
+  color: var(--ink-mid); line-height: 1.75; margin-bottom: 18px;
+}
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-av {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--straw); display: flex; align-items: center;
+  justify-content: center; font-size: 14px; font-weight: 500;
+  color: var(--leaf-dark); flex-shrink: 0;
+}
+.testi-name { font-size: 13px; font-weight: 500; }
+.testi-role { font-size: 11px; color: var(--ink-soft); }
+.testi-verified {
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid var(--straw);
+  font-size: 11px; color: var(--sprout);
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* ── CONTACT ──────────────────────────── */
+#contact {
+  background: var(--soil);
+  padding: 80px 0;
+}
+.contact-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: start;
+}
+.contact-left { }
+.contact-h2 {
+  font-family: var(--font-head);
+  font-size: 32px; font-weight: 600;
+  color: var(--parchment); line-height: 1.3; margin-bottom: 16px;
+}
+.contact-body {
+  font-size: 15px; color: rgba(232,213,176,0.6);
+  line-height: 1.75; margin-bottom: 28px; font-weight: 300;
+}
+.contact-ways { display: flex; flex-direction: column; gap: 12px; }
+.contact-way {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(245,237,216,0.05);
+  border: 1px solid rgba(245,237,216,0.1);
+  border-radius: 8px; padding: 14px 18px;
+  transition: all 0.2s; cursor: pointer;
+  text-decoration: none;
+}
+.contact-way:hover { background: rgba(245,237,216,0.1); border-color: rgba(200,134,10,0.3); }
+.cway-icon { font-size: 22px; }
+.cway-text { }
+.cway-label { font-size: 13px; font-weight: 500; color: var(--parchment); }
+.cway-sub { font-size: 12px; color: rgba(232,213,176,0.45); }
+.contact-form-side { }
+.contact-form { display: flex; flex-direction: column; gap: 12px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-input {
+  padding: 13px 16px;
+  background: rgba(245,237,216,0.08);
+  border: 1px solid rgba(245,237,216,0.15);
+  border-radius: 6px;
+  color: var(--parchment);
+  font-family: var(--font-body); font-size: 14px;
+  outline: none; transition: border-color 0.2s;
+  width: 100%;
+}
+.form-input::placeholder { color: rgba(245,237,216,0.3); }
+.form-input:focus { border-color: rgba(200,134,10,0.5); }
+.form-select {
+  padding: 13px 16px;
+  background: rgba(245,237,216,0.08);
+  border: 1px solid rgba(245,237,216,0.15);
+  border-radius: 6px;
+  color: var(--parchment);
+  font-family: var(--font-body); font-size: 14px;
+  outline: none; width: 100%;
+  -webkit-appearance: none;
+}
+.form-select option { background: var(--soil); }
+.form-submit {
+  padding: 14px 24px;
+  background: var(--gold-warm); color: var(--leaf-dark);
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.form-submit:hover { background: #F5C842; transform: translateY(-1px); }
+.form-note { font-size: 12px; color: rgba(232,213,176,0.35); text-align: center; }
+
+/* ── FOOTER ───────────────────────────── */
+footer {
+  background: var(--ink);
+  padding: 48px 6% 24px;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand-name {
+  font-family: var(--font-head);
+  font-size: 18px; color: var(--parchment); margin-bottom: 8px;
+}
+.footer-brand-copy { font-size: 13px; color: rgba(232,213,176,0.4); line-height: 1.7; max-width: 280px; }
+.footer-col-title {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+  color: rgba(232,213,176,0.5); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a { font-size: 13px; color: rgba(232,213,176,0.45); transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--gold-warm); }
+.footer-bottom {
+  border-top: 1px solid rgba(245,237,216,0.07);
+  padding-top: 20px; display: flex;
+  justify-content: space-between; align-items: center;
+  font-size: 12px; color: rgba(232,213,176,0.3);
+}
+
+/* ── FLOATING WA ──────────────────────── */
+.wa-float {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9500;
+  width: 54px; height: 54px; background: #25D366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+  cursor: pointer; transition: transform 0.2s;
+  text-decoration: none;
+}
+.wa-float:hover { transform: scale(1.1); }
+
+/* ── SCROLL REVEAL ────────────────────── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+
+/* ── RESPONSIVE ───────────────────────── */
+@media (max-width: 900px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-farm { display: none; }
+  .letter-paper { padding: 32px 24px; }
+  .farmers-grid { grid-template-columns: 1fr; }
+  .transp-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  nav .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .hero-btns { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── FLOATING WHATSAPP ─── -->
+<a href="https://wa.me/91XXXXXXXXXX?text=Hello%20PrishOverseas%2C%20I%27m%20interested%20in%20sourcing%20from%20you." class="wa-float" title="Chat directly with us">💬</a>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">PrishOverseas</div>
+    <div class="nav-tagline">Surat, Gujarat</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#founder">Our Story</a></li>
+    <li><a href="#farmers">The Farmers</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#transparency">Documents</a></li>
+    <li><a href="#seasons">Crop Calendar</a></li>
+  </ul>
+  <a href="https://wa.me/91XXXXXXXXXX" class="nav-wa">
+    <span class="wa-dot"></span> WhatsApp Us
+  </a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-letter">
+    <div class="hero-stamp">Est.<br>2016<br>Surat</div>
+    <div class="hero-date">Surat, Gujarat — March 2026</div>
+    <div class="hero-salutation">Dear Buyer,</div>
+    <h1 class="hero-h1">We grow it.<br>We clean it.<br>We <em>ship it</em> to you.</h1>
+    <p class="hero-body">No middlemen. No mystery. Just our family's cumin, coriander, and pulses — sourced from farmers we know by name — packed in Surat and shipped to your port. We'll show you everything: the farm, the lab report, the real price.</p>
+    <div class="hero-sig">
+      <div class="hero-sig-avatar">P</div>
+      <div class="hero-sig-text">
+        <div class="hero-sig-name">Prish Patel</div>
+        <div class="hero-sig-role">Founder, PrishOverseas · +(91) XXXXX XXXXX</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="https://wa.me/91XXXXXXXXXX?text=Hello%20Prish%2C%20I%20want%20to%20know%20more%20about%20your%20products." class="btn-wa">💬 WhatsApp Prish directly</a>
+      <button class="btn-ghost" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">See our products →</button>
+    </div>
+  </div>
+  <div class="hero-farm">
+    <div class="hero-farm-emoji">🌾</div>
+    <div class="hero-farm-cards">
+      <div class="season-card">
+        <div class="season-label">📅 Current Crop Status — March 2026</div>
+        <div class="season-items">
+          <div class="season-item"><span class="season-name">Cumin Seeds (Jeera)</span><span class="season-status status-harvest">🌾 Harvest underway</span></div>
+          <div class="season-item"><span class="season-name">Coriander Seeds</span><span class="season-status status-ready">✓ Stock ready</span></div>
+          <div class="season-item"><span class="season-name">Chana Dal</span><span class="season-status status-ready">✓ Stock ready</span></div>
+          <div class="season-item"><span class="season-name">Turmeric Finger</span><span class="season-status status-soon">Pre-book — May</span></div>
+          <div class="season-item"><span class="season-name">Masoor Dal</span><span class="season-status status-ready">✓ Stock ready</span></div>
+        </div>
+      </div>
+      <div class="shipment-card">
+        <div class="ship-icon">🚢</div>
+        <div class="ship-text">
+          <div class="ship-title">Last shipment: 3 containers to UAE</div>
+          <div class="ship-sub">Cumin Seeds — Departed Mundra Port, 11 March 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUST BAR ─── -->
+<div class="trust-bar">
+  <div class="trust-scroll">
+    <span class="trust-item-bar"><span class="trust-sep"></span>APEDA Registered — IEC No. XXXXXXXXXX</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>Spice Board of India Member</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>FSSAI License Holder</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>Shipping since 2016 — 25+ countries</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>Every batch lab-tested at NABL lab</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>FOB Mundra & JNPT</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>WhatsApp replies within 2 hours</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="trust-item-bar"><span class="trust-sep"></span>APEDA Registered — IEC No. XXXXXXXXXX</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>Spice Board of India Member</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>FSSAI License Holder</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>Shipping since 2016 — 25+ countries</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>Every batch lab-tested at NABL lab</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>FOB Mundra & JNPT</span>
+    <span class="trust-item-bar"><span class="trust-sep"></span>WhatsApp replies within 2 hours</span>
+  </div>
+</div>
+
+<!-- ─── FOUNDER'S LETTER ─── -->
+<section id="founder" class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:36px" class="reveal">
+      <span class="section-eyebrow">A word from the founder</span>
+      <h2 class="section-h2">The reason we <em>show you everything</em></h2>
+    </div>
+    <div class="letter-paper reveal">
+      <div class="letter-header">
+        <div class="letter-from">
+          <div class="letter-from-name">Prish Patel — PrishOverseas, Surat</div>
+          <div class="letter-from-detail">APEDA Reg. No. XXXXXXXXXX · IEC: XXXXXXXXXX</div>
+        </div>
+        <div class="letter-date">March 2026</div>
+      </div>
+      <div class="letter-body">
+        <p>When I started PrishOverseas in 2016, I was a small trader from Surat who had grown up watching my father buy cumin from the Unjha mandi. I knew the farmers. I knew how a good lot smells versus a bad one. But I didn't know how to prove that to a buyer in Dubai or London who'd never met me.</p>
+        <p>I learned the hard way. <strong>The first buyer I lost — a German food company — didn't say our product was bad.</strong> They said they couldn't <em>verify</em> us. No face behind the business. No farm photos. Just a PDF catalogue that looked like every other Indian exporter.</p>
+        <p>That changed everything. We started showing the imperfect truth: the Unjha mandi on a hot April morning, the sortex machine in our shed, a batch we rejected because moisture was 0.3% too high. We started putting our phone number everywhere. We started answering WhatsApp at 10pm.</p>
+        <p><strong>Now this website is built on that same principle: you should be able to audit us before you buy from us.</strong> Our IEC number is real. Our lab reports are downloadable. Our farmers have names and faces. And if anything about our product ever disappoints you — you have my personal WhatsApp number on this page.</p>
+        <p>That is the only promise I know how to make.</p>
+      </div>
+      <div class="letter-footer">
+        <div>
+          <div class="letter-sig-img">Prish Patel</div>
+          <div class="letter-sig-name">Founder, PrishOverseas · +91 XXXXX XXXXX</div>
+        </div>
+        <div class="letter-ps">P.S. — The cumin harvest in Unjha is underway right now. This year's crop looks exceptional. WhatsApp me if you want a pre-shipment sample.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MEET THE FARMERS ─── -->
+<section id="farmers" class="section">
+  <div class="container">
+    <span class="section-eyebrow" style="color:var(--gold-warm)">The people behind your spices</span>
+    <h2 class="section-h2 on-dark">These are the farmers <em>who grow your cumin</em></h2>
+    <p class="section-sub" style="color:rgba(245,237,216,0.55)">Not "a network of farmers". Real people. We visit them every season, and we pay them above-mandi rates because good relationships produce good crops.</p>
+    <div class="farmers-grid">
+      <div class="farmer-card reveal delay-1">
+        <div class="farmer-avatar" style="background:rgba(200,134,10,0.15)">👴</div>
+        <div class="farmer-name">Rameshbhai Patel</div>
+        <div class="farmer-crops">Cumin Seeds · 14 acres · Unjha, Gujarat</div>
+        <div class="farmer-story">"Maro jeero Gujarat ma sauthi saaro chhe. PrishOverseas ne vecho tyaare khatar rakho ke quality perfect chhe." (My cumin is the best in Gujarat. When I sell to PrishOverseas I know quality will be honoured.)</div>
+        <div class="farmer-region">📍 Unjha, North Gujarat · Farming since 1987</div>
+      </div>
+      <div class="farmer-card reveal delay-2">
+        <div class="farmer-avatar" style="background:rgba(74,124,64,0.2)">👨‍🌾</div>
+        <div class="farmer-name">Dineshbhai Solanki</div>
+        <div class="farmer-crops">Coriander Seeds · 22 acres · Rajkot, Gujarat</div>
+        <div class="farmer-story">"I've been growing dhaniya for 20 years. PrishOverseas buys at my price when quality is right — and they always tell me what EU buyers want. That helps me improve."</div>
+        <div class="farmer-region">📍 Rajkot, Saurashtra · 3rd generation farmer</div>
+      </div>
+      <div class="farmer-card reveal delay-3">
+        <div class="farmer-avatar" style="background:rgba(92,51,23,0.25)">👨</div>
+        <div class="farmer-name">Sureshbhai Yadav</div>
+        <div class="farmer-crops">Chana Dal, Masoor Dal · 40 acres · Rajasthan</div>
+        <div class="farmer-story">"Dal farming is hard work. But these people from Surat, they come every year, they taste the grain themselves before buying. That respect means something to a farmer."</div>
+        <div class="farmer-region">📍 Nagaur, Rajasthan · Supplies 3 seasons a year</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:36px" class="reveal">
+      <p style="font-size:14px;color:rgba(245,237,216,0.5);font-style:italic">We work with 12 farming families across Gujarat and Rajasthan. Ask us and we'll introduce you over a video call.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW YOUR ORDER ACTUALLY HAPPENS ─── -->
+<section id="journey" class="section">
+  <div class="container">
+    <span class="section-eyebrow">No surprises. No mystery.</span>
+    <h2 class="section-h2">What actually happens after <em>you message us</em></h2>
+    <p class="section-sub">Most exporters hide this part. We think it's the most important part to show you.</p>
+    <div class="journey-steps">
+      <div class="journey-step reveal">
+        <div class="step-num step-num-1">1</div>
+        <div class="step-body">
+          <div class="step-title">You WhatsApp or email us a requirement</div>
+          <div class="step-desc">Tell us the product, quantity, destination country, and incoterms. We reply within 2 hours on business days — usually faster.</div>
+          <div class="step-note">"We always try to understand your end use first. A food manufacturer in Germany needs different grade than a spice trader in Dubai."</div>
+          <span class="step-time">⏱ Within 2 hours</span>
+        </div>
+      </div>
+      <div class="journey-step reveal delay-1">
+        <div class="step-num step-num-2">2</div>
+        <div class="step-body">
+          <div class="step-title">We send a proforma invoice + sample</div>
+          <div class="step-desc">A precise quote with all costs broken down. We also ship a 200–500g sample at your courier cost (refundable against the first order) so you can test before committing.</div>
+          <div class="step-note">"We never send a generic price list. Every quote is specific to your requirements and destination."</div>
+          <span class="step-time">⏱ Quote within 24 hours · Sample in 5–7 days</span>
+        </div>
+      </div>
+      <div class="journey-step reveal delay-2">
+        <div class="step-num step-num-3">3</div>
+        <div class="step-body">
+          <div class="step-title">You approve — we begin processing</div>
+          <div class="step-desc">Once advance payment is received, your lot is segregated, cleaned, sortexed, and packed to your specifications. Third-party lab test is run on the final lot — COA ready before dispatch.</div>
+          <div class="step-note">"We rejected a lot of 6 MT last year because moisture came at 10.4% — just above 10%. The buyer was frustrated by the delay but appreciated that we didn't ship a marginal lot."</div>
+          <span class="step-time">⏱ 7–14 working days processing</span>
+        </div>
+      </div>
+      <div class="journey-step reveal delay-3">
+        <div class="step-num step-num-4">4</div>
+        <div class="step-body">
+          <div class="step-title">Full documents sent before vessel departure</div>
+          <div class="step-desc">Commercial invoice, packing list, BL, phytosanitary certificate, COA, certificate of origin, and any destination-specific documents — all shared via WhatsApp + email before the ship leaves.</div>
+          <span class="step-time">⏱ Documents same day as vessel departure</span>
+        </div>
+      </div>
+      <div class="journey-step reveal">
+        <div class="step-num step-num-5">5</div>
+        <div class="step-body">
+          <div class="step-title">You receive. We follow up.</div>
+          <div class="step-desc">We don't disappear after the invoice is paid. We ask you how the product was, what your customers said, and whether anything needs to be different next time. That's how we've kept 80% of our first-time buyers as repeat clients.</div>
+          <div class="step-note">"Ek baar koi buyer banta hai, toh lifelong relationship hoti hai. That's the Gujarat way of doing business."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRODUCTS ─── -->
+<section id="products" class="section">
+  <div class="container">
+    <span class="section-eyebrow">What we export</span>
+    <h2 class="section-h2">Spices & Pulses — <em>real stock, real specs</em></h2>
+    <p class="section-sub">Click WhatsApp on any product to ask about current availability, pricing, and lead time. All prices are FOB Mundra unless specified.</p>
+    <div class="products-grid">
+      <div class="prod-card reveal delay-1">
+        <div class="prod-img" style="background:linear-gradient(135deg,#FFF8E8,#FFF0CC)">
+          🌿<span class="prod-season-tag tag-harvest">🌾 Harvesting now</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Cumin Seeds (Jeera)</div>
+          <div class="prod-place">📍 Unjha, North Gujarat — New crop March–April</div>
+          <div class="prod-specs">
+            <span class="prod-spec">99.5% purity</span>
+            <span class="prod-spec">≤10% moisture</span>
+            <span class="prod-spec">NABL tested</span>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-moq">MOQ: 5 MT</span>
+            <button class="prod-wa-btn" onclick="window.open('https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20want%20to%20know%20about%20Cumin%20Seeds%20pricing%20and%20availability')">💬 Ask price</button>
+          </div>
+        </div>
+      </div>
+      <div class="prod-card reveal delay-2">
+        <div class="prod-img" style="background:linear-gradient(135deg,#FFF8E8,#FFEEDD)">
+          🌾<span class="prod-season-tag tag-high">✓ In stock</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Coriander Seeds (Dhaniya)</div>
+          <div class="prod-place">📍 Rajkot, Saurashtra — Eagle/Scooter grade</div>
+          <div class="prod-specs">
+            <span class="prod-spec">99% purity</span>
+            <span class="prod-spec">Split available</span>
+            <span class="prod-spec">EU compliant</span>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-moq">MOQ: 5 MT</span>
+            <button class="prod-wa-btn" onclick="window.open('https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20want%20to%20enquire%20about%20Coriander%20Seeds')">💬 Ask price</button>
+          </div>
+        </div>
+      </div>
+      <div class="prod-card reveal delay-3">
+        <div class="prod-img" style="background:linear-gradient(135deg,#FBF0E8,#F5DCC0)">
+          🫘<span class="prod-season-tag tag-high">✓ In stock</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Chana Dal (Split Chickpea)</div>
+          <div class="prod-place">📍 Nagaur, Rajasthan — Bold grade</div>
+          <div class="prod-specs">
+            <span class="prod-spec">99% purity</span>
+            <span class="prod-spec">Machine cleaned</span>
+            <span class="prod-spec">Non-GMO</span>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-moq">MOQ: 10 MT</span>
+            <button class="prod-wa-btn" onclick="window.open('https://wa.me/91XXXXXXXXXX?text=Hi%2C%20enquiring%20about%20Chana%20Dal')">💬 Ask price</button>
+          </div>
+        </div>
+      </div>
+      <div class="prod-card reveal delay-1">
+        <div class="prod-img" style="background:linear-gradient(135deg,#FEF5E0,#F9E4A0)">
+          🟡<span class="prod-season-tag tag-harvest">Pre-book May</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Turmeric Finger (Haldi)</div>
+          <div class="prod-place">📍 Erode / Sangli — 3–5% curcumin</div>
+          <div class="prod-specs">
+            <span class="prod-spec">Organic avail.</span>
+            <span class="prod-spec">Finger & powder</span>
+            <span class="prod-spec">NPOP cert.</span>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-moq">MOQ: 5 MT</span>
+            <button class="prod-wa-btn" onclick="window.open('https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20want%20to%20pre-book%20Turmeric')">💬 Pre-book</button>
+          </div>
+        </div>
+      </div>
+      <div class="prod-card reveal delay-2">
+        <div class="prod-img" style="background:linear-gradient(135deg,#FFF0F0,#FFD8D8)">
+          🫘<span class="prod-season-tag tag-high">✓ In stock</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Masoor Dal (Red Lentils)</div>
+          <div class="prod-place">📍 Madhya Pradesh — Bold & Medium grade</div>
+          <div class="prod-specs">
+            <span class="prod-spec">98% purity</span>
+            <span class="prod-spec">Whole & split</span>
+            <span class="prod-spec">Non-GMO</span>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-moq">MOQ: 10 MT</span>
+            <button class="prod-wa-btn" onclick="window.open('https://wa.me/91XXXXXXXXXX?text=Hi%2C%20enquiring%20about%20Masoor%20Dal')">💬 Ask price</button>
+          </div>
+        </div>
+      </div>
+      <div class="prod-card reveal delay-3">
+        <div class="prod-img" style="background:linear-gradient(135deg,#FFF0E8,#FFD8B8)">
+          🌶️<span class="prod-season-tag tag-high">✓ In stock</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Dry Red Chilli</div>
+          <div class="prod-place">📍 Guntur, Andhra Pradesh — S4/Teja/334</div>
+          <div class="prod-specs">
+            <span class="prod-spec">High ASTA</span>
+            <span class="prod-spec">Stemless avail.</span>
+            <span class="prod-spec">Whole & powder</span>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-moq">MOQ: 5 MT</span>
+            <button class="prod-wa-btn" onclick="window.open('https://wa.me/91XXXXXXXXXX?text=Hi%2C%20enquiring%20about%20Red%20Chilli')">💬 Ask price</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRANSPARENCY ─── -->
+<section id="transparency" class="section">
+  <div class="container">
+    <span class="section-eyebrow" style="color:var(--gold-warm)">Nothing to hide</span>
+    <h2 class="section-h2 on-dark">Download our documents. <em>Verify us yourself.</em></h2>
+    <p class="section-sub" style="color:rgba(245,237,216,0.55)">Every real exporter should be able to share these. If a supplier can't provide these, don't work with them.</p>
+    <div class="transp-grid">
+      <div class="transp-docs reveal">
+        <div class="doc-item">
+          <div class="doc-icon">🏛️</div>
+          <div class="doc-info">
+            <div class="doc-name">APEDA Registration Certificate</div>
+            <div class="doc-desc">Agricultural & Processed Food Products Export Development Authority. Our reg. no. is publicly verifiable on APEDA's portal.</div>
+            <button class="doc-btn">📄 Request copy via WhatsApp →</button>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-icon">🔬</div>
+          <div class="doc-info">
+            <div class="doc-name">Sample Lab Report (Cumin Seeds)</div>
+            <div class="doc-desc">Real COA from our NABL-accredited lab — purity 99.6%, moisture 8.2%, aflatoxin B1 &lt; 2 ppb. This is what you'll receive for your lot.</div>
+            <button class="doc-btn">📄 Download sample report →</button>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-icon">🌶️</div>
+          <div class="doc-info">
+            <div class="doc-name">Spice Board of India Registration</div>
+            <div class="doc-desc">Mandatory for spice exports. Available upon request — ask on WhatsApp and we'll share within minutes.</div>
+            <button class="doc-btn">📄 Request copy →</button>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-icon">🚢</div>
+          <div class="doc-info">
+            <div class="doc-name">Sample Bill of Lading</div>
+            <div class="doc-desc">See a real BL from a previous export. No confidential buyer details — just the format and what to expect from our shipments.</div>
+            <button class="doc-btn">📄 Request sample BL →</button>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-icon">📜</div>
+          <div class="doc-info">
+            <div class="doc-name">IEC Certificate (Import Export Code)</div>
+            <div class="doc-desc">Govt. of India issued. IEC No. XXXXXXXXXX — verifiable at DGFT's official portal: dgft.gov.in</div>
+            <button class="doc-btn">📄 Verify on DGFT portal →</button>
+          </div>
+        </div>
+      </div>
+      <div class="transp-honesty reveal delay-2">
+        <div class="honesty-title">Things we will tell you honestly</div>
+        <div class="honesty-item">
+          <div class="honesty-tag">ON PRICING</div>
+          <div class="honesty-q">Why don't you show prices on the website?</div>
+          <div class="honesty-a">Agri commodity prices change daily with market conditions. A price we show today could be wrong tomorrow. We give you live pricing on WhatsApp — it takes 10 minutes and it's accurate.</div>
+        </div>
+        <div class="honesty-item">
+          <div class="honesty-tag">ON MINIMUMS</div>
+          <div class="honesty-q">What if my order is less than the MOQ?</div>
+          <div class="honesty-a">Our MOQs exist because of container economics and lab testing cost per lot. For smaller buyers, we can sometimes accommodate smaller quantities in a mixed container. Ask us — we'll try to find a way.</div>
+        </div>
+        <div class="honesty-item">
+          <div class="honesty-tag">ON REJECTIONS</div>
+          <div class="honesty-q">What happens if a lot doesn't pass quality?</div>
+          <div class="honesty-a">We reject it. This has happened 4 times in 2024–25. It delays delivery by 10–15 days. We tell the buyer immediately and explain why. We believe one honest delay is better than one disappointed relationship.</div>
+        </div>
+        <div class="honesty-item">
+          <div class="honesty-tag">ON LIMITS</div>
+          <div class="honesty-q">What products can't you supply?</div>
+          <div class="honesty-a">We are focused on Gujarat-origin spices and Indian pulses. We do not handle fresh produce, processed foods, or commodities outside our expertise. Better to be honest than to say yes to everything.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CROP CALENDAR ─── -->
+<section id="seasons" class="section">
+  <div class="container">
+    <span class="section-eyebrow">Know before you order</span>
+    <h2 class="section-h2">When is <em>the right time</em> to buy each product?</h2>
+    <p class="section-sub">New crop = better freshness and often better pricing. Use this calendar to plan your procurement calendar. ◀ highlighted column = current month.</p>
+    <div style="overflow-x:auto;margin-top:40px">
+      <div style="min-width:700px">
+        <div style="display:grid;grid-template-columns:140px repeat(12,1fr);gap:6px;margin-bottom:12px">
+          <div></div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Jan</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Feb</div>
+          <div style="font-size:11px;text-align:center;color:var(--saffron);font-weight:600">Mar ◀</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Apr</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">May</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Jun</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Jul</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Aug</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Sep</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Oct</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Nov</div>
+          <div style="font-size:11px;text-align:center;color:var(--ink-soft);font-weight:500">Dec</div>
+        </div>
+        <!-- Each row: 0=off, h=harvest, a=available, p=peak, * = current month highlighted -->
+        <script>
+          const crops = [
+            { name:'🌿 Cumin',       months:['a','a','h','h','p','p','a','a','o','o','o','a'] },
+            { name:'🌾 Coriander',   months:['a','h','h','p','p','a','a','o','o','o','a','a'] },
+            { name:'🟡 Turmeric',    months:['o','o','o','h','h','p','a','a','a','a','o','o'] },
+            { name:'🌶 Red Chilli',  months:['a','h','h','p','a','a','a','a','o','o','o','a'] },
+            { name:'🫘 Chana Dal',   months:['p','p','h','a','a','a','o','o','o','a','a','p'] },
+            { name:'🫘 Masoor Dal',  months:['a','a','a','h','h','p','a','o','o','o','a','a'] },
+          ];
+          const colorMap = { 'o':'background:#D6C9A8;opacity:0.35', 'h':'background:#E8A020', 'a':'background:#4A7C40', 'p':'background:#1A3318' };
+        </script>
+        <div id="cal-rows"></div>
+        <script>
+          const calDiv = document.getElementById('cal-rows');
+          const currentMonth = 2; // March = index 2
+          crops.forEach(crop => {
+            let rowHtml = `<div style="display:grid;grid-template-columns:140px repeat(12,1fr);gap:6px;margin-bottom:6px;align-items:center">`;
+            rowHtml += `<div style="font-size:12px;color:var(--ink);font-weight:400">${crop.name}</div>`;
+            crop.months.forEach((m, i) => {
+              const outline = i === currentMonth ? 'outline:2px solid var(--saffron);outline-offset:1px;' : '';
+              const style = colorMap[m] + ';height:20px;border-radius:3px;' + outline;
+              rowHtml += `<div style="${style}"></div>`;
+            });
+            rowHtml += `</div>`;
+            calDiv.innerHTML += rowHtml;
+          });
+        </script>
+        <div style="display:flex;gap:20px;margin-top:20px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)"><div style="width:16px;height:16px;background:#E8A020;border-radius:3px"></div>Harvest season</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)"><div style="width:16px;height:16px;background:#4A7C40;border-radius:3px"></div>Available / New crop</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)"><div style="width:16px;height:16px;background:#1A3318;border-radius:3px"></div>Peak quality season</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)"><div style="width:16px;height:16px;background:#D6C9A8;border-radius:3px;opacity:0.5"></div>Off season / old stock</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <span class="section-eyebrow">What buyers say</span>
+    <h2 class="section-h2">Buyers who told us <em>the honest truth</em></h2>
+    <p class="section-sub">We asked buyers to tell us what didn't work too. Here's what they actually said.</p>
+    <div class="testi-grid">
+      <div class="testi-card reveal delay-1">
+        <div class="testi-mark">"</div>
+        <div class="testi-text">First shipment was delayed 12 days because they rejected the original lot. That was frustrating. But when the product arrived, it passed our lab test perfectly — and they refunded part of the freight for the delay without us asking. That's the moment I decided they're long-term suppliers.</div>
+        <div class="testi-author">
+          <div class="testi-av">AK</div>
+          <div>
+            <div class="testi-name">Ahmed Khalil 🇦🇪</div>
+            <div class="testi-role">Spice Trader, Dubai · 3 years buying</div>
+          </div>
+        </div>
+        <div class="testi-verified">✓ Verified buyer — 14 containers shipped</div>
+      </div>
+      <div class="testi-card reveal delay-2">
+        <div class="testi-mark">"</div>
+        <div class="testi-text">I've dealt with 6 Indian spice exporters. The difference with PrishOverseas is they pick up WhatsApp calls. Simple as that. At 9pm UK time, Prish answered and sorted a documentation issue before our customs clearance deadline. Other suppliers would have sent an email the next day.</div>
+        <div class="testi-author">
+          <div class="testi-av">SR</div>
+          <div>
+            <div class="testi-name">Sarah Roberts 🇬🇧</div>
+            <div class="testi-role">Procurement, London Foods Group · 2 years</div>
+          </div>
+        </div>
+        <div class="testi-verified">✓ Verified buyer — 8 shipments to UK</div>
+      </div>
+      <div class="testi-card reveal delay-3">
+        <div class="testi-mark">"</div>
+        <div class="testi-text">I requested a virtual farm tour before placing a large order — I expected them to say no. Instead, Prish arranged a WhatsApp video call with the Unjha farmer while he was actually on the farm. That's the kind of transparency that earns a repeat order before the first one even arrives.</div>
+        <div class="testi-author">
+          <div class="testi-av">MH</div>
+          <div>
+            <div class="testi-name">Marcus Hoffmann 🇩🇪</div>
+            <div class="testi-role">Category Buyer, Bio Planet GmbH · 18 months</div>
+          </div>
+        </div>
+        <div class="testi-verified">✓ Verified buyer — 11 containers, 3 products</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <h2 class="contact-h2">Talk to a real person.<br><em style="color:var(--gold-warm)">Not a form.</em></h2>
+        <p class="contact-body">WhatsApp is the fastest way. Prish personally handles all new buyer conversations. If you prefer email, that works too — but don't be surprised when it feels like a WhatsApp conversation anyway.</p>
+        <div class="contact-ways">
+          <a href="https://wa.me/91XXXXXXXXXX" class="contact-way">
+            <div class="cway-icon">💬</div>
+            <div class="cway-text">
+              <div class="cway-label">WhatsApp Prish directly</div>
+              <div class="cway-sub">+91 XXXXX XXXXX · Replies within 2 hours</div>
+            </div>
+          </a>
+          <a href="mailto:prish@prishoverseas.com" class="contact-way">
+            <div class="cway-icon">📧</div>
+            <div class="cway-text">
+              <div class="cway-label">prish@prishoverseas.com</div>
+              <div class="cway-sub">For formal enquiries and document sharing</div>
+            </div>
+          </a>
+          <a href="#" class="contact-way">
+            <div class="cway-icon">📹</div>
+            <div class="cway-text">
+              <div class="cway-label">Book a video call (incl. virtual farm tour)</div>
+              <div class="cway-sub">30 minutes · Calendly link · Free, no obligation</div>
+            </div>
+          </a>
+          <a href="#" class="contact-way">
+            <div class="cway-icon">📦</div>
+            <div class="cway-text">
+              <div class="cway-label">Request a free sample</div>
+              <div class="cway-sub">200–500g sent to you · Your courier cost · Refunded on first order</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form-side reveal delay-2">
+        <div style="font-size:14px;color:rgba(232,213,176,0.5);margin-bottom:16px">Or leave us a message — we'll reply on WhatsApp.</div>
+        <div class="contact-form">
+          <div class="form-row">
+            <input class="form-input" type="text" placeholder="Your name">
+            <input class="form-input" type="text" placeholder="Company">
+          </div>
+          <div class="form-row">
+            <input class="form-input" type="text" placeholder="WhatsApp / phone">
+            <input class="form-input" type="email" placeholder="Email">
+          </div>
+          <select class="form-select">
+            <option disabled selected>Product I'm interested in</option>
+            <option>Cumin Seeds (Jeera)</option>
+            <option>Coriander Seeds</option>
+            <option>Turmeric Finger</option>
+            <option>Red Chilli</option>
+            <option>Chana Dal</option>
+            <option>Masoor Dal</option>
+            <option>Multiple products</option>
+          </select>
+          <input class="form-input" type="text" placeholder="Destination country + approximate quantity">
+          <button class="form-submit" onclick="this.textContent='✓ Sent — Prish will WhatsApp you shortly';this.style.background='#4A7C40';this.style.color='white'">Send message — we'll WhatsApp you back</button>
+          <div class="form-note">🔒 No spam. No follow-up sales calls. Just an honest conversation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">PrishOverseas</div>
+        <div class="footer-brand-copy">A family business from Surat, Gujarat. We export spices and pulses to 25+ countries. Founded 2016. APEDA registered. Everything we do, we can show you.</div>
+        <div style="margin-top:14px;font-size:12px;color:rgba(232,213,176,0.3)">
+          IEC: XXXXXXXXXX · APEDA Reg: XXXXXXXXXX · FSSAI: XXXXXXXXXX
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Products</div>
+        <ul>
+          <li><a href="#">Cumin Seeds</a></li>
+          <li><a href="#">Coriander Seeds</a></li>
+          <li><a href="#">Turmeric</a></li>
+          <li><a href="#">Red Chilli</a></li>
+          <li><a href="#">Pulses & Dal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <ul>
+          <li><a href="#founder">Founder's Letter</a></li>
+          <li><a href="#farmers">Meet the Farmers</a></li>
+          <li><a href="#transparency">Our Documents</a></li>
+          <li><a href="#seasons">Crop Calendar</a></li>
+          <li><a href="#contact">Contact Prish</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PrishOverseas, Surat, Gujarat, India</span>
+      <span>Made with honest intent 🌱</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

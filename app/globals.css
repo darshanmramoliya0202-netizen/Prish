@@ -18,9 +18,20 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: #fafaf9;
-  color: #1e293b;
+  background: linear-gradient(180deg, #faf6ee 0%, #f5edd8 100%);
+  color: #1c1208;
   font-family: var(--font-manrope), sans-serif;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(200, 156, 99, 0.06) 0.8px, transparent 0.8px);
+  background-size: 18px 18px;
+  opacity: 0.35;
 }
 
 a {

@@ -5,8 +5,8 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Activity, Truck, Leaf, Thermometer, Eye, BarChart3 } from "lucide-react";
 import AnimatedCounter from "@/components/animated-counter";
-import heroPowders from "@/brochure/Brochure Draft 4 edit lite_page-0001.jpg";
-import labProcess from "@/brochure/Brochure Draft 4 edit lite_page-0004.jpg";
+const heroPowders = "/images/products/orange-powder.jpg";
+const labProcess = "/images/products/ginger-powder.jpg";
 
 const bentoItems = [
   {
@@ -24,7 +24,7 @@ const bentoItems = [
     type: "image" as const,
     span: "col-span-1 row-span-2",
     image: heroPowders,
-    alt: "Vibrant Indian spice powders — turmeric, chili, beetroot",
+    alt: "Vibrant Indian spice powders in bowls — turmeric, star anise, cinnamon",
     overlay: "From soil to specification"
   },
   {

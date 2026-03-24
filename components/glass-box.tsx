@@ -61,9 +61,10 @@ export default function GlassBox() {
   const ActiveIcon = active.icon;
 
   return (
-    <section className="relative overflow-hidden bg-[#0f172a] py-16 sm:py-24">
+    <section className="relative overflow-hidden bg-leaf-dark py-16 sm:py-24">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_0%,rgba(245,158,11,0.06),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_0%,rgba(232,160,32,0.08),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(26,51,24,0.94),rgba(44,26,14,0.88))]" />
         {/* Circuit-like grid */}
         <div
           className="absolute inset-0 opacity-[0.02]"
@@ -76,14 +77,14 @@ export default function GlassBox() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-cyan-400">The Glass Box</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-white">The Glass Box</p>
           <h2 className="mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-            Show, don&apos;t tell.{" "}
-            <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
+            Show, don&apos;t tell. {" "}
+            <span className="bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent">
               Technology you can verify.
             </span>
           </h2>
-          <p className="mt-4 max-w-lg text-base leading-7 text-slate-300">
+          <p className="mt-4 max-w-lg text-base leading-7 text-parchment">
             We trust technology over corporate promises. Here&apos;s exactly how quality is engineered — not marketed — at every step.
           </p>
         </div>
@@ -104,7 +105,7 @@ export default function GlassBox() {
                   }`}
                 >
                   <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition ${
-                    isActive ? "bg-cyan-400 text-[#0f172a]" : "bg-white/10 text-slate-400 group-hover:text-white"
+                    isActive ? "bg-gold-warm text-leaf-dark" : "bg-white/10 text-wheat/70 group-hover:text-white"
                   }`}>
                     <Icon className="h-4 w-4" />
                   </div>
@@ -114,7 +115,7 @@ export default function GlassBox() {
                     </p>
                   </div>
                   <p className="text-xs font-medium lg:hidden">
-                    <span className={isActive ? "text-white" : "text-slate-400"}>{tech.title.split(" ")[0]}</span>
+                    <span className={isActive ? "text-white" : "text-wheat/70"}>{tech.title.split(" ")[0]}</span>
                   </p>
                 </button>
               );
@@ -132,11 +133,11 @@ export default function GlassBox() {
               className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm sm:p-8"
             >
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-saffron to-turmeric">
-                  <ActiveIcon className="h-6 w-6 text-[#0f172a]" />
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-warm to-saffron">
+                  <ActiveIcon className="h-6 w-6 text-leaf-dark" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-400">Technology layer</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-warm">Technology layer</p>
                   <h3 className="mt-1 text-xl font-semibold text-white sm:text-2xl">{active.title}</h3>
                 </div>
               </div>
@@ -145,12 +146,12 @@ export default function GlassBox() {
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-400">Key metric</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-warm">Key metric</p>
                   <p className="mt-2 font-sans text-3xl font-bold text-white">{active.stat}</p>
                   <p className="mt-1 text-xs text-slate-400">{active.statLabel}</p>
                 </div>
-                <div className="flex items-center rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-5">
-                  <p className="text-sm leading-6 text-cyan-300">
+                <div className="flex items-center rounded-xl border border-gold-warm/20 bg-gold-warm/5 p-5">
+                  <p className="text-sm leading-6 text-parchment/80">
                     This isn&apos;t marketing copy — it&apos;s verifiable operational data. Request a facility audit or third-party test report anytime.
                   </p>
                 </div>

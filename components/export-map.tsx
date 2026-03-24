@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import worldTradeBackdrop from "@/brochure/Brochure Draft 4 edit lite_page-0003.jpg";
+const worldTradeBackdrop = "/images/sections/world-trade-map.jpg";
 
 const destinations = [
   {
