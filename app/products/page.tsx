@@ -36,8 +36,8 @@ const productVisualMap: Record<string, {
   essence: string;
 }> = {
   "Jamun Powder": {
-    product: "/images/products/jamun-powder.jpg",
-    origin: "/images/sections/farm-sourcing.jpg",
+    product: "/images/products/jamun-powder-bowl.png",
+    origin: "/images/products/jamun-powder.jpg",
     originLabel: "Ancient Fruit",
     story: "Deep purple legacy from Indian orchards",
     essence: "Antioxidant Power"
@@ -71,8 +71,8 @@ const productVisualMap: Record<string, {
     essence: "Flavor Foundation"
   },
   "Dehydrated Garlic Powder": {
-    product: "/images/products/garlic.jpg",
-    origin: "/images/sections/ingredient-closeup.jpg",
+    product: "/images/products/garlic-rustic.png",
+    origin: "/images/products/garlic.jpg",
     originLabel: "Aromatic Pearl",
     story: "Intense essence from white cloves",
     essence: "Culinary Powerhouse"
@@ -99,7 +99,7 @@ const productVisualMap: Record<string, {
     essence: "Premium Choice"
   },
   "Indian Raw Spices": {
-    product: "/images/products/red-chilli-powder.jpg",
+    product: "/images/products/red-chilli-collage.png",
     origin: "/images/products/cumin-seeds.jpg",
     originLabel: "Spice Treasury",
     story: "India's aromatic wealth",
@@ -190,10 +190,10 @@ export default function ProductsPage() {
     <SiteShell>
       {/* Dramatic Hero Section */}
       <section className="relative min-h-screen overflow-hidden">
-        {/* Background gradient with sophisticated overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,58,180,0.3),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(217,119,6,0.2),transparent_50%)]" />
+        {/* Background — clean dark earthy tone, NO purple */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0f1a0e] via-[#1a2a18] to-[#1c1208]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(74,124,64,0.2),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(217,119,6,0.12),transparent_50%)]" />
         </div>
         
         {/* Hero content with sophisticated layout */}
@@ -345,9 +345,9 @@ export default function ProductsPage() {
 
       {/* Editorial Featured Section */}
       <section className="relative py-24">
-        {/* Sophisticated background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.1),transparent_70%)]" />
+        {/* Clean dark background — NO purple */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a2a18] via-[#0f1a0e] to-[#1c1208]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(74,124,64,0.08),transparent_70%)]" />
         </div>
         
         <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
@@ -471,10 +471,10 @@ export default function ProductsPage() {
 
       {/* Sophisticated Category Showcase */}
       <section className="relative py-24">
-        {/* Premium background with animated gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(120,58,180,0.08),transparent_60%)] animate-pulse" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(217,119,6,0.06),transparent_60%)] animate-pulse" style={{animationDelay: '2s'}} />
+        {/* Clean dark background — NO purple */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1a0e] via-[#1a2a18] to-[#0f1a0e]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(74,124,64,0.06),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(217,119,6,0.04),transparent_60%)]" />
         </div>
         
         <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
@@ -687,8 +687,8 @@ export default function ProductsPage() {
       
       {/* Premium CTA Section */}
       <section className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-amber-950">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.15),transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a2a18] to-[#1c1208]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(232,160,32,0.1),transparent_70%)]" />
         </div>
         
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center sm:px-8 lg:px-10">

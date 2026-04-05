@@ -7,13 +7,13 @@ import { Plus, Minus, Trash2, Send, Package, FlaskConical } from "lucide-react";
 import { productSpecs } from "@/data/specs";
 
 const productImages: Record<string, string> = {
-  "Jamun Powder": "/images/products/jamun-powder.jpg",
+  "Jamun Powder": "/images/products/jamun-powder-bowl.png",
   "Beetroot Powder": "/images/products/beetroot-powder.jpg",
   "Turmeric Powder": "/images/products/turmeric-product.jpg",
   "Sea Buckthorn Powder": "/images/products/sea-buckthorn-powder.jpg",
   "Dehydrated Onion Powder": "/images/products/dehydrated-onion.jpg",
-  "Dehydrated Garlic Powder": "/images/products/garlic.jpg",
-  "Red Chili Powder": "/images/products/red-chilli-powder.jpg",
+  "Dehydrated Garlic Powder": "/images/products/garlic-rustic.png",
+  "Red Chili Powder": "/images/products/red-chilli-collage.png",
   "Ginger Powder": "/images/products/ginger-powder.jpg"
 };
 

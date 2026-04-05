@@ -11,7 +11,7 @@ const journeyStages = [
     title: "Farm Selection",
     subtitle: "Origin belt identification",
     icon: Sprout,
-    image: "/images/products/coriander-seeds.jpg",
+    image: "/images/products/coriander-powder-bowl.png",
     description: "Raw materials are sourced from selected Indian growing belts — Gujarat, Rajasthan, Maharashtra, and southern regions — chosen for crop character, seasonal reliability, and generational farming knowledge.",
     detail: "Multi-origin sourcing across 4+ Indian agricultural zones",
     color: "from-green-500 to-emerald-600"
@@ -31,7 +31,7 @@ const journeyStages = [
     title: "Milling & Processing",
     subtitle: "Precision particle control",
     icon: Wind,
-    image: "/images/products/ginger-powder.jpg",
+    image: "/images/products/pineapple-powder.png",
     description: "Fine milling for uniform particle size, hygienic processing under controlled conditions, and batch-wise consistency designed for formulation confidence across buyer programs.",
     detail: "2500+ MT monthly production capacity",
     color: "from-blue-500 to-indigo-500"
@@ -41,7 +41,7 @@ const journeyStages = [
     title: "Quality Validation",
     subtitle: "Metrology-level checks",
     icon: Microscope,
-    image: "/images/products/beetroot-powder.jpg",
+    image: "/images/products/cranberry-cherry-powder.png",
     description: "Specification support, third-party laboratory testing on request, and destination-country compliance alignment. Moisture content, ash value, mesh size, and active compound levels are verified per batch.",
     detail: "100+ specification profiles supported",
     color: "from-violet-500 to-purple-500"
@@ -51,7 +51,7 @@ const journeyStages = [
     title: "Export Packaging",
     subtitle: "Food-grade formats",
     icon: Package,
-    image: "/images/products/cumin-powder.jpg",
+    image: "/images/products/cumin-powder-bowl.png",
     description: "HDPE bags, BOPP/kraft paper, multi-layer laminated boxes, and fiber drums — matched to logistics requirements, storage conditions, and buyer format expectations.",
     detail: "5+ packaging formats available",
     color: "from-rose-500 to-pink-500"
@@ -61,7 +61,7 @@ const journeyStages = [
     title: "Global Shipping",
     subtitle: "Container-ready dispatch",
     icon: Ship,
-    image: "/images/products/dry-red-chilli.jpg",
+    image: "/images/products/red-chilli-collage.png",
     description: "Documentation preparation, freight coordination, and shipment execution for FCL and LCL movements. IEC-compliant export documentation and proforma invoice support included.",
     detail: "4 major global market clusters served",
     color: "from-cyan-500 to-teal-500"

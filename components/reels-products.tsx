@@ -17,7 +17,7 @@ const reelsProducts = [
     name: "Red Chili Powder",
     tagline: "Gujarat Origin · Bold Heat",
     specs: ["15,000–50,000 SHU", "40–80 mesh", "Bright red"],
-    image: "/images/products/red-chilli-powder.jpg",
+    image: "/images/products/red-chilli-collage.png",
     color: "from-red-500 to-rose-600",
     badge: "High Demand"
   },
@@ -25,7 +25,7 @@ const reelsProducts = [
     name: "Jamun Powder",
     tagline: "Botanical Grade · Deep Purple",
     specs: ["≤ 8% moisture", "60–100 mesh", "12–18 mo shelf life"],
-    image: "/images/products/jamun-powder.jpg",
+    image: "/images/products/jamun-powder-bowl.png",
     color: "from-purple-500 to-violet-600",
     badge: "Premium"
   },

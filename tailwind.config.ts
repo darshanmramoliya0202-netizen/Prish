@@ -23,8 +23,8 @@ const config: Config = {
         powder: "#fafaf9",
         olive: "#365241",
         surface: "#f8fafc",
-        parchment: "#f5edd8",
-        cream: "#faf6ee",
+        parchment: "#faf7f0",
+        cream: "#fdfcf9",
         soil: "#2c1a0e",
         earth: "#5c3317",
         bark: "#8b5e3c",
@@ -45,7 +45,7 @@ const config: Config = {
         paper: "0 18px 48px rgba(92,51,23,0.1), 0 2px 10px rgba(44,26,14,0.06)"
       },
       backgroundImage: {
-        "hero-radial": "radial-gradient(ellipse at 30% 0%, rgba(74,124,64,0.28), transparent 50%), radial-gradient(ellipse at 70% 100%, rgba(92,51,23,0.18), transparent 50%), linear-gradient(180deg, #faf6ee 0%, #f5edd8 100%)"
+        "hero-radial": "radial-gradient(ellipse at 30% 0%, rgba(74,124,64,0.12), transparent 50%), radial-gradient(ellipse at 70% 100%, rgba(217,119,6,0.08), transparent 50%), linear-gradient(180deg, #fdfcf9 0%, #faf7f0 100%)"
       }
     }
   },

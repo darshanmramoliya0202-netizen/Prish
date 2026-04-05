@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import AnimatedCounter from "@/components/animated-counter";
 import AnimatedSection from "@/components/animated-section";
-import ExportMap from "@/components/export-map";
+import WorldMapSVG from "@/components/world-map-svg";
 import IngredientCloud from "@/components/ingredient-cloud";
 import KineticText from "@/components/kinetic-text";
 import Marquee from "@/components/marquee";
@@ -176,7 +176,7 @@ export default function HomePage() {
         </AnimatedSection>
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <AnimatedSection>
-            <ExportMap />
+            <WorldMapSVG />
           </AnimatedSection>
           <AnimatedSection delay={0.1} className="rounded-[2rem] border border-wheat/25 bg-white/82 p-6 shadow-paper sm:p-8">
             <div className="grid gap-3 sm:grid-cols-2">

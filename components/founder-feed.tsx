@@ -90,7 +90,7 @@ export default function FounderFeed() {
                   sizes="(min-width: 1024px) 24vw, 80vw"
                   className="object-cover object-center scale-[1.02]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-soil via-soil/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
                 {/* Top tag */}
                 <div className="absolute left-4 top-4 rounded-full bg-gold-warm px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-leaf-dark">
@@ -170,7 +170,7 @@ export default function FounderFeed() {
                 sizes="(min-width: 1024px) 15vw, 25vw"
                 className="object-cover object-center transition duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-soil/75 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-3">
                 <p className="inline-block rounded-full bg-gold-warm/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-leaf-dark">
                   {p.tag}
