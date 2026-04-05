@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Sprout, Sun, Wind, Microscope, Package, Ship } from "lucide-react";
 
 const journeyStages = [
@@ -10,6 +11,7 @@ const journeyStages = [
     title: "Farm Selection",
     subtitle: "Origin belt identification",
     icon: Sprout,
+    image: "/images/products/coriander-seeds.jpg",
     description: "Raw materials are sourced from selected Indian growing belts — Gujarat, Rajasthan, Maharashtra, and southern regions — chosen for crop character, seasonal reliability, and generational farming knowledge.",
     detail: "Multi-origin sourcing across 4+ Indian agricultural zones",
     color: "from-green-500 to-emerald-600"
@@ -19,6 +21,7 @@ const journeyStages = [
     title: "Harvest & Drying",
     subtitle: "Controlled dehydration",
     icon: Sun,
+    image: "/images/products/turmeric-raw.jpg",
     description: "Low-temperature drying preserves active compounds, natural color, and nutritional integrity. Each batch is handled under controlled conditions to ensure consistency from harvest to processing.",
     detail: "280+ annual sunshine days in major growing regions",
     color: "from-amber-500 to-orange-500"
@@ -28,6 +31,7 @@ const journeyStages = [
     title: "Milling & Processing",
     subtitle: "Precision particle control",
     icon: Wind,
+    image: "/images/products/ginger-powder.jpg",
     description: "Fine milling for uniform particle size, hygienic processing under controlled conditions, and batch-wise consistency designed for formulation confidence across buyer programs.",
     detail: "2500+ MT monthly production capacity",
     color: "from-blue-500 to-indigo-500"
@@ -37,6 +41,7 @@ const journeyStages = [
     title: "Quality Validation",
     subtitle: "Metrology-level checks",
     icon: Microscope,
+    image: "/images/products/beetroot-powder.jpg",
     description: "Specification support, third-party laboratory testing on request, and destination-country compliance alignment. Moisture content, ash value, mesh size, and active compound levels are verified per batch.",
     detail: "100+ specification profiles supported",
     color: "from-violet-500 to-purple-500"
@@ -46,6 +51,7 @@ const journeyStages = [
     title: "Export Packaging",
     subtitle: "Food-grade formats",
     icon: Package,
+    image: "/images/products/cumin-powder.jpg",
     description: "HDPE bags, BOPP/kraft paper, multi-layer laminated boxes, and fiber drums — matched to logistics requirements, storage conditions, and buyer format expectations.",
     detail: "5+ packaging formats available",
     color: "from-rose-500 to-pink-500"
@@ -55,6 +61,7 @@ const journeyStages = [
     title: "Global Shipping",
     subtitle: "Container-ready dispatch",
     icon: Ship,
+    image: "/images/products/dry-red-chilli.jpg",
     description: "Documentation preparation, freight coordination, and shipment execution for FCL and LCL movements. IEC-compliant export documentation and proforma invoice support included.",
     detail: "4 major global market clusters served",
     color: "from-cyan-500 to-teal-500"
@@ -146,9 +153,14 @@ export default function SeedJourney() {
                 </div>
               </div>
 
-              <p className="mt-6 text-base leading-8 text-slate-200">{stage.description}</p>
+              <div className="mt-6 relative h-40 w-full overflow-hidden rounded-xl">
+                <Image src={stage.image} alt={stage.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              </div>
 
-              <div className="mt-6 rounded-xl border border-white/10 bg-white/5 px-5 py-4">
+              <p className="mt-5 text-base leading-8 text-slate-200">{stage.description}</p>
+
+              <div className="mt-5 rounded-xl border border-white/10 bg-white/5 px-5 py-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-warm">Key metric</p>
                 <p className="mt-2 font-sans text-xl font-bold text-white">{stage.detail}</p>
               </div>

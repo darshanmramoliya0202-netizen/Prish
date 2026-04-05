@@ -23,10 +23,18 @@ export default function AboutPage() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">About</p>
             <h1 className="mt-5 max-w-4xl font-serif text-4xl text-ink sm:text-5xl">Indian agricultural depth meets export discipline.</h1>
-            <div className="mt-6 space-y-5 text-base leading-8 text-ink-soft">
-              {aboutStory.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+            <p className="mt-6 text-base leading-8 text-ink-soft">{aboutStory[0]}</p>
+            {aboutStory.length > 1 && <p className="mt-4 text-sm leading-7 text-ink-soft">{aboutStory[1]}</p>}
+            <div className="mt-8 grid grid-cols-3 gap-2">
+              <div className="relative h-28 overflow-hidden rounded-xl">
+                <Image src="/images/products/turmeric-product.jpg" alt="Turmeric" fill sizes="33vw" className="object-cover" />
+              </div>
+              <div className="relative h-28 overflow-hidden rounded-xl">
+                <Image src="/images/products/jamun-powder.jpg" alt="Jamun" fill sizes="33vw" className="object-cover" />
+              </div>
+              <div className="relative h-28 overflow-hidden rounded-xl">
+                <Image src="/images/products/sea-buckthorn-powder.jpg" alt="Sea Buckthorn" fill sizes="33vw" className="object-cover" />
+              </div>
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -76,9 +84,9 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="rounded-[2.2rem] border border-wheat/25 bg-parchment/35 p-8 shadow-card-light">
+          <div className="rounded-[2.2rem] border-2 border-saffron/30 bg-parchment/35 p-8 shadow-card-light ring-1 ring-saffron/10">
             <div className="overflow-hidden rounded-[1.8rem] border border-wheat/20 bg-white/80">
-              <div className="relative h-[24rem] w-full">
+              <div className="relative h-[28rem] w-full">
                 <Image
                   src={modiPortrait}
                   alt="Official portrait of Prime Minister Narendra Modi"

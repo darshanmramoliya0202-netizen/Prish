@@ -165,9 +165,6 @@ export default function HomePage() {
       {/* ─── 10. SEED JOURNEY (dark — traceability) ─── */}
       <SeedJourney />
 
-      {/* ─── 11. GLOBAL PARTNERSHIPS ─── */}
-      <GlobalPartnerships />
-
       {/* ─── 12. GLOBAL REACH (light — map + markets) ─── */}
       <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
         <AnimatedSection className="mb-10">

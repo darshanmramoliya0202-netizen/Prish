@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import InquiryForm from "@/components/inquiry-form";
 import SiteShell from "@/components/site-shell";
 import SectionHeading from "@/components/section-heading";
 import { contact } from "@/data/site";
 import { inquiryTopics } from "@/data/content";
 import { createPageMetadata } from "@/data/seo";
+
+const whyChooseUs = [
+  { title: "Direct Farm Sourcing", text: "No middlemen. We source directly from Indian agricultural belts for authentic quality and competitive pricing." },
+  { title: "Export-Ready Documentation", text: "FSSAI, ISO/HACCP aligned. Pre-shipment docs prepared for EU, GCC, US, and Southeast Asia." },
+  { title: "Custom Specifications", text: "100+ spec profiles. We align mesh size, moisture, curcumin levels, and packaging to your exact needs." },
+  { title: "Reliable Container Supply", text: "2500+ MT monthly capacity. FCL and LCL movements with consistent batch quality." }
+];
 
 export const metadata: Metadata = createPageMetadata({
   title: "Inquiry | Start a Product, Packaging, or Supply Conversation",
@@ -56,6 +64,26 @@ export default function InquiryPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-10">
+        <div className="mb-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Why Partner With Us</p>
+          <h2 className="mt-4 max-w-xl font-serif text-2xl text-ink sm:text-3xl">Built for serious buyers, not casual browsers.</h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {whyChooseUs.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-wheat/25 bg-white/80 p-5 shadow-card-light transition hover:-translate-y-0.5 hover:border-gold-warm/25">
+              <h3 className="text-sm font-semibold text-ink">{item.title}</h3>
+              <p className="mt-2 text-xs leading-5 text-ink-soft">{item.text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 relative h-40 w-full overflow-hidden rounded-2xl">
+          <Image src="/images/products/orange-powder.jpg" alt="Premium Indian ingredients" fill sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
+          <p className="absolute bottom-4 left-6 text-sm font-semibold text-white">Premium Indian-origin ingredients for global B2B buyers</p>
         </div>
       </section>
 

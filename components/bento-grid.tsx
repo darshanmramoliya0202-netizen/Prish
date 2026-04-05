@@ -126,16 +126,16 @@ export default function BentoGrid() {
                 <div className="flex h-full flex-col justify-between bg-[#0f172a] p-5">
                   <div className="flex items-center justify-between">
                     <Icon className="h-5 w-5 text-saffron" />
-                    <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-600">
+                    <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
                       Live
                     </span>
                   </div>
                   <div>
                     <div className="flex items-baseline gap-2">
                       <AnimatedCounter value={item.value!} className="font-sans text-3xl font-bold text-white" />
-                      <span className="text-sm text-slate-400">{item.unit}</span>
+                      <span className="text-sm text-slate-300">{item.unit}</span>
                     </div>
-                    <p className="mt-1 text-xs text-slate-400">{item.sublabel}</p>
+                    <p className="mt-1 text-xs text-slate-300">{item.sublabel}</p>
                   </div>
                 </div>
               );

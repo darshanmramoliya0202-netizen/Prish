@@ -2,8 +2,20 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Plus, Minus, Trash2, Send, Package, FlaskConical } from "lucide-react";
 import { productSpecs } from "@/data/specs";
+
+const productImages: Record<string, string> = {
+  "Jamun Powder": "/images/products/jamun-powder.jpg",
+  "Beetroot Powder": "/images/products/beetroot-powder.jpg",
+  "Turmeric Powder": "/images/products/turmeric-product.jpg",
+  "Sea Buckthorn Powder": "/images/products/sea-buckthorn-powder.jpg",
+  "Dehydrated Onion Powder": "/images/products/dehydrated-onion.jpg",
+  "Dehydrated Garlic Powder": "/images/products/garlic.jpg",
+  "Red Chili Powder": "/images/products/red-chilli-powder.jpg",
+  "Ginger Powder": "/images/products/ginger-powder.jpg"
+};
 
 type SampleItem = {
   name: string;
@@ -109,14 +121,21 @@ export default function SampleBuilder() {
                       : "border-wheat/25 bg-white/85 text-ink hover:border-gold-warm/30 hover:bg-parchment/35"
                   }`}
                 >
-                  <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs ${
-                    inKit ? "bg-gold-warm text-white" : "bg-parchment text-ink-soft"
-                  }`}>
-                    {inKit ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
+                    {productImages[spec.name] ? (
+                      <Image src={productImages[spec.name]} alt={spec.name} fill sizes="40px" className="object-cover" />
+                    ) : (
+                      <div className={`flex h-full w-full items-center justify-center text-xs ${inKit ? "bg-gold-warm text-white" : "bg-parchment text-ink-soft"}`}>
+                        {inKit ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                      </div>
+                    )}
                   </div>
-                  <div>
-                    <p className="font-medium">{spec.name}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium truncate">{spec.name}</p>
                     <p className="text-[10px] text-ink-soft">{spec.category}</p>
+                  </div>
+                  <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${inKit ? "bg-gold-warm text-white" : "bg-wheat/20 text-ink-soft"}`}>
+                    {inKit ? <Minus className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
                   </div>
                 </button>
               );

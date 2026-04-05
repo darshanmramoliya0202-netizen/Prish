@@ -8,11 +8,12 @@ import { Handshake, Award, Globe, Shield } from "lucide-react";
 const partnerships = [
   {
     title: "G20 New Delhi Summit",
-    description: "India's leadership in global agricultural trade policy and sustainable supply chains during the 2023 G20 presidency.",
+    description: "India's leadership in global agricultural trade policy and sustainable supply chains during the 2023 G20 presidency — positioning Indian agri-exports on the world stage.",
     image: "/images/sections/g20-new-delhi.jpg",
     icon: Globe,
     year: "2023",
-    location: "New Delhi"
+    location: "New Delhi",
+    featured: true
   },
   {
     title: "EU-India Strategic Partnership",
@@ -20,7 +21,26 @@ const partnerships = [
     image: "/images/sections/eu-india-deal.jpg",
     icon: Handshake,
     year: "2023",
-    location: "Brussels"
+    location: "Brussels",
+    featured: false
+  },
+  {
+    title: "APEDA Export Excellence",
+    description: "Recognized under India's Agricultural & Processed Food Products Export Development Authority framework for quality-driven export practices.",
+    image: "/images/products/turmeric-raw.jpg",
+    icon: Award,
+    year: "2024",
+    location: "India",
+    featured: false
+  },
+  {
+    title: "GCC Market Expansion",
+    description: "Strategic entry into Gulf Cooperation Council markets with compliant documentation, halal-aligned processing, and buyer-specific packaging.",
+    image: "/images/products/cumin-seeds.jpg",
+    icon: Shield,
+    year: "2024",
+    location: "Dubai",
+    featured: false
   }
 ];
 
@@ -63,7 +83,7 @@ export default function GlobalPartnerships() {
           </motion.p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {partnerships.map((partnership, index) => {
             const Icon = partnership.icon;
             return (
@@ -71,29 +91,30 @@ export default function GlobalPartnerships() {
                 key={partnership.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.15 * index }}
-                className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg transition-all hover:shadow-xl hover:border-saffron/30"
+                transition={{ duration: 0.6, delay: 0.12 * index }}
+                className={`group relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all hover:shadow-xl ${
+                  partnership.featured ? "border-saffron/40 ring-2 ring-saffron/20 sm:col-span-2 lg:col-span-2" : "border-slate-200 hover:border-saffron/30"
+                }`}
               >
-                <div className="relative h-64 overflow-hidden">
+                <div className={`relative overflow-hidden ${partnership.featured ? "h-72" : "h-48"}`}>
                   <Image
                     src={partnership.image}
                     alt={partnership.title}
                     fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    sizes={partnership.featured ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                   
-                  <div className="absolute bottom-6 left-6 right-6">
+                  <div className="absolute bottom-4 left-4 right-4">
                     <div className="flex items-center gap-3 text-white">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
-                        <Icon className="h-5 w-5" />
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
+                        <Icon className="h-4 w-4" />
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-white">{partnership.title}</h3>
-                        <div className="flex items-center gap-4 text-sm text-white/80">
-                          <span>{partnership.year}</span>
-                          <span>•</span>
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`font-bold text-white ${partnership.featured ? "text-xl" : "text-base"}`}>{partnership.title}</h3>
+                        <div className="flex items-center gap-3 text-xs text-white/80">
+                          <span className="rounded-full bg-saffron/80 px-2 py-0.5 text-[10px] font-semibold text-white">{partnership.year}</span>
                           <span>{partnership.location}</span>
                         </div>
                       </div>
@@ -101,19 +122,8 @@ export default function GlobalPartnerships() {
                   </div>
                 </div>
                 
-                <div className="p-6">
-                  <p className="text-base leading-7 text-slate-600">{partnership.description}</p>
-                  
-                  <div className="mt-6 flex items-center gap-4">
-                    <div className="flex items-center gap-2 text-sm text-slate-500">
-                      <Award className="h-4 w-4" />
-                      <span>Strategic Initiative</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-500">
-                      <Shield className="h-4 w-4" />
-                      <span>Trade Framework</span>
-                    </div>
-                  </div>
+                <div className="p-4">
+                  <p className={`leading-6 text-slate-600 ${partnership.featured ? "text-sm" : "text-xs"}`}>{partnership.description}</p>
                 </div>
               </motion.div>
             );

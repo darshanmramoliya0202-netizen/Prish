@@ -62,10 +62,17 @@ export default function ReelsProducts() {
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(26,51,24,0.92),rgba(44,26,14,0.88))]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-gold-warm">Product Spotlight</p>
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-saffron to-rose-500 p-[2px]">
+              <div className="flex h-full w-full items-center justify-center rounded-[6px] bg-leaf-dark">
+                <span className="text-xs font-bold text-white">P</span>
+              </div>
+            </div>
+            <p className="text-xs font-semibold uppercase tracking-[0.5em] text-gold-warm">Product Spotlight</p>
+          </div>
           <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-white sm:text-4xl">
             Swipe through specs. {" "}
-            <span className="text-parchment/45">
+            <span className="text-white/40">
               Not paragraphs.
             </span>
           </h2>
@@ -168,8 +175,8 @@ export default function ReelsProducts() {
                     : "border-parchment/10 bg-white/[0.03] hover:border-gold-warm/20 hover:bg-white/[0.06]"
                 }`}
               >
-                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
-                  <Image src={p.image} alt={p.name} fill sizes="64px" className="object-cover object-center" />
+                <div className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl ring-2 transition-all ${i === activeIndex ? "ring-saffron" : "ring-transparent"}`}>
+                  <Image src={p.image} alt={p.name} fill sizes="80px" className="object-cover object-center" />
                 </div>
                 <div>
                   <p className={`font-semibold transition ${i === activeIndex ? "text-white" : "text-slate-300"}`}>
@@ -180,7 +187,7 @@ export default function ReelsProducts() {
                   </p>
                   <div className="mt-2 flex gap-1.5">
                     {p.specs.slice(0, 2).map((s) => (
-                      <span key={s} className="rounded bg-white/10 px-2 py-0.5 text-[10px] text-parchment/60">
+                      <span key={s} className="rounded bg-white/10 px-2 py-0.5 text-[10px] text-white/60">
                         {s}
                       </span>
                     ))}

@@ -80,7 +80,7 @@ export default function IndiaMomentum() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-[#0f172a] py-16 sm:py-24">
+    <section ref={ref} className="relative overflow-hidden bg-gradient-to-br from-[#1a2332] to-[#0f1a2e] py-16 sm:py-24">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(20,83,45,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(245,158,11,0.08),transparent_40%)]" />
@@ -100,7 +100,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-semibold uppercase tracking-[0.5em] text-indigo-400"
+            className="text-xs font-semibold uppercase tracking-[0.5em] text-amber-400"
           >
             India Momentum
           </motion.p>
@@ -119,7 +119,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto mt-4 max-w-lg text-base leading-7 text-slate-300"
+            className="mx-auto mt-4 max-w-lg text-base leading-7 text-slate-200"
           >
             Powering the next phase of global agri-trade — from the world&apos;s fastest-growing economy to your supply chain.
           </motion.p>
@@ -150,8 +150,8 @@ export default function IndiaMomentum() {
                 >
                   {stat.value}
                 </motion.p>
-                <p className="mt-2 text-sm font-medium text-slate-200">{stat.label}</p>
-                <p className="mt-1 text-xs text-slate-400">{stat.sublabel}</p>
+                <p className="mt-2 text-sm font-medium text-white/90">{stat.label}</p>
+                <p className="mt-1 text-xs text-amber-300/70">{stat.sublabel}</p>
               </motion.div>
             );
           })}

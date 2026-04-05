@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import SiteShell from "@/components/site-shell";
 import SectionHeading from "@/components/section-heading";
 import { documentationSupport, packagingMatrix, processJourney, qualitySignals } from "@/data/content";
@@ -20,19 +21,24 @@ export default function QualityPage() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Quality & Export Readiness</p>
             <h1 className="mt-5 max-w-4xl font-serif text-3xl text-ink sm:text-5xl lg:text-6xl">Processing control and documentation discipline you can verify.</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-soft">
+            <p className="mt-6 max-w-xl text-base leading-7 text-ink-soft">
               Trust here is built through operational detail: how raw materials are handled, how consistency is protected, and how export-specific requirements are supported across markets.
             </p>
+            <div className="mt-8 relative h-48 w-full overflow-hidden rounded-2xl">
+              <Image src="/images/products/turmeric-raw.jpg" alt="Quality processing" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <p className="absolute bottom-4 left-4 text-xs font-semibold uppercase tracking-wider text-white">From soil to specification</p>
+            </div>
           </div>
           <div className="grid gap-4">
             {qualitySignals.map((signal) => (
-              <div key={signal.title} className="rounded-2xl border border-wheat/25 bg-white/80 p-6 shadow-card-light">
+              <div key={signal.title} className="rounded-2xl border border-wheat/25 bg-white/80 p-5 shadow-card-light">
                 <p className="text-xs uppercase tracking-[0.34em] text-gold-warm">{signal.title}</p>
-                <ul className="mt-4 space-y-3 text-sm leading-7 text-ink-soft">
+                <div className="mt-3 flex flex-wrap gap-2">
                   {signal.items.map((item) => (
-                    <li key={item}>{item}</li>
+                    <span key={item} className="rounded-full border border-wheat/20 bg-parchment/40 px-3 py-1.5 text-xs text-ink-soft">{item}</span>
                   ))}
-                </ul>
+                </div>
               </div>
             ))}
           </div>
