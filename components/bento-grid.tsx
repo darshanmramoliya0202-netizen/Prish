@@ -5,8 +5,8 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Activity, Truck, Leaf, Thermometer, Eye, BarChart3 } from "lucide-react";
 import AnimatedCounter from "@/components/animated-counter";
-const heroPowders = "/images/products/orange-powder.jpg";
-const labProcess = "/images/products/ginger-powder.jpg";
+const heroPowders = "/images/hero/hero-spice-bowls.png";
+const labProcess = "/images/sections/lab-quality-control.png";
 
 const bentoItems = [
   {
@@ -88,8 +88,8 @@ export default function BentoGrid() {
   return (
     <section ref={ref} className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
       <div className="mb-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-amber-600">At a Glance</p>
-        <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-[#0f172a] sm:text-4xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">At a Glance</p>
+        <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-charcoal sm:text-4xl">
           Everything you need to know —{" "}
           <span className="text-slate-400">in one view.</span>
         </h2>
@@ -112,8 +112,9 @@ export default function BentoGrid() {
                   fill
                   sizes="(min-width: 1024px) 33vw, 50vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
+                  style={{ objectPosition: item.image === heroPowders ? "center 40%" : "center 50%" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white">{item.overlay}</p>
                 </div>
@@ -123,7 +124,7 @@ export default function BentoGrid() {
             {item.type === "counter" && (() => {
               const Icon = item.icon!;
               return (
-                <div className="flex h-full flex-col justify-between bg-[#0f172a] p-5">
+                <div className="flex h-full flex-col justify-between bg-charcoal p-5">
                   <div className="flex items-center justify-between">
                     <Icon className="h-5 w-5 text-saffron" />
                     <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
@@ -149,7 +150,7 @@ export default function BentoGrid() {
                     <Icon className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-[#0f172a]">{item.title}</p>
+                    <p className="text-sm font-semibold text-ink">{item.title}</p>
                     <p className="mt-1 text-xs leading-5 text-slate-600">{item.text}</p>
                   </div>
                 </div>

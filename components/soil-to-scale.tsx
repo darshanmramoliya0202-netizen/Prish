@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-const sourcingMap = "/images/products/coriander-seeds.jpg";
-const exportExecution = "/images/products/cumin-powder.jpg";
+const sourcingMap = "/images/sections/farm-sourcing.png";
+const exportExecution = "/images/sections/export-logistics.jpg";
 
 export default function SoilToScale() {
   const sectionRef = useRef<HTMLDivElement>(null);

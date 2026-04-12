@@ -8,8 +8,8 @@ import { applicationMatrix, productCategories } from "@/data/content";
 // Sophisticated visual system with enhanced metadata
 const categoryVisuals: Record<string, { hero: string; crop: string; accent: string; mood: string }> = {
   "botanical-powders": {
-    hero: "/images/products/jamun-powder.jpg",
-    crop: "/images/products/beetroot-powder.jpg",
+    hero: "/images/products/jamun-powder.png",
+    crop: "/images/products/beetroot-powder.png",
     accent: "Botanical Alchemy",
     mood: "Vibrant & Vital"
   },
@@ -36,29 +36,29 @@ const productVisualMap: Record<string, {
   essence: string;
 }> = {
   "Jamun Powder": {
-    product: "/images/products/jamun-powder-bowl.png",
-    origin: "/images/products/jamun-powder.jpg",
+    product: "/images/products/jamun-powder.png",
+    origin: "/images/products/jamun-powder-bowl.png",
     originLabel: "Ancient Fruit",
     story: "Deep purple legacy from Indian orchards",
     essence: "Antioxidant Power"
   },
   "Beetroot Powder": {
-    product: "/images/products/beetroot-powder.jpg",
-    origin: "/images/sections/farm-sourcing.jpg",
+    product: "/images/products/beetroot-powder.png",
+    origin: "/images/sections/farm-sourcing.png",
     originLabel: "Earth Root",
     story: "Vibrant crimson from fertile soil",
     essence: "Natural Energy"
   },
   "Turmeric Powder": {
-    product: "/images/products/turmeric-product.jpg",
+    product: "/images/products/turmeric-product.png",
     origin: "/images/products/turmeric-raw.jpg",
     originLabel: "Golden Spice",
     story: "5000 years of golden wellness",
     essence: "Curcumin Rich"
   },
   "Sea Buckthorn Powder": {
-    product: "/images/products/sea-buckthorn-powder.jpg",
-    origin: "/images/sections/farm-sourcing.jpg",
+    product: "/images/products/sea-buckthorn-powder.png",
+    origin: "/images/sections/farm-sourcing.png",
     originLabel: "Coastal Berry",
     story: "Tart brilliance from Himalayan slopes",
     essence: "Vitamin C Superpower"
@@ -99,7 +99,7 @@ const productVisualMap: Record<string, {
     essence: "Premium Choice"
   },
   "Indian Raw Spices": {
-    product: "/images/products/red-chilli-collage.png",
+    product: "/images/products/red-chilli-powder.png",
     origin: "/images/products/cumin-seeds.jpg",
     originLabel: "Spice Treasury",
     story: "India's aromatic wealth",
@@ -191,9 +191,9 @@ export default function ProductsPage() {
       {/* Dramatic Hero Section */}
       <section className="relative min-h-screen overflow-hidden">
         {/* Background — clean dark earthy tone, NO purple */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f1a0e] via-[#1a2a18] to-[#1c1208]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(74,124,64,0.2),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(217,119,6,0.12),transparent_50%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-leaf-dark via-forest to-soil">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(34,135,58,0.20),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(212,145,10,0.12),transparent_50%)]" />
         </div>
         
         {/* Hero content with sophisticated layout */}
@@ -275,7 +275,7 @@ export default function ProductsPage() {
               <div className="flex flex-col gap-4 sm:flex-row">
                 <Link 
                   href="/inquiry" 
-                  className="group inline-flex items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-amber-600 px-8 py-4 text-sm font-semibold text-white transition-all duration-500 hover:from-amber-600 hover:to-amber-700 hover:shadow-[0_20px_60px_rgba(217,119,6,0.3)]"
+                  className="group inline-flex items-center justify-center rounded-full bg-gradient-to-r from-saffron to-turmeric px-8 py-4 text-sm font-semibold text-soil transition-all duration-500 hover:from-turmeric hover:to-gold-warm hover:shadow-[0_20px_60px_rgba(212,145,10,0.3)]"
                 >
                   <span className="mr-2 transition-transform duration-300 group-hover:translate-x-1">
                     →
@@ -346,8 +346,8 @@ export default function ProductsPage() {
       {/* Editorial Featured Section */}
       <section className="relative py-24">
         {/* Clean dark background — NO purple */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a2a18] via-[#0f1a0e] to-[#1c1208]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(74,124,64,0.08),transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest via-leaf-dark to-soil">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,135,58,0.08),transparent_70%)]" />
         </div>
         
         <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
@@ -472,9 +472,9 @@ export default function ProductsPage() {
       {/* Sophisticated Category Showcase */}
       <section className="relative py-24">
         {/* Clean dark background — NO purple */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1a0e] via-[#1a2a18] to-[#0f1a0e]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(74,124,64,0.06),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(217,119,6,0.04),transparent_60%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-leaf-dark via-forest to-leaf-dark">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(34,135,58,0.06),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(212,145,10,0.04),transparent_60%)]" />
         </div>
         
         <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
@@ -687,7 +687,7 @@ export default function ProductsPage() {
       
       {/* Premium CTA Section */}
       <section className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a2a18] to-[#1c1208]">
+        <div className="absolute inset-0 bg-gradient-to-b from-forest to-soil">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(232,160,32,0.1),transparent_70%)]" />
         </div>
         
@@ -709,7 +709,7 @@ export default function ProductsPage() {
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link 
                 href="/inquiry" 
-                className="group inline-flex items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-amber-600 px-8 py-4 text-sm font-semibold text-white transition-all duration-500 hover:from-amber-600 hover:to-amber-700 hover:shadow-[0_30px_90px_rgba(217,119,6,0.4)]"
+                className="group inline-flex items-center justify-center rounded-full bg-gradient-to-r from-saffron to-turmeric px-8 py-4 text-sm font-semibold text-soil transition-all duration-500 hover:from-turmeric hover:to-gold-warm hover:shadow-[0_30px_90px_rgba(212,145,10,0.4)]"
               >
                 <span className="mr-2 transition-transform duration-300 group-hover:translate-x-1">
                   →

@@ -3,9 +3,9 @@
 import { useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-const heroPowders = "/images/products/turmeric-raw.jpg";
-const portfolioHighlight = "/images/products/strawberry-powder.jpg";
-const ingredientHighlights = "/images/products/spinach-powder.jpg";
+const heroPowders = "/images/hero/hero-spice-bowls.png";
+const portfolioHighlight = "/images/sections/farm-sourcing.png";
+const ingredientHighlights = "/images/sections/lab-quality-control.png";
 
 const ingredientNodes = [
   { label: "Jamun powder", top: "7%", left: "59%" },
@@ -38,7 +38,7 @@ export default function IngredientCloud() {
       onMouseMove={handlePointerMove}
       onMouseLeave={resetPointer}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.15),transparent_22%),radial-gradient(circle_at_14%_84%,rgba(20,83,45,0.1),transparent_22%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,166,35,0.15),transparent_22%),radial-gradient(circle_at_14%_84%,rgba(34,135,58,0.10),transparent_22%)]" />
       <motion.div
         animate={{
           x: pointer.x * 26,
@@ -46,7 +46,7 @@ export default function IngredientCloud() {
           opacity: isInteractive ? 0.95 : 0.5
         }}
         transition={{ type: "spring", stiffness: 120, damping: 20 }}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.15),rgba(245,158,11,0.01)_68%)] blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(245,166,35,0.15),rgba(245,166,35,0.01)_68%)] blur-3xl"
       />
       <motion.div
         initial={{ opacity: 0, y: 18 }}
@@ -60,7 +60,7 @@ export default function IngredientCloud() {
           fill
           sizes="(min-width: 1024px) 40vw, 100vw"
           className="object-cover"
-          style={{ objectPosition: "center 58%" }}
+          style={{ objectPosition: "center 40%" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,32,24,0.12),rgba(10,32,24,0.72))]" />
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
@@ -86,12 +86,12 @@ export default function IngredientCloud() {
             fill
             sizes="(min-width: 1024px) 18vw, 40vw"
             className="object-cover"
-            style={{ objectPosition: "center 66%" }}
+            style={{ objectPosition: "center 50%" }}
           />
         </div>
         <div className="p-4">
           <p className="text-[11px] uppercase tracking-[0.28em] text-saffron">Key ingredients</p>
-          <p className="mt-2 font-serif text-2xl text-[#0f172a]">Jamun, turmeric, beetroot and dehydrated lines.</p>
+          <p className="mt-2 font-serif text-2xl text-ink">Jamun, turmeric, beetroot and dehydrated lines.</p>
         </div>
       </motion.div>
       <motion.div
@@ -107,7 +107,7 @@ export default function IngredientCloud() {
             fill
             sizes="(min-width: 1024px) 20vw, 48vw"
             className="object-cover"
-            style={{ objectPosition: "center 47%" }}
+            style={{ objectPosition: "center 50%" }}
           />
         </div>
         <div className="p-4">

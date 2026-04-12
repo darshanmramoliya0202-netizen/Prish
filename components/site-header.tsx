@@ -27,7 +27,7 @@ export default function SiteHeader() {
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-gold-warm/20 bg-leaf-dark/92 shadow-[0_10px_34px_rgba(0,0,0,0.24)] backdrop-blur-2xl"
+          ? "border-b border-white/10 bg-leaf-dark/75 shadow-[0_10px_34px_rgba(0,0,0,0.20)] backdrop-blur-md"
           : "border-b border-transparent bg-leaf-dark"
       }`}
     >

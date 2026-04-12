@@ -64,7 +64,7 @@ export default function GlassBox() {
     <section className="relative overflow-hidden bg-leaf-dark py-16 sm:py-24">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_0%,rgba(232,160,32,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(26,51,24,0.94),rgba(44,26,14,0.88))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(22,58,30,0.94),rgba(42,26,10,0.88))]" />
         {/* Circuit-like grid */}
         <div
           className="absolute inset-0 opacity-[0.02]"

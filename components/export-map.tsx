@@ -59,15 +59,15 @@ export default function ExportMap() {
           style={{ objectPosition: "center 30%" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.2),rgba(15,23,42,0.72))]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_70%,rgba(245,158,11,0.18),transparent_16%),radial-gradient(circle_at_82%_18%,rgba(245,158,11,0.1),transparent_18%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_70%,rgba(245,166,35,0.18),transparent_16%),radial-gradient(circle_at_82%_18%,rgba(245,166,35,0.1),transparent_18%)]" />
       </div>
-      <div className="absolute left-[26%] top-[47%] hidden h-24 w-24 rounded-full border border-saffron/40 bg-saffron/20 shadow-[0_0_50px_rgba(245,158,11,0.2)] sm:block" />
-      <div className="absolute left-[29.5%] top-[50%] hidden rounded-full border border-saffron/55 bg-saffron px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#0f172a] sm:block">
+      <div className="absolute left-[26%] top-[47%] hidden h-24 w-24 rounded-full border border-saffron/40 bg-saffron/20 shadow-[0_0_50px_rgba(245,166,35,0.2)] sm:block" />
+      <div className="absolute left-[29.5%] top-[50%] hidden rounded-full border border-saffron/55 bg-saffron px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-ink sm:block">
         India
       </div>
       <div className="absolute left-[20%] top-[72%] hidden rounded-[1.6rem] border border-slate-300 bg-white/90 px-5 py-4 text-xs leading-6 text-slate-500 shadow-card-light backdrop-blur-md sm:block">
         <p className="uppercase tracking-[0.28em] text-saffron">Origin node</p>
-        <p className="mt-2 text-sm font-semibold text-[#0f172a]">Rajkot, Gujarat</p>
+        <p className="mt-2 text-sm font-semibold text-charcoal">Rajkot, Gujarat</p>
       </div>
       <motion.div
         key={activeDestination.name}
@@ -77,7 +77,7 @@ export default function ExportMap() {
         className="absolute left-3 top-3 z-20 max-w-[14rem] rounded-xl border border-slate-300 bg-white/92 px-3 py-3 text-xs shadow-card-light backdrop-blur-md sm:left-6 sm:top-6 sm:max-w-[18rem] sm:rounded-[1.6rem] sm:px-5 sm:py-4"
       >
         <p className="text-[11px] uppercase tracking-[0.28em] text-saffron">Market emphasis</p>
-        <p className="mt-2 font-serif text-2xl text-[#0f172a]">{activeDestination.name}</p>
+        <p className="mt-2 font-serif text-2xl text-charcoal">{activeDestination.name}</p>
         <p className="mt-3 text-sm leading-7 text-slate-500">{activeDestination.focus}</p>
       </motion.div>
 
@@ -110,7 +110,7 @@ export default function ExportMap() {
               : "border-slate-300 bg-white/90"
           }`}>
             <p className="text-[11px] uppercase tracking-[0.28em] text-saffron">{destination.region}</p>
-            <p className="mt-1 text-sm font-semibold text-[#0f172a]">{destination.name}</p>
+            <p className="mt-1 text-sm font-semibold text-ink">{destination.name}</p>
           </div>
         </motion.button>
       ))}
@@ -142,8 +142,8 @@ export default function ExportMap() {
             onClick={() => setActiveIndex(index)}
             className={`rounded-full border px-4 py-3 text-xs font-semibold uppercase tracking-[0.22em] shadow-[0_10px_24px_rgba(24,50,37,0.12)] transition ${
               activeIndex === index
-                ? "border-saffron bg-[#0f172a] text-white"
-                : "border-slate-300 bg-white/90 text-slate-500 hover:border-saffron hover:text-[#0f172a]"
+                ? "border-saffron bg-charcoal text-white"
+                : "border-slate-300 bg-white/90 text-slate-500 hover:border-saffron hover:text-charcoal"
             }`}
           >
             {destination.name}

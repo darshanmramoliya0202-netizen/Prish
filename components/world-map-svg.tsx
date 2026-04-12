@@ -55,7 +55,7 @@ export default function WorldMapSVG() {
           fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
         {/* India - HIGHLIGHTED */}
         <path d="M460,130 L480,125 L500,130 L510,145 L505,165 L495,185 L485,200 L475,205 L465,200 L455,185 L450,165 L450,145 Z"
-          fill="rgba(245,158,11,0.25)" stroke="rgba(245,158,11,0.8)" strokeWidth="1.5" />
+          fill="rgba(212,145,10,0.25)" stroke="rgba(212,145,10,0.8)" strokeWidth="1.5" />
         {/* Middle East */}
         <path d="M415,130 L440,125 L455,135 L450,150 L440,160 L425,155 L415,145 Z"
           fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
@@ -74,7 +74,7 @@ export default function WorldMapSVG() {
             y1={indiaOrigin.cy}
             x2={dest.cx}
             y2={dest.cy}
-            stroke={activeIdx === i ? "rgba(245,158,11,0.7)" : "rgba(245,158,11,0.15)"}
+            stroke={activeIdx === i ? "rgba(212,145,10,0.7)" : "rgba(212,145,10,0.15)"}
             strokeWidth={activeIdx === i ? 2 : 0.8}
             strokeDasharray={activeIdx === i ? "none" : "4 4"}
             initial={{ pathLength: 0 }}
@@ -89,7 +89,7 @@ export default function WorldMapSVG() {
           cy={indiaOrigin.cy}
           r="18"
           fill="none"
-          stroke="rgba(245,158,11,0.4)"
+          stroke="rgba(212,145,10,0.4)"
           strokeWidth="1"
           animate={{ r: [18, 28, 18], opacity: [0.6, 0, 0.6] }}
           transition={{ duration: 2.5, repeat: Infinity }}
@@ -99,12 +99,12 @@ export default function WorldMapSVG() {
           cy={indiaOrigin.cy}
           r="10"
           fill="none"
-          stroke="rgba(245,158,11,0.6)"
+          stroke="rgba(212,145,10,0.6)"
           strokeWidth="1"
           animate={{ r: [10, 18, 10], opacity: [0.8, 0, 0.8] }}
           transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
         />
-        <circle cx={indiaOrigin.cx} cy={indiaOrigin.cy} r="6" fill="rgba(245,158,11,0.9)" />
+        <circle cx={indiaOrigin.cx} cy={indiaOrigin.cy} r="6" fill="rgba(212,145,10,0.9)" />
         <circle cx={indiaOrigin.cx} cy={indiaOrigin.cy} r="3" fill="#fff" />
 
         {/* Destination dots */}
@@ -114,8 +114,8 @@ export default function WorldMapSVG() {
               cx={dest.cx}
               cy={dest.cy}
               r={activeIdx === i ? 8 : 5}
-              fill={activeIdx === i ? "rgba(245,158,11,0.6)" : "rgba(255,255,255,0.15)"}
-              stroke={activeIdx === i ? "rgba(245,158,11,1)" : "rgba(255,255,255,0.3)"}
+              fill={activeIdx === i ? "rgba(212,145,10,0.6)" : "rgba(255,255,255,0.15)"}
+              stroke={activeIdx === i ? "rgba(212,145,10,1)" : "rgba(255,255,255,0.3)"}
               strokeWidth="1.5"
               animate={{ scale: activeIdx === i ? [1, 1.2, 1] : 1 }}
               transition={{ duration: 1.5, repeat: activeIdx === i ? Infinity : 0 }}
@@ -127,7 +127,7 @@ export default function WorldMapSVG() {
         ))}
 
         {/* India label */}
-        <text x={indiaOrigin.cx} y={indiaOrigin.cy + 22} textAnchor="middle" fill="rgba(245,158,11,0.9)" fontSize="9" fontWeight="700" letterSpacing="2">
+        <text x={indiaOrigin.cx} y={indiaOrigin.cy + 22} textAnchor="middle" fill="rgba(212,145,10,0.9)" fontSize="9" fontWeight="700" letterSpacing="2">
           INDIA
         </text>
         <text x={indiaOrigin.cx} y={indiaOrigin.cy + 32} textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="7" letterSpacing="1">

@@ -50,7 +50,7 @@ export default function GlobalPartnerships() {
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-white py-16 sm:py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(245,158,11,0.05),transparent_40%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(245,166,35,0.05),transparent_40%)]" />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 text-center">
@@ -66,7 +66,7 @@ export default function GlobalPartnerships() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-[#0f172a] sm:text-4xl"
+            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-ink sm:text-4xl"
           >
             Diplomatic Engagement.{" "}
             <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">

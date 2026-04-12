@@ -9,7 +9,8 @@ const reelsProducts = [
     name: "Turmeric Powder",
     tagline: "100% Sun-Dried · ASTA Grade",
     specs: ["Curcumin 2–5%", "60–100 mesh", "≤ 10% moisture"],
-    image: "/images/products/turmeric-product.jpg",
+    image: "/images/products/turmeric-product.png",
+    objectPosition: "center 30%",
     color: "from-amber-500 to-yellow-600",
     badge: "Best Seller"
   },
@@ -17,7 +18,8 @@ const reelsProducts = [
     name: "Red Chili Powder",
     tagline: "Gujarat Origin · Bold Heat",
     specs: ["15,000–50,000 SHU", "40–80 mesh", "Bright red"],
-    image: "/images/products/red-chilli-collage.png",
+    image: "/images/products/red-chilli-powder.png",
+    objectPosition: "center 40%",
     color: "from-red-500 to-rose-600",
     badge: "High Demand"
   },
@@ -25,7 +27,8 @@ const reelsProducts = [
     name: "Jamun Powder",
     tagline: "Botanical Grade · Deep Purple",
     specs: ["≤ 8% moisture", "60–100 mesh", "12–18 mo shelf life"],
-    image: "/images/products/jamun-powder-bowl.png",
+    image: "/images/products/jamun-powder.png",
+    objectPosition: "center 35%",
     color: "from-purple-500 to-violet-600",
     badge: "Premium"
   },
@@ -33,7 +36,8 @@ const reelsProducts = [
     name: "Beetroot Powder",
     tagline: "Natural Color · Clean Label",
     specs: ["≤ 7% moisture", "80–100 mesh", "Deep crimson-red"],
-    image: "/images/products/beetroot-powder.jpg",
+    image: "/images/products/beetroot-powder.png",
+    objectPosition: "center 35%",
     color: "from-rose-500 to-pink-600",
     badge: "Trending"
   },
@@ -41,7 +45,8 @@ const reelsProducts = [
     name: "Sea Buckthorn Powder",
     tagline: "Himalayan Origin · Vitamin C Rich",
     specs: ["≤ 8% moisture", "60–100 mesh", "Bright orange"],
-    image: "/images/products/sea-buckthorn-powder.jpg",
+    image: "/images/products/sea-buckthorn-powder.png",
+    objectPosition: "center 30%",
     color: "from-orange-500 to-amber-600",
     badge: "Specialty"
   }
@@ -95,7 +100,8 @@ export default function ReelsProducts() {
                   alt={product.name}
                   fill
                   sizes="(min-width: 1024px) 20vw, 70vw"
-                  className="object-cover object-center"
+                  className="object-cover"
+                  style={{ objectPosition: product.objectPosition }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-soil via-soil/20 to-transparent" />
 

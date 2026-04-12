@@ -3,16 +3,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-const sourcingMap = "/images/products/raw-mango-powder.jpg";
-const labProcess = "/images/products/tomato-powder.jpg";
-const exportExecution = "/images/products/lemon-powder.jpg";
+const sourcingMap = "/images/sections/farm-sourcing.png";
+const labProcess = "/images/sections/lab-quality-control.png";
+const exportExecution = "/images/sections/export-logistics.jpg";
 
 const galleryCards = [
   {
     title: "Farm-linked sourcing",
     description: "India-led sourcing regions, crop diversity, and multi-origin traceability framed through a warmer agricultural lens.",
     image: sourcingMap,
-    objectPosition: "center 52%",
+    objectPosition: "center 50%",
     detail: "Major growing belts are interpreted as a living sourcing network, not a static supplier list.",
     metric: "04 sourcing belts"
   },
@@ -20,7 +20,7 @@ const galleryCards = [
     title: "Controlled processing",
     description: "Lab, hygiene, and process control visuals bring confidence to the category without making the site feel clinical.",
     image: labProcess,
-    objectPosition: "center 80%",
+    objectPosition: "center 50%",
     detail: "Processing becomes part of the brand promise when buyers can feel discipline, cleanliness, and consistency in the experience.",
     metric: "03 validation layers"
   },
@@ -69,11 +69,11 @@ export default function OriginGallery() {
                 className="object-cover transition duration-700 group-hover:scale-[1.06]"
                 style={{ objectPosition: card.objectPosition }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/82 via-[#0f172a]/24 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/82 via-charcoal/24 to-transparent" />
               <motion.div
                 animate={{ opacity: activeIndex === index ? 1 : 0, y: activeIndex === index ? 0 : 14 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="absolute right-5 top-5 rounded-[1.4rem] border border-saffron/35 bg-[#0f172a]/78 px-4 py-3 text-right text-white backdrop-blur-md"
+                className="absolute right-5 top-5 rounded-[1.4rem] border border-saffron/35 bg-charcoal/78 px-4 py-3 text-right text-white backdrop-blur-md"
               >
                 <p className="text-[10px] uppercase tracking-[0.28em] text-saffron">Active frame</p>
                 <p className="mt-2 text-sm font-semibold">{card.metric}</p>
@@ -102,8 +102,8 @@ export default function OriginGallery() {
                   onClick={() => setActiveIndex(index)}
                   className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] transition ${
                     activeIndex === index
-                      ? "border-saffron bg-[#0f172a] text-white"
-                      : "border-slate-200 bg-slate-50 text-slate-500 hover:border-saffron hover:text-[#0f172a]"
+                      ? "border-saffron bg-charcoal text-white"
+                      : "border-slate-200 bg-slate-50 text-slate-500 hover:border-saffron hover:text-charcoal"
                   }`}
                 >
                   {String(index + 1).padStart(2, "0")}
@@ -125,7 +125,7 @@ export default function OriginGallery() {
           >
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-saffron">Current scene</p>
-              <h3 className="mt-3 font-serif text-3xl text-[#0f172a]">{activeCard.title}</h3>
+              <h3 className="mt-3 font-serif text-3xl text-ink">{activeCard.title}</h3>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500">{activeCard.description}</p>
             </div>
             <div className="rounded-[1.6rem] border border-slate-200 bg-slate-50 p-5">

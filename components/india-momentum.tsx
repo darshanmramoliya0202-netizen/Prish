@@ -80,10 +80,10 @@ export default function IndiaMomentum() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-gradient-to-br from-[#1a2332] to-[#0f1a2e] py-16 sm:py-24">
+    <section ref={ref} className="relative overflow-hidden bg-gradient-to-br from-charcoal to-soil py-16 sm:py-24">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(20,83,45,0.15),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(245,158,11,0.08),transparent_40%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(245,166,35,0.08),transparent_40%)]" />
         {/* Subtle grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"

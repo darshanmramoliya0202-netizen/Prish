@@ -75,8 +75,8 @@ export default function SeedJourney() {
 
   return (
     <section className="relative bg-leaf-dark py-16 sm:py-20">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(74,124,64,0.14),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(26,51,24,0.94),rgba(44,26,14,0.86))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(34,135,58,0.14),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(22,58,30,0.94),rgba(42,26,10,0.86))]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12">
           <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Traceability</p>

@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import AnimatedCounter from "@/components/animated-counter";
 import AnimatedSection from "@/components/animated-section";
-import WorldMapSVG from "@/components/world-map-svg";
+import WorldMapD3 from "@/components/world-map-d3";
 import IngredientCloud from "@/components/ingredient-cloud";
 import KineticText from "@/components/kinetic-text";
 import Marquee from "@/components/marquee";
@@ -20,9 +20,9 @@ import IndiaMomentum from "@/components/india-momentum";
 import GlobalPartnerships from "@/components/global-partnerships";
 import BentoGrid from "@/components/bento-grid";
 import GlassBox from "@/components/glass-box";
-import FounderFeed from "@/components/founder-feed";
 import ReelsProducts from "@/components/reels-products";
-import { contact, markets, stats } from "@/data/site";
+import SourcingRegions from "@/components/sourcing-regions";
+import { contact, stats } from "@/data/site";
 
 export default function HomePage() {
   const heroRef = useRef(null);
@@ -159,44 +159,37 @@ export default function HomePage() {
       {/* ─── 8. GLASS BOX (dark — tech transparency) ─── */}
       <GlassBox />
 
-      {/* ─── 9. FOUNDER FEED (light — social proof) ─── */}
-      <FounderFeed />
+      {/* ─── 9. SOURCING REGIONS (light — authenticity) ─── */}
+      <SourcingRegions />
 
       {/* ─── 10. SEED JOURNEY (dark — traceability) ─── */}
       <SeedJourney />
 
-      {/* ─── 12. GLOBAL REACH (light — map + markets) ─── */}
-      <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
-        <AnimatedSection className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Global Reach</p>
-          <h2 className="mt-4 max-w-2xl font-serif text-3xl text-ink sm:text-4xl">
-            Active across 4 market clusters,{" "}
-            <span className="text-wheat">15+ countries.</span>
-          </h2>
-        </AnimatedSection>
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+      {/* ─── 12. GLOBAL REACH (full-width D3 map) ─── */}
+      <section className="relative overflow-hidden bg-[#0c1524] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+          <AnimatedSection className="mb-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Global Reach</p>
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl text-white sm:text-4xl">
+              From Gujarat to the world —{" "}
+              <span className="bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent">15+ countries.</span>
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-white/55">
+              Our export network spans North America, Europe, the GCC, Southeast Asia, and beyond. Click any destination to see product relevance.
+            </p>
+          </AnimatedSection>
           <AnimatedSection>
-            <WorldMapSVG />
+            <WorldMapD3 />
           </AnimatedSection>
-          <AnimatedSection delay={0.1} className="rounded-[2rem] border border-wheat/25 bg-white/82 p-6 shadow-paper sm:p-8">
-            <div className="grid gap-3 sm:grid-cols-2">
-              {markets.map((market, index) => (
-                <div key={market} className="rounded-[1.4rem] border border-wheat/20 bg-parchment/35 p-4 transition hover:-translate-y-0.5 hover:border-gold-warm/25 hover:bg-white/85">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-gold-warm">Market {String(index + 1).padStart(2, "0")}</p>
-                  <p className="mt-2 text-lg font-semibold text-ink">{market}</p>
-                </div>
-              ))}
+          <div className="mt-8 rounded-[1.8rem] border border-white/10 bg-white/5 p-5 backdrop-blur-sm sm:p-6">
+            <p className="font-semibold text-white">{contact.company}</p>
+            <p className="mt-1 text-sm text-white/50">{contact.address.join(", ")}</p>
+            <div className="mt-3">
+              <Link href="/inquiry" className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-warm transition hover:text-saffron">
+                Start an inquiry <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
-            <div className="mt-4 rounded-[1.4rem] border border-wheat/20 bg-parchment/35 p-4">
-              <p className="font-semibold text-ink">{contact.company}</p>
-              <p className="mt-1 text-sm text-ink-soft">{contact.address.join(", ")}</p>
-              <div className="mt-3 flex flex-wrap gap-3">
-                <Link href="/inquiry" className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-warm transition hover:text-turmeric">
-                  Get in touch <ArrowUpRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </div>
-          </AnimatedSection>
+          </div>
         </div>
       </section>
 

@@ -50,8 +50,8 @@ const certifications = [
 
 export default function TrustBadges() {
   return (
-    <section className="relative bg-[#0f172a] py-16 sm:py-20">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.08),transparent_50%)]" />
+    <section className="relative bg-charcoal py-16 sm:py-20">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,166,35,0.08),transparent_50%)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.4em] text-emerald-400">Quality & Compliance</p>
