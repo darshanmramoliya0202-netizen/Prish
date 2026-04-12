@@ -49,7 +49,7 @@ export default function GlobalPartnerships() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-white py-16 sm:py-24">
+    <section ref={ref} className="relative overflow-hidden bg-transparent py-16 sm:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(245,166,35,0.05),transparent_40%)]" />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
@@ -66,7 +66,7 @@ export default function GlobalPartnerships() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-ink sm:text-4xl"
+            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-parchment sm:text-4xl"
           >
             Diplomatic Engagement.{" "}
             <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
@@ -77,7 +77,7 @@ export default function GlobalPartnerships() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto mt-4 max-w-lg text-base leading-7 text-slate-600"
+            className="mx-auto mt-4 max-w-lg text-base leading-7 text-wheat/70"
           >
             Active participation in global trade policy and strategic partnerships that strengthen international supply chains.
           </motion.p>
@@ -92,8 +92,8 @@ export default function GlobalPartnerships() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.12 * index }}
-                className={`group relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all hover:shadow-xl ${
-                  partnership.featured ? "border-saffron/40 ring-2 ring-saffron/20 sm:col-span-2 lg:col-span-2" : "border-slate-200 hover:border-saffron/30"
+                className={`group relative overflow-hidden rounded-2xl border bg-white/8 shadow-md transition-all hover:shadow-xl ${
+                  partnership.featured ? "border-saffron/40 ring-2 ring-saffron/20 sm:col-span-2 lg:col-span-2" : "border-white/10 hover:border-saffron/30"
                 }`}
               >
                 <div className={`relative overflow-hidden ${partnership.featured ? "h-72" : "h-48"}`}>
@@ -123,7 +123,7 @@ export default function GlobalPartnerships() {
                 </div>
                 
                 <div className="p-4">
-                  <p className={`leading-6 text-slate-600 ${partnership.featured ? "text-sm" : "text-xs"}`}>{partnership.description}</p>
+                  <p className={`leading-6 text-wheat/70 ${partnership.featured ? "text-sm" : "text-xs"}`}>{partnership.description}</p>
                 </div>
               </motion.div>
             );

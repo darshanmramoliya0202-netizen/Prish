@@ -4,6 +4,8 @@ import Link from "next/link";
 import SiteShell from "@/components/site-shell";
 import { createPageMetadata } from "@/data/seo";
 import { applicationMatrix, productCategories } from "@/data/content";
+import Breadcrumb from "@/components/breadcrumb";
+import ProductCategoryFilter from "@/components/product-category-filter";
 
 // Sophisticated visual system with enhanced metadata
 const categoryVisuals: Record<string, { hero: string; crop: string; accent: string; mood: string }> = {
@@ -500,11 +502,21 @@ export default function ProductsPage() {
             </div>
           </div>
           
-          {/* Category showcase with enhanced interactions */}
-          <div className="space-y-24">
+          {/* Breadcrumb */}
+          <div className="mb-6">
+            <Breadcrumb crumbs={[
+              { label: "Home", href: "/" },
+              { label: "Products" }
+            ]} />
+          </div>
+
+          {/* Category showcase with filter */}
+          <ProductCategoryFilter slugs={productCategories.map(c => c.slug)} />
+          <div className="space-y-24" id="product-categories">
             {productCategories.map((category) => (
               <article 
                 key={category.slug} 
+                id={`cat-${category.slug}`}
                 className="group"
               >
                 <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">

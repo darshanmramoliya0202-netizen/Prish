@@ -55,21 +55,29 @@ export default function HomePage() {
               From Indian farms to global formulations
             </motion.div>
             <h1 className="max-w-4xl font-serif text-3xl leading-[1.03] text-ink sm:text-5xl md:text-6xl lg:text-[5rem]">
-              <KineticText text="India, translated into" delay={0.2} />
+              <KineticText text="Premium Indian spices &" delay={0.2} />
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-1 block bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent"
               >
-                ingredient confidence.
+                agri ingredients — exported to 15+ countries.
               </motion.span>
             </h1>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-6 max-w-xl text-[15px] leading-8 text-ink-soft sm:mt-8 sm:text-lg sm:leading-9"
+              className="mt-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold-warm"
+            >
+              FSSAI Certified · APEDA Registered · Rajkot, Gujarat
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="mt-4 max-w-xl text-[15px] leading-8 text-ink-soft sm:mt-6 sm:text-lg sm:leading-9"
             >
               Traceable powders, dehydrated ingredients, and spice-led supply — processed with precision, documented for compliance, and shipped container-ready.
             </motion.p>
@@ -144,11 +152,11 @@ export default function HomePage() {
       {/* ─── 4. BENTO GRID (light — "at a glance" dashboard) ─── */}
       <BentoGrid />
 
-      {/* ─── 10. INDIA MOMENTUM ─── */}
-      <IndiaMomentum />
-
-      {/* ─── 11. GLOBAL PARTNERSHIPS ─── */}
-      <GlobalPartnerships />
+      {/* ─── 10+11. INDIA MOMENTUM + GLOBAL PARTNERSHIPS (shared dark) ─── */}
+      <section className="bg-leaf-dark">
+        <IndiaMomentum />
+        <GlobalPartnerships />
+      </section>
 
       {/* ─── 12. ROLE SELECTOR (light — personalized) ─── */}
       <RoleSelector />

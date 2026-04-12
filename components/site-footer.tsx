@@ -64,6 +64,7 @@ export default function SiteFooter() {
                   <p key={line}>{line}</p>
                 ))}
               </div>
+              <p className="mt-3 text-xs text-wheat/45">IEC: XXXXXXXXXX &middot; GST: 24XXXXXXXXX</p>
             </div>
             <div className="text-sm text-parchment/75">
               <a href={`mailto:${contact.email}`} className="block transition hover:text-gold-warm">
@@ -78,9 +79,19 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 text-xs text-wheat/50 sm:flex-row">
-          <p>&copy; {new Date().getFullYear()} Prish Overseas. All rights reserved.</p>
-          <p>From Rajkot, Gujarat — to the world.</p>
+        <div className="mt-8 flex flex-wrap gap-2">
+          {["FSSAI Certified", "APEDA Registered", "Spices Board", "ISO / HACCP Aligned"].map((cert) => (
+            <span key={cert} className="rounded-full border border-parchment/15 bg-white/5 px-2.5 py-1 text-[10px] text-wheat/60">
+              {cert}
+            </span>
+          ))}
+        </div>
+        <div className="mt-6 flex flex-col items-center justify-between gap-4 text-xs text-wheat/50 sm:flex-row">
+          <p>&copy; {new Date().getFullYear()} Prish Overseas. All rights reserved. &middot; From Rajkot, Gujarat — to the world.</p>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="transition hover:text-gold-warm">Privacy policy</Link>
+            <a href="https://linkedin.com/company/prish-overseas" target="_blank" rel="noopener noreferrer" className="transition hover:text-gold-warm">LinkedIn</a>
+          </div>
         </div>
       </div>
     </footer>

@@ -118,7 +118,7 @@ export default function IngredientCloud() {
       {ingredientNodes.map((node, index) => (
         <motion.div
           key={node.label}
-          className="absolute rounded-full border border-slate-200 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-600 shadow-[0_10px_30px_rgba(25,48,36,0.12)]"
+          className="absolute hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-600 shadow-[0_10px_30px_rgba(25,48,36,0.12)] sm:flex"
           style={{ top: node.top, left: node.left }}
           animate={{ y: [pointer.y * (index % 2 === 0 ? -5 : 5), -8 + pointer.y * 4, pointer.y * (index % 2 === 0 ? -5 : 5)] }}
           transition={{ duration: 3.8 + index * 0.45, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}

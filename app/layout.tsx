@@ -3,6 +3,8 @@ import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 import FloatingElements from "@/components/floating-elements";
 import Preloader from "@/components/preloader";
+import WhatsAppButton from "@/components/whatsapp-button";
+import MobileCTABar from "@/components/mobile-cta-bar";
 import ScrollProgress from "@/components/scroll-progress";
 import SmoothScrollProvider from "@/components/smooth-scroll-provider";
 import {
@@ -93,6 +95,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <ScrollProgress />
           <FloatingElements />
           {children}
+          <WhatsAppButton />
+          <MobileCTABar />
         </SmoothScrollProvider>
       </body>
     </html>

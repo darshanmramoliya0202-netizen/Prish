@@ -49,7 +49,7 @@ export default function QualityPage() {
         <SectionHeading
           eyebrow="Process journey"
           title="From selection to export release, the workflow is part of the brand promise."
-          description="This page turns brochure proof points into a more complete web narrative around control, consistency, and partner confidence."
+          description="Every step from raw material intake to container release follows a documented, auditable workflow designed for international buyers."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {processJourney.map((step, index) => (
@@ -60,6 +60,11 @@ export default function QualityPage() {
             </div>
           ))}
         </div>
+        <div className="relative mt-10 h-56 w-full overflow-hidden rounded-2xl">
+          <Image src="/images/sections/farm-sourcing.png" alt="Spice farm sourcing — Gujarat, India" fill sizes="100vw" className="object-cover object-center" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
+          <p className="absolute bottom-4 left-6 text-xs font-semibold uppercase tracking-wider text-white">Farm-linked sourcing &mdash; Gujarat &amp; Rajasthan</p>
+        </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-10 lg:pb-24">
@@ -68,7 +73,7 @@ export default function QualityPage() {
             <SectionHeading
               eyebrow="Packaging matrix"
               title="Formats aligned to handling, storage, and buyer preference."
-              description="Packaging support is presented as a trade-enabling service, not an afterthought."
+              description="Multiple packaging formats available across all product lines — aligned to your handling, storage, and market requirements."
             />
             <ul className="mt-8 space-y-4 text-sm leading-7 text-ink-soft">
               {packagingMatrix.map((item) => (
@@ -80,7 +85,7 @@ export default function QualityPage() {
             <SectionHeading
               eyebrow="Documentation support"
               title="Destination-aware export support for serious commercial conversations."
-              description="Beyond production, the workflow includes the paperwork and timing discipline global buyers expect."
+              description="Destination-aware documentation prepared for EU, GCC, US, and Southeast Asia — from pre-shipment testing to certificate of origin."
             />
             <ul className="mt-8 space-y-4 text-sm leading-7 text-ink-soft">
               {documentationSupport.map((item) => (
@@ -88,6 +93,11 @@ export default function QualityPage() {
               ))}
             </ul>
           </div>
+        </div>
+        <div className="relative mt-10 h-56 w-full overflow-hidden rounded-2xl">
+          <Image src="/images/sections/lab-quality-control.png" alt="Quality testing lab — Prish Overseas, Rajkot" fill sizes="100vw" className="object-cover object-center" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
+          <p className="absolute bottom-4 left-6 text-xs font-semibold uppercase tracking-wider text-white">Quality control &amp; testing — Rajkot facility</p>
         </div>
       </section>
     </SiteShell>
