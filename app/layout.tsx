@@ -29,6 +29,12 @@ const manrope = Manrope({
   weight: ["400", "500", "600", "700", "800"]
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
   title: defaultTitle,

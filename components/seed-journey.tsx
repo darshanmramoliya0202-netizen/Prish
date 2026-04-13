@@ -149,7 +149,7 @@ export default function SeedJourney() {
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-warm">
                     Stage {String(activeStage + 1).padStart(2, "0")} of {String(journeyStages.length).padStart(2, "0")}
                   </p>
-                  <h3 className="mt-1 text-2xl font-semibold text-parchment">{stage.title}</h3>
+                  <h3 className="mt-1 font-serif text-2xl text-parchment">{stage.title}</h3>
                 </div>
               </div>
 

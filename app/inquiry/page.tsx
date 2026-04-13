@@ -31,7 +31,7 @@ export default function InquiryPage() {
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Inquiry</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-3xl text-ink sm:text-5xl lg:text-6xl">Start a product, packaging, or supply conversation.</h1>
+            <h1 className="mt-5 max-w-4xl font-serif text-2xl text-ink sm:text-4xl lg:text-6xl">Start a product, packaging, or supply conversation.</h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-soft">
               This form is designed to collect the key context an export-oriented discussion needs: product interest, target market, commercial volume, and documentation or packaging expectations.
             </p>

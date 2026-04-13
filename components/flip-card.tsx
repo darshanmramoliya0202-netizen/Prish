@@ -67,7 +67,7 @@ export default function FlipCard({
       role="button"
       tabIndex={0}
       aria-label={`${name} — press Enter to flip for product details`}
-      className="group relative h-[420px] cursor-pointer [perspective:1200px] focus:outline-none"
+      className="group relative h-[360px] cursor-pointer [perspective:1200px] focus:outline-none sm:h-[420px]"
       onClick={() => setFlipped((f) => !f)}
       onKeyDown={handleKeyDown}
     >
@@ -92,7 +92,8 @@ export default function FlipCard({
             <p className={`text-[10px] font-semibold uppercase tracking-[0.3em] ${accentText[accentColor]}`}>
               {category}
             </p>
-            <h3 className="mt-1 font-serif text-2xl text-parchment">{name}</h3>
+            <h3 className="mt-1 font-serif text-xl text-parchment sm:text-2xl">{name}</h3>
+            <p className="mt-1.5 text-[10px] text-white/50 sm:hidden">Tap for details</p>
           </div>
         </div>
 

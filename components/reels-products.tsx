@@ -75,9 +75,9 @@ export default function ReelsProducts() {
             </div>
             <p className="text-xs font-semibold uppercase tracking-[0.5em] text-gold-warm">Product Spotlight</p>
           </div>
-          <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-white sm:text-4xl">
-            Swipe through specs. {" "}
-            <span className="text-white/40">
+          <h2 className="mt-4 max-w-xl font-serif text-3xl text-parchment sm:text-4xl">
+            Swipe through specs.{" "}
+            <span className="text-parchment/40">
               Not paragraphs.
             </span>
           </h2>
@@ -119,7 +119,7 @@ export default function ReelsProducts() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <h3 className="font-sans text-2xl font-bold text-white">{product.name}</h3>
+                    <h3 className="font-serif text-2xl text-parchment">{product.name}</h3>
                     <p className="mt-1 text-xs uppercase tracking-wider text-gold-warm/80">{product.tagline}</p>
 
                     <div className="mt-4 space-y-2">

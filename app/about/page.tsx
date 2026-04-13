@@ -59,7 +59,7 @@ export default function AboutPage() {
             description="These principles explain why the site positions Prish Overseas as an origin-to-export partner instead of a generic broker."
           />
         </div>
-        <div className="mt-10 grid gap-5 lg:grid-cols-4">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {aboutPrinciples.map((principle) => (
             <div key={principle.title} className="rounded-[2rem] border border-wheat/20 bg-parchment/35 p-6 shadow-card-light">
               <h2 className="font-serif text-2xl text-ink">{principle.title}</h2>

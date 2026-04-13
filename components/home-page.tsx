@@ -28,7 +28,7 @@ export default function HomePage() {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const heroOpacity = useTransform(scrollYProgress, [0.5, 1.0], [1, 0]);
 
   return (
     <SiteShell>

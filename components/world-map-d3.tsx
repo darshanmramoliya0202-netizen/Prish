@@ -23,6 +23,10 @@ const destinations = [
 // India origin
 const indiaOrigin = { lat: 20.5, lng: 78.9 };
 
+// ISO numeric IDs for destination countries (Natural Earth / topojson)
+const DEST_COUNTRY_IDS = new Set([840, 276, 250, 826, 392, 36, 124, 404, 76, 682, 784, 704, 458, 360]);
+// 840=USA, 276=Germany(EU rep), 250=France(EU rep), 826=UK, 392=Japan, 36=Australia, 124=Canada, 404=Kenya, 76=Brazil, 682=Saudi Arabia, 784=UAE, 704=Vietnam, 458=Malaysia, 360=Indonesia
+
 // Width/height for viewBox
 const W = 960;
 const H = 500;
@@ -202,6 +206,7 @@ function Arc({
 
 export default function WorldMapD3() {
   const [paths, setPaths] = useState<string[]>([]);
+  const [countryFeatures, setCountryFeatures] = useState<GeoJSON.Feature[]>([]);
   const [indiaPath, setIndiaPath] = useState<string>("");
   const [mounted, setMounted] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -228,10 +233,10 @@ export default function WorldMapD3() {
           world.objects.countries as GeometryCollection
         );
 
-        const allPaths = (countries as GeoJSON.FeatureCollection).features.map(
-          (f) => pathGen(f) ?? ""
-        );
+        const features = (countries as GeoJSON.FeatureCollection).features;
+        const allPaths = features.map((f) => pathGen(f) ?? "");
         setPaths(allPaths);
+        setCountryFeatures(features);
 
         // India numeric ID in Natural Earth = 356
         const indiaFeature = (countries as GeoJSON.FeatureCollection).features.find(
@@ -252,10 +257,13 @@ export default function WorldMapD3() {
   const indiaProj = projRef.current?.([indiaOrigin.lng, indiaOrigin.lat]);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 bg-leaf-dark shadow-[0_24px_80px_rgba(0,0,0,0.5)]" style={{ aspectRatio: "960/500" }}>
+    <div
+      className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.4)] [aspect-ratio:4/3] sm:[aspect-ratio:960/500]"
+      style={{ backgroundColor: "#1a3a5c" }}
+    >
 
       {/* Ocean background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(22,46,30,0.6),rgba(26,46,26,0.95))]" />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 40%, #1e4a72 0%, #0f2540 60%, #091a30 100%)" }} />
 
       {/* Subtle grid lines */}
       <svg className="absolute inset-0 h-full w-full opacity-[0.025]" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice">
@@ -273,24 +281,32 @@ export default function WorldMapD3() {
         className="absolute inset-0 h-full w-full"
         preserveAspectRatio="xMidYMid slice"
       >
-        {/* Country fills */}
-        {mounted && paths.map((d, i) => (
-          <path
-            key={i}
-            d={d}
-            fill="rgba(255,255,255,0.055)"
-            stroke="rgba(255,255,255,0.14)"
-            strokeWidth="0.4"
-          />
-        ))}
+        {/* Country fills — warm earth tones */}
+        {mounted && countryFeatures.map((f, i) => {
+          const id = typeof f.id === "number" ? f.id : Number(f.id);
+          const isDestination = DEST_COUNTRY_IDS.has(id);
+          const isIndia = id === 356;
+          if (isIndia) return null;
+          return (
+            <path
+              key={i}
+              d={paths[i] ?? ""}
+              fill={isDestination ? "rgba(232,132,58,0.38)" : "#c4a882"}
+              stroke={isDestination ? "#e8843a" : "#8b7355"}
+              strokeWidth={isDestination ? "0.8" : "0.35"}
+              opacity={isDestination ? 1 : 0.82}
+            />
+          );
+        })}
 
-        {/* India highlighted */}
+        {/* India highlighted — gold */}
         {mounted && indiaPath && (
           <path
             d={indiaPath}
-            fill="rgba(212,145,10,0.28)"
-            stroke="rgba(212,145,10,0.85)"
-            strokeWidth="1.2"
+            fill="rgba(212,145,10,0.55)"
+            stroke="rgba(245,200,80,0.9)"
+            strokeWidth="1.4"
+            style={{ filter: "drop-shadow(0 0 4px rgba(212,145,10,0.4))" }}
           />
         )}
 
@@ -360,14 +376,14 @@ export default function WorldMapD3() {
         </div>
       </div>
 
-      {/* Bottom destination chips */}
-      <div className="absolute inset-x-3 bottom-3 z-10 flex flex-wrap gap-1.5 sm:inset-x-5 sm:bottom-5 sm:gap-2">
+      {/* Bottom destination chips — horizontal scroll on mobile */}
+      <div className="absolute inset-x-0 bottom-0 z-10 flex gap-1.5 overflow-x-auto px-3 pb-3 scrollbar-none sm:inset-x-5 sm:bottom-5 sm:flex-wrap sm:gap-2 sm:px-0 sm:pb-0">
         {destinations.map((dest) => (
           <button
             key={dest.id}
             type="button"
             onClick={() => handleDestClick(dest.id)}
-            className={`rounded-full border px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition duration-200 sm:px-3.5 sm:py-2 sm:text-[11px] ${
+            className={`shrink-0 whitespace-nowrap rounded-full border px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition duration-200 sm:px-3.5 sm:py-2 sm:text-[11px] ${
               activeId === dest.id
                 ? "border-saffron/70 bg-saffron/15 text-saffron"
                 : "border-white/10 bg-white/5 text-white/45 hover:border-white/25 hover:text-white/80"
@@ -387,7 +403,7 @@ export default function WorldMapD3() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "100%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 40 }}
-            className="absolute inset-x-0 bottom-0 z-20 rounded-b-[2rem] border-t border-white/10 bg-leaf-dark/95 p-5 backdrop-blur-xl sm:p-6"
+            className="absolute inset-x-0 bottom-0 z-20 max-h-[60%] overflow-y-auto rounded-b-[2rem] border-t border-white/10 bg-leaf-dark/95 p-4 backdrop-blur-xl sm:max-h-none sm:p-6"
           >
             <div className="flex items-start justify-between gap-4">
               <div>

@@ -24,7 +24,7 @@ export default function QualityPage() {
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Quality & Export Readiness</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-3xl text-ink sm:text-5xl lg:text-6xl">Processing control and documentation discipline you can verify.</h1>
+            <h1 className="mt-5 max-w-4xl font-serif text-2xl text-ink sm:text-4xl lg:text-6xl">Processing control and documentation discipline you can verify.</h1>
             <p className="mt-6 max-w-xl text-base leading-7 text-ink-soft">
               Trust here is built through operational detail: how raw materials are handled, how consistency is protected, and how export-specific requirements are supported across markets.
             </p>
@@ -55,7 +55,7 @@ export default function QualityPage() {
           title="From selection to export release, the workflow is part of the brand promise."
           description="Every step from raw material intake to container release follows a documented, auditable workflow designed for international buyers."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {processJourney.map((step, index) => (
             <div key={step.title} className="rounded-2xl border border-wheat/25 bg-white/80 p-6 shadow-card-light">
               <p className="text-xs uppercase tracking-[0.32em] text-gold-warm">Stage {String(index + 1).padStart(2, "0")}</p>

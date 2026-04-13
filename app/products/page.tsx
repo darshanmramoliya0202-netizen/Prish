@@ -54,13 +54,13 @@ export default function ProductsPage() {
 
       {/* ── 2. FILTER TABS ── */}
       <section className="border-b border-wheat/25 bg-cream/80 py-4 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-4 pb-1 scrollbar-none sm:flex-wrap sm:overflow-x-visible sm:px-6 lg:px-10">
           {filterKeys.map((key) => (
             <button
               key={key}
               type="button"
               onClick={() => setActiveFilter(key)}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 ${
+              className={`shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 ${
                 activeFilter === key
                   ? "bg-leaf-dark text-parchment shadow-[0_4px_16px_rgba(26,46,26,0.18)]"
                   : "border border-leaf-dark/30 text-ink hover:bg-cream"

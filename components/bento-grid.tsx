@@ -95,14 +95,14 @@ export default function BentoGrid() {
         </h2>
       </div>
 
-      <div className="grid auto-rows-[160px] gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid auto-rows-[140px] gap-3 grid-cols-1 sm:grid-cols-2 sm:auto-rows-[160px] lg:grid-cols-3">
         {bentoItems.map((item, index) => (
           <motion.div
             key={item.id}
             initial={{ opacity: 0, y: 20, scale: 0.97 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
             transition={{ duration: 0.45, delay: index * 0.06 }}
-            className={`group relative overflow-hidden rounded-2xl border border-wheat/25 transition hover:border-saffron/30 hover:shadow-card-light ${item.span}`}
+            className={`group relative overflow-hidden rounded-2xl border border-wheat/25 transition hover:border-saffron/30 hover:shadow-card-light ${item.span === 'col-span-2' ? 'col-span-1 sm:col-span-2' : item.span}`}
           >
             {item.type === "image" && (
               <>
