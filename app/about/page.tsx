@@ -19,6 +19,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function AboutPage() {
   return (
     <SiteShell>
+      <div className="pointer-events-none absolute inset-x-0 top-16 h-20 bg-gradient-to-b from-leaf-dark/6 to-transparent" />
       <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 rounded-[2.6rem] border border-wheat/25 bg-white/85 p-8 shadow-card-light lg:grid-cols-[1.05fr_0.95fr] sm:p-10">
           <div>
@@ -145,7 +146,7 @@ export default function AboutPage() {
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
             href="/inquiry"
-            className="rounded-full bg-gold-warm px-6 py-2.5 text-sm font-semibold text-leaf-dark transition hover:bg-[#f5c842]"
+            className="rounded-full bg-gold-warm px-6 py-2.5 text-sm font-semibold text-leaf-dark transition hover:-translate-y-0.5 hover:bg-gold-light"
           >
             Start a conversation
           </Link>

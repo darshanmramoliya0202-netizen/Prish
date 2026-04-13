@@ -77,14 +77,14 @@ export default function GlassBox() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-amber-400">The Glass Box</p>
-          <h2 className="mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-saffron">The Glass Box</p>
+          <h2 className="mt-4 max-w-2xl font-serif text-3xl text-parchment sm:text-4xl lg:text-5xl">
             Show, don&apos;t tell. {" "}
             <span className="bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent">
               Technology you can verify.
             </span>
           </h2>
-          <p className="mt-4 max-w-lg text-base leading-7 text-white/80">
+          <p className="mt-4 max-w-lg text-base leading-7 text-parchment/70">
             We trust technology over corporate promises. Here&apos;s exactly how quality is engineered — not marketed — at every step.
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function GlassBox() {
                     <Icon className="h-4 w-4" />
                   </div>
                   <div className="hidden lg:block">
-                    <p className={`text-sm font-medium transition ${isActive ? "text-white" : "text-slate-300"}`}>
+                    <p className={`text-sm font-medium transition ${isActive ? "text-parchment" : "text-parchment/60"}`}>
                       {tech.title}
                     </p>
                   </div>
@@ -138,17 +138,17 @@ export default function GlassBox() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-warm">Technology layer</p>
-                  <h3 className="mt-1 text-xl font-semibold text-white sm:text-2xl">{active.title}</h3>
+                  <h3 className="mt-1 text-xl font-semibold text-parchment sm:text-2xl">{active.title}</h3>
                 </div>
               </div>
 
-              <p className="mt-6 text-base leading-8 text-white/85">{active.description}</p>
+              <p className="mt-6 text-base leading-7 text-parchment/80">{active.description}</p>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-white/10 bg-white/5 p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-warm">Key metric</p>
-                  <p className="mt-2 font-sans text-3xl font-bold text-white">{active.stat}</p>
-                  <p className="mt-1 text-xs text-white/60">{active.statLabel}</p>
+                  <p className="mt-2 font-serif text-3xl text-parchment">{active.stat}</p>
+                  <p className="mt-1 text-xs text-parchment/50">{active.statLabel}</p>
                 </div>
                 <div className="flex items-center rounded-xl border border-gold-warm/20 bg-gold-warm/5 p-5">
                   <p className="text-sm leading-6 text-white/75">

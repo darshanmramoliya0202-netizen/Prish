@@ -89,9 +89,9 @@ export default function BentoGrid() {
     <section ref={ref} className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
       <div className="mb-10">
         <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">At a Glance</p>
-        <h2 className="mt-4 max-w-xl font-sans text-3xl font-bold text-charcoal sm:text-4xl">
+        <h2 className="mt-4 max-w-xl font-serif text-3xl text-ink sm:text-4xl">
           Everything you need to know —{" "}
-          <span className="text-slate-400">in one view.</span>
+          <span className="text-ink-soft">in one view.</span>
         </h2>
       </div>
 
@@ -102,7 +102,7 @@ export default function BentoGrid() {
             initial={{ opacity: 0, y: 20, scale: 0.97 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
             transition={{ duration: 0.45, delay: index * 0.06 }}
-            className={`group relative overflow-hidden rounded-2xl border border-slate-200 transition hover:border-saffron/30 hover:shadow-card-light ${item.span}`}
+            className={`group relative overflow-hidden rounded-2xl border border-wheat/25 transition hover:border-saffron/30 hover:shadow-card-light ${item.span}`}
           >
             {item.type === "image" && (
               <>
@@ -124,19 +124,19 @@ export default function BentoGrid() {
             {item.type === "counter" && (() => {
               const Icon = item.icon!;
               return (
-                <div className="flex h-full flex-col justify-between bg-charcoal p-5">
+                <div className="flex h-full flex-col justify-between bg-leaf-dark p-5">
                   <div className="flex items-center justify-between">
                     <Icon className="h-5 w-5 text-saffron" />
-                    <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                    <span className="rounded-full bg-leaf/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-sprout">
                       Live
                     </span>
                   </div>
                   <div>
                     <div className="flex items-baseline gap-2">
-                      <AnimatedCounter value={item.value!} className="font-sans text-3xl font-bold text-white" />
-                      <span className="text-sm text-slate-300">{item.unit}</span>
+                      <AnimatedCounter value={item.value!} className="font-serif text-3xl text-parchment" />
+                      <span className="text-sm text-parchment/60">{item.unit}</span>
                     </div>
-                    <p className="mt-1 text-xs text-slate-300">{item.sublabel}</p>
+                    <p className="mt-1 text-xs text-parchment/50">{item.sublabel}</p>
                   </div>
                 </div>
               );
@@ -146,12 +146,12 @@ export default function BentoGrid() {
               const Icon = item.icon!;
               return (
                 <div className="flex h-full flex-col justify-between bg-white p-5">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-saffron/10 text-saffron">
                     <Icon className="h-4 w-4" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-ink">{item.title}</p>
-                    <p className="mt-1 text-xs leading-5 text-slate-600">{item.text}</p>
+                    <p className="mt-1 text-xs leading-5 text-ink-soft">{item.text}</p>
                   </div>
                 </div>
               );

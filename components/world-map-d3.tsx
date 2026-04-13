@@ -252,10 +252,10 @@ export default function WorldMapD3() {
   const indiaProj = projRef.current?.([indiaOrigin.lng, indiaOrigin.lat]);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[#0c1524] shadow-[0_24px_80px_rgba(0,0,0,0.5)]" style={{ aspectRatio: "960/500" }}>
+    <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 bg-leaf-dark shadow-[0_24px_80px_rgba(0,0,0,0.5)]" style={{ aspectRatio: "960/500" }}>
 
       {/* Ocean background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(15,30,60,0.8),#0c1524)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(22,46,30,0.6),rgba(26,46,26,0.95))]" />
 
       {/* Subtle grid lines */}
       <svg className="absolute inset-0 h-full w-full opacity-[0.025]" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice">
@@ -387,7 +387,7 @@ export default function WorldMapD3() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "100%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 40 }}
-            className="absolute inset-x-0 bottom-0 z-20 rounded-b-[2rem] border-t border-white/10 bg-[#0c1524]/95 p-5 backdrop-blur-xl sm:p-6"
+            className="absolute inset-x-0 bottom-0 z-20 rounded-b-[2rem] border-t border-white/10 bg-leaf-dark/95 p-5 backdrop-blur-xl sm:p-6"
           >
             <div className="flex items-start justify-between gap-4">
               <div>

@@ -11,7 +11,7 @@ const reelsProducts = [
     specs: ["Curcumin 2–5%", "60–100 mesh", "≤ 10% moisture"],
     image: "/images/products/turmeric-product.png",
     objectPosition: "center 30%",
-    color: "from-amber-500 to-yellow-600",
+    color: "from-turmeric to-gold-warm",
     badge: "Best Seller"
   },
   {
@@ -47,7 +47,7 @@ const reelsProducts = [
     specs: ["≤ 8% moisture", "60–100 mesh", "Bright orange"],
     image: "/images/products/sea-buckthorn-powder.png",
     objectPosition: "center 30%",
-    color: "from-orange-500 to-amber-600",
+    color: "from-saffron to-terracotta",
     badge: "Specialty"
   }
 ];
@@ -185,7 +185,7 @@ export default function ReelsProducts() {
                   <Image src={p.image} alt={p.name} fill sizes="80px" className="object-cover object-center" />
                 </div>
                 <div>
-                  <p className={`font-semibold transition ${i === activeIndex ? "text-white" : "text-slate-300"}`}>
+                  <p className={`font-semibold transition ${i === activeIndex ? "text-parchment" : "text-parchment/70"}`}>
                     {p.name}
                   </p>
                   <p className={`mt-0.5 text-xs transition ${i === activeIndex ? "text-gold-warm" : "text-wheat/60"}`}>

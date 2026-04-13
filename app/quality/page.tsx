@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SiteShell from "@/components/site-shell";
 import SectionHeading from "@/components/section-heading";
+import DarkStrip from "@/components/dark-strip";
+import BrandButton from "@/components/brand-button";
+import { ArrowUpRight } from "lucide-react";
 import { documentationSupport, packagingMatrix, processJourney, qualitySignals } from "@/data/content";
 import { createPageMetadata } from "@/data/seo";
 
@@ -16,6 +19,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function QualityPage() {
   return (
     <SiteShell>
+      <div className="pointer-events-none absolute inset-x-0 top-16 h-20 bg-gradient-to-b from-leaf-dark/6 to-transparent" />
       <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
@@ -100,6 +104,29 @@ export default function QualityPage() {
           <p className="absolute bottom-4 left-6 text-xs font-semibold uppercase tracking-wider text-white">Quality control &amp; testing — Rajkot facility</p>
         </div>
       </section>
+      <DarkStrip variant="cta">
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Ready to verify?</p>
+        <h2 className="mt-4 font-serif text-3xl text-parchment sm:text-4xl">
+          See the quality process in action.
+        </h2>
+        <p className="mt-4 max-w-lg text-base leading-7 text-parchment/70">
+          Request a sample kit and receive batch documentation, spec sheets, and lab reports.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <BrandButton variant="primary" href="/inquiry">
+            Request samples <ArrowUpRight className="h-4 w-4" />
+          </BrandButton>
+          <BrandButton
+            variant="outline"
+            href="https://wa.me/919586616746"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border-parchment/30 text-parchment hover:bg-parchment/10 hover:text-parchment"
+          >
+            WhatsApp us
+          </BrandButton>
+        </div>
+      </DarkStrip>
     </SiteShell>
   );
 }

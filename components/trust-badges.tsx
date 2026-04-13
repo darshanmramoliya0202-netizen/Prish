@@ -50,15 +50,15 @@ const certifications = [
 
 export default function TrustBadges() {
   return (
-    <section className="relative bg-charcoal py-16 sm:py-20">
+    <section className="relative bg-leaf-dark py-16 sm:py-20">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,166,35,0.08),transparent_50%)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-emerald-400">Quality & Compliance</p>
-          <h2 className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Quality &amp; Compliance</p>
+          <h2 className="mx-auto mt-4 max-w-2xl font-serif text-3xl text-parchment sm:text-4xl">
             Certifications global buyers evaluate first.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-slate-300">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-parchment/70">
             Every shipment is backed by documentation discipline, processing control, and destination-aware compliance readiness.
           </p>
         </div>
@@ -77,26 +77,26 @@ export default function TrustBadges() {
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition hover:border-saffron/30 hover:bg-white/[0.08]"
               >
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition group-hover:bg-emerald-500/20">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-leaf/15 text-sprout transition group-hover:bg-leaf/25">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+                  <span className="rounded-full border border-leaf/30 bg-leaf/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-sprout">
                     {cert.status}
                   </span>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-white">{cert.name}</h3>
-                <p className="mt-1 text-xs text-slate-400">{cert.fullName}</p>
-                <p className="mt-3 text-sm leading-6 text-slate-300">{cert.description}</p>
+                <h3 className="mt-4 text-lg font-semibold text-parchment">{cert.name}</h3>
+                <p className="mt-1 text-xs text-parchment/50">{cert.fullName}</p>
+                <p className="mt-3 text-sm leading-6 text-parchment/70">{cert.description}</p>
               </motion.div>
             );
           })}
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-slate-400">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-parchment/50">
           <span>Destination-country specification flexibility</span>
-          <span className="hidden h-1 w-1 rounded-full bg-emerald-500/50 sm:block" />
+          <span className="hidden h-1 w-1 rounded-full bg-sprout/50 sm:block" />
           <span>Customizable certifications based on buyer needs</span>
-          <span className="hidden h-1 w-1 rounded-full bg-emerald-500/50 sm:block" />
+          <span className="hidden h-1 w-1 rounded-full bg-sprout/50 sm:block" />
           <span>Batch-wise consistency documentation</span>
         </div>
       </div>

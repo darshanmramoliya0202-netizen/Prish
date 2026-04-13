@@ -1,0 +1,206 @@
+export type ProductCategory = "spices" | "powders" | "rice";
+export type AccentColor = "terracotta" | "saffron" | "gold";
+
+export type Product = {
+  id: string;
+  name: string;
+  category: ProductCategory;
+  categoryLabel: string;
+  image: string;
+  origin: string;
+  moq: string;
+  grade: string;
+  certifications: string;
+  accentColor: AccentColor;
+  specs: { key: string; value: string }[];
+};
+
+export const products: Product[] = [
+  {
+    id: "turmeric-powder",
+    name: "Turmeric Powder",
+    category: "powders",
+    categoryLabel: "Botanical Powder",
+    image: "/images/products/turmeric-product.png",
+    origin: "Gujarat & Rajasthan",
+    moq: "500 kg",
+    grade: "ASTA Grade",
+    certifications: "FSSAI, HACCP",
+    accentColor: "gold",
+    specs: [
+      { key: "Origin", value: "Gujarat & Rajasthan" },
+      { key: "Curcumin", value: "2–5%" },
+      { key: "Mesh", value: "60–100 mesh" },
+      { key: "Moisture", value: "≤ 10%" },
+      { key: "MOQ", value: "500 kg" },
+      { key: "Certifications", value: "FSSAI, HACCP" },
+    ],
+  },
+  {
+    id: "red-chili-powder",
+    name: "Red Chili Powder",
+    category: "spices",
+    categoryLabel: "Export Spice",
+    image: "/images/products/red-chilli-powder.png",
+    origin: "Gujarat",
+    moq: "500 kg",
+    grade: "Export Grade",
+    certifications: "FSSAI, APEDA",
+    accentColor: "terracotta",
+    specs: [
+      { key: "Origin", value: "Gujarat" },
+      { key: "Heat", value: "15,000–50,000 SHU" },
+      { key: "Mesh", value: "40–80 mesh" },
+      { key: "Color", value: "Bright red" },
+      { key: "MOQ", value: "500 kg" },
+      { key: "Certifications", value: "FSSAI, APEDA" },
+    ],
+  },
+  {
+    id: "jamun-powder",
+    name: "Jamun Powder",
+    category: "powders",
+    categoryLabel: "Botanical Powder",
+    image: "/images/products/jamun-powder.png",
+    origin: "West Bengal & North-East",
+    moq: "250 kg",
+    grade: "Botanical Grade",
+    certifications: "FSSAI, Lab Tested",
+    accentColor: "saffron",
+    specs: [
+      { key: "Origin", value: "West Bengal & North-East" },
+      { key: "Moisture", value: "≤ 8%" },
+      { key: "Mesh", value: "60–100 mesh" },
+      { key: "Shelf Life", value: "12–18 months" },
+      { key: "MOQ", value: "250 kg" },
+      { key: "Certifications", value: "FSSAI, Lab Tested" },
+    ],
+  },
+  {
+    id: "beetroot-powder",
+    name: "Beetroot Powder",
+    category: "powders",
+    categoryLabel: "Botanical Powder",
+    image: "/images/products/beetroot-powder.png",
+    origin: "Maharashtra",
+    moq: "250 kg",
+    grade: "Clean Label",
+    certifications: "FSSAI, HACCP",
+    accentColor: "terracotta",
+    specs: [
+      { key: "Origin", value: "Maharashtra" },
+      { key: "Moisture", value: "≤ 7%" },
+      { key: "Mesh", value: "80–100 mesh" },
+      { key: "Color", value: "Deep crimson-red" },
+      { key: "MOQ", value: "250 kg" },
+      { key: "Certifications", value: "FSSAI, HACCP" },
+    ],
+  },
+  {
+    id: "sea-buckthorn-powder",
+    name: "Sea Buckthorn Powder",
+    category: "powders",
+    categoryLabel: "Botanical Powder",
+    image: "/images/products/sea-buckthorn-powder.png",
+    origin: "Himalayan Region",
+    moq: "100 kg",
+    grade: "Specialty Grade",
+    certifications: "FSSAI, Lab Tested",
+    accentColor: "saffron",
+    specs: [
+      { key: "Origin", value: "Himalayan Region" },
+      { key: "Moisture", value: "≤ 8%" },
+      { key: "Mesh", value: "60–100 mesh" },
+      { key: "Color", value: "Bright orange" },
+      { key: "MOQ", value: "100 kg" },
+      { key: "Certifications", value: "FSSAI, Lab Tested" },
+    ],
+  },
+  {
+    id: "dehydrated-onion-powder",
+    name: "Dehydrated Onion Powder",
+    category: "spices",
+    categoryLabel: "Dehydrated Ingredient",
+    image: "/images/products/dehydrated-onion.jpg",
+    origin: "Rajasthan",
+    moq: "500 kg",
+    grade: "Export Grade",
+    certifications: "FSSAI, APEDA",
+    accentColor: "gold",
+    specs: [
+      { key: "Origin", value: "Rajasthan" },
+      { key: "Moisture", value: "≤ 7%" },
+      { key: "Format", value: "Powder & Granule" },
+      { key: "Packaging", value: "HDPE / Kraft" },
+      { key: "MOQ", value: "500 kg" },
+      { key: "Certifications", value: "FSSAI, APEDA" },
+    ],
+  },
+  {
+    id: "dehydrated-garlic-powder",
+    name: "Dehydrated Garlic Powder",
+    category: "spices",
+    categoryLabel: "Dehydrated Ingredient",
+    image: "/images/products/garlic-rustic.png",
+    origin: "Rajasthan",
+    moq: "500 kg",
+    grade: "Export Grade",
+    certifications: "FSSAI, APEDA",
+    accentColor: "gold",
+    specs: [
+      { key: "Origin", value: "Rajasthan" },
+      { key: "Moisture", value: "≤ 6%" },
+      { key: "Pungency", value: "High aromatic" },
+      { key: "Format", value: "Powder" },
+      { key: "MOQ", value: "500 kg" },
+      { key: "Certifications", value: "FSSAI, APEDA" },
+    ],
+  },
+  {
+    id: "basmati-rice-1121",
+    name: "1121 White Sella Rice",
+    category: "rice",
+    categoryLabel: "Export Staple",
+    image: "/images/products/basmati-rice.jpg",
+    origin: "Punjab / Haryana",
+    moq: "FCL (20 MT)",
+    grade: "Premium Export",
+    certifications: "APEDA, FSSAI",
+    accentColor: "gold",
+    specs: [
+      { key: "Origin", value: "Punjab / Haryana" },
+      { key: "Grain Length", value: "Extra-long (≥ 8.4mm)" },
+      { key: "Moisture", value: "≤ 12.5%" },
+      { key: "Format", value: "FCL & LCL" },
+      { key: "MOQ", value: "FCL (20 MT)" },
+      { key: "Certifications", value: "APEDA, FSSAI" },
+    ],
+  },
+  {
+    id: "basmati-rice-1509",
+    name: "1509 Golden Sella Rice",
+    category: "rice",
+    categoryLabel: "Export Staple",
+    image: "/images/products/basmati-rice.jpg",
+    origin: "Punjab / Haryana",
+    moq: "FCL (20 MT)",
+    grade: "Export Grade",
+    certifications: "APEDA, FSSAI",
+    accentColor: "saffron",
+    specs: [
+      { key: "Origin", value: "Punjab / Haryana" },
+      { key: "Color", value: "Golden (parboiled)" },
+      { key: "Moisture", value: "≤ 12.5%" },
+      { key: "Format", value: "FCL & LCL" },
+      { key: "MOQ", value: "FCL (20 MT)" },
+      { key: "Certifications", value: "APEDA, FSSAI" },
+    ],
+  },
+];
+
+export const productCategoryLabels: Record<string, string> = {
+  all: "All Products",
+  spices: "Whole Spices & Dehydrated",
+  powders: "Botanical Powders",
+  rice: "Basmati Rice",
+};

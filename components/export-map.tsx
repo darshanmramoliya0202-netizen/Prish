@@ -48,8 +48,8 @@ export default function ExportMap() {
   const activeDestination = destinations[activeIndex];
 
   return (
-    <div className="relative h-[22rem] overflow-hidden rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#e2e8f0_100%)] p-4 shadow-card-light sm:h-[28rem] sm:p-6 lg:h-[31rem]">
-      <div className="absolute inset-[0.6rem] overflow-hidden rounded-xl border border-slate-300 sm:inset-[1.1rem] sm:rounded-[1.9rem]">
+    <div className="relative h-[22rem] overflow-hidden rounded-2xl border border-wheat/25 bg-cream p-4 shadow-card-light sm:h-[28rem] sm:p-6 lg:h-[31rem]">
+      <div className="absolute inset-[0.6rem] overflow-hidden rounded-xl border border-wheat/25 sm:inset-[1.1rem] sm:rounded-[1.9rem]">
         <Image
           src={worldTradeBackdrop}
           alt="World trade backdrop highlighting India export movement"
@@ -65,7 +65,7 @@ export default function ExportMap() {
       <div className="absolute left-[29.5%] top-[50%] hidden rounded-full border border-saffron/55 bg-saffron px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-ink sm:block">
         India
       </div>
-      <div className="absolute left-[20%] top-[72%] hidden rounded-[1.6rem] border border-slate-300 bg-white/90 px-5 py-4 text-xs leading-6 text-slate-500 shadow-card-light backdrop-blur-md sm:block">
+      <div className="absolute left-[20%] top-[72%] hidden rounded-2xl border border-wheat/25 bg-white/90 px-5 py-4 text-xs leading-6 text-ink-soft shadow-card-light backdrop-blur-md sm:block">
         <p className="uppercase tracking-[0.28em] text-saffron">Origin node</p>
         <p className="mt-2 text-sm font-semibold text-charcoal">Rajkot, Gujarat</p>
       </div>
@@ -74,11 +74,11 @@ export default function ExportMap() {
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.32, ease: "easeOut" }}
-        className="absolute left-3 top-3 z-20 max-w-[14rem] rounded-xl border border-slate-300 bg-white/92 px-3 py-3 text-xs shadow-card-light backdrop-blur-md sm:left-6 sm:top-6 sm:max-w-[18rem] sm:rounded-[1.6rem] sm:px-5 sm:py-4"
+        className="absolute left-3 top-3 z-20 max-w-[14rem] rounded-xl border border-wheat/25 bg-white/92 px-3 py-3 text-xs shadow-card-light backdrop-blur-md sm:left-6 sm:top-6 sm:max-w-[18rem] sm:rounded-2xl sm:px-5 sm:py-4"
       >
         <p className="text-[11px] uppercase tracking-[0.28em] text-saffron">Market emphasis</p>
         <p className="mt-2 font-serif text-2xl text-charcoal">{activeDestination.name}</p>
-        <p className="mt-3 text-sm leading-7 text-slate-500">{activeDestination.focus}</p>
+        <p className="mt-3 text-sm leading-7 text-ink-soft">{activeDestination.focus}</p>
       </motion.div>
 
       {destinations.map((destination, index) => (
@@ -107,7 +107,7 @@ export default function ExportMap() {
           <div className={`relative rounded-[1.45rem] border px-4 py-3 shadow-[0_18px_40px_rgba(24,50,37,0.16)] backdrop-blur-md transition ${
             activeIndex === index
               ? "border-saffron bg-saffron/10"
-              : "border-slate-300 bg-white/90"
+              : "border-wheat/25 bg-white/90"
           }`}>
             <p className="text-[11px] uppercase tracking-[0.28em] text-saffron">{destination.region}</p>
             <p className="mt-1 text-sm font-semibold text-ink">{destination.name}</p>
@@ -143,7 +143,7 @@ export default function ExportMap() {
             className={`rounded-full border px-4 py-3 text-xs font-semibold uppercase tracking-[0.22em] shadow-[0_10px_24px_rgba(24,50,37,0.12)] transition ${
               activeIndex === index
                 ? "border-saffron bg-charcoal text-white"
-                : "border-slate-300 bg-white/90 text-slate-500 hover:border-saffron hover:text-charcoal"
+                : "border-wheat/25 bg-white/90 text-ink-soft hover:border-saffron hover:text-ink"
             }`}
           >
             {destination.name}

@@ -113,7 +113,7 @@ export default function SoilToScale() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="mt-5 font-sans text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-7xl"
+              className="mt-5 font-serif text-4xl leading-[1.1] text-parchment sm:text-5xl lg:text-7xl"
             >
               Rooted in Heritage.
               <span className="block bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent">
@@ -125,7 +125,7 @@ export default function SoilToScale() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg"
+              className="mt-6 max-w-xl text-base leading-7 text-parchment/70 sm:text-lg"
             >
               As the fastest-growing major economy, India is the new frontier for world trade. 
               At Prish Overseas, we bring the spirit, scale, and uncompromising quality of 

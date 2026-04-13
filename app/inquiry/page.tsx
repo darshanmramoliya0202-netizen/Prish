@@ -3,6 +3,7 @@ import Image from "next/image";
 import InquiryForm from "@/components/inquiry-form";
 import SiteShell from "@/components/site-shell";
 import SectionHeading from "@/components/section-heading";
+import DarkStrip from "@/components/dark-strip";
 import { contact } from "@/data/site";
 import { inquiryTopics } from "@/data/content";
 import { createPageMetadata } from "@/data/seo";
@@ -25,6 +26,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function InquiryPage() {
   return (
     <SiteShell>
+      <div className="pointer-events-none absolute inset-x-0 top-16 h-20 bg-gradient-to-b from-leaf-dark/6 to-transparent" />
       <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-16 lg:px-10 lg:pt-24">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
           <div>
@@ -86,6 +88,15 @@ export default function InquiryPage() {
           <p className="absolute bottom-4 left-6 text-sm font-semibold text-white">Premium Indian-origin ingredients for global B2B buyers</p>
         </div>
       </section>
+
+      <DarkStrip
+        variant="stats"
+        stats={[
+          { value: "24 hrs", label: "Average response time", sublabel: "Mon – Sat" },
+          { value: "100+", label: "Spec profiles supported", sublabel: "Per-buyer customisation" },
+          { value: "15+", label: "Countries served", sublabel: "Active export destinations" },
+        ]}
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-10 lg:pb-24">
         <InquiryForm />

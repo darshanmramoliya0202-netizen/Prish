@@ -18,7 +18,7 @@ export default function WorldMapSVG() {
   const active = destinations[activeIdx];
 
   return (
-    <div className="relative h-[22rem] overflow-hidden rounded-2xl border border-slate-200 bg-[#0f1a2e] p-0 shadow-card-light sm:h-[28rem] lg:h-[31rem]">
+    <div className="relative h-[22rem] overflow-hidden rounded-2xl border border-white/10 bg-leaf-dark p-0 shadow-card-light sm:h-[28rem] lg:h-[31rem]">
       <svg
         viewBox="0 0 700 380"
         fill="none"
@@ -27,7 +27,7 @@ export default function WorldMapSVG() {
         preserveAspectRatio="xMidYMid slice"
       >
         {/* Ocean background */}
-        <rect width="700" height="380" fill="#0f1a2e" />
+        <rect width="700" height="380" fill="#1a2e1a" />
 
         {/* Grid lines for depth */}
         {Array.from({ length: 18 }).map((_, i) => (
@@ -141,16 +141,16 @@ export default function WorldMapSVG() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25 }}
-        className="absolute left-3 top-3 z-20 max-w-[14rem] rounded-xl border border-white/10 bg-[#0f1a2e]/90 px-4 py-3 backdrop-blur-md sm:left-5 sm:top-5 sm:max-w-[17rem] sm:rounded-2xl sm:px-5 sm:py-4"
+        className="absolute left-3 top-3 z-20 max-w-[14rem] rounded-xl border border-white/10 bg-leaf-dark/90 px-4 py-3 backdrop-blur-md sm:left-5 sm:top-5 sm:max-w-[17rem] sm:rounded-2xl sm:px-5 sm:py-4"
       >
-        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-amber-400">{active.region}</p>
-        <p className="mt-1 text-lg font-bold text-white">{active.name}</p>
-        <p className="mt-2 text-xs leading-5 text-white/60">{active.focus}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-saffron">{active.region}</p>
+        <p className="mt-1 text-lg font-semibold text-parchment">{active.name}</p>
+        <p className="mt-2 text-xs leading-5 text-parchment/60">{active.focus}</p>
       </motion.div>
 
       {/* Origin label */}
-      <div className="absolute bottom-14 left-3 z-20 rounded-xl border border-amber-500/30 bg-[#0f1a2e]/90 px-3 py-2 backdrop-blur-md sm:bottom-16 sm:left-5 sm:px-4 sm:py-3">
-        <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-amber-400">Origin Node</p>
+      <div className="absolute bottom-14 left-3 z-20 rounded-xl border border-terracotta/30 bg-leaf-dark/90 px-3 py-2 backdrop-blur-md sm:bottom-16 sm:left-5 sm:px-4 sm:py-3">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-saffron">Origin Node</p>
         <p className="mt-0.5 text-sm font-bold text-white">Rajkot, Gujarat</p>
       </div>
 
@@ -163,8 +163,8 @@ export default function WorldMapSVG() {
             onClick={() => setActiveIdx(i)}
             className={`rounded-full border px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] transition sm:px-4 sm:py-2.5 sm:text-xs ${
               activeIdx === i
-                ? "border-amber-500 bg-amber-500/20 text-amber-300"
-                : "border-white/10 bg-white/5 text-white/50 hover:border-amber-500/30 hover:text-white/80"
+                ? "border-saffron bg-saffron/20 text-gold"
+                : "border-white/10 bg-white/5 text-parchment/50 hover:border-saffron/30 hover:text-parchment/80"
             }`}
           >
             {dest.name}

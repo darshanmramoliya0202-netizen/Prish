@@ -56,7 +56,7 @@ export default function OriginGallery() {
             onHoverStart={() => setActiveIndex(index)}
             onFocusCapture={() => setActiveIndex(index)}
             onClick={() => setActiveIndex(index)}
-            className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 ${
+            className={`group relative overflow-hidden rounded-2xl border border-wheat/25 bg-cream/60 ${
               index === 0 ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""
             }`}
           >
@@ -90,7 +90,7 @@ export default function OriginGallery() {
         ))}
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-card-light sm:p-6">
+      <div className="rounded-2xl border border-wheat/25 bg-white/80 p-4 shadow-card-light sm:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-saffron">Gallery transition layer</p>
@@ -102,8 +102,8 @@ export default function OriginGallery() {
                   onClick={() => setActiveIndex(index)}
                   className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] transition ${
                     activeIndex === index
-                      ? "border-saffron bg-charcoal text-white"
-                      : "border-slate-200 bg-slate-50 text-slate-500 hover:border-saffron hover:text-charcoal"
+                      ? "border-saffron bg-leaf-dark text-parchment"
+                      : "border-wheat/25 bg-cream/60 text-ink-soft hover:border-saffron hover:text-ink"
                   }`}
                 >
                   {String(index + 1).padStart(2, "0")}
@@ -126,11 +126,11 @@ export default function OriginGallery() {
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-saffron">Current scene</p>
               <h3 className="mt-3 font-serif text-3xl text-ink">{activeCard.title}</h3>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500">{activeCard.description}</p>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-ink-soft">{activeCard.description}</p>
             </div>
-            <div className="rounded-[1.6rem] border border-slate-200 bg-slate-50 p-5">
+            <div className="rounded-2xl border border-wheat/25 bg-cream/60 p-5">
               <p className="text-xs uppercase tracking-[0.3em] text-saffron">Why it matters</p>
-              <p className="mt-3 text-sm leading-7 text-slate-500">{activeCard.detail}</p>
+              <p className="mt-3 text-sm leading-7 text-ink-soft">{activeCard.detail}</p>
             </div>
           </motion.div>
         </AnimatePresence>

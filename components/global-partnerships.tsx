@@ -66,7 +66,7 @@ export default function GlobalPartnerships() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-parchment sm:text-4xl"
+            className="mx-auto mt-4 max-w-2xl font-serif text-3xl text-parchment sm:text-4xl"
           >
             Diplomatic Engagement.{" "}
             <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
@@ -112,7 +112,7 @@ export default function GlobalPartnerships() {
                         <Icon className="h-4 w-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className={`font-bold text-white ${partnership.featured ? "text-xl" : "text-base"}`}>{partnership.title}</h3>
+                        <h3 className={`font-semibold text-parchment ${partnership.featured ? "text-xl" : "text-base"}`}>{partnership.title}</h3>
                         <div className="flex items-center gap-3 text-xs text-white/80">
                           <span className="rounded-full bg-saffron/80 px-2 py-0.5 text-[10px] font-semibold text-white">{partnership.year}</span>
                           <span>{partnership.location}</span>

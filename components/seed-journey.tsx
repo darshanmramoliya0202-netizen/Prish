@@ -24,7 +24,7 @@ const journeyStages = [
     image: "/images/products/turmeric-raw.jpg",
     description: "Low-temperature drying preserves active compounds, natural color, and nutritional integrity. Each batch is handled under controlled conditions to ensure consistency from harvest to processing.",
     detail: "280+ annual sunshine days in major growing regions",
-    color: "from-amber-500 to-orange-500"
+    color: "from-saffron to-terracotta"
   },
   {
     id: "processing",
@@ -80,10 +80,10 @@ export default function SeedJourney() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12">
           <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gold-warm">Traceability</p>
-          <h2 className="mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-4 max-w-2xl font-serif text-3xl text-parchment sm:text-4xl">
             Journey of the Seed — farm to formulation.
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">
+          <p className="mt-4 max-w-xl text-base leading-7 text-parchment/70">
             Every ingredient has a traceable lifecycle. Follow the path from local farmer fields through advanced quality checks to your destination port.
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function SeedJourney() {
                       <StageIcon className="h-5 w-5" />
                     </div>
                     <div className="hidden lg:block">
-                      <p className={`text-sm font-semibold transition ${isActive ? "text-white" : "text-slate-300"}`}>
+                      <p className={`text-sm font-semibold transition ${isActive ? "text-parchment" : "text-parchment/60"}`}>
                         {s.title}
                       </p>
                       <p className={`mt-0.5 text-xs transition ${isActive ? "text-gold-warm" : "text-wheat/60"}`}>
@@ -149,7 +149,7 @@ export default function SeedJourney() {
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-warm">
                     Stage {String(activeStage + 1).padStart(2, "0")} of {String(journeyStages.length).padStart(2, "0")}
                   </p>
-                  <h3 className="mt-1 text-2xl font-semibold text-white">{stage.title}</h3>
+                  <h3 className="mt-1 text-2xl font-semibold text-parchment">{stage.title}</h3>
                 </div>
               </div>
 
@@ -158,11 +158,11 @@ export default function SeedJourney() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
 
-              <p className="mt-5 text-base leading-8 text-slate-200">{stage.description}</p>
+              <p className="mt-5 text-base leading-7 text-parchment/80">{stage.description}</p>
 
               <div className="mt-5 rounded-xl border border-white/10 bg-white/5 px-5 py-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-warm">Key metric</p>
-                <p className="mt-2 font-sans text-xl font-bold text-white">{stage.detail}</p>
+                <p className="mt-2 font-serif text-xl text-parchment">{stage.detail}</p>
               </div>
 
               {/* Progress bar */}
@@ -175,7 +175,7 @@ export default function SeedJourney() {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                   />
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-parchment/40">
                   {activeStage + 1}/{journeyStages.length}
                 </p>
               </div>

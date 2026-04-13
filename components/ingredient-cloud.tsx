@@ -34,7 +34,7 @@ export default function IngredientCloud() {
 
   return (
     <div
-      className="relative h-[32rem] overflow-hidden rounded-[2.6rem] border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#e2e8f0_100%)] p-4 shadow-card-light"
+      className="relative h-[32rem] overflow-hidden rounded-[2.6rem] border border-wheat/25 bg-cream p-4 shadow-card-light"
       onMouseMove={handlePointerMove}
       onMouseLeave={resetPointer}
     >
@@ -52,7 +52,7 @@ export default function IngredientCloud() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, x: pointer.x * 18, y: pointer.y * 14, rotate: pointer.x * 2.2 }}
         transition={{ duration: 0.75, ease: "easeOut", type: "spring", stiffness: 100, damping: 18 }}
-        className="absolute inset-x-4 top-4 h-[62%] overflow-hidden rounded-[2.2rem] border border-slate-300"
+        className="absolute inset-x-4 top-4 h-[62%] overflow-hidden rounded-[2.2rem] border border-wheat/25"
       >
         <Image
           src={heroPowders}
@@ -77,7 +77,7 @@ export default function IngredientCloud() {
         initial={{ opacity: 0, x: 18 }}
         animate={{ opacity: 1, x: pointer.x * -14, y: pointer.y * -10, rotate: pointer.x * -1.4 }}
         transition={{ duration: 0.7, delay: 0.1, ease: "easeOut", type: "spring", stiffness: 100, damping: 18 }}
-        className="absolute right-4 top-6 w-[42%] overflow-hidden rounded-[1.9rem] border border-slate-300 bg-white shadow-card-light"
+        className="absolute right-4 top-6 w-[42%] overflow-hidden rounded-[1.9rem] border border-wheat/25 bg-white shadow-card-light"
       >
         <div className="relative h-40">
           <Image
@@ -98,7 +98,7 @@ export default function IngredientCloud() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, x: pointer.x * -10, y: pointer.y * 12, rotate: pointer.x * 1.6 }}
         transition={{ duration: 0.75, delay: 0.16, ease: "easeOut", type: "spring", stiffness: 100, damping: 18 }}
-        className="absolute bottom-4 left-4 w-[48%] overflow-hidden rounded-[1.9rem] border border-slate-300 bg-white shadow-card-light"
+        className="absolute bottom-4 left-4 w-[48%] overflow-hidden rounded-[1.9rem] border border-wheat/25 bg-white shadow-card-light"
       >
         <div className="relative h-36">
           <Image
@@ -112,13 +112,13 @@ export default function IngredientCloud() {
         </div>
         <div className="p-4">
           <p className="text-[11px] uppercase tracking-[0.28em] text-saffron">Commercial breadth</p>
-          <p className="mt-2 text-sm leading-6 text-[#1e293b]">Fruit, botanical, dehydrated and spice categories arranged with more food-category clarity.</p>
+          <p className="mt-2 text-sm leading-6 text-charcoal">Fruit, botanical, dehydrated and spice categories arranged with more food-category clarity.</p>
         </div>
       </motion.div>
       {ingredientNodes.map((node, index) => (
         <motion.div
           key={node.label}
-          className="absolute hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-600 shadow-[0_10px_30px_rgba(25,48,36,0.12)] sm:flex"
+          className="absolute hidden rounded-full border border-wheat/25 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-ink-soft shadow-[0_10px_30px_rgba(25,48,36,0.12)] sm:flex"
           style={{ top: node.top, left: node.left }}
           animate={{ y: [pointer.y * (index % 2 === 0 ? -5 : 5), -8 + pointer.y * 4, pointer.y * (index % 2 === 0 ? -5 : 5)] }}
           transition={{ duration: 3.8 + index * 0.45, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}

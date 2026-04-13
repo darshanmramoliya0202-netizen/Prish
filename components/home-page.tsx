@@ -174,15 +174,15 @@ export default function HomePage() {
       <SeedJourney />
 
       {/* ─── 12. GLOBAL REACH (full-width D3 map) ─── */}
-      <section className="relative overflow-hidden bg-[#0c1524] py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-leaf-dark py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
           <AnimatedSection className="mb-10">
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron">Global Reach</p>
-            <h2 className="mt-4 max-w-2xl font-serif text-3xl text-white sm:text-4xl">
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl text-parchment sm:text-4xl">
               From Gujarat to the world —{" "}
               <span className="bg-gradient-to-r from-gold-warm to-saffron bg-clip-text text-transparent">15+ countries.</span>
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-white/55">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-parchment/55">
               Our export network spans North America, Europe, the GCC, Southeast Asia, and beyond. Click any destination to see product relevance.
             </p>
           </AnimatedSection>
@@ -190,8 +190,8 @@ export default function HomePage() {
             <WorldMapD3 />
           </AnimatedSection>
           <div className="mt-8 rounded-[1.8rem] border border-white/10 bg-white/5 p-5 backdrop-blur-sm sm:p-6">
-            <p className="font-semibold text-white">{contact.company}</p>
-            <p className="mt-1 text-sm text-white/50">{contact.address.join(", ")}</p>
+            <p className="font-semibold text-parchment">{contact.company}</p>
+            <p className="mt-1 text-sm text-parchment/50">{contact.address.join(", ")}</p>
             <div className="mt-3">
               <Link href="/inquiry" className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-warm transition hover:text-saffron">
                 Start an inquiry <ArrowUpRight className="h-3.5 w-3.5" />

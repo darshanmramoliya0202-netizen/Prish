@@ -19,7 +19,7 @@ export default function SiteFooter() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/inquiry"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-warm px-6 py-3 text-sm font-semibold text-leaf-dark transition hover:bg-[#f5c842] hover:shadow-[0_8px_24px_rgba(232,160,32,0.25)]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-warm px-6 py-3 text-sm font-semibold text-leaf-dark transition hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_8px_24px_rgba(212,145,10,0.25)]"
               >
                 Request a sample
                 <ArrowUpRight className="h-4 w-4" />

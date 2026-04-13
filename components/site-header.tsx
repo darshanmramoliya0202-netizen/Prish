@@ -68,7 +68,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/inquiry"
-            className="hidden items-center gap-2 rounded-full border border-gold-warm/30 bg-gold-warm px-5 py-2.5 text-sm font-semibold text-leaf-dark transition hover:-translate-y-0.5 hover:bg-[#f5c842] hover:shadow-[0_10px_26px_rgba(232,160,32,0.28)] lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full border border-gold-warm/30 bg-gold-warm px-5 py-2.5 text-sm font-semibold text-leaf-dark transition hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_10px_26px_rgba(212,145,10,0.28)] lg:inline-flex"
           >
             Request Sample
             <ArrowUpRight className="h-4 w-4" />

@@ -80,7 +80,7 @@ export default function IndiaMomentum() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-gradient-to-br from-charcoal to-soil py-16 sm:py-24">
+    <section ref={ref} className="relative overflow-hidden bg-leaf-dark py-16 sm:py-24">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(20,83,45,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(245,166,35,0.08),transparent_40%)]" />
@@ -100,7 +100,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-semibold uppercase tracking-[0.5em] text-amber-400"
+            className="text-xs font-semibold uppercase tracking-[0.5em] text-saffron"
           >
             India Momentum
           </motion.p>
@@ -108,7 +108,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto mt-4 max-w-2xl font-sans text-3xl font-bold text-white sm:text-4xl"
+            className="mx-auto mt-4 max-w-2xl font-serif text-3xl text-parchment sm:text-4xl"
           >
             India&apos;s Momentum.{" "}
             <span className="bg-gradient-to-r from-saffron to-turmeric bg-clip-text text-transparent">
@@ -119,7 +119,7 @@ export default function IndiaMomentum() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto mt-4 max-w-lg text-base leading-7 text-slate-200"
+            className="mx-auto mt-4 max-w-lg text-base leading-7 text-parchment/70"
           >
             Powering the next phase of global agri-trade — from the world&apos;s fastest-growing economy to your supply chain.
           </motion.p>
@@ -143,15 +143,15 @@ export default function IndiaMomentum() {
                   <MiniSparkline data={stat.sparkline} active={isInView} />
                 </div>
                 <motion.p
-                  className="mt-5 font-sans text-3xl font-bold text-white"
+                  className="mt-5 font-serif text-3xl text-parchment"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.6, delay: 0.3 + index * 0.1, type: "spring" }}
                 >
                   {stat.value}
                 </motion.p>
-                <p className="mt-2 text-sm font-medium text-white/90">{stat.label}</p>
-                <p className="mt-1 text-xs text-amber-300/70">{stat.sublabel}</p>
+                <p className="mt-2 text-sm font-medium text-parchment/90">{stat.label}</p>
+                <p className="mt-1 text-xs text-gold/70">{stat.sublabel}</p>
               </motion.div>
             );
           })}
