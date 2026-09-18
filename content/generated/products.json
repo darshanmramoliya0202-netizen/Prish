@@ -1,0 +1,1522 @@
+[
+  {
+    "id": "jamun_powder",
+    "name": "Jamun (Java Plum) Powder",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": [
+        "200899",
+        "121190"
+      ]
+    },
+    "flags": [
+      "novel_food_check",
+      "organic_expected"
+    ],
+    "buyerTypes": [
+      "nutraceutical",
+      "functional_bev",
+      "flavour_house"
+    ],
+    "synonyms": [
+      "jamun powder",
+      "java plum powder",
+      "syzygium cumini powder",
+      "black plum powder",
+      "jambolan powder",
+      "poudre de jamun",
+      "jamun pulver"
+    ],
+    "variants": null,
+    "crmNote": "Flagship line. Anthocyanin story is strong, but EU novel-food status must be settled before any EU pitch - this is the highest-risk SKU.",
+    "profile": {
+      "source": "docx",
+      "science": "Rich in anthocyanins, ellagic acid, and polyphenols.",
+      "whyIndian": "Higher polyphenol concentration due to tropical climate.",
+      "benefits": "Supports blood sugar management, digestion, and antioxidant activity."
+    },
+    "specs": [
+      {
+        "label": "Appearance",
+        "value": "Fine powder"
+      },
+      {
+        "label": "Color",
+        "value": "Dark purple"
+      },
+      {
+        "label": "Odor & Taste",
+        "value": "Natural, mildly astringent"
+      },
+      {
+        "label": "Mesh Size",
+        "value": "As per requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤5%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Food-grade / customized"
+      },
+      {
+        "label": "Storage",
+        "value": "Cool & dry place"
+      }
+    ],
+    "applications": [
+      "Nutraceuticals",
+      "beverages",
+      "functional foods"
+    ],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "apple_powder",
+    "name": "Apple Powder",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": [
+        "200899"
+      ]
+    },
+    "flags": [],
+    "buyerTypes": [
+      "bakery_ingredient",
+      "baby_food",
+      "functional_bev",
+      "nutraceutical"
+    ],
+    "synonyms": [
+      "apple powder",
+      "apple fruit powder",
+      "apfelpulver",
+      "poudre de pomme",
+      "polvo de manzana"
+    ],
+    "variants": null,
+    "crmNote": "Pectin/fibre angle; baby food is the premium channel.",
+    "profile": {
+      "source": "docx",
+      "science": "Rich in pectin fiber and polyphenols.",
+      "whyIndian": "Balanced sweetness and aroma.",
+      "benefits": "Supports digestion and gut health."
+    },
+    "specs": [
+      {
+        "label": "Appearance",
+        "value": "Fine powder"
+      },
+      {
+        "label": "Color",
+        "value": "Pale yellow"
+      },
+      {
+        "label": "Odor & Taste",
+        "value": "Mildly sweet"
+      },
+      {
+        "label": "Mesh Size",
+        "value": "As per requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤5%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Food-grade / customized"
+      },
+      {
+        "label": "Storage",
+        "value": "Cool & dry place"
+      }
+    ],
+    "applications": [
+      "Bakery",
+      "beverages",
+      "baby food"
+    ],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "pineapple_powder",
+    "name": "Pineapple Powder",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": [
+        "200899"
+      ]
+    },
+    "flags": [],
+    "buyerTypes": [
+      "functional_bev",
+      "bakery_ingredient",
+      "flavour_house"
+    ],
+    "synonyms": [
+      "pineapple powder",
+      "ananas powder",
+      "ananaspulver",
+      "poudre d'ananas"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "raw_mango_powder",
+    "name": "Raw Mango Powder (Amchur)",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": [
+        "080450",
+        "091099"
+      ]
+    },
+    "flags": [],
+    "buyerTypes": [
+      "seasoning_blender",
+      "ethnic_wholesaler",
+      "spice_processor"
+    ],
+    "synonyms": [
+      "amchur",
+      "amchoor",
+      "raw mango powder",
+      "green mango powder",
+      "dried mango powder",
+      "mangopulver"
+    ],
+    "variants": null,
+    "crmNote": "Sold as a souring agent, so it reaches spice blenders rather than the nutraceutical trade - price it and pitch it as a spice.",
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "guava_powder",
+    "name": "Guava Powder",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": [
+        "200899"
+      ]
+    },
+    "flags": [
+      "novel_food_check"
+    ],
+    "buyerTypes": [
+      "nutraceutical",
+      "functional_bev",
+      "baby_food"
+    ],
+    "synonyms": [
+      "guava powder",
+      "psidium guajava powder",
+      "guavenpulver",
+      "poudre de goyave"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "mulberry_powder",
+    "name": "Mulberry Powder",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "novel_food_check",
+      "organic_expected"
+    ],
+    "buyerTypes": [
+      "nutraceutical",
+      "functional_bev"
+    ],
+    "synonyms": [
+      "mulberry powder",
+      "morus powder",
+      "maulbeerpulver",
+      "poudre de mure"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "orange_powder",
+    "name": "Orange Powder",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": [
+        "200899"
+      ]
+    },
+    "flags": [],
+    "buyerTypes": [
+      "functional_bev",
+      "bakery_ingredient",
+      "flavour_house",
+      "cosmetic"
+    ],
+    "synonyms": [
+      "orange powder",
+      "orange peel powder",
+      "orangenpulver",
+      "poudre d'orange"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "lemon_powder",
+    "name": "Lemon Powder",
+    "cluster": "fruit_powders",
+    "crmCluster": "fruit_powders",
+    "hs": {
+      "hs6": "110630",
+      "itcHs": "11063090",
+      "verified": true,
+      "altHs6": [
+        "200899"
+      ]
+    },
+    "flags": [],
+    "buyerTypes": [
+      "functional_bev",
+      "seasoning_blender",
+      "flavour_house",
+      "cosmetic"
+    ],
+    "synonyms": [
+      "lemon powder",
+      "lemon peel powder",
+      "zitronenpulver",
+      "poudre de citron"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "beetroot_powder",
+    "name": "Beetroot Powder",
+    "cluster": "veg_herbal_powders",
+    "crmCluster": "veg_herbal_powders",
+    "hs": {
+      "hs6": "071290",
+      "itcHs": "07129090",
+      "verified": false,
+      "altHs6": [
+        "110620"
+      ]
+    },
+    "flags": [
+      "eto_scrutiny"
+    ],
+    "buyerTypes": [
+      "nutraceutical",
+      "functional_bev",
+      "flavour_house",
+      "bakery_ingredient",
+      "sauce_readymeal"
+    ],
+    "synonyms": [
+      "beetroot powder",
+      "beet powder",
+      "rote bete pulver",
+      "poudre de betterave",
+      "свекольный порошок"
+    ],
+    "variants": null,
+    "crmNote": "Nitrate/sports-nutrition angle is the premium one; natural-colour houses are the volume one.",
+    "profile": {
+      "source": "docx",
+      "science": "High dietary nitrates and betalains.",
+      "whyIndian": "Deep red pigmentation and mineral-rich soil.",
+      "benefits": "Improves circulation, stamina, and heart health."
+    },
+    "specs": [
+      {
+        "label": "Appearance",
+        "value": "Fine powder"
+      },
+      {
+        "label": "Color",
+        "value": "Deep red"
+      },
+      {
+        "label": "Odor & Taste",
+        "value": "Mildly sweet"
+      },
+      {
+        "label": "Mesh Size",
+        "value": "As per requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤5%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Food-grade / customized"
+      },
+      {
+        "label": "Storage",
+        "value": "Cool & dry place"
+      }
+    ],
+    "applications": [
+      "Health drinks",
+      "supplements",
+      "bakery"
+    ],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "spinach_powder",
+    "name": "Spinach Powder",
+    "cluster": "veg_herbal_powders",
+    "crmCluster": "veg_herbal_powders",
+    "hs": {
+      "hs6": "071290",
+      "itcHs": "07129090",
+      "verified": false,
+      "altHs6": []
+    },
+    "flags": [
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "sauce_readymeal",
+      "nutraceutical",
+      "pet_food",
+      "baby_food"
+    ],
+    "synonyms": [
+      "spinach powder",
+      "spinatpulver",
+      "poudre d'epinard"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "tomato_powder",
+    "name": "Tomato Powder",
+    "cluster": "veg_herbal_powders",
+    "crmCluster": "veg_herbal_powders",
+    "hs": {
+      "hs6": "071290",
+      "itcHs": "07129090",
+      "verified": false,
+      "altHs6": [
+        "200290"
+      ]
+    },
+    "flags": [
+      "eto_scrutiny"
+    ],
+    "buyerTypes": [
+      "sauce_readymeal",
+      "seasoning_blender",
+      "snack_manufacturer",
+      "meat_processor"
+    ],
+    "synonyms": [
+      "tomato powder",
+      "tomatenpulver",
+      "poudre de tomate",
+      "томатный порошок"
+    ],
+    "variants": null,
+    "crmNote": "Classification splits: dried and not further prepared sits at 0712.90, but if it is processed from paste it moves to 2002.90. The distinction changes the duty in several markets - settle it per destination.",
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "ginger_powder",
+    "name": "Ginger Powder (Ground)",
+    "cluster": "veg_herbal_powders",
+    "crmCluster": "veg_herbal_powders",
+    "hs": {
+      "hs6": "091012",
+      "itcHs": "09101210",
+      "verified": true,
+      "altHs6": [
+        "091011"
+      ]
+    },
+    "flags": [
+      "cres_required",
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "seasoning_blender",
+      "spice_processor",
+      "nutraceutical",
+      "functional_bev",
+      "ethnic_wholesaler"
+    ],
+    "synonyms": [
+      "ginger powder",
+      "ground ginger",
+      "dry ginger powder",
+      "ingwerpulver",
+      "poudre de gingembre",
+      "имбирный порошок"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "turmeric_powder",
+    "name": "Turmeric Powder",
+    "cluster": "veg_herbal_powders",
+    "crmCluster": "veg_herbal_powders",
+    "hs": {
+      "hs6": "091030",
+      "itcHs": "09103030",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "cres_required",
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "seasoning_blender",
+      "spice_processor",
+      "nutraceutical",
+      "flavour_house",
+      "ethnic_wholesaler"
+    ],
+    "synonyms": [
+      "turmeric powder",
+      "curcuma powder",
+      "haldi powder",
+      "kurkumapulver",
+      "poudre de curcuma",
+      "куркума порошок"
+    ],
+    "variants": null,
+    "crmNote": "Curcumin percentage is the whole negotiation. Lead with it, and be ready for lead-chromate adulteration questions - the trade has a history.",
+    "profile": {
+      "source": "docx",
+      "science": "High curcumin content with anti-inflammatory properties.",
+      "whyIndian": "World’s most potent turmeric origin.",
+      "benefits": "Boosts immunity, joint health, and skin wellness."
+    },
+    "specs": [
+      {
+        "label": "Appearance",
+        "value": "Fine powder"
+      },
+      {
+        "label": "Color",
+        "value": "Golden yellow"
+      },
+      {
+        "label": "Odor & Taste",
+        "value": "Strong, characteristic"
+      },
+      {
+        "label": "Mesh Size",
+        "value": "As per requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤5%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Food-grade / customized"
+      },
+      {
+        "label": "Storage",
+        "value": "Cool & dry place"
+      }
+    ],
+    "applications": [
+      "Food",
+      "nutraceuticals",
+      "pharmaceuticals"
+    ],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "garlic_powder",
+    "name": "Garlic Powder",
+    "cluster": "dehydrates",
+    "crmCluster": "veg_herbal_powders",
+    "hs": {
+      "hs6": "071290",
+      "itcHs": "07129020",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "eto_scrutiny"
+    ],
+    "buyerTypes": [
+      "seasoning_blender",
+      "sauce_readymeal",
+      "snack_manufacturer",
+      "meat_processor"
+    ],
+    "synonyms": [
+      "garlic powder",
+      "dehydrated garlic powder",
+      "knoblauchpulver",
+      "poudre d'ail",
+      "чесночный порошок"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": {
+      "source": "docx",
+      "science": "Stable allicin-derived sulfur compounds.",
+      "whyIndian": "High essential oil content and strong flavor.",
+      "benefits": "Consistent taste and long shelf life."
+    },
+    "specs": [
+      {
+        "label": "Appearance",
+        "value": "Fine powder"
+      },
+      {
+        "label": "Color",
+        "value": "Off-white"
+      },
+      {
+        "label": "Odor & Taste",
+        "value": "Strong, characteristic"
+      },
+      {
+        "label": "Mesh Size",
+        "value": "As per requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤5%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Food-grade / customized"
+      },
+      {
+        "label": "Storage",
+        "value": "Cool & dry place"
+      }
+    ],
+    "applications": [
+      "Food processing",
+      "seasonings"
+    ],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "sea_buckthorn_powder",
+    "name": "Sea Buckthorn Powder",
+    "cluster": "veg_herbal_powders",
+    "crmCluster": "veg_herbal_powders",
+    "hs": {
+      "hs6": "121190",
+      "itcHs": "12119099",
+      "verified": false,
+      "altHs6": [
+        "110630"
+      ]
+    },
+    "flags": [
+      "organic_expected"
+    ],
+    "buyerTypes": [
+      "nutraceutical",
+      "cosmetic",
+      "functional_bev"
+    ],
+    "synonyms": [
+      "sea buckthorn powder",
+      "seabuckthorn powder",
+      "hippophae powder",
+      "leh berry powder",
+      "sanddornpulver",
+      "argousier"
+    ],
+    "variants": null,
+    "crmNote": "Genuinely Indian - Ladakh/Himalayan. Unlike the berry range this origin story holds up, and it is a real differentiator.",
+    "profile": {
+      "source": "docx",
+      "science": "Rich in omega fatty acids, flavonoids, and vitamin C.",
+      "whyIndian": "Himalayan-grown berries with high antioxidant density.",
+      "benefits": "Supports skin, immunity, and anti-aging."
+    },
+    "specs": [
+      {
+        "label": "Appearance",
+        "value": "Fine powder"
+      },
+      {
+        "label": "Color",
+        "value": "Yellow-orange"
+      },
+      {
+        "label": "Odor & Taste",
+        "value": "Slightly tangy"
+      },
+      {
+        "label": "Mesh Size",
+        "value": "As per requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤5%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Food-grade / customized"
+      },
+      {
+        "label": "Storage",
+        "value": "Cool & dry place"
+      }
+    ],
+    "applications": [
+      "Nutraceuticals",
+      "cosmetics",
+      "wellness products"
+    ],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "dehydrated_onion_powder",
+    "name": "Dehydrated Onion Powder",
+    "cluster": "dehydrates",
+    "crmCluster": "dehydrates",
+    "hs": {
+      "hs6": "071220",
+      "itcHs": "07122000",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "eto_scrutiny"
+    ],
+    "buyerTypes": [
+      "seasoning_blender",
+      "snack_manufacturer",
+      "meat_processor",
+      "sauce_readymeal",
+      "horeca"
+    ],
+    "synonyms": [
+      "dehydrated onion powder",
+      "onion powder",
+      "dried onion powder",
+      "zwiebelpulver",
+      "poudre d'oignon",
+      "луковый порошок"
+    ],
+    "variants": null,
+    "crmNote": "Gujarat (Mahuva) is a world-scale origin for this. Strongest credibility-to-volume ratio in the whole portfolio.",
+    "profile": {
+      "source": "docx",
+      "science": "Contains quercetin and sulfur compounds.",
+      "whyIndian": "High pungency and aroma.",
+      "benefits": "Long shelf life and consistent flavor."
+    },
+    "specs": [
+      {
+        "label": "Appearance",
+        "value": "Fine powder"
+      },
+      {
+        "label": "Color",
+        "value": "Creamish white"
+      },
+      {
+        "label": "Odor & Taste",
+        "value": "Strong, pungent"
+      },
+      {
+        "label": "Mesh Size",
+        "value": "As per requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤5%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Food-grade / customized"
+      },
+      {
+        "label": "Storage",
+        "value": "Cool & dry place"
+      }
+    ],
+    "applications": [
+      "Seasonings",
+      "sauces",
+      "snacks"
+    ],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "dehydrated_onion_flakes",
+    "name": "Dehydrated Onion Flakes / Kibbled",
+    "cluster": "dehydrates",
+    "crmCluster": "dehydrates",
+    "hs": {
+      "hs6": "071220",
+      "itcHs": "07122000",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "eto_scrutiny"
+    ],
+    "buyerTypes": [
+      "seasoning_blender",
+      "sauce_readymeal",
+      "horeca",
+      "meat_processor"
+    ],
+    "synonyms": [
+      "dehydrated onion flakes",
+      "onion kibbled",
+      "onion chopped",
+      "dried onion flakes",
+      "zwiebelflocken",
+      "oignon deshydrate"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "dehydrated_garlic_flakes",
+    "name": "Dehydrated Garlic Flakes",
+    "cluster": "dehydrates",
+    "crmCluster": "dehydrates",
+    "hs": {
+      "hs6": "071290",
+      "itcHs": "07129040",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "eto_scrutiny"
+    ],
+    "buyerTypes": [
+      "seasoning_blender",
+      "sauce_readymeal",
+      "horeca",
+      "meat_processor"
+    ],
+    "synonyms": [
+      "dehydrated garlic flakes",
+      "garlic flakes",
+      "dried garlic",
+      "knoblauchflocken",
+      "ail deshydrate"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "fried_onion",
+    "name": "Fried Onion (Crispy Onion)",
+    "cluster": "dehydrates",
+    "crmCluster": "dehydrates",
+    "hs": {
+      "hs6": "200599",
+      "itcHs": "20059900",
+      "verified": false,
+      "altHs6": [
+        "200899"
+      ]
+    },
+    "flags": [],
+    "buyerTypes": [
+      "ethnic_wholesaler",
+      "horeca",
+      "snack_manufacturer",
+      "retail_private_label"
+    ],
+    "synonyms": [
+      "fried onion",
+      "crispy onion",
+      "crispy fried onion",
+      "roasted onion",
+      "rostzwiebeln",
+      "oignons frits"
+    ],
+    "variants": null,
+    "crmNote": "Fried, so it leaves Chapter 7 for Chapter 20 - a different duty line and often a different importer from the dehydrate buyer. Palm-oil content and its origin will be asked about in the EU.",
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "dry_red_chilli",
+    "name": "Dry Red Chilli (Whole)",
+    "cluster": "raw_spices",
+    "crmCluster": "raw_spices",
+    "hs": {
+      "hs6": "090421",
+      "itcHs": "09042110",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "cres_required",
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "spice_processor",
+      "importer_distributor",
+      "ethnic_wholesaler",
+      "seasoning_blender"
+    ],
+    "synonyms": [
+      "dry red chilli",
+      "dried red chilli",
+      "dried capsicum",
+      "red chili whole",
+      "guntur chilli",
+      "byadgi chilli",
+      "teja chilli",
+      "getrocknete chili",
+      "piment sec"
+    ],
+    "variants": null,
+    "crmNote": "Sold on ASTA colour and SHU. Guntur, Byadgi, Teja and Kashmiri are distinct products to a buyer - never quote 'red chilli' unqualified.",
+    "profile": {
+      "source": "docx",
+      "science": "Indian dry red chillies contain capsaicinoids, carotenoids, and natural pigments responsible for pungency, color, and antioxidant activity.",
+      "whyIndian": "India is the world’s largest producer of chillies, offering wide varieties with consistent heat and color.",
+      "benefits": "Natural flavor enhancement, antioxidant properties, strong pungency."
+    },
+    "specs": [
+      {
+        "label": "Form",
+        "value": "Whole dried chilli"
+      },
+      {
+        "label": "Color",
+        "value": "Natural deep red"
+      },
+      {
+        "label": "Pungency",
+        "value": "As per SHU requirement"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤12%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "12–18 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Jute / PP bags / customized"
+      }
+    ],
+    "applications": [
+      "Spice blends",
+      "sauces",
+      "food processing"
+    ],
+    "originRegions": [
+      "Guntur (Andhra Pradesh)",
+      "Warangal (Telangana)",
+      "Byadgi (Karnataka)",
+      "Kashmiri belt"
+    ],
+    "gradeTable": [
+      {
+        "parameter": "ASTA Color",
+        "range": "80 – 180"
+      },
+      {
+        "parameter": "Pungency (SHU)",
+        "range": "10,000 – 90,000"
+      },
+      {
+        "parameter": "Moisture",
+        "range": "≤12%"
+      },
+      {
+        "parameter": "Stems / FM",
+        "range": "≤1%"
+      }
+    ]
+  },
+  {
+    "id": "chilli_powder",
+    "name": "Chilli Powder (Ground)",
+    "cluster": "raw_spices",
+    "crmCluster": "raw_spices",
+    "hs": {
+      "hs6": "090422",
+      "itcHs": "09042211",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "cres_required",
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "seasoning_blender",
+      "spice_processor",
+      "sauce_readymeal",
+      "ethnic_wholesaler"
+    ],
+    "synonyms": [
+      "chilli powder",
+      "chili powder",
+      "red chilli powder",
+      "paprika powder",
+      "chilipulver",
+      "poudre de piment"
+    ],
+    "variants": null,
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "turmeric_finger",
+    "name": "Turmeric Finger / Bulb (Dried)",
+    "cluster": "raw_spices",
+    "crmCluster": "raw_spices",
+    "hs": {
+      "hs6": "091030",
+      "itcHs": "09103020",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "cres_required",
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "spice_processor",
+      "importer_distributor",
+      "nutraceutical"
+    ],
+    "synonyms": [
+      "turmeric finger",
+      "turmeric bulb",
+      "dried turmeric",
+      "whole turmeric",
+      "haldi",
+      "lakadong turmeric",
+      "erode turmeric"
+    ],
+    "variants": null,
+    "crmNote": "Lakadong (Meghalaya) carries a genuine curcumin premium - worth separating from generic Erode/Nizamabad material in a quote.",
+    "profile": {
+      "source": "docx",
+      "science": "Contains curcuminoids, mainly curcumin, with anti-inflammatory and antioxidant properties.",
+      "whyIndian": "India produces turmeric with some of the highest curcumin levels globally.",
+      "benefits": "Supports immunity, joint health, and natural coloring."
+    },
+    "specs": [
+      {
+        "label": "Form",
+        "value": "Whole dried fingers / bulbs"
+      },
+      {
+        "label": "Color",
+        "value": "Bright yellow-orange"
+      },
+      {
+        "label": "Curcumin",
+        "value": "As per grade"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤10%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "Up to 24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "Jute / PP bags / customized"
+      }
+    ],
+    "applications": [
+      "Food",
+      "nutraceuticals",
+      "pharmaceuticals"
+    ],
+    "originRegions": [
+      "Erode (Tamil Nadu)",
+      "Sangli (Maharashtra)",
+      "Nizamabad (Telangana)",
+      "Lakadong (Meghalaya)"
+    ],
+    "gradeTable": [
+      {
+        "parameter": "Curcumin Content",
+        "range": "2% – 8%"
+      },
+      {
+        "parameter": "Color Value",
+        "range": "Bright yellow to orange"
+      },
+      {
+        "parameter": "Moisture",
+        "range": "≤10%"
+      },
+      {
+        "parameter": "Polishing",
+        "range": "Unpolished / Polished"
+      }
+    ]
+  },
+  {
+    "id": "cumin_seed",
+    "name": "Cumin Seeds",
+    "cluster": "raw_spices",
+    "crmCluster": "raw_spices",
+    "hs": {
+      "hs6": "090931",
+      "itcHs": "09093129",
+      "verified": true,
+      "altHs6": [
+        "090932"
+      ]
+    },
+    "flags": [
+      "cres_required",
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "spice_processor",
+      "importer_distributor",
+      "seasoning_blender",
+      "ethnic_wholesaler"
+    ],
+    "synonyms": [
+      "cumin seeds",
+      "jeera",
+      "cumin",
+      "kreuzkummel",
+      "graines de cumin",
+      "семена тмина",
+      "comino"
+    ],
+    "variants": null,
+    "crmNote": "India is the dominant world origin. Purity (99%/99.5%) and volatile oil are the spec points buyers open with.",
+    "profile": {
+      "source": "docx",
+      "science": "Rich in essential oils, primarily cuminaldehyde, responsible for aroma and digestive benefits.",
+      "whyIndian": "Strong aroma, high oil content, uniform seed quality.",
+      "benefits": "Enhances flavor, aids digestion, widely used globally."
+    },
+    "specs": [
+      {
+        "label": "Form",
+        "value": "Whole seeds"
+      },
+      {
+        "label": "Color",
+        "value": "Brownish-green"
+      },
+      {
+        "label": "Purity",
+        "value": "≥99%"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤10%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "18–24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "PP / jute bags / customized"
+      }
+    ],
+    "applications": [
+      "Spice blends",
+      "grinding",
+      "food processing"
+    ],
+    "originRegions": [
+      "Gujarat",
+      "Rajasthan (Jodhpur, Barmer)"
+    ],
+    "gradeTable": [
+      {
+        "parameter": "Purity",
+        "range": "99% – 99.5%"
+      },
+      {
+        "parameter": "Seed Size",
+        "range": "Bold / Medium"
+      },
+      {
+        "parameter": "Volatile Oil",
+        "range": "≥2%"
+      },
+      {
+        "parameter": "Moisture",
+        "range": "≤10%"
+      }
+    ]
+  },
+  {
+    "id": "coriander_seed",
+    "name": "Coriander Seeds",
+    "cluster": "raw_spices",
+    "crmCluster": "raw_spices",
+    "hs": {
+      "hs6": "090921",
+      "itcHs": "09092190",
+      "verified": true,
+      "altHs6": [
+        "090922"
+      ]
+    },
+    "flags": [
+      "cres_required",
+      "eto_scrutiny",
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "spice_processor",
+      "importer_distributor",
+      "seasoning_blender",
+      "ethnic_wholesaler"
+    ],
+    "synonyms": [
+      "coriander seeds",
+      "dhania",
+      "coriander",
+      "koriandersamen",
+      "graines de coriandre",
+      "кориандр",
+      "cilantro seed"
+    ],
+    "variants": null,
+    "crmNote": "09092110 is seed-quality (for sowing) and a different trade - make sure quotes use the 'other' line, 09092190.",
+    "profile": {
+      "source": "docx",
+      "science": "Contains linalool-rich essential oils giving mild citrus aroma.",
+      "whyIndian": "Balanced flavor, excellent grinding performance.",
+      "benefits": "Improves taste profile, digestive support."
+    },
+    "specs": [
+      {
+        "label": "Form",
+        "value": "Whole seeds"
+      },
+      {
+        "label": "Color",
+        "value": "Yellowish-brown"
+      },
+      {
+        "label": "Purity",
+        "value": "≥99%"
+      },
+      {
+        "label": "Moisture",
+        "value": "≤10%"
+      },
+      {
+        "label": "Shelf Life",
+        "value": "18–24 months"
+      },
+      {
+        "label": "Packaging",
+        "value": "PP / jute bags / customized"
+      }
+    ],
+    "applications": [
+      "Spice blends",
+      "curries",
+      "pickles"
+    ],
+    "originRegions": [
+      "Rajasthan",
+      "Madhya Pradesh",
+      "Gujarat"
+    ],
+    "gradeTable": [
+      {
+        "parameter": "Purity",
+        "range": "99% – 99.5%"
+      },
+      {
+        "parameter": "Essential Oil",
+        "range": "≥0.3%"
+      },
+      {
+        "parameter": "Moisture",
+        "range": "≤10%"
+      },
+      {
+        "parameter": "Color",
+        "range": "Yellowish-brown"
+      }
+    ]
+  },
+  {
+    "id": "moringa_leaf_powder",
+    "name": "Moringa Leaf Powder",
+    "cluster": "botanicals",
+    "crmCluster": "botanicals",
+    "hs": {
+      "hs6": "121190",
+      "itcHs": "12119029",
+      "verified": true,
+      "altHs6": [
+        "071290",
+        "130219"
+      ]
+    },
+    "flags": [
+      "organic_expected",
+      "eto_scrutiny"
+    ],
+    "buyerTypes": [
+      "nutraceutical",
+      "functional_bev",
+      "cosmetic",
+      "importer_distributor"
+    ],
+    "synonyms": [
+      "moringa leaf powder",
+      "moringa powder",
+      "moringa oleifera powder",
+      "drumstick leaf powder",
+      "sahjan powder",
+      "moringapulver",
+      "poudre de moringa",
+      "порошок моринги"
+    ],
+    "variants": null,
+    "crmNote": "The most-pitched product in the mail history and absent from both catalogues - it needs adding to the brochure. The codes already quoted in outreach (12119029 / 07129090 / 13021919) check out: 13021919 is the extract, not the leaf powder, so only cite it when actually offering an extract.",
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "basmati_1121",
+    "name": "1121 Basmati Rice",
+    "cluster": "rice",
+    "crmCluster": "rice",
+    "hs": {
+      "hs6": "100630",
+      "itcHs": "10063020",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "rice_importer",
+      "ethnic_wholesaler",
+      "retail_private_label",
+      "horeca"
+    ],
+    "synonyms": [
+      "1121 basmati",
+      "1121 sella",
+      "golden sella",
+      "white sella",
+      "steam basmati",
+      "basmati rice",
+      "riz basmati",
+      "basmatireis"
+    ],
+    "variants": [
+      "White Sella",
+      "Golden Sella",
+      "Steam"
+    ],
+    "crmNote": "Entirely separate buyer universe from every other cluster - rice importers and GCC repackers, not ingredient houses. EU buyers will ask about tricyclazole MRL; that has stopped Indian basmati before.",
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  },
+  {
+    "id": "basmati_1509",
+    "name": "1509 Basmati Rice",
+    "cluster": "rice",
+    "crmCluster": "rice",
+    "hs": {
+      "hs6": "100630",
+      "itcHs": "10063020",
+      "verified": true,
+      "altHs6": []
+    },
+    "flags": [
+      "aflatoxin_mrl"
+    ],
+    "buyerTypes": [
+      "rice_importer",
+      "ethnic_wholesaler",
+      "retail_private_label",
+      "horeca"
+    ],
+    "synonyms": [
+      "1509 basmati",
+      "1509 sella",
+      "1509 golden sella",
+      "1509 steam",
+      "basmati rice"
+    ],
+    "variants": [
+      "White Sella",
+      "Golden Sella",
+      "Steam"
+    ],
+    "crmNote": null,
+    "profile": null,
+    "specs": [],
+    "applications": [],
+    "originRegions": [],
+    "gradeTable": null
+  }
+]

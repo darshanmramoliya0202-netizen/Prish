@@ -1,0 +1,22 @@
+[
+  {
+    "id": "cres_required",
+    "text": "Scheduled spice under the Spices Board Act 1986 - CRES registration is mandatory to export this from India."
+  },
+  {
+    "id": "eto_scrutiny",
+    "text": "Indian origin carries an active EU ethylene-oxide alert history. Expect batch-level ETO-free certificates to be demanded, and elevated border sampling."
+  },
+  {
+    "id": "novel_food_check",
+    "text": "EU novel-food status not confirmed. If it has no significant EU consumption history pre-1997, sale in the EU needs authorisation first. Verify per SKU against the EU Novel Food Catalogue before pitching any EU buyer."
+  },
+  {
+    "id": "organic_expected",
+    "text": "The premium channel for this line is effectively gated behind organic certification. Without it, expect to compete on price only."
+  },
+  {
+    "id": "aflatoxin_mrl",
+    "text": "Routinely tested for aflatoxin and pesticide MRLs at EU/US entry."
+  }
+]

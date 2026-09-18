@@ -1,0 +1,70 @@
+[
+  {
+    "id": "nutraceutical",
+    "label": "Nutraceutical / supplement manufacturer"
+  },
+  {
+    "id": "functional_bev",
+    "label": "Functional beverage & health drink maker"
+  },
+  {
+    "id": "bakery_ingredient",
+    "label": "Bakery & confectionery ingredient house"
+  },
+  {
+    "id": "baby_food",
+    "label": "Infant & baby food manufacturer"
+  },
+  {
+    "id": "flavour_house",
+    "label": "Flavour, colour & ingredient house"
+  },
+  {
+    "id": "seasoning_blender",
+    "label": "Seasoning & spice blender"
+  },
+  {
+    "id": "sauce_readymeal",
+    "label": "Sauce, soup & ready-meal manufacturer"
+  },
+  {
+    "id": "snack_manufacturer",
+    "label": "Snack & extruded food manufacturer"
+  },
+  {
+    "id": "meat_processor",
+    "label": "Meat & convenience food processor"
+  },
+  {
+    "id": "spice_processor",
+    "label": "Spice miller, grinder & repacker"
+  },
+  {
+    "id": "importer_distributor",
+    "label": "Importer / distributor"
+  },
+  {
+    "id": "ethnic_wholesaler",
+    "label": "Ethnic & Asian food wholesaler"
+  },
+  {
+    "id": "retail_private_label",
+    "label": "Retail chain / private label"
+  },
+  {
+    "id": "horeca",
+    "label": "HoReCa & catering wholesaler"
+  },
+  {
+    "id": "pet_food",
+    "label": "Pet food & animal nutrition"
+  },
+  {
+    "id": "cosmetic",
+    "label": "Cosmetic & personal care formulator"
+  },
+  {
+    "id": "rice_importer",
+    "label": "Rice importer & repacker"
+  }
+]

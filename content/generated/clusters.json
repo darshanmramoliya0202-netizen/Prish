@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fruit_powders",
+    "name": "Fruit Powders"
+  },
+  {
+    "id": "veg_herbal_powders",
+    "name": "Vegetable & Herbal Powders"
+  },
+  {
+    "id": "dehydrates",
+    "name": "Dehydrated Onion & Garlic"
+  },
+  {
+    "id": "raw_spices",
+    "name": "Raw Whole Spices"
+  },
+  {
+    "id": "botanicals",
+    "name": "Medicinal & Aromatic Botanicals"
+  },
+  {
+    "id": "rice",
+    "name": "Basmati Rice"
+  }
+]
