@@ -14,7 +14,7 @@ import { cropCalendar } from "../content/crop-calendar";
 import { certificates } from "../content/certificates";
 import { regions } from "../content/regions";
 
-const ROOT = join(__dirname, "..");
+const ROOT = join(import.meta.dirname, "..");
 const errors: string[] = [];
 const warnings: string[] = [];
 
@@ -138,14 +138,11 @@ for (const p of products) {
 }
 
 // ─── 4. assets ─────────────────────────────────────────────────────────────
-const strictAssets = process.env.VERIFY_ASSETS === "strict";
+// pre-rendered by scripts/render-bowls.tsx (runs first in prebuild)
 for (const p of products) {
   const base = join(ROOT, "public", "illustrations", "products", p.illustration.id);
-  const missing = [".webp", ".mask.png"].filter((ext) => !existsSync(base + ext));
-  if (missing.length) {
-    const msg = `${p.id}: missing illustration files ${missing.join(", ")}`;
-    (strictAssets ? errors : warnings).push(msg);
-  }
+  const missing = [".svg", ".png"].filter((ext) => !existsSync(base + ext));
+  if (missing.length) errors.push(`${p.id}: missing pre-rendered illustration ${missing.join(", ")} — run npm run render:bowls`);
 }
 
 // ─── report ────────────────────────────────────────────────────────────────
