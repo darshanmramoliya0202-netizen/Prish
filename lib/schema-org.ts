@@ -19,9 +19,19 @@ export function organizationSchema() {
       addressCountry: site.countryCode,
     },
     contactPoint: [
-      { "@type": "ContactPoint", contactType: "sales", telephone: `+${site.whatsapp}`, availableLanguage: ["en", "hi", "gu"] },
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        telephone: `+${site.whatsapp}`,
+        availableLanguage: ["en", "hi", "gu"],
+      },
     ],
-    areaServed: ["United States", "European Union", "Gulf Cooperation Council", "Southeast Asia"],
+    areaServed: [
+      "United States",
+      "European Union",
+      "Gulf Cooperation Council",
+      "Southeast Asia",
+    ],
     ...(site.social.linkedin ? { sameAs: [site.social.linkedin] } : {}),
   };
 }

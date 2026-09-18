@@ -7,7 +7,10 @@ let transporter: Transporter | null = null;
 export function getTransport(): Transporter {
   if (transporter) return transporter;
   const port = Number(env("SMTP_PORT", "465"));
-  const secure = (process.env.SMTP_SECURE ?? (port === 465 ? "true" : "false")).toLowerCase() === "true";
+  const secure =
+    (
+      process.env.SMTP_SECURE ?? (port === 465 ? "true" : "false")
+    ).toLowerCase() === "true";
   transporter = nodemailer.createTransport({
     host: env("SMTP_HOST"),
     port,

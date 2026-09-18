@@ -29,19 +29,40 @@ function rng(seed: string) {
 const f = (n: number) => n.toFixed(1);
 
 /** Points inside the bowl's inner ellipse (cx 200, cy 232, rx 128, ry 40). */
-function scatter(seed: string, n: number, rx = 128, ry = 40, cx = 200, cy = 232) {
+function scatter(
+  seed: string,
+  n: number,
+  rx = 128,
+  ry = 40,
+  cx = 200,
+  cy = 232,
+) {
   const r = rng(seed);
   const pts: { x: number; y: number; a: number; s: number; t: number }[] = [];
   for (let i = 0; i < n; i++) {
     const u = Math.sqrt(r());
     const th = r() * Math.PI * 2;
-    pts.push({ x: cx + u * rx * Math.cos(th), y: cy + u * ry * Math.sin(th), a: r() * 360, s: 0.7 + r() * 0.6, t: r() });
+    pts.push({
+      x: cx + u * rx * Math.cos(th),
+      y: cy + u * ry * Math.sin(th),
+      a: r() * 360,
+      s: 0.7 + r() * 0.6,
+      t: r(),
+    });
   }
   // draw back-to-front for overlap plausibility
   return pts.sort((p, q) => p.y - q.y);
 }
 
-function Heap({ p, id, texture = true }: { p: Product; id: string; texture?: boolean }) {
+function Heap({
+  p,
+  id,
+  texture = true,
+}: {
+  p: Product;
+  id: string;
+  texture?: boolean;
+}) {
   const { primary, secondary, particles } = p.colourWorld;
   const r = rng(p.slug + "-heap");
   const specks = Array.from({ length: 22 }, () => ({
@@ -57,7 +78,12 @@ function Heap({ p, id, texture = true }: { p: Product; id: string; texture?: boo
           <stop offset="0.5" stopColor={primary} />
           <stop offset="1" stopColor={secondary} />
         </radialGradient>
-        <pattern id={`${id}-tex`} patternUnits="userSpaceOnUse" width="128" height="128">
+        <pattern
+          id={`${id}-tex`}
+          patternUnits="userSpaceOnUse"
+          width="128"
+          height="128"
+        >
           <image href="/images/grain.png" width="128" height="128" />
         </pattern>
         <clipPath id={`${id}-mound-clip`}>
@@ -65,15 +91,50 @@ function Heap({ p, id, texture = true }: { p: Product; id: string; texture?: boo
         </clipPath>
       </defs>
       {/* the mound: a soft, slightly asymmetric peak; its base is hidden by the bowl's front lip */}
-      <path d="M 70 262 C 96 226, 128 182, 176 158 C 196 149, 212 150, 232 160 C 274 182, 302 222, 330 262 Z" fill={`url(#${id}-heap)`} />
-      {texture ? <rect x="60" y="140" width="280" height="130" fill={`url(#${id}-tex)`} opacity="0.22" clipPath={`url(#${id}-mound-clip)`} style={{ mixBlendMode: "multiply" }} /> : null}
+      <path
+        d="M 70 262 C 96 226, 128 182, 176 158 C 196 149, 212 150, 232 160 C 274 182, 302 222, 330 262 Z"
+        fill={`url(#${id}-heap)`}
+      />
+      {texture ? (
+        <rect
+          x="60"
+          y="140"
+          width="280"
+          height="130"
+          fill={`url(#${id}-tex)`}
+          opacity="0.22"
+          clipPath={`url(#${id}-mound-clip)`}
+          style={{ mixBlendMode: "multiply" }}
+        />
+      ) : null}
       {/* soft shadow where the mound meets the powder surface */}
-      <ellipse cx="200" cy="248" rx="112" ry="10" fill={secondary} opacity="0.35" />
+      <ellipse
+        cx="200"
+        cy="248"
+        rx="112"
+        ry="10"
+        fill={secondary}
+        opacity="0.35"
+      />
       {/* highlight ridge */}
-      <path d="M 148 186 C 170 168, 198 160, 226 166" fill="none" stroke={particles[3]} strokeOpacity="0.32" strokeWidth="6" strokeLinecap="round" />
+      <path
+        d="M 148 186 C 170 168, 198 160, 226 166"
+        fill="none"
+        stroke={particles[3]}
+        strokeOpacity="0.32"
+        strokeWidth="6"
+        strokeLinecap="round"
+      />
       {/* dusted specks on the table around the bowl */}
       {specks.map((s, i) => (
-        <circle key={i} cx={f(s.x)} cy={f(s.y)} r={f(s.s)} fill={primary} opacity="0.7" />
+        <circle
+          key={i}
+          cx={f(s.x)}
+          cy={f(s.y)}
+          r={f(s.s)}
+          fill={primary}
+          opacity="0.7"
+        />
       ))}
     </g>
   );
@@ -81,8 +142,21 @@ function Heap({ p, id, texture = true }: { p: Product; id: string; texture?: boo
 
 function Seeds({ p, id }: { p: Product; id: string }) {
   const { primary, secondary, particles } = p.colourWorld;
-  const kind = p.slug.includes("chilli") ? "chilli" : p.slug.includes("turmeric") ? "finger" : p.slug.includes("coriander") ? "round" : "cumin";
-  const n = kind === "chilli" ? 34 : kind === "finger" ? 22 : kind === "round" ? 160 : 190;
+  const kind = p.slug.includes("chilli")
+    ? "chilli"
+    : p.slug.includes("turmeric")
+      ? "finger"
+      : p.slug.includes("coriander")
+        ? "round"
+        : "cumin";
+  const n =
+    kind === "chilli"
+      ? 34
+      : kind === "finger"
+        ? 22
+        : kind === "round"
+          ? 160
+          : 190;
   const pts = scatter(p.slug + "-seeds", n, 122, 36, 200, 226);
   return (
     <g>
@@ -94,10 +168,32 @@ function Seeds({ p, id }: { p: Product; id: string }) {
       </defs>
       <ellipse cx="200" cy="232" rx="130" ry="42" fill={`url(#${id}-bed)`} />
       {pts.map((q, i) => {
-        const fill = q.t < 0.55 ? primary : q.t < 0.85 ? particles[1] : particles[2];
+        const fill =
+          q.t < 0.55 ? primary : q.t < 0.85 ? particles[1] : particles[2];
         if (kind === "cumin")
-          return <ellipse key={i} cx={f(q.x)} cy={f(q.y)} rx={f(5.5 * q.s)} ry={f(1.6 * q.s)} transform={`rotate(${f(q.a)} ${f(q.x)} ${f(q.y)})`} fill={fill} />;
-        if (kind === "round") return <circle key={i} cx={f(q.x)} cy={f(q.y)} r={f(3.4 * q.s)} fill={fill} stroke={secondary} strokeWidth="0.6" />;
+          return (
+            <ellipse
+              key={i}
+              cx={f(q.x)}
+              cy={f(q.y)}
+              rx={f(5.5 * q.s)}
+              ry={f(1.6 * q.s)}
+              transform={`rotate(${f(q.a)} ${f(q.x)} ${f(q.y)})`}
+              fill={fill}
+            />
+          );
+        if (kind === "round")
+          return (
+            <circle
+              key={i}
+              cx={f(q.x)}
+              cy={f(q.y)}
+              r={f(3.4 * q.s)}
+              fill={fill}
+              stroke={secondary}
+              strokeWidth="0.6"
+            />
+          );
         if (kind === "chilli")
           return (
             <path
@@ -167,7 +263,15 @@ function Grains({ p, id }: { p: Product; id: string }) {
       </defs>
       <ellipse cx="200" cy="232" rx="130" ry="42" fill={`url(#${id}-bed)`} />
       {pts.map((q, i) => (
-        <ellipse key={i} cx={f(q.x)} cy={f(q.y)} rx={f(7 * q.s)} ry={f(1.5 * q.s)} transform={`rotate(${f(q.a)} ${f(q.x)} ${f(q.y)})`} fill={q.t < 0.7 ? primary : particles[1]} />
+        <ellipse
+          key={i}
+          cx={f(q.x)}
+          cy={f(q.y)}
+          rx={f(7 * q.s)}
+          ry={f(1.5 * q.s)}
+          transform={`rotate(${f(q.a)} ${f(q.x)} ${f(q.y)})`}
+          fill={q.t < 0.7 ? primary : particles[1]}
+        />
       ))}
     </g>
   );
@@ -190,7 +294,9 @@ function Curls({ p, id }: { p: Product; id: string }) {
           key={i}
           d="M -9 4 c 6 -10 14 -10 18 -2 c 4 8 -2 14 -10 12"
           fill="none"
-          stroke={q.t < 0.6 ? primary : q.t < 0.85 ? particles[1] : particles[2]}
+          stroke={
+            q.t < 0.6 ? primary : q.t < 0.85 ? particles[1] : particles[2]
+          }
           strokeWidth={f(2.6)}
           strokeLinecap="round"
           transform={`translate(${f(q.x)} ${f(q.y)}) rotate(${f(q.a)}) scale(${f(q.s)})`}
@@ -200,7 +306,10 @@ function Curls({ p, id }: { p: Product; id: string }) {
   );
 }
 
-const CONTENT: Record<ProductForm, (props: { p: Product; id: string; texture?: boolean }) => React.JSX.Element> = {
+const CONTENT: Record<
+  ProductForm,
+  (props: { p: Product; id: string; texture?: boolean }) => React.JSX.Element
+> = {
   powder: Heap,
   whole: Seeds,
   flakes: Flakes,
@@ -208,7 +317,20 @@ const CONTENT: Record<ProductForm, (props: { p: Product; id: string; texture?: b
   fried: Curls,
 };
 
-export function ProductBowl({ product, className = "", decorative = true, id: idProp, texture = true, ...rest }: { product: Product; className?: string; decorative?: boolean; id?: string; texture?: boolean } & Record<`data-${string}`, string | boolean | undefined>) {
+export function ProductBowl({
+  product,
+  className = "",
+  decorative = true,
+  id: idProp,
+  texture = true,
+  ...rest
+}: {
+  product: Product;
+  className?: string;
+  decorative?: boolean;
+  id?: string;
+  texture?: boolean;
+} & Record<`data-${string}`, string | boolean | undefined>) {
   const id = idProp ?? `bowl-${product.slug}`;
   const Content = CONTENT[product.form];
   return (
@@ -242,7 +364,10 @@ export function ProductBowl({ product, className = "", decorative = true, id: id
       {/* ground shadow */}
       <ellipse cx="200" cy="300" rx="176" ry="42" fill={`url(#${id}-shadow)`} />
       {/* bowl body */}
-      <path d="M 44 236 C 44 300, 108 328, 200 328 C 292 328, 356 300, 356 236 Z" fill={`url(#${id}-body)`} />
+      <path
+        d="M 44 236 C 44 300, 108 328, 200 328 C 292 328, 356 300, 356 236 Z"
+        fill={`url(#${id}-body)`}
+      />
       {/* rim */}
       <ellipse cx="200" cy="236" rx="156" ry="50" fill={`url(#${id}-rim)`} />
       {/* inner cavity */}
@@ -250,9 +375,18 @@ export function ProductBowl({ product, className = "", decorative = true, id: id
       {/* contents */}
       <Content p={product} id={id} texture={texture} />
       {/* front lip — hides the base of whatever sits in the bowl */}
-      <path d="M 44 236 C 44 262, 108 286, 200 286 C 292 286, 356 262, 356 236 C 356 250, 292 268, 200 268 C 108 268, 44 250, 44 236 Z" fill={`url(#${id}-rim)`} />
+      <path
+        d="M 44 236 C 44 262, 108 286, 200 286 C 292 286, 356 262, 356 236 C 356 250, 292 268, 200 268 C 108 268, 44 250, 44 236 Z"
+        fill={`url(#${id}-rim)`}
+      />
       {/* rim highlight */}
-      <path d="M 60 226 C 96 196, 150 186, 200 186 C 250 186, 304 196, 340 226" fill="none" stroke="#fbf8f1" strokeOpacity="0.14" strokeWidth="3" />
+      <path
+        d="M 60 226 C 96 196, 150 186, 200 186 C 250 186, 304 196, 340 226"
+        fill="none"
+        stroke="#fbf8f1"
+        strokeOpacity="0.14"
+        strokeWidth="3"
+      />
     </svg>
   );
 }

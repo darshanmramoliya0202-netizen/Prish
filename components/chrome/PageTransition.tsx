@@ -26,17 +26,43 @@ export function PageTransition() {
     const el = curtain.current;
     if (!el || !pending.current) return;
     pending.current = false;
-    gsap.to(el, { yPercent: -100, duration: 0.45, ease: "power3.inOut", onComplete: () => gsap.set(el, { yPercent: 100 }) });
+    gsap.to(el, {
+      yPercent: -100,
+      duration: 0.45,
+      ease: "power3.inOut",
+      onComplete: () => gsap.set(el, { yPercent: 100 }),
+    });
   }, [pathname]);
 
   useEffect(() => {
     if (reduced) return;
     const onClick = (e: MouseEvent) => {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>("a[href]");
-      if (!a || a.target === "_blank" || a.hasAttribute("download") || a.dataset.noTransition !== undefined) return;
+      if (
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
+      )
+        return;
+      const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>(
+        "a[href]",
+      );
+      if (
+        !a ||
+        a.target === "_blank" ||
+        a.hasAttribute("download") ||
+        a.dataset.noTransition !== undefined
+      )
+        return;
       // bowls burst instead of curtaining (BurstLinks owns those clicks)
-      if (a.dataset.burst !== undefined && a.querySelector("svg[data-bowl]") && window.__prishPalettes?.[a.dataset.burst]) return;
+      if (
+        a.dataset.burst !== undefined &&
+        a.querySelector("svg[data-bowl]") &&
+        window.__prishPalettes?.[a.dataset.burst]
+      )
+        return;
       const url = new URL(a.href, window.location.href);
       if (url.origin !== window.location.origin) return;
       if (url.pathname === window.location.pathname && url.hash) return; // in-page anchor
@@ -59,7 +85,17 @@ export function PageTransition() {
         ease: "power3.inOut",
         onComplete: () => router.push(url.pathname + url.search),
       });
-      gsap.fromTo(el.querySelector("[data-stamp]"), { scale: 1.3, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.5, ease: "back.out(1.6)", delay: 0.2 });
+      gsap.fromTo(
+        el.querySelector("[data-stamp]"),
+        { scale: 1.3, autoAlpha: 0 },
+        {
+          scale: 1,
+          autoAlpha: 1,
+          duration: 0.5,
+          ease: "back.out(1.6)",
+          delay: 0.2,
+        },
+      );
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
@@ -67,7 +103,12 @@ export function PageTransition() {
 
   if (reduced) return null;
   return (
-    <div ref={curtain} aria-hidden className="pointer-events-none fixed inset-0 z-[80] grid place-items-center bg-forest-950 grain" style={{ transform: "translateY(100%)" }}>
+    <div
+      ref={curtain}
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[80] grid place-items-center bg-forest-950 grain"
+      style={{ transform: "translateY(100%)" }}
+    >
       <Seal decorative data-stamp className="size-24 text-cream-50 opacity-0" />
     </div>
   );

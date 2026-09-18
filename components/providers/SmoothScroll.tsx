@@ -15,7 +15,13 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const { reduced, touch } = useMotionPrefs();
   useEffect(() => {
     if (reduced) return;
-    const l = new Lenis({ autoRaf: false, lerp: 0.1, smoothWheel: true, syncTouch: false, touchMultiplier: touch ? 1.4 : 1 });
+    const l = new Lenis({
+      autoRaf: false,
+      lerp: 0.1,
+      smoothWheel: true,
+      syncTouch: false,
+      touchMultiplier: touch ? 1.4 : 1,
+    });
     lenis = l;
     l.on("scroll", ScrollTrigger.update);
     const raf = (t: number) => l.raf(t * 1000);

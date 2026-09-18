@@ -13,7 +13,10 @@ function downloadsFor(l: StoredLead): { name: string; url: string }[] {
   return l.lead.items
     .map((i) => getProduct(i.productId))
     .filter((p): p is NonNullable<typeof p> => !!p)
-    .map((p) => ({ name: `${p.shortName} spec sheet`, url: `${getSiteUrl()}/downloads/spec-sheets/${p.slug}.pdf` }));
+    .map((p) => ({
+      name: `${p.shortName} spec sheet`,
+      url: `${getSiteUrl()}/downloads/spec-sheets/${p.slug}.pdf`,
+    }));
 }
 
 async function runStep(l: StoredLead, name: StepName): Promise<void> {
@@ -24,10 +27,19 @@ async function runStep(l: StoredLead, name: StepName): Promise<void> {
   try {
     if (name === "notify") {
       const m = notificationEmail(l);
-      await sendMail({ to: env("INQUIRY_TO"), cc: process.env.INQUIRY_CC?.trim() || undefined, replyTo: l.lead.buyer.email, ...m });
+      await sendMail({
+        to: env("INQUIRY_TO"),
+        cc: process.env.INQUIRY_CC?.trim() || undefined,
+        replyTo: l.lead.buyer.email,
+        ...m,
+      });
     } else if (name === "confirm") {
       const m = confirmationEmail(l, downloadsFor(l));
-      await sendMail({ to: l.lead.buyer.email, replyTo: env("INQUIRY_TO"), ...m });
+      await sendMail({
+        to: l.lead.buyer.email,
+        replyTo: env("INQUIRY_TO"),
+        ...m,
+      });
     } else if (name === "crm") {
       if (!crmEnabled()) {
         step.status = "skipped";
@@ -40,7 +52,8 @@ async function runStep(l: StoredLead, name: StepName): Promise<void> {
     step.error = undefined;
   } catch (e) {
     step.status = "failed";
-    step.error = e instanceof Error ? e.message.slice(0, 500) : String(e).slice(0, 500);
+    step.error =
+      e instanceof Error ? e.message.slice(0, 500) : String(e).slice(0, 500);
   }
   step.at = new Date().toISOString();
 }
@@ -54,12 +67,16 @@ export async function processLead(id: string): Promise<StoredLead | null> {
     saveLead(id, l);
   }
   // after the last attempt, tell the team once (best effort)
-  const exhausted = Object.entries(l.steps).filter(([, s]) => s.status === "failed" && s.attempts >= MAX_ATTEMPTS);
+  const exhausted = Object.entries(l.steps).filter(
+    ([, s]) => s.status === "failed" && s.attempts >= MAX_ATTEMPTS,
+  );
   if (exhausted.length && !l.alerted) {
     l.alerted = true;
     saveLead(id, l);
     try {
-      const list = exhausted.map(([k, s]) => `${k}: ${s.error ?? ""}`).join("; ");
+      const list = exhausted
+        .map(([k, s]) => `${k}: ${s.error ?? ""}`)
+        .join("; ");
       await sendMail({
         to: env("INQUIRY_TO"),
         subject: `[Web] Lead ${l.ref} needs manual handling (${exhausted.map(([k]) => k).join(", ")} failed)`,

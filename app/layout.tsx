@@ -16,7 +16,11 @@ const fraunces = Fraunces({
   display: "swap",
   variable: "--font-fraunces",
 });
-const figtree = Figtree({ subsets: ["latin"], display: "swap", variable: "--font-figtree" });
+const figtree = Figtree({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-figtree",
+});
 const rozha = Rozha_One({
   weight: "400",
   subsets: ["devanagari", "latin"],
@@ -54,7 +58,11 @@ export const viewport: Viewport = {
 const umamiSrc = process.env.NEXT_PUBLIC_UMAMI_SRC;
 const umamiId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
@@ -68,7 +76,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Shell>{children}</Shell>
         </Providers>
         {umamiSrc && umamiId ? (
-          <Script src={umamiSrc} data-website-id={umamiId} strategy="afterInteractive" />
+          <Script
+            src={umamiSrc}
+            data-website-id={umamiId}
+            strategy="afterInteractive"
+          />
         ) : null}
       </body>
     </html>

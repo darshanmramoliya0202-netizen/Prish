@@ -68,9 +68,17 @@ function detectGpu(): { webgl: boolean; tier: number } {
     const gl = c.getContext("webgl2") as WebGL2RenderingContext | null;
     if (!gl) return (gpuCache = { webgl: false, tier: 0 });
     const dbg = gl.getExtension("WEBGL_debug_renderer_info");
-    const renderer = dbg ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)) : "";
-    const software = /swiftshader|llvmpipe|softpipe|mesa offscreen|microsoft basic render/i.test(renderer);
-    const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
+    const renderer = dbg
+      ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL))
+      : "";
+    const software =
+      /swiftshader|llvmpipe|softpipe|mesa offscreen|microsoft basic render/i.test(
+        renderer,
+      );
+    const nav = navigator as Navigator & {
+      deviceMemory?: number;
+      connection?: { saveData?: boolean };
+    };
     const cores = nav.hardwareConcurrency ?? 4;
     const mem = nav.deviceMemory ?? 4;
     const saveData = !!nav.connection?.saveData;

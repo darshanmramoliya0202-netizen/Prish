@@ -21,20 +21,52 @@ export const regions: Region[] = [
         "Labelling in English with net weight, lot, origin “Product of India”.",
       ],
       byFlag: {
-        aflatoxin_mrl: "Expect aflatoxin and pesticide residue testing at entry for spices; ask us for the lab panel before shipment.",
-        cres_required: "Spice consignments carry Spices Board registration on the paperwork.",
-        eto_scrutiny: "Ethylene-oxide is not permitted as a treatment on our lots; ETO-free declarations available.",
+        aflatoxin_mrl:
+          "Expect aflatoxin and pesticide residue testing at entry for spices; ask us for the lab panel before shipment.",
+        cres_required:
+          "Spice consignments carry Spices Board registration on the paperwork.",
+        eto_scrutiny:
+          "Ethylene-oxide is not permitted as a treatment on our lots; ETO-free declarations available.",
       },
-      docsUsuallyAsked: ["Commercial invoice", "Packing list", "Certificate of origin", "Phytosanitary certificate (where applicable)", "Certificate of analysis"],
+      docsUsuallyAsked: [
+        "Commercial invoice",
+        "Packing list",
+        "Certificate of origin",
+        "Phytosanitary certificate (where applicable)",
+        "Certificate of analysis",
+      ],
     },
   },
   {
     id: "eu",
     name: "European Union",
     short: "EU",
-    countriesHint: ["Germany", "Netherlands", "France", "Italy", "Spain", "Poland", "Belgium", "United Kingdom"],
+    countriesHint: [
+      "Germany",
+      "Netherlands",
+      "France",
+      "Italy",
+      "Spain",
+      "Poland",
+      "Belgium",
+      "United Kingdom",
+    ],
     timezones: ["Europe/"],
-    languages: ["de", "fr", "nl", "it", "es", "pt", "pl", "sv", "da", "fi", "cs", "el", "en-GB"],
+    languages: [
+      "de",
+      "fr",
+      "nl",
+      "it",
+      "es",
+      "pt",
+      "pl",
+      "sv",
+      "da",
+      "fi",
+      "cs",
+      "el",
+      "en-GB",
+    ],
     incotermDefault: "FOB",
     arcTarget: [10, 50],
     compliance: {
@@ -44,20 +76,45 @@ export const regions: Region[] = [
         "Labelling per Regulation (EU) 1169/2011; allergen statements available per product.",
       ],
       byFlag: {
-        eto_scrutiny: "Ethylene-oxide history for Indian origin means buyers ask for batch-level ETO-free certificates; available on request.",
-        novel_food_check: "Novel-food status for this ingredient should be confirmed against the EU Novel Food Catalogue for your intended use before commercial import.",
-        aflatoxin_mrl: "Aflatoxin and pesticide MRL testing is routine at EU entry for this product.",
-        cres_required: "Spice consignments carry Spices Board registration on the paperwork.",
+        eto_scrutiny:
+          "Ethylene-oxide history for Indian origin means buyers ask for batch-level ETO-free certificates; available on request.",
+        novel_food_check:
+          "Novel-food status for this ingredient should be confirmed against the EU Novel Food Catalogue for your intended use before commercial import.",
+        aflatoxin_mrl:
+          "Aflatoxin and pesticide MRL testing is routine at EU entry for this product.",
+        cres_required:
+          "Spice consignments carry Spices Board registration on the paperwork.",
       },
-      docsUsuallyAsked: ["Commercial invoice", "Packing list", "Certificate of origin", "Health/phytosanitary certificate", "Certificate of analysis", "ETO-free declaration (spices)"],
+      docsUsuallyAsked: [
+        "Commercial invoice",
+        "Packing list",
+        "Certificate of origin",
+        "Health/phytosanitary certificate",
+        "Certificate of analysis",
+        "ETO-free declaration (spices)",
+      ],
     },
   },
   {
     id: "gcc",
     name: "Gulf Cooperation Council",
     short: "GCC",
-    countriesHint: ["United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait", "Oman", "Bahrain"],
-    timezones: ["Asia/Dubai", "Asia/Riyadh", "Asia/Qatar", "Asia/Kuwait", "Asia/Muscat", "Asia/Bahrain"],
+    countriesHint: [
+      "United Arab Emirates",
+      "Saudi Arabia",
+      "Qatar",
+      "Kuwait",
+      "Oman",
+      "Bahrain",
+    ],
+    timezones: [
+      "Asia/Dubai",
+      "Asia/Riyadh",
+      "Asia/Qatar",
+      "Asia/Kuwait",
+      "Asia/Muscat",
+      "Asia/Bahrain",
+    ],
     languages: ["ar"],
     incotermDefault: "CIF",
     arcTarget: [46, 24],
@@ -68,18 +125,40 @@ export const regions: Region[] = [
         "Shelf-life declaration and production date on every pack.",
       ],
       byFlag: {
-        aflatoxin_mrl: "Aflatoxin testing on spices is commonly requested; lab panel available.",
-        cres_required: "Spice consignments carry Spices Board registration on the paperwork.",
+        aflatoxin_mrl:
+          "Aflatoxin testing on spices is commonly requested; lab panel available.",
+        cres_required:
+          "Spice consignments carry Spices Board registration on the paperwork.",
       },
-      docsUsuallyAsked: ["Commercial invoice", "Packing list", "Certificate of origin (attested where required)", "Certificate of analysis", "Health certificate"],
+      docsUsuallyAsked: [
+        "Commercial invoice",
+        "Packing list",
+        "Certificate of origin (attested where required)",
+        "Certificate of analysis",
+        "Health certificate",
+      ],
     },
   },
   {
     id: "sea",
     name: "Southeast Asia",
     short: "SE Asia",
-    countriesHint: ["Singapore", "Malaysia", "Indonesia", "Thailand", "Vietnam", "Philippines"],
-    timezones: ["Asia/Singapore", "Asia/Kuala_Lumpur", "Asia/Jakarta", "Asia/Bangkok", "Asia/Ho_Chi_Minh", "Asia/Manila"],
+    countriesHint: [
+      "Singapore",
+      "Malaysia",
+      "Indonesia",
+      "Thailand",
+      "Vietnam",
+      "Philippines",
+    ],
+    timezones: [
+      "Asia/Singapore",
+      "Asia/Kuala_Lumpur",
+      "Asia/Jakarta",
+      "Asia/Bangkok",
+      "Asia/Ho_Chi_Minh",
+      "Asia/Manila",
+    ],
     languages: ["ms", "id", "th", "vi", "tl"],
     incotermDefault: "CIF",
     arcTarget: [106, 8],
@@ -90,12 +169,22 @@ export const regions: Region[] = [
         "Labelling in the destination language where required for retail; bulk packs in English.",
       ],
       byFlag: {
-        aflatoxin_mrl: "Aflatoxin and pesticide testing may be requested at entry; lab panel available.",
-        cres_required: "Spice consignments carry Spices Board registration on the paperwork.",
+        aflatoxin_mrl:
+          "Aflatoxin and pesticide testing may be requested at entry; lab panel available.",
+        cres_required:
+          "Spice consignments carry Spices Board registration on the paperwork.",
       },
-      docsUsuallyAsked: ["Commercial invoice", "Packing list", "Certificate of origin", "Phytosanitary certificate", "Certificate of analysis"],
+      docsUsuallyAsked: [
+        "Commercial invoice",
+        "Packing list",
+        "Certificate of origin",
+        "Phytosanitary certificate",
+        "Certificate of analysis",
+      ],
     },
   },
 ];
 
-export const regionById = Object.fromEntries(regions.map((r) => [r.id, r])) as Record<Region["id"], Region>;
+export const regionById = Object.fromEntries(
+  regions.map((r) => [r.id, r]),
+) as Record<Region["id"], Region>;

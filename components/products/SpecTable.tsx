@@ -1,7 +1,13 @@
 import type { GradeRow, SpecRow } from "@/content/types";
 import { specsDisclaimer } from "@/content/copy";
 
-export function SpecTable({ specs, caption = "Typical specifications" }: { specs: SpecRow[]; caption?: string }) {
+export function SpecTable({
+  specs,
+  caption = "Typical specifications",
+}: {
+  specs: SpecRow[];
+  caption?: string;
+}) {
   return (
     <figure>
       <table className="w-full border-collapse text-body">
@@ -9,23 +15,36 @@ export function SpecTable({ specs, caption = "Typical specifications" }: { specs
         <tbody>
           {specs.map((s) => (
             <tr key={s.label} className="border-t border-current/15">
-              <th scope="row" className="py-3 pr-4 text-left font-semibold opacity-80 align-top w-[38%]">
+              <th
+                scope="row"
+                className="py-3 pr-4 text-left font-semibold opacity-80 align-top w-[38%]"
+              >
                 {s.label}
               </th>
               <td className="py-3 tabular">
                 {s.value}
-                {s.note ? <span className="block text-small opacity-60">{s.note}</span> : null}
+                {s.note ? (
+                  <span className="block text-small opacity-60">{s.note}</span>
+                ) : null}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <figcaption className="mt-3 text-small opacity-60">{specsDisclaimer}</figcaption>
+      <figcaption className="mt-3 text-small opacity-60">
+        {specsDisclaimer}
+      </figcaption>
     </figure>
   );
 }
 
-export function GradeTable({ rows, title = "Grade ranges" }: { rows: GradeRow[]; title?: string }) {
+export function GradeTable({
+  rows,
+  title = "Grade ranges",
+}: {
+  rows: GradeRow[];
+  title?: string;
+}) {
   return (
     <figure>
       <table className="w-full border-collapse text-body">
@@ -39,7 +58,10 @@ export function GradeTable({ rows, title = "Grade ranges" }: { rows: GradeRow[];
         <tbody>
           {rows.map((r) => (
             <tr key={r.parameter} className="border-t border-current/15">
-              <th scope="row" className="py-3 pr-4 text-left font-semibold opacity-80 w-[38%]">
+              <th
+                scope="row"
+                className="py-3 pr-4 text-left font-semibold opacity-80 w-[38%]"
+              >
                 {r.parameter}
               </th>
               <td className="py-3 tabular">{r.range}</td>
@@ -47,7 +69,9 @@ export function GradeTable({ rows, title = "Grade ranges" }: { rows: GradeRow[];
           ))}
         </tbody>
       </table>
-      <figcaption className="mt-3 text-small opacity-60">Ranges across grades and origins. Quoted per lot.</figcaption>
+      <figcaption className="mt-3 text-small opacity-60">
+        Ranges across grades and origins. Quoted per lot.
+      </figcaption>
     </figure>
   );
 }

@@ -32,20 +32,41 @@ export function BurstLinks() {
     const p = burstBus.pending;
     if (!p) return;
     burstBus.pending = null;
-    const hero = document.querySelector<SVGSVGElement>(`[data-product-hero="${p.slug}"] svg[data-bowl]`);
+    const hero = document.querySelector<SVGSVGElement>(
+      `[data-product-hero="${p.slug}"] svg[data-bowl]`,
+    );
     if (!hero) return;
     const r = hero.getBoundingClientRect();
     gsap.set(hero, { autoAlpha: 0 });
-    burstBus.settle({ slug: p.slug, rect: { x: r.left, y: r.top, w: r.width, h: r.height } });
-    gsap.to(hero, { autoAlpha: 1, duration: 0.5, delay: 0.55, ease: "power2.out" });
+    burstBus.settle({
+      slug: p.slug,
+      rect: { x: r.left, y: r.top, w: r.width, h: r.height },
+    });
+    gsap.to(hero, {
+      autoAlpha: 1,
+      duration: 0.5,
+      delay: 0.55,
+      ease: "power2.out",
+    });
   }, [pathname]);
 
   useEffect(() => {
     if (reduced) return;
     let busy = false;
     const onClick = async (e: MouseEvent) => {
-      if (busy || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>("a[data-burst]");
+      if (
+        busy ||
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
+      )
+        return;
+      const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>(
+        "a[data-burst]",
+      );
       if (!a) return;
       const svg = a.querySelector<SVGSVGElement>("svg[data-bowl]");
       const slug = a.dataset.burst!;
@@ -57,11 +78,22 @@ export function BurstLinks() {
       const r = svg.getBoundingClientRect();
       const samples = await sampleSilhouette(svg, slug, palette);
       burstBus.pending = { slug, palette };
-      burstBus.start({ slug, rect: { x: r.left, y: r.top, w: r.width, h: r.height }, samples, palette });
-      gsap.to(svg, { autoAlpha: 0, scale: 0.9, duration: 0.25, ease: "power2.in" });
+      burstBus.start({
+        slug,
+        rect: { x: r.left, y: r.top, w: r.width, h: r.height },
+        samples,
+        palette,
+      });
+      gsap.to(svg, {
+        autoAlpha: 0,
+        scale: 0.9,
+        duration: 0.25,
+        ease: "power2.in",
+      });
       track("burst", { product: slug });
       const live = document.getElementById("burst-live");
-      if (live) live.textContent = `Opening ${a.textContent?.trim().split("\n")[0] ?? slug}`;
+      if (live)
+        live.textContent = `Opening ${a.textContent?.trim().split("\n")[0] ?? slug}`;
       transitionFlags.skipNext = true;
       const href = a.getAttribute("href")!;
       window.setTimeout(() => {

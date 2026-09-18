@@ -19,7 +19,11 @@ export const buyerSchema = z.object({
   name: z.string().trim().min(2, "Your name, please").max(120),
   company: z.string().trim().min(2, "Company name").max(160),
   email: z.string().trim().email("A work email we can reply to").max(200),
-  phone: z.string().trim().min(6, "Phone or WhatsApp with country code").max(40),
+  phone: z
+    .string()
+    .trim()
+    .min(6, "Phone or WhatsApp with country code")
+    .max(40),
   country: z.string().trim().min(2, "Country").max(80),
   buyerType: z.string().max(40).optional(),
   /** honeypot — must be empty */
@@ -58,7 +62,10 @@ export const quickSubmissionSchema = z.object({
   consent: z.literal(true, { message: "Please agree to the privacy note" }),
 });
 
-export const submissionSchema = z.discriminatedUnion("kind", [kitSubmissionSchema, quickSubmissionSchema]);
+export const submissionSchema = z.discriminatedUnion("kind", [
+  kitSubmissionSchema,
+  quickSubmissionSchema,
+]);
 
 export type KitSubmission = z.infer<typeof kitSubmissionSchema>;
 export type QuickSubmission = z.infer<typeof quickSubmissionSchema>;

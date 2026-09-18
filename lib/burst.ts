@@ -23,13 +23,17 @@ export interface BurstSettle {
 type Handler<T> = (e: T) => void;
 /** debug counters (exposed as window.__prishBurst in the browser) */
 export const stats = { starts: 0, settles: 0, lastSamples: 0, listeners: 0 };
-if (typeof window !== "undefined") (window as unknown as { __prishBurst: typeof stats }).__prishBurst = stats;
+if (typeof window !== "undefined")
+  (window as unknown as { __prishBurst: typeof stats }).__prishBurst = stats;
 const starts = new Set<Handler<BurstStart>>();
 const settles = new Set<Handler<BurstSettle>>();
 
 export const burstBus = {
   onStart: (h: Handler<BurstStart>) => (starts.add(h), () => starts.delete(h)),
-  onSettle: (h: Handler<BurstSettle>) => (settles.add(h), () => settles.delete(h)),
+  onSettle: (h: Handler<BurstSettle>) => (
+    settles.add(h),
+    () => settles.delete(h)
+  ),
   start: (e: BurstStart) => {
     stats.starts += 1;
     stats.lastSamples = e.samples.length;
@@ -42,15 +46,25 @@ export const burstBus = {
   },
   count: () => ({ starts: starts.size, settles: settles.size }),
   /** the burst in flight, so the destination page can settle it */
-  pending: null as null | { slug: string; palette: [string, string, string, string] },
+  pending: null as null | {
+    slug: string;
+    palette: [string, string, string, string];
+  },
 };
 
-if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") (window as unknown as { __prishBurstBus: typeof burstBus }).__prishBurstBus = burstBus;
+if (typeof window !== "undefined" && process.env.NODE_ENV !== "production")
+  (window as unknown as { __prishBurstBus: typeof burstBus }).__prishBurstBus =
+    burstBus;
 
 const cache = new Map<string, Sample[]>();
 
 /** Rasterise an inline SVG bowl and sample its opaque pixels (cached per slug). */
-export async function sampleSilhouette(svg: SVGSVGElement, slug: string, palette: string[], max = 1400): Promise<Sample[]> {
+export async function sampleSilhouette(
+  svg: SVGSVGElement,
+  slug: string,
+  palette: string[],
+  max = 1400,
+): Promise<Sample[]> {
   const hit = cache.get(slug);
   if (hit) return hit;
   const clone = svg.cloneNode(true) as SVGSVGElement;
@@ -82,15 +96,22 @@ export async function sampleSilhouette(svg: SVGSVGElement, slug: string, palette
       for (let x = 0; x < size; x++) {
         const i = (y * size + x) * 4;
         if (data[i + 3]! < 90) continue;
-        const r = data[i]!, g = data[i + 1]!, b = data[i + 2]!;
+        const r = data[i]!,
+          g = data[i + 1]!,
+          b = data[i + 2]!;
         // the bowl itself is near-black — skip it so the *product* bursts, not the stone
         if (r + g + b < 120) continue;
-        all.push({ x: (x + 0.5) / size, y: (y + 0.5) / size, c: nearest(pal, r, g, b) });
+        all.push({
+          x: (x + 0.5) / size,
+          y: (y + 0.5) / size,
+          c: nearest(pal, r, g, b),
+        });
       }
     }
     // thin to `max` evenly
     const step = Math.max(1, all.length / max);
-    for (let i = 0; i < all.length; i += step) samples.push(all[Math.floor(i)]!);
+    for (let i = 0; i < all.length; i += step)
+      samples.push(all[Math.floor(i)]!);
   } catch {
     return fallbackSamples(max);
   } finally {
@@ -106,7 +127,11 @@ function fallbackSamples(n: number): Sample[] {
   for (let i = 0; i < n; i++) {
     const a = Math.random() * Math.PI * 2;
     const r = Math.sqrt(Math.random()) * 0.32;
-    out.push({ x: 0.5 + Math.cos(a) * r, y: 0.5 + Math.sin(a) * r * 0.55, c: Math.floor(Math.random() * 3) });
+    out.push({
+      x: 0.5 + Math.cos(a) * r,
+      y: 0.5 + Math.sin(a) * r * 0.55,
+      c: Math.floor(Math.random() * 3),
+    });
   }
   return out;
 }
@@ -116,7 +141,12 @@ export function hexToRgb(hex: string): [number, number, number] {
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
-function nearest(pal: [number, number, number][], r: number, g: number, b: number): number {
+function nearest(
+  pal: [number, number, number][],
+  r: number,
+  g: number,
+  b: number,
+): number {
   let best = 0;
   let bd = Infinity;
   for (let i = 0; i < pal.length; i++) {

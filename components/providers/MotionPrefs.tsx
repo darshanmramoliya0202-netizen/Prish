@@ -1,7 +1,18 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, type ReactNode } from "react";
-import { useGpu, useLocalValue, useMediaQuery, writeLocal } from "@/lib/browser-store";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  type ReactNode,
+} from "react";
+import {
+  useGpu,
+  useLocalValue,
+  useMediaQuery,
+  writeLocal,
+} from "@/lib/browser-store";
 
 export type MotionPrefs = {
   /** true when the OS or the footer toggle asks for reduced motion */
@@ -38,7 +49,8 @@ export function MotionPrefsProvider({ children }: { children: ReactNode }) {
   const webgl = gpu.webgl;
   const gpuTier = gpu.tier;
   const stored = useLocalValue(STORAGE_KEY);
-  const override = stored === "reduce" ? true : stored === "full" ? false : null;
+  const override =
+    stored === "reduce" ? true : stored === "full" ? false : null;
   const reduced = override ?? osReduced;
 
   useEffect(() => {
@@ -49,7 +61,8 @@ export function MotionPrefsProvider({ children }: { children: ReactNode }) {
     () => ({
       reduced,
       override,
-      setOverride: (v) => writeLocal(STORAGE_KEY, v === null ? null : v ? "reduce" : "full"),
+      setOverride: (v) =>
+        writeLocal(STORAGE_KEY, v === null ? null : v ? "reduce" : "full"),
       touch,
       webgl,
       gpuTier,

@@ -26,9 +26,16 @@ export function MobileBar() {
       >
         <IconWhatsApp /> {cta.price}
       </a>
-      <Link href="/inquiry" className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-forest-900 font-semibold text-cream-50">
+      <Link
+        href="/inquiry"
+        className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-forest-900 font-semibold text-cream-50"
+      >
         <IconKit /> Sample kit
-        {hydrated && count > 0 ? <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-gold-500 px-1.5 text-[11px] font-bold text-ink-900 tabular">{count}</span> : null}
+        {hydrated && count > 0 ? (
+          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-gold-500 px-1.5 text-[11px] font-bold text-ink-900 tabular">
+            {count}
+          </span>
+        ) : null}
       </Link>
     </div>
   );

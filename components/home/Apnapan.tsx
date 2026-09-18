@@ -16,7 +16,11 @@ export function Apnapan() {
           <Portrait person={person} />
         </div>
         <div className="lg:col-span-7" data-reveal>
-          <Accent accent={accents.apnapan} translation={accents.apnapan.translation} size="md" />
+          <Accent
+            accent={accents.apnapan}
+            translation={accents.apnapan.translation}
+            size="md"
+          />
           <h2 className="mt-8 text-display-lg">{home.apnapanTitle}</h2>
           <div className="mt-6 space-y-4 text-lead text-ink-700">
             {person.note.map((line) => (

@@ -4,7 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Lockup } from "@/components/brand/Lockup";
-import { IconClose, IconKit, IconMenu, IconWhatsApp } from "@/components/ui/icons";
+import {
+  IconClose,
+  IconKit,
+  IconMenu,
+  IconWhatsApp,
+} from "@/components/ui/icons";
 import { useHydrated } from "@/lib/browser-store";
 import { useKitCount } from "@/stores/sample-kit";
 import { waLink } from "@/lib/whatsapp";
@@ -35,7 +40,9 @@ export function Header() {
       setScrolled(window.scrollY > 24);
       // which themed section is under the header line? (skip the header itself)
       const stack = document.elementsFromPoint(24, 40);
-      const el = stack.find((n) => !n.closest("header") && !n.closest("#mobile-menu"));
+      const el = stack.find(
+        (n) => !n.closest("header") && !n.closest("#mobile-menu"),
+      );
       const sec = el?.closest<HTMLElement>("[data-theme]");
       const t = sec?.dataset.theme;
       setTheme(t === "light" ? "light" : "dark");
@@ -74,9 +81,13 @@ export function Header() {
         <div className="container-x flex h-16 items-center justify-between gap-6 md:h-20">
           <Lockup sealClassName="size-10 md:size-11" />
 
-          <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
+          <nav
+            aria-label="Primary"
+            className="hidden lg:flex items-center gap-8"
+          >
             {NAV.map((n) => {
-              const active = pathname === n.href || pathname.startsWith(`${n.href}/`);
+              const active =
+                pathname === n.href || pathname.startsWith(`${n.href}/`);
               return (
                 <Link
                   key={n.href}
@@ -109,7 +120,9 @@ export function Header() {
               <IconKit width={18} height={18} />
               <span className="hidden md:inline">Sample kit</span>
               {hydrated && count > 0 ? (
-                <span className="ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-gold-500 px-1.5 text-[11px] font-bold text-ink-900 tabular">{count}</span>
+                <span className="ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-gold-500 px-1.5 text-[11px] font-bold text-ink-900 tabular">
+                  {count}
+                </span>
               ) : null}
             </Link>
             <button
@@ -131,15 +144,28 @@ export function Header() {
         id="mobile-menu"
         data-theme="dark"
         className={`fixed inset-0 z-40 bg-forest-950 text-cream-50 transition-opacity duration-3 lg:hidden ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}
-        aria-hidden={!open}
+        inert={!open}
       >
         <div className="container-x flex h-full flex-col justify-center gap-2 pt-20">
           {NAV.map((n, i) => (
-            <Link key={n.href} href={n.href} onClick={() => setOpen(false)} className="text-display-md py-2 font-display" style={{ transitionDelay: `${i * 40}ms` }}>
+            <Link
+              key={n.href}
+              href={n.href}
+              onClick={() => setOpen(false)}
+              className="text-display-md py-2 font-display"
+              style={{ transitionDelay: `${i * 40}ms` }}
+            >
               {n.label}
             </Link>
           ))}
-          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-3 text-lead" data-umami-event="whatsapp_click" data-umami-event-placement="mobile_menu">
+          <a
+            href={waLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-3 text-lead"
+            data-umami-event="whatsapp_click"
+            data-umami-event-placement="mobile_menu"
+          >
             <IconWhatsApp /> {cta.priceWhatsApp}
           </a>
         </div>

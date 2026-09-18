@@ -10,7 +10,9 @@ export function isRegionId(v: unknown): v is RegionId {
 
 export function readRegionCookie(): RegionId | null {
   if (typeof document === "undefined") return null;
-  const m = document.cookie.match(new RegExp(`(?:^|; )${REGION_COOKIE}=([^;]*)`));
+  const m = document.cookie.match(
+    new RegExp(`(?:^|; )${REGION_COOKIE}=([^;]*)`),
+  );
   const v = m?.[1];
   return isRegionId(v) ? v : null;
 }
@@ -27,16 +29,27 @@ export function writeRegionCookie(id: RegionId | null): void {
 /** Best-effort, client-only guess: languages first, then timezone. Never persisted. */
 export function guessRegion(): RegionId | null {
   if (typeof navigator === "undefined") return null;
-  const langs = (navigator.languages ?? [navigator.language]).map((l) => l.toLowerCase());
+  const langs = (navigator.languages ?? [navigator.language]).map((l) =>
+    l.toLowerCase(),
+  );
   for (const l of langs) {
     for (const r of regions) {
-      if (r.languages.some((code) => l === code.toLowerCase() || l.startsWith(`${code.toLowerCase()}-`))) return r.id;
+      if (
+        r.languages.some(
+          (code) =>
+            l === code.toLowerCase() || l.startsWith(`${code.toLowerCase()}-`),
+        )
+      )
+        return r.id;
     }
   }
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
     for (const r of regions) {
-      if (r.timezones.some((t) => (t.endsWith("/") ? tz.startsWith(t) : tz === t))) return r.id;
+      if (
+        r.timezones.some((t) => (t.endsWith("/") ? tz.startsWith(t) : tz === t))
+      )
+        return r.id;
     }
   } catch {
     /* no Intl */

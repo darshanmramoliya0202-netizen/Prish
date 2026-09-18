@@ -4,7 +4,12 @@ type Bucket = { tokens: number; updated: number };
 const buckets10m = new Map<string, Bucket>();
 const bucketsDay = new Map<string, Bucket>();
 
-function take(map: Map<string, Bucket>, key: string, capacity: number, refillMs: number): boolean {
+function take(
+  map: Map<string, Bucket>,
+  key: string,
+  capacity: number,
+  refillMs: number,
+): boolean {
   const now = Date.now();
   const b = map.get(key) ?? { tokens: capacity, updated: now };
   const refill = ((now - b.updated) / refillMs) * capacity;
@@ -26,5 +31,8 @@ function take(map: Map<string, Bucket>, key: string, capacity: number, refillMs:
 export function allow(ip: string): boolean {
   const per10 = Number(process.env.RATE_LIMIT_PER_10MIN ?? 5);
   const perDay = Number(process.env.RATE_LIMIT_PER_DAY ?? 20);
-  return take(buckets10m, ip, per10, 10 * 60 * 1000) && take(bucketsDay, ip, perDay, 24 * 60 * 60 * 1000);
+  return (
+    take(buckets10m, ip, per10, 10 * 60 * 1000) &&
+    take(bucketsDay, ip, perDay, 24 * 60 * 60 * 1000)
+  );
 }

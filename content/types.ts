@@ -134,13 +134,7 @@ export interface Region {
 }
 
 export type CertificateId =
-  | "fssai"
-  | "iec"
-  | "gst"
-  | "spices_board"
-  | "iso"
-  | "haccp"
-  | "apeda_rcmc";
+  "fssai" | "iec" | "gst" | "spices_board" | "iso" | "haccp" | "apeda_rcmc";
 
 export interface Certificate {
   id: CertificateId;

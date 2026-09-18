@@ -11,7 +11,9 @@ export function getSiteUrl(): string {
 
 export function resolveUrl(path = "/"): string {
   const base = getSiteUrl();
-  return path.startsWith("http") ? path : `${base}${path.startsWith("/") ? path : `/${path}`}`;
+  return path.startsWith("http")
+    ? path
+    : `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 export const defaultTitle = `${site.company} | Indian-origin ingredients for global formulations`;
@@ -43,7 +45,12 @@ export function createPageMetadata(meta: PageMeta): Metadata {
       type: meta.type ?? "website",
       images: [{ url: image, width: 1200, height: 630, alt: meta.title }],
     },
-    twitter: { card: "summary_large_image", title: meta.title, description: meta.description, images: [image] },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.description,
+      images: [image],
+    },
     robots: meta.noIndex ? { index: false, follow: false } : undefined,
   };
 }

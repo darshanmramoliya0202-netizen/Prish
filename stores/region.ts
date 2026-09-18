@@ -2,7 +2,12 @@
 
 import { create } from "zustand";
 import type { RegionId } from "@/content/types";
-import { guessRegion, readRegionCookie, writeRegionCookie, isRegionId } from "@/lib/region";
+import {
+  guessRegion,
+  readRegionCookie,
+  writeRegionCookie,
+  isRegionId,
+} from "@/lib/region";
 import { track } from "@/lib/analytics";
 
 type RegionState = {

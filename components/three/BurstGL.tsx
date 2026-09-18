@@ -5,7 +5,12 @@ import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { gsap } from "@/lib/gsap";
-import { burstBus, hexToRgb, type BurstSettle, type BurstStart } from "@/lib/burst";
+import {
+  burstBus,
+  hexToRgb,
+  type BurstSettle,
+  type BurstStart,
+} from "@/lib/burst";
 
 const CAPACITY = 8000;
 
@@ -58,12 +63,30 @@ function BurstPoints() {
   const { invalidate, size } = useThree();
   const geom = useMemo(() => {
     const g = new THREE.BufferGeometry();
-    g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(CAPACITY * 3), 3));
-    g.setAttribute("aStart", new THREE.BufferAttribute(new Float32Array(CAPACITY * 2), 2));
-    g.setAttribute("aDir", new THREE.BufferAttribute(new Float32Array(CAPACITY * 2), 2));
-    g.setAttribute("aColor", new THREE.BufferAttribute(new Float32Array(CAPACITY * 3), 3));
-    g.setAttribute("aSize", new THREE.BufferAttribute(new Float32Array(CAPACITY), 1));
-    g.setAttribute("aSeed", new THREE.BufferAttribute(new Float32Array(CAPACITY), 1));
+    g.setAttribute(
+      "position",
+      new THREE.BufferAttribute(new Float32Array(CAPACITY * 3), 3),
+    );
+    g.setAttribute(
+      "aStart",
+      new THREE.BufferAttribute(new Float32Array(CAPACITY * 2), 2),
+    );
+    g.setAttribute(
+      "aDir",
+      new THREE.BufferAttribute(new Float32Array(CAPACITY * 2), 2),
+    );
+    g.setAttribute(
+      "aColor",
+      new THREE.BufferAttribute(new Float32Array(CAPACITY * 3), 3),
+    );
+    g.setAttribute(
+      "aSize",
+      new THREE.BufferAttribute(new Float32Array(CAPACITY), 1),
+    );
+    g.setAttribute(
+      "aSeed",
+      new THREE.BufferAttribute(new Float32Array(CAPACITY), 1),
+    );
     g.setDrawRange(0, 0);
     return g;
   }, []);
@@ -87,7 +110,10 @@ function BurstPoints() {
       }),
     [],
   );
-  const state = useRef<{ phase: "idle" | "explode" | "hold" | "settle"; tl: gsap.core.Tween | null }>({ phase: "idle", tl: null });
+  const state = useRef<{
+    phase: "idle" | "explode" | "hold" | "settle";
+    tl: gsap.core.Tween | null;
+  }>({ phase: "idle", tl: null });
   const sizeRef = useRef(size);
   useEffect(() => {
     sizeRef.current = size;
@@ -95,7 +121,10 @@ function BurstPoints() {
 
   useEffect(() => {
     mat.uniforms.uDpr!.value = Math.min(window.devicePixelRatio || 1, 1.5);
-    const toWorld = (x: number, y: number): [number, number] => [x - sizeRef.current.width / 2, sizeRef.current.height / 2 - y];
+    const toWorld = (x: number, y: number): [number, number] => [
+      x - sizeRef.current.width / 2,
+      sizeRef.current.height / 2 - y,
+    ];
 
     const offStart = burstBus.onStart((e: BurstStart) => {
       const pal = e.palette.map(hexToRgb);
@@ -107,7 +136,8 @@ function BurstPoints() {
       const aSeed = geom.getAttribute("aSeed") as THREE.BufferAttribute;
       const cx = e.rect.x + e.rect.w / 2;
       const cy = e.rect.y + e.rect.h * 0.55;
-      const reach = Math.max(sizeRef.current.width, sizeRef.current.height) * 0.35;
+      const reach =
+        Math.max(sizeRef.current.width, sizeRef.current.height) * 0.35;
       for (let i = 0; i < n; i++) {
         const s = e.samples[i]!;
         const px = e.rect.x + s.x * e.rect.w;
@@ -116,13 +146,22 @@ function BurstPoints() {
         const ang = Math.atan2(py - cy, px - cx) + (Math.random() - 0.5) * 0.9;
         const dist = 140 + Math.random() * reach;
         aStart.setXY(i, wx, wy);
-        aDir.setXY(i, Math.cos(ang) * dist, -(Math.sin(ang) * dist - 120 * Math.random()));
+        aDir.setXY(
+          i,
+          Math.cos(ang) * dist,
+          -(Math.sin(ang) * dist - 120 * Math.random()),
+        );
         const c = pal[s.c] ?? pal[0]!;
         aColor.setXYZ(i, c[0] / 255, c[1] / 255, c[2] / 255);
         aSize.setX(i, 2.2 + Math.random() * 3.2);
         aSeed.setX(i, Math.random());
       }
-      aStart.needsUpdate = aDir.needsUpdate = aColor.needsUpdate = aSize.needsUpdate = aSeed.needsUpdate = true;
+      aStart.needsUpdate =
+        aDir.needsUpdate =
+        aColor.needsUpdate =
+        aSize.needsUpdate =
+        aSeed.needsUpdate =
+          true;
       geom.setDrawRange(0, n);
       mat.uniforms.uSettle!.value = 0;
       mat.uniforms.uProgress!.value = 0;
@@ -153,7 +192,10 @@ function BurstPoints() {
 
     const offSettle = burstBus.onSettle((e: BurstSettle) => {
       if (state.current.phase === "idle") return;
-      const [tx, ty] = toWorld(e.rect.x + e.rect.w / 2, e.rect.y + e.rect.h * 0.5);
+      const [tx, ty] = toWorld(
+        e.rect.x + e.rect.w / 2,
+        e.rect.y + e.rect.h * 0.5,
+      );
       mat.uniforms.uTarget!.value.set(tx, ty);
       mat.uniforms.uTargetSize!.value.set(e.rect.w, e.rect.h);
       state.current.tl?.kill();
@@ -185,7 +227,19 @@ function BurstPoints() {
 export default function BurstGL() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[75]">
-      <Canvas orthographic frameloop="demand" dpr={[1, 1.5]} gl={{ antialias: false, alpha: true, powerPreference: "high-performance", premultipliedAlpha: false }} camera={{ position: [0, 0, 10], zoom: 1, near: 0.1, far: 100 }} style={{ background: "transparent" }}>
+      <Canvas
+        orthographic
+        frameloop="demand"
+        dpr={[1, 1.5]}
+        gl={{
+          antialias: false,
+          alpha: true,
+          powerPreference: "high-performance",
+          premultipliedAlpha: false,
+        }}
+        camera={{ position: [0, 0, 10], zoom: 1, near: 0.1, far: 100 }}
+        style={{ background: "transparent" }}
+      >
         <BurstPoints />
       </Canvas>
     </div>

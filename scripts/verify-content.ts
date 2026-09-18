@@ -19,26 +19,34 @@ const errors: string[] = [];
 const warnings: string[] = [];
 
 // ─── 1. counts & references ────────────────────────────────────────────────
-if (products.length !== 27) errors.push(`expected 27 products, got ${products.length}`);
+if (products.length !== 27)
+  errors.push(`expected 27 products, got ${products.length}`);
 
 const slugs = new Set<string>();
 for (const p of products) {
   if (slugs.has(p.slug)) errors.push(`duplicate slug ${p.slug}`);
   slugs.add(p.slug);
-  if (!clusters.some((c) => c.id === p.cluster)) errors.push(`${p.id}: unknown cluster ${p.cluster}`);
-  if (!cropCalendar.some((r) => r.productId === p.id)) errors.push(`${p.id}: no crop-calendar row`);
+  if (!clusters.some((c) => c.id === p.cluster))
+    errors.push(`${p.id}: unknown cluster ${p.cluster}`);
+  if (!cropCalendar.some((r) => r.productId === p.id))
+    errors.push(`${p.id}: no crop-calendar row`);
 }
 for (const c of clusters) {
-  if (!products.some((p) => p.id === c.heroProductId)) errors.push(`cluster ${c.id}: heroProductId ${c.heroProductId} not found`);
-  if (!products.some((p) => p.cluster === c.id)) errors.push(`cluster ${c.id}: has no products`);
+  if (!products.some((p) => p.id === c.heroProductId))
+    errors.push(`cluster ${c.id}: heroProductId ${c.heroProductId} not found`);
+  if (!products.some((p) => p.cluster === c.id))
+    errors.push(`cluster ${c.id}: has no products`);
 }
 for (const r of cropCalendar) {
-  if (!products.some((p) => p.id === r.productId)) errors.push(`crop-calendar: unknown product ${r.productId}`);
+  if (!products.some((p) => p.id === r.productId))
+    errors.push(`crop-calendar: unknown product ${r.productId}`);
 }
 for (const c of certificates) {
-  if (c.number !== null && /x{3,}/i.test(c.number)) errors.push(`certificate ${c.id}: placeholder number`);
+  if (c.number !== null && /x{3,}/i.test(c.number))
+    errors.push(`certificate ${c.id}: placeholder number`);
 }
-if (regions.length !== 4) errors.push(`expected 4 regions, got ${regions.length}`);
+if (regions.length !== 4)
+  errors.push(`expected 4 regions, got ${regions.length}`);
 
 // ─── 2. colour-world contrast (WCAG AA 4.5:1 for body text) ────────────────
 function luminance(hex: string): number {
@@ -50,7 +58,10 @@ function luminance(hex: string): number {
   return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
 }
 function contrast(a: string, b: string): number {
-  const [l1, l2] = [luminance(a), luminance(b)].sort((x, y) => y - x) as [number, number];
+  const [l1, l2] = [luminance(a), luminance(b)].sort((x, y) => y - x) as [
+    number,
+    number,
+  ];
   return (l1 + 0.05) / (l2 + 0.05);
 }
 const INK_LIGHT = "#fbf8f1";
@@ -58,14 +69,23 @@ const INK_DARK = "#14110c";
 for (const p of products) {
   const ink = p.colourWorld.ink === "light" ? INK_LIGHT : INK_DARK;
   const ratio = contrast(p.colourWorld.primary, ink);
-  if (ratio < 4.5) errors.push(`${p.id}: colourWorld ${p.colourWorld.primary} with ${p.colourWorld.ink} ink is ${ratio.toFixed(2)}:1 (< 4.5)`);
+  if (ratio < 4.5)
+    errors.push(
+      `${p.id}: colourWorld ${p.colourWorld.primary} with ${p.colourWorld.ink} ink is ${ratio.toFixed(2)}:1 (< 4.5)`,
+    );
   const other = p.colourWorld.ink === "light" ? INK_DARK : INK_LIGHT;
-  if (contrast(p.colourWorld.primary, other) > ratio + 2) warnings.push(`${p.id}: the other ink colour would contrast better on ${p.colourWorld.primary}`);
+  if (contrast(p.colourWorld.primary, other) > ratio + 2)
+    warnings.push(
+      `${p.id}: the other ink colour would contrast better on ${p.colourWorld.primary}`,
+    );
 }
 for (const c of clusters) {
   const ink = c.colourWorld.ink === "light" ? INK_LIGHT : INK_DARK;
   const ratio = contrast(c.colourWorld.primary, ink);
-  if (ratio < 4.5) errors.push(`cluster ${c.id}: colourWorld contrast ${ratio.toFixed(2)}:1 (< 4.5)`);
+  if (ratio < 4.5)
+    errors.push(
+      `cluster ${c.id}: colourWorld contrast ${ratio.toFixed(2)}:1 (< 4.5)`,
+    );
 }
 
 // ─── 3. forbidden claims (from the v2 audit) ───────────────────────────────
@@ -77,27 +97,57 @@ const FORBIDDEN: [RegExp, string][] = [
   [/10825999000228/, "unverified FSSAI number"],
   [/\bHalal\b/i, "Halal (not held)"],
   [/\bGMP\b/, "GMP (not held)"],
-  [/Laser Sorting|multi-spectrum|Vision-Based Inspection/i, "invented technology"],
+  [
+    /Laser Sorting|multi-spectrum|Vision-Based Inspection/i,
+    "invented technology",
+  ],
   [/99\.2%|±0\.5%|<\s*0\.1%/, "invented QC numbers"],
   [/Best Seller|High Demand|\bTrending\b/i, "fake sales badges"],
   [/Live export network/i, "fake live data"],
   [/Prish Patel/, "invented founder"],
   [/\bSurat\b/, "wrong HQ city"],
-  [/\b24 ?hrs\b|24[–-]48|within 7 days|no minimum order/i, "response/sample promises"],
+  [
+    /\b24 ?hrs\b|24[–-]48|within 7 days|no minimum order/i,
+    "response/sample promises",
+  ],
   [/pesticide-free/i, "unsubstantiated claim"],
   [/\bcardamom\b|\bfennel\b/i, "products we do not sell"],
   [/\$450B|NITI Aayog/i, "unverified macro figure"],
-  [/\b(Japan|Australia|Canada|East Africa|South America|Brazil|Kenya)\b/, "markets not served"],
+  [
+    /\b(Japan|Australia|Canada|East Africa|South America|Brazil|Kenya)\b/,
+    "markets not served",
+  ],
   [/Traceble|Multi-Orifin|INGRIDENTS|standarized|POWEDER/i, "brochure typo"],
-  [/our (own )?factory|REAL FACTORY|REAL MACHINERY|REAL WAREHOUSE/i, "facility claim"],
-  [/\bunfiltered\b|NO STOCK PHOTOS|No corporate polish/i, "removed lines (owner note)"],
-  [/(FSSAI|ISO|HACCP) Certified|Spices Board Registered/i, "cert claim phrasing — render from certificates.ts"],
-  [/\bMOQ\b|lead[- ]time|payment terms|\bT\/T\b|\bL\/C\b|\bLC at sight\b/i, "commercial terms not published"],
-  [/\bMundra\b|Nhava Sheva|\bPipavav\b|\bKandla\b|\bJNPT\b/, "ports not published"],
+  [
+    /our (own )?factory|REAL FACTORY|REAL MACHINERY|REAL WAREHOUSE/i,
+    "facility claim",
+  ],
+  [
+    /\bunfiltered\b|NO STOCK PHOTOS|No corporate polish/i,
+    "removed lines (owner note)",
+  ],
+  [
+    /(FSSAI|ISO|HACCP) Certified|Spices Board Registered/i,
+    "cert claim phrasing — render from certificates.ts",
+  ],
+  [
+    /\bMOQ\b|lead[- ]time|payment terms|\bT\/T\b|\bL\/C\b|\bLC at sight\b/i,
+    "commercial terms not published",
+  ],
+  [
+    /\bMundra\b|Nhava Sheva|\bPipavav\b|\bKandla\b|\bJNPT\b/,
+    "ports not published",
+  ],
   [/\bUSD\b|\$\s?\d/, "prices not published"],
-  [/\b(Strawberry|Blueberry|Blackberry|Raspberry|Cranberry)\b/i, "excluded berries"],
+  [
+    /\b(Strawberry|Blueberry|Blackberry|Raspberry|Cranberry)\b/i,
+    "excluded berries",
+  ],
   [/testimonial/i, "no testimonials"],
-  [/inquiry-first buyer conversion|abstract planets|narrative is built on method/i, "internal notes leaked as copy (v2)"],
+  [
+    /inquiry-first buyer conversion|abstract planets|narrative is built on method/i,
+    "internal notes leaked as copy (v2)",
+  ],
 ];
 
 const SCAN_DIRS = ["app", "components", "content", "emails", "lib", "stores"];
@@ -130,7 +180,18 @@ for (const file of files) {
 
 // rendered product fields (from the generated JSON, via the merged model)
 for (const p of products) {
-  const rendered = [p.name, p.shortName, p.profile.science, p.profile.whyIndian, p.profile.benefits, ...p.applications, ...p.originRegions, ...p.specs.map((s) => `${s.label}: ${s.value}`), p.seo.title, p.seo.description].join("\n");
+  const rendered = [
+    p.name,
+    p.shortName,
+    p.profile.science,
+    p.profile.whyIndian,
+    p.profile.benefits,
+    ...p.applications,
+    ...p.originRegions,
+    ...p.specs.map((s) => `${s.label}: ${s.value}`),
+    p.seo.title,
+    p.seo.description,
+  ].join("\n");
   for (const [re, why] of FORBIDDEN) {
     const m = re.exec(rendered);
     if (m) errors.push(`product ${p.id} — "${m[0]}" (${why})`);
@@ -140,15 +201,30 @@ for (const p of products) {
 // ─── 4. assets ─────────────────────────────────────────────────────────────
 // pre-rendered by scripts/render-bowls.tsx (runs first in prebuild)
 for (const p of products) {
-  const base = join(ROOT, "public", "illustrations", "products", p.illustration.id);
+  const base = join(
+    ROOT,
+    "public",
+    "illustrations",
+    "products",
+    p.illustration.id,
+  );
   const missing = [".svg", ".png"].filter((ext) => !existsSync(base + ext));
-  if (missing.length) errors.push(`${p.id}: missing pre-rendered illustration ${missing.join(", ")} — run npm run render:bowls`);
+  if (missing.length)
+    errors.push(
+      `${p.id}: missing pre-rendered illustration ${missing.join(", ")} — run npm run render:bowls`,
+    );
 }
 
 // ─── report ────────────────────────────────────────────────────────────────
-const authored = products.filter((p) => p.profile.source === "authored").map((p) => p.id);
-console.log(`verify:content — ${products.length} products · ${clusters.length} families · ${cropCalendar.length} calendar rows · ${certificates.filter((c) => c.number).length} certificates with numbers`);
-console.log(`authored profiles awaiting owner review (${authored.length}): ${authored.join(", ")}`);
+const authored = products
+  .filter((p) => p.profile.source === "authored")
+  .map((p) => p.id);
+console.log(
+  `verify:content — ${products.length} products · ${clusters.length} families · ${cropCalendar.length} calendar rows · ${certificates.filter((c) => c.number).length} certificates with numbers`,
+);
+console.log(
+  `authored profiles awaiting owner review (${authored.length}): ${authored.join(", ")}`,
+);
 if (warnings.length) {
   console.log(`\nwarnings (${warnings.length}):`);
   for (const w of warnings) console.log(`  ! ${w}`);

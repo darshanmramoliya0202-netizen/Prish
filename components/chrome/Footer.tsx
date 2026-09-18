@@ -20,7 +20,10 @@ const links = [
 export function Footer() {
   const legal = visibleCertificates("footer").filter((c) => c.number);
   return (
-    <footer data-theme="dark" className="relative grain bg-forest-950 text-cream-50">
+    <footer
+      data-theme="dark"
+      className="relative grain bg-forest-950 text-cream-50"
+    >
       <div className="container-x py-16 md:py-24">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
@@ -31,9 +34,13 @@ export function Footer() {
                 <p className="mt-1 text-small opacity-70">{site.positioning}</p>
               </div>
             </div>
-            <p className="mt-8 max-w-md text-lead font-display">{site.tagline}.</p>
+            <p className="mt-8 max-w-md text-lead font-display">
+              {site.tagline}.
+            </p>
             <p className="mt-4 max-w-md text-small opacity-70">
-              Farm-rooted in Saurashtra. Our own and partner processing across India&apos;s growing belts. Documented for the United States, European Union, GCC and Southeast Asia.
+              Farm-rooted in Saurashtra. Our own and partner processing across
+              India&apos;s growing belts. Documented for the United States,
+              European Union, GCC and Southeast Asia.
             </p>
             <a
               href={waLink()}
@@ -52,7 +59,10 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {links.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-body opacity-85 hover:opacity-100">
+                  <Link
+                    href={l.href}
+                    className="text-body opacity-85 hover:opacity-100"
+                  >
                     {l.label}
                   </Link>
                 </li>
@@ -62,7 +72,10 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {orderedClusters.map((c) => (
                 <li key={c.id}>
-                  <Link href={clusterPath(c)} className="text-body opacity-85 hover:opacity-100">
+                  <Link
+                    href={clusterPath(c)}
+                    className="text-body opacity-85 hover:opacity-100"
+                  >
                     {c.name}
                   </Link>
                 </li>
@@ -83,7 +96,10 @@ export function Footer() {
               ))}
             </address>
             <p className="mt-4 text-body">
-              <a href={`mailto:${site.email}`} className="underline underline-offset-4 decoration-gold-500">
+              <a
+                href={`mailto:${site.email}`}
+                className="underline underline-offset-4 decoration-gold-500"
+              >
                 {site.email}
               </a>
             </p>
@@ -103,7 +119,8 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col gap-3 border-t border-cream-50/10 pt-6 text-small opacity-70 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.company}. Incoterms offered: {site.incoterms.join(" · ")}. Cookie-free analytics.
+            © {new Date().getFullYear()} {site.company}. Incoterms offered:{" "}
+            {site.incoterms.join(" · ")}. Cookie-free analytics.
           </p>
           {legal.length ? (
             <p className="tabular">

@@ -1,9 +1,25 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { burstBus, easeOut, hexToRgb, type BurstSettle, type BurstStart } from "@/lib/burst";
+import {
+  burstBus,
+  easeOut,
+  hexToRgb,
+  type BurstSettle,
+  type BurstStart,
+} from "@/lib/burst";
 
-type P = { x0: number; y0: number; dx: number; dy: number; x1: number; y1: number; r: number; c: [number, number, number]; seed: number };
+type P = {
+  x0: number;
+  y0: number;
+  dx: number;
+  dy: number;
+  x1: number;
+  y1: number;
+  r: number;
+  c: [number, number, number];
+  seed: number;
+};
 
 const EXPLODE_MS = 900;
 const SETTLE_MS = 700;
@@ -61,8 +77,11 @@ export function Burst2D({ max = 420 }: { max?: number }) {
           alive = true;
         } else {
           const k = easeOut(Math.min(1, t / SETTLE_MS));
-          const tx = settleTo!.rect.x + settleTo!.rect.w * (0.5 + (p.seed - 0.5) * 0.62);
-          const ty = settleTo!.rect.y + settleTo!.rect.h * (0.45 + ((p.seed * 7919) % 1 - 0.5) * 0.3);
+          const tx =
+            settleTo!.rect.x + settleTo!.rect.w * (0.5 + (p.seed - 0.5) * 0.62);
+          const ty =
+            settleTo!.rect.y +
+            settleTo!.rect.h * (0.45 + (((p.seed * 7919) % 1) - 0.5) * 0.3);
           x = p.x1 + (tx - p.x1) * k;
           y = p.y1 + (ty - p.y1) * k;
           a = 0.6 * (1 - k * 0.9);
@@ -97,8 +116,19 @@ export function Burst2D({ max = 420 }: { max?: number }) {
         const x0 = e.rect.x + s.x * e.rect.w;
         const y0 = e.rect.y + s.y * e.rect.h;
         const ang = Math.atan2(y0 - cy, x0 - cx) + (Math.random() - 0.5) * 0.9;
-        const dist = 140 + Math.random() * Math.max(innerWidth, innerHeight) * 0.35;
-        parts.push({ x0, y0, dx: Math.cos(ang) * dist, dy: Math.sin(ang) * dist - 120 * Math.random(), x1: x0, y1: y0, r: 1.6 + Math.random() * 2.6, c: pal[s.c] ?? pal[0]!, seed: Math.random() });
+        const dist =
+          140 + Math.random() * Math.max(innerWidth, innerHeight) * 0.35;
+        parts.push({
+          x0,
+          y0,
+          dx: Math.cos(ang) * dist,
+          dy: Math.sin(ang) * dist - 120 * Math.random(),
+          x1: x0,
+          y1: y0,
+          r: 1.6 + Math.random() * 2.6,
+          c: pal[s.c] ?? pal[0]!,
+          seed: Math.random(),
+        });
       }
       phase = "explode";
       t0 = performance.now();
@@ -108,7 +138,8 @@ export function Burst2D({ max = 420 }: { max?: number }) {
     const offSettle = burstBus.onSettle((e) => {
       if (phase !== "hold" && phase !== "explode") return;
       settleTo = e;
-      for (const p of parts) if (phase === "explode") (p.x1 = p.x0 + p.dx), (p.y1 = p.y0 + p.dy);
+      for (const p of parts)
+        if (phase === "explode") ((p.x1 = p.x0 + p.dx), (p.y1 = p.y0 + p.dy));
       phase = "settle";
       t0 = performance.now();
     });
@@ -120,5 +151,11 @@ export function Burst2D({ max = 420 }: { max?: number }) {
     };
   }, [max]);
 
-  return <canvas ref={ref} aria-hidden className="pointer-events-none fixed inset-0 z-[75]" />;
+  return (
+    <canvas
+      ref={ref}
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[75]"
+    />
+  );
 }

@@ -4,7 +4,17 @@
  */
 export function NamasteHands({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 200 240" className={className} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden data-namaste-hands>
+    <svg
+      viewBox="0 0 200 240"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      data-namaste-hands
+    >
       {/* left hand */}
       <path d="M100 26 C 92 44, 84 70, 82 96 C 80 118, 76 136, 66 150 C 58 162, 50 176, 48 194 C 47 206, 52 216, 62 222" />
       <path d="M82 96 C 74 92, 66 92, 60 98" />

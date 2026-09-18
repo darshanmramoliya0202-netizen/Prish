@@ -1,4 +1,11 @@
-import { mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync, existsSync } from "node:fs";
+import {
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  renameSync,
+  writeFileSync,
+  existsSync,
+} from "node:fs";
 import { join } from "node:path";
 import type { Submission } from "@/lib/schemas/inquiry";
 
@@ -11,12 +18,16 @@ export interface StoredLead {
   ip?: string;
   userAgent?: string;
   lead: Submission;
-  steps: Record<StepName, { status: StepStatus; attempts: number; error?: string; at?: string }>;
+  steps: Record<
+    StepName,
+    { status: StepStatus; attempts: number; error?: string; at?: string }
+  >;
   alerted?: boolean;
 }
 
 function dir(): string {
-  const d = process.env.LEADS_DIR?.trim() || join(process.cwd(), "data", "leads");
+  const d =
+    process.env.LEADS_DIR?.trim() || join(process.cwd(), "data", "leads");
   mkdirSync(d, { recursive: true });
   return d;
 }
@@ -52,6 +63,10 @@ export function listUnfinished(maxAttempts = 8): string[] {
     .filter((id) => {
       const l = readLead(id);
       if (!l) return false;
-      return Object.values(l.steps).some((s) => (s.status === "pending" || s.status === "failed") && s.attempts < maxAttempts);
+      return Object.values(l.steps).some(
+        (s) =>
+          (s.status === "pending" || s.status === "failed") &&
+          s.attempts < maxAttempts,
+      );
     });
 }

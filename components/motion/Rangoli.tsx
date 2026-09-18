@@ -2,7 +2,15 @@
  * Code-drawn rangoli geometry — 12-fold symmetry of petals and dots. Static SVG here;
  * the motion phase rotates it slowly and parallaxes it. currentColor, very low opacity.
  */
-export function Rangoli({ className = "", folds = 12, rings = 4 }: { className?: string; folds?: number; rings?: number }) {
+export function Rangoli({
+  className = "",
+  folds = 12,
+  rings = 4,
+}: {
+  className?: string;
+  folds?: number;
+  rings?: number;
+}) {
   const petals: string[] = [];
   const dots: { x: number; y: number; r: number }[] = [];
   for (let ring = 1; ring <= rings; ring++) {
@@ -16,13 +24,27 @@ export function Rangoli({ className = "", folds = 12, rings = 4 }: { className?:
       const h = 44 + ring * 8;
       // petal as a rotated lens
       const deg = (a * 180) / Math.PI + 90;
-      petals.push(`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg.toFixed(1)})"><path d="M0 ${-h / 2} C ${w} ${-h / 6}, ${w} ${h / 6}, 0 ${h / 2} C ${-w} ${h / 6}, ${-w} ${-h / 6}, 0 ${-h / 2} Z"/></g>`);
+      petals.push(
+        `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg.toFixed(1)})"><path d="M0 ${-h / 2} C ${w} ${-h / 6}, ${w} ${h / 6}, 0 ${h / 2} C ${-w} ${h / 6}, ${-w} ${-h / 6}, 0 ${-h / 2} Z"/></g>`,
+      );
       const a2 = a + Math.PI / n;
-      dots.push({ x: Math.cos(a2) * (R + 30), y: Math.sin(a2) * (R + 30), r: 3 + ring });
+      dots.push({
+        x: Math.cos(a2) * (R + 30),
+        y: Math.sin(a2) * (R + 30),
+        r: 3 + ring,
+      });
     }
   }
   return (
-    <svg viewBox="-420 -420 840 840" className={className} aria-hidden fill="none" stroke="currentColor" strokeWidth="1.2" data-rangoli>
+    <svg
+      viewBox="-420 -420 840 840"
+      className={className}
+      aria-hidden
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      data-rangoli
+    >
       <circle r="40" />
       <circle r="24" strokeDasharray="3 5" />
       <g dangerouslySetInnerHTML={{ __html: petals.join("") }} />

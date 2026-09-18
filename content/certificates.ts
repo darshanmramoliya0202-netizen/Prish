@@ -65,7 +65,8 @@ export const certificates: Certificate[] = [
   {
     id: "apeda_rcmc",
     name: "APEDA RCMC",
-    issuer: "Agricultural and Processed Food Products Export Development Authority",
+    issuer:
+      "Agricultural and Processed Food Products Export Development Authority",
     status: "in_process",
     number: null,
     scope: "Registration-cum-Membership Certificate — under approval",
@@ -74,6 +75,12 @@ export const certificates: Certificate[] = [
 ];
 
 /** Certificates that may be rendered: held with a number, or explicitly in process. */
-export function visibleCertificates(where: Certificate["showOn"][number]): Certificate[] {
-  return certificates.filter((c) => c.showOn.includes(where) && (c.number !== null || c.status === "in_process"));
+export function visibleCertificates(
+  where: Certificate["showOn"][number],
+): Certificate[] {
+  return certificates.filter(
+    (c) =>
+      c.showOn.includes(where) &&
+      (c.number !== null || c.status === "in_process"),
+  );
 }

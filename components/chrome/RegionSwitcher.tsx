@@ -12,12 +12,20 @@ export function RegionSwitcher({ className = "" }: { className?: string }) {
     hydrate();
   }, [hydrate]);
   return (
-    <label className={`inline-flex items-center gap-2 rounded-full border border-current/25 px-3 py-1.5 text-small ${className}`}>
+    <label
+      className={`inline-flex items-center gap-2 rounded-full border border-current/25 px-3 py-1.5 text-small ${className}`}
+    >
       <IconGlobe width={16} height={16} />
       <span className="sr-only">Your market</span>
       <select
         value={region ?? ""}
-        onChange={(e) => set(e.target.value ? (e.target.value as (typeof regions)[number]["id"]) : null)}
+        onChange={(e) =>
+          set(
+            e.target.value
+              ? (e.target.value as (typeof regions)[number]["id"])
+              : null,
+          )
+        }
         className="bg-transparent font-semibold outline-none"
         aria-label="Choose your market"
       >

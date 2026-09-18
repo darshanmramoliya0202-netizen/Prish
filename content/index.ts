@@ -3,7 +3,14 @@ import { clusters } from "./clusters";
 import { cropCalendar } from "./crop-calendar";
 import buyerTypesJson from "./generated/buyer-types.json";
 import { flagCopy } from "./flags";
-import type { BuyerTypeId, Cluster, ClusterId, CropCalendarRow, FlagId, Product } from "./types";
+import type {
+  BuyerTypeId,
+  Cluster,
+  ClusterId,
+  CropCalendarRow,
+  FlagId,
+  Product,
+} from "./types";
 
 export { products, clusters, cropCalendar };
 export { regions, regionById } from "./regions";
@@ -23,7 +30,9 @@ export const buyerTypeLabel: Record<BuyerTypeId, string> = Object.fromEntries(
   buyerTypesJson.map((b) => [b.id, b.label]),
 ) as Record<BuyerTypeId, string>;
 
-export const flagText: Record<FlagId, string> = Object.fromEntries((Object.keys(flagCopy) as FlagId[]).map((k) => [k, flagCopy[k].text])) as Record<FlagId, string>;
+export const flagText: Record<FlagId, string> = Object.fromEntries(
+  (Object.keys(flagCopy) as FlagId[]).map((k) => [k, flagCopy[k].text]),
+) as Record<FlagId, string>;
 export { flagCopy };
 
 export function getProduct(id: string): Product | undefined {
@@ -68,4 +77,6 @@ export function calendarFor(productId: string): CropCalendarRow | undefined {
   return cropCalendar.find((r) => r.productId === productId);
 }
 
-export const orderedClusters: Cluster[] = [...clusters].sort((a, b) => a.order - b.order);
+export const orderedClusters: Cluster[] = [...clusters].sort(
+  (a, b) => a.order - b.order,
+);

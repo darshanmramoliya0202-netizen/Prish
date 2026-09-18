@@ -62,7 +62,13 @@ function newId(): string {
   }
 }
 
-const emptyBuyer: KitBuyer = { name: "", company: "", email: "", phone: "", country: "" };
+const emptyBuyer: KitBuyer = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  country: "",
+};
 
 export const useKitStore = create<KitState>()(
   persist(
@@ -76,19 +82,31 @@ export const useKitStore = create<KitState>()(
       add: (productId) => {
         if (get().items.some((i) => i.productId === productId)) return;
         set((s) => ({
-          items: [...s.items, { productId, interest: "sample", docs: ["spec_sheet"] }],
+          items: [
+            ...s.items,
+            { productId, interest: "sample", docs: ["spec_sheet"] },
+          ],
           startedAt: s.startedAt || Date.now(),
           submissionId: s.submissionId || newId(),
         }));
         track("kit_add", { product: productId });
       },
-      remove: (productId) => set((s) => ({ items: s.items.filter((i) => i.productId !== productId) })),
-      toggle: (productId) => (get().has(productId) ? get().remove(productId) : get().add(productId)),
+      remove: (productId) =>
+        set((s) => ({
+          items: s.items.filter((i) => i.productId !== productId),
+        })),
+      toggle: (productId) =>
+        get().has(productId) ? get().remove(productId) : get().add(productId),
       has: (productId) => get().items.some((i) => i.productId === productId),
       update: (productId, patch) =>
-        set((s) => ({ items: s.items.map((i) => (i.productId === productId ? { ...i, ...patch } : i)) })),
+        set((s) => ({
+          items: s.items.map((i) =>
+            i.productId === productId ? { ...i, ...patch } : i,
+          ),
+        })),
       setBuyer: (patch) => set((s) => ({ buyer: { ...s.buyer, ...patch } })),
-      setDelivery: (patch) => set((s) => ({ delivery: { ...s.delivery, ...patch } })),
+      setDelivery: (patch) =>
+        set((s) => ({ delivery: { ...s.delivery, ...patch } })),
       setMessage: (message) => set({ message }),
       reset: (keepBuyer = true) =>
         set((s) => ({
@@ -102,7 +120,14 @@ export const useKitStore = create<KitState>()(
     {
       name: "prish.kit.v1",
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ items: s.items, buyer: s.buyer, delivery: s.delivery, message: s.message, startedAt: s.startedAt, submissionId: s.submissionId }),
+      partialize: (s) => ({
+        items: s.items,
+        buyer: s.buyer,
+        delivery: s.delivery,
+        message: s.message,
+        startedAt: s.startedAt,
+        submissionId: s.submissionId,
+      }),
     },
   ),
 );

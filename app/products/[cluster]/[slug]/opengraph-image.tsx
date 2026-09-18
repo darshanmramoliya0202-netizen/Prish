@@ -1,7 +1,11 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { OG_SIZE, renderOg } from "@/lib/og";
-import { allProductParams, getProductBySlug, getClusterBySlug } from "@/content";
+import {
+  allProductParams,
+  getProductBySlug,
+  getClusterBySlug,
+} from "@/content";
 
 export const runtime = "nodejs";
 export const size = OG_SIZE;
@@ -11,14 +15,23 @@ export function generateStaticParams() {
   return allProductParams();
 }
 
-export default async function Image({ params }: { params: Promise<{ cluster: string; slug: string }> }) {
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ cluster: string; slug: string }>;
+}) {
   const { cluster, slug } = await params;
   const p = getProductBySlug(slug);
   const c = getClusterBySlug(cluster);
   if (!p || !c) return renderOg({ title: "Prish Overseas" });
   // pre-rendered by scripts/render-bowls.tsx (prebuild)
-  const svg = await readFile(join(process.cwd(), "public", "illustrations", "products", `${p.slug}.svg`), "utf8").catch(() => null);
-  const image = svg ? `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}` : undefined;
+  const svg = await readFile(
+    join(process.cwd(), "public", "illustrations", "products", `${p.slug}.svg`),
+    "utf8",
+  ).catch(() => null);
+  const image = svg
+    ? `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}`
+    : undefined;
   const ink = p.colourWorld.ink === "light" ? "#fbf8f1" : "#14110c";
   return renderOg({
     eyebrow: `${c.name} · Indian origin`,

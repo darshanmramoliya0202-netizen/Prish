@@ -6,11 +6,25 @@ import { getSiteUrl } from "@/lib/seo";
 import type { BuyerTypeId } from "@/content/types";
 
 export function escapeHtml(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
-const DOC_LABEL: Record<string, string> = { coa: "COA", eto_free: "ETO-free declaration", mrl_report: "MRL / pesticide report", spec_sheet: "Spec sheet" };
-const INTEREST_LABEL: Record<string, string> = { sample: "Sample", trial: "Trial lot", commercial: "Commercial" };
+const DOC_LABEL: Record<string, string> = {
+  coa: "COA",
+  eto_free: "ETO-free declaration",
+  mrl_report: "MRL / pesticide report",
+  spec_sheet: "Spec sheet",
+};
+const INTEREST_LABEL: Record<string, string> = {
+  sample: "Sample",
+  trial: "Trial lot",
+  commercial: "Commercial",
+};
 
 function shell(title: string, bodyHtml: string): string {
   const logo = `${getSiteUrl()}/brand/logo-seal-email.png`;
@@ -36,19 +50,34 @@ function itemsTable(l: StoredLead): { html: string; text: string } {
   const rows = l.lead.items.map((it) => {
     const p = getProduct(it.productId);
     const name = p?.name ?? it.productId;
-    const extras = [it.variant, it.grade, it.specNotes].filter(Boolean).join(" · ");
+    const extras = [it.variant, it.grade, it.specNotes]
+      .filter(Boolean)
+      .join(" · ");
     const docs = it.docs.map((d) => DOC_LABEL[d] ?? d).join(", ");
-    return { name, interest: INTEREST_LABEL[it.interest] ?? it.interest, extras, docs };
+    return {
+      name,
+      interest: INTEREST_LABEL[it.interest] ?? it.interest,
+      extras,
+      docs,
+    };
   });
   const html = `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-size:14px;">
 <tr style="text-align:left;color:#6b6353;"><th style="padding:6px 8px;border-bottom:1px solid #ddd;">Product</th><th style="padding:6px 8px;border-bottom:1px solid #ddd;">Interest</th><th style="padding:6px 8px;border-bottom:1px solid #ddd;">Details</th><th style="padding:6px 8px;border-bottom:1px solid #ddd;">Docs</th></tr>
 ${rows.map((r) => `<tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:600;">${escapeHtml(r.name)}</td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(r.interest)}</td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(r.extras || "—")}</td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(r.docs || "—")}</td></tr>`).join("")}
 </table>`;
-  const text = rows.map((r) => `- ${r.name} — ${r.interest}${r.extras ? ` — ${r.extras}` : ""}${r.docs ? ` — docs: ${r.docs}` : ""}`).join("\n");
+  const text = rows
+    .map(
+      (r) =>
+        `- ${r.name} — ${r.interest}${r.extras ? ` — ${r.extras}` : ""}${r.docs ? ` — docs: ${r.docs}` : ""}`,
+    )
+    .join("\n");
   return { html, text };
 }
 
-function kv(pairs: [string, string | undefined][]): { html: string; text: string } {
+function kv(pairs: [string, string | undefined][]): {
+  html: string;
+  text: string;
+} {
   const rows = pairs.filter(([, v]) => v && v.trim());
   return {
     html: `<table role="presentation" cellspacing="0" cellpadding="0" style="font-size:14px;">${rows.map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#6b6353;vertical-align:top;">${escapeHtml(k)}</td><td style="padding:4px 0;">${escapeHtml(v!)}</td></tr>`).join("")}</table>`,
@@ -57,10 +86,15 @@ function kv(pairs: [string, string | undefined][]): { html: string; text: string
 }
 
 /** Internal notification to exports@ (reply goes to the buyer). */
-export function notificationEmail(l: StoredLead): { subject: string; html: string; text: string } {
+export function notificationEmail(l: StoredLead): {
+  subject: string;
+  html: string;
+  text: string;
+} {
   const b = l.lead.buyer;
   const region = l.lead.region ? regionById[l.lead.region]?.name : undefined;
-  const kindLabel = l.lead.kind === "sample_kit" ? "Sample kit" : "Quick inquiry";
+  const kindLabel =
+    l.lead.kind === "sample_kit" ? "Sample kit" : "Quick inquiry";
   const subject = `[Web] ${kindLabel} · ${b.company} · ${b.country} · ${l.ref}`;
   const items = itemsTable(l);
   const buyer = kv([
@@ -69,7 +103,10 @@ export function notificationEmail(l: StoredLead): { subject: string; html: strin
     ["Email", b.email],
     ["Phone / WhatsApp", b.phone],
     ["Country", b.country],
-    ["Buyer type", b.buyerType ? buyerTypeLabel[b.buyerType as BuyerTypeId] : undefined],
+    [
+      "Buyer type",
+      b.buyerType ? buyerTypeLabel[b.buyerType as BuyerTypeId] : undefined,
+    ],
     ["Region (site)", region],
   ]);
   const delivery =
@@ -99,18 +136,44 @@ ${message ? `<h2 style="font-size:15px;margin:18px 0 8px;">Message</h2><p style=
 <h2 style="font-size:15px;margin:18px 0 8px;color:#6b6353;">Meta</h2>${meta.html}
 <p style="margin:18px 0 0;"><a href="${waLink({ name: b.name, company: b.company, intro: "Namaste" })}" style="color:#0b3d2e;">WhatsApp them</a></p>`,
   );
-  const text = [`${kindLabel} from ${b.company} — ${l.ref}`, "", items.text ? `PRODUCTS\n${items.text}\n` : "", `BUYER\n${buyer.text}`, "", `${l.lead.kind === "sample_kit" ? "DELIVERY" : "INTEREST"}\n${delivery.text}`, "", message ? `MESSAGE\n${message}\n` : "", `META\n${meta.text}`].join("\n");
+  const text = [
+    `${kindLabel} from ${b.company} — ${l.ref}`,
+    "",
+    items.text ? `PRODUCTS\n${items.text}\n` : "",
+    `BUYER\n${buyer.text}`,
+    "",
+    `${l.lead.kind === "sample_kit" ? "DELIVERY" : "INTEREST"}\n${delivery.text}`,
+    "",
+    message ? `MESSAGE\n${message}\n` : "",
+    `META\n${meta.text}`,
+  ].join("\n");
   return { subject, html, text };
 }
 
 /** Auto-confirmation to the buyer — founder voice, no response-time promises. */
-export function confirmationEmail(l: StoredLead, downloads: { name: string; url: string }[]): { subject: string; html: string; text: string } {
+export function confirmationEmail(
+  l: StoredLead,
+  downloads: { name: string; url: string }[],
+): { subject: string; html: string; text: string } {
   const b = l.lead.buyer;
   const first = b.name.split(/\s+/)[0] ?? b.name;
   const subject = `Namaste ${first} — your Prish Overseas request ${l.ref}`;
   const items = itemsTable(l);
-  const wa = waLink({ ref: l.ref, name: b.name, company: b.company, country: b.country, products: l.lead.kind === "sample_kit" ? l.lead.items.map((i) => getProduct(i.productId)?.shortName ?? i.productId) : undefined });
-  const dl = downloads.length ? `<p style="margin:14px 0 0;">Spec sheets: ${downloads.map((d) => `<a href="${d.url}" style="color:#0b3d2e;">${escapeHtml(d.name)}</a>`).join(" · ")}</p>` : "";
+  const wa = waLink({
+    ref: l.ref,
+    name: b.name,
+    company: b.company,
+    country: b.country,
+    products:
+      l.lead.kind === "sample_kit"
+        ? l.lead.items.map(
+            (i) => getProduct(i.productId)?.shortName ?? i.productId,
+          )
+        : undefined,
+  });
+  const dl = downloads.length
+    ? `<p style="margin:14px 0 0;">Spec sheets: ${downloads.map((d) => `<a href="${d.url}" style="color:#0b3d2e;">${escapeHtml(d.name)}</a>`).join(" · ")}</p>`
+    : "";
   const html = shell(
     subject,
     `<p style="margin:0 0 14px;font-size:17px;">Namaste ${escapeHtml(first)},</p>
@@ -121,6 +184,18 @@ ${dl}
 <p style="margin:18px 0 0;">— Yash Talaviya, Director<br>${escapeHtml(site.company)}, Rajkot</p>
 <p style="margin:22px 0 0;font-size:12px;color:#6b6353;">You are receiving this because you submitted a request on prishoverseas.com.</p>`,
   );
-  const text = [`Namaste ${first},`, "", `Thanks for the detail — it makes quoting faster. A real person reads this, usually Yash. Your reference is ${l.ref}.`, "", items.text ? `WHAT YOU ASKED FOR\n${items.text}\n` : "", downloads.length ? `Spec sheets:\n${downloads.map((d) => `- ${d.name}: ${d.url}`).join("\n")}\n` : "", `WhatsApp with the reference: ${wa}`, "", `— Yash Talaviya, Director, ${site.company}, Rajkot`].join("\n");
+  const text = [
+    `Namaste ${first},`,
+    "",
+    `Thanks for the detail — it makes quoting faster. A real person reads this, usually Yash. Your reference is ${l.ref}.`,
+    "",
+    items.text ? `WHAT YOU ASKED FOR\n${items.text}\n` : "",
+    downloads.length
+      ? `Spec sheets:\n${downloads.map((d) => `- ${d.name}: ${d.url}`).join("\n")}\n`
+      : "",
+    `WhatsApp with the reference: ${wa}`,
+    "",
+    `— Yash Talaviya, Director, ${site.company}, Rajkot`,
+  ].join("\n");
   return { subject, html, text };
 }

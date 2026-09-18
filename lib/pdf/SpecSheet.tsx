@@ -18,11 +18,22 @@ export interface SpecSheetProps {
   date: string;
 }
 
-export function Band({ sealPng, title, sub }: { sealPng: ImageSrc; title: string; sub: string }) {
+export function Band({
+  sealPng,
+  title,
+  sub,
+}: {
+  sealPng: ImageSrc;
+  title: string;
+  sub: string;
+}) {
   return (
     <View style={s.band} fixed>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image src={sealPng} style={{ width: 30, height: 30, marginRight: 10 }} />
+        <Image
+          src={sealPng}
+          style={{ width: 30, height: 30, marginRight: 10 }}
+        />
         <View>
           <Text style={s.bandTitle}>PRISH OVERSEAS</Text>
           <Text style={s.bandSub}>{site.tagline}</Text>
@@ -40,7 +51,11 @@ export function Footer({ left, right }: { left: string; right: string }) {
   return (
     <View style={s.footer} fixed>
       <Text>{left}</Text>
-      <Text render={({ pageNumber, totalPages }) => `${right} · ${pageNumber}/${totalPages}`} />
+      <Text
+        render={({ pageNumber, totalPages }) =>
+          `${right} · ${pageNumber}/${totalPages}`
+        }
+      />
     </View>
   );
 }
@@ -64,23 +79,44 @@ export function SpecSheetPages(p: SpecSheetProps) {
   const hs = `${product.hs.hs6.slice(0, 4)}.${product.hs.hs6.slice(4)}`;
   return (
     <Page size="A4" style={s.page}>
-      <Band sealPng={p.sealPng} title="PRODUCT SPEC SHEET" sub={`${cluster.name} · ${p.date}`} />
+      <Band
+        sealPng={p.sealPng}
+        title="PRODUCT SPEC SHEET"
+        sub={`${cluster.name} · ${p.date}`}
+      />
       <View style={s.body}>
         <View style={[s.row, { alignItems: "flex-start" }]}>
           <View style={{ width: "62%", paddingRight: 16 }}>
             <Text style={s.eyebrow}>{cluster.name}</Text>
             <Text style={[s.h1, { marginTop: 6 }]}>{product.name}</Text>
-            {product.desiName ? <Text style={[s.small, { marginTop: 4 }]}>Trade name: {product.desiName.roman}</Text> : null}
-            <Text style={[s.p, { marginTop: 10 }]}>{product.profile.whyIndian}</Text>
+            {product.desiName ? (
+              <Text style={[s.small, { marginTop: 4 }]}>
+                Trade name: {product.desiName.roman}
+              </Text>
+            ) : null}
+            <Text style={[s.p, { marginTop: 10 }]}>
+              {product.profile.whyIndian}
+            </Text>
             <View style={[s.row, { flexWrap: "wrap", marginTop: 10 }]}>
               <Text style={s.chip}>Form: {product.form}</Text>
               <Text style={s.chip}>HS {hs}</Text>
-              {product.hs.verified && product.hs.itcHs ? <Text style={s.chip}>ITC-HS {product.hs.itcHs}</Text> : null}
+              {product.hs.verified && product.hs.itcHs ? (
+                <Text style={s.chip}>ITC-HS {product.hs.itcHs}</Text>
+              ) : null}
               <Text style={s.chip}>Origin: India</Text>
             </View>
           </View>
           <View style={{ width: "38%", alignItems: "center" }}>
-            <View style={{ width: 150, height: 150, borderRadius: 10, backgroundColor: product.colourWorld.primary, alignItems: "center", justifyContent: "center" }}>
+            <View
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 10,
+                backgroundColor: product.colourWorld.primary,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Image src={p.bowlPng} style={{ width: 140, height: 140 }} />
             </View>
           </View>
@@ -96,13 +132,24 @@ export function SpecSheetPages(p: SpecSheetProps) {
             {product.gradeTable ? (
               <>
                 <Text style={s.h2}>Grade ranges</Text>
-                <KV rows={product.gradeTable.map((g) => ({ k: g.parameter, v: g.range }))} />
-                <Text style={[s.small, { marginTop: 5 }]}>Ranges across grades and origins. Quoted per lot.</Text>
+                <KV
+                  rows={product.gradeTable.map((g) => ({
+                    k: g.parameter,
+                    v: g.range,
+                  }))}
+                />
+                <Text style={[s.small, { marginTop: 5 }]}>
+                  Ranges across grades and origins. Quoted per lot.
+                </Text>
               </>
             ) : null}
             {product.variants ? (
               <>
-                <Text style={[s.h2, { marginTop: product.gradeTable ? 12 : 0 }]}>Variants</Text>
+                <Text
+                  style={[s.h2, { marginTop: product.gradeTable ? 12 : 0 }]}
+                >
+                  Variants
+                </Text>
                 <View style={[s.row, { flexWrap: "wrap" }]}>
                   {product.variants.map((v) => (
                     <Text key={v} style={s.chip}>
@@ -129,7 +176,16 @@ export function SpecSheetPages(p: SpecSheetProps) {
             ["Why Indian", product.profile.whyIndian],
             ["In your formulation", product.profile.benefits],
           ].map(([h, t], i) => (
-            <View key={h} style={{ width: "33.33%", paddingRight: i < 2 ? 10 : 0, borderLeftWidth: 1.2, borderLeftColor: C.gold, paddingLeft: 8 }}>
+            <View
+              key={h}
+              style={{
+                width: "33.33%",
+                paddingRight: i < 2 ? 10 : 0,
+                borderLeftWidth: 1.2,
+                borderLeftColor: C.gold,
+                paddingLeft: 8,
+              }}
+            >
               <Text style={[s.eyebrow, { color: C.forest }]}>{h}</Text>
               <Text style={[s.p, { marginTop: 3, fontSize: 8.6 }]}>{t}</Text>
             </View>
@@ -164,7 +220,8 @@ export function SpecSheetPages(p: SpecSheetProps) {
               </View>
             ))}
             <Text style={[s.p, { marginTop: 4, fontSize: 8.8 }]}>
-              Shelf life {product.shelfLife} in cool, dry, hygienic storage. FCL and LCL. Incoterms: {site.incoterms.join(" / ")}.
+              Shelf life {product.shelfLife} in cool, dry, hygienic storage. FCL
+              and LCL. Incoterms: {site.incoterms.join(" / ")}.
             </Text>
           </View>
         </View>
@@ -173,10 +230,15 @@ export function SpecSheetPages(p: SpecSheetProps) {
           <Text style={s.h2}>Compliance notes by market</Text>
           <View style={[s.row, { flexWrap: "wrap" }]}>
             {regions.map((r) => {
-              const notes = product.flags.map((f) => r.compliance.byFlag[f]).filter((x): x is string => !!x);
+              const notes = product.flags
+                .map((f) => r.compliance.byFlag[f])
+                .filter((x): x is string => !!x);
               const first = notes[0] ?? r.compliance.general[0] ?? "";
               return (
-                <View key={r.id} style={{ width: "50%", paddingRight: 10, marginBottom: 6 }}>
+                <View
+                  key={r.id}
+                  style={{ width: "50%", paddingRight: 10, marginBottom: 6 }}
+                >
                   <Text style={{ fontSize: 8.5, fontWeight: 700 }}>
                     {r.name} · usually {r.incotermDefault}
                   </Text>
@@ -190,7 +252,9 @@ export function SpecSheetPages(p: SpecSheetProps) {
               {product.flags.map((f) => (
                 <View key={f} style={s.bullet}>
                   <View style={s.dot} />
-                  <Text style={[s.small, { color: C.ink2 }]}>{p.flagText[f]}</Text>
+                  <Text style={[s.small, { color: C.ink2 }]}>
+                    {p.flagText[f]}
+                  </Text>
                 </View>
               ))}
             </View>
@@ -198,25 +262,55 @@ export function SpecSheetPages(p: SpecSheetProps) {
           <Text style={[s.small, { marginTop: 4 }]}>{hsDisclaimer}</Text>
         </View>
 
-        <View style={[s.row, { marginTop: 16, alignItems: "center", backgroundColor: C.cream2, borderRadius: 8, padding: 12 }]} wrap={false}>
-          <Image src={p.qrPng} style={{ width: 54, height: 54, marginRight: 12 }} />
+        <View
+          style={[
+            s.row,
+            {
+              marginTop: 16,
+              alignItems: "center",
+              backgroundColor: C.cream2,
+              borderRadius: 8,
+              padding: 12,
+            },
+          ]}
+          wrap={false}
+        >
+          <Image
+            src={p.qrPng}
+            style={{ width: 54, height: 54, marginRight: 12 }}
+          />
           <View style={{ flex: 1 }}>
-            <Text style={{ fontFamily: "Fraunces", fontWeight: 600, fontSize: 12 }}>Get today’s price</Text>
+            <Text
+              style={{ fontFamily: "Fraunces", fontWeight: 600, fontSize: 12 }}
+            >
+              Get today’s price
+            </Text>
             <Text style={[s.p, { fontSize: 8.8 }]}>
               WhatsApp {site.phones[0]} · {site.email} · {p.url}
             </Text>
-            <Text style={[s.small, { marginTop: 2 }]}>Samples available — ask us. Lot-specific Certificate of Analysis with every consignment.</Text>
+            <Text style={[s.small, { marginTop: 2 }]}>
+              Samples available — ask us. Lot-specific Certificate of Analysis
+              with every consignment.
+            </Text>
           </View>
         </View>
       </View>
-      <Footer left={`${site.company} · ${site.address.join(", ")}`} right={`v${p.version} · ${p.date}`} />
+      <Footer
+        left={`${site.company} · ${site.address.join(", ")}`}
+        right={`v${p.version} · ${p.date}`}
+      />
     </Page>
   );
 }
 
 export function SpecSheetDocument(p: SpecSheetProps) {
   return (
-    <Document title={`${p.product.name} — spec sheet — ${site.company}`} author={site.company} subject={p.product.seo.description} creator="prishoverseas.com">
+    <Document
+      title={`${p.product.name} — spec sheet — ${site.company}`}
+      author={site.company}
+      subject={p.product.seo.description}
+      creator="prishoverseas.com"
+    >
       <SpecSheetPages {...p} />
     </Document>
   );
