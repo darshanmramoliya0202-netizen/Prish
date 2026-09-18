@@ -15,7 +15,7 @@ import {
   cta,
   hsDisclaimer,
 } from "@/content";
-import { ProductBowl } from "@/components/products/ProductBowl";
+import { BowlImage } from "@/components/products/BowlImage";
 import { OriginMap } from "@/components/products/OriginMap";
 import { SpecTable, GradeTable } from "@/components/products/SpecTable";
 import { ComplianceTabs } from "@/components/products/ComplianceTabs";
@@ -209,9 +209,10 @@ export default async function ProductPage({
             </div>
           </div>
           <div className="lg:col-span-6">
-            <ProductBowl
+            <BowlImage
               product={p}
               decorative={false}
+              priority
               className="mx-auto w-full max-w-lg drop-shadow-2xl"
               data-hero-bowl
             />

@@ -32,8 +32,8 @@ export function BurstLinks() {
     const p = burstBus.pending;
     if (!p) return;
     burstBus.pending = null;
-    const hero = document.querySelector<SVGSVGElement>(
-      `[data-product-hero="${p.slug}"] svg[data-bowl]`,
+    const hero = document.querySelector<HTMLElement>(
+      `[data-product-hero="${p.slug}"] :is(svg[data-bowl], img[data-bowl-img])`,
     );
     if (!hero) return;
     const r = hero.getBoundingClientRect();

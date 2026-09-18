@@ -198,14 +198,17 @@ export function SceneHarvest(p: P) {
           {Array.from({ length: 34 }, (_, i) => {
             const a = (i / 34) * Math.PI * 2;
             const r = 30 + (i % 5) * 18;
+            // rounded: trig results differ in the last bits between engines (hydration)
+            const cx = (430 + Math.cos(a) * r * 2.2).toFixed(1);
+            const cy = (440 + Math.sin(a) * r * 0.55).toFixed(1);
             return (
               <ellipse
                 key={i}
-                cx={430 + Math.cos(a) * r * 2.2}
-                cy={440 + Math.sin(a) * r * 0.55}
+                cx={cx}
+                cy={cy}
                 rx="9"
                 ry="4"
-                transform={`rotate(${(i * 37) % 180} ${430 + Math.cos(a) * r * 2.2} ${440 + Math.sin(a) * r * 0.55})`}
+                transform={`rotate(${(i * 37) % 180} ${cx} ${cy})`}
               />
             );
           })}

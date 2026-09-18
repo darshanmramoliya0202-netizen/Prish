@@ -14,7 +14,7 @@ import { getLenis } from "./SmoothScroll";
  *   [data-namaste]       hero word resolves char-by-char; [data-namaste-hands] draws on;
  *   [data-hero-fade]     the bits around the h1 rise in (all three start hidden via CSS)
  *   [data-rangoli]       slow rotation + scroll parallax
- *   [data-scene]         storyboard rows: art slides in
+ * (the Farm → Port → World strip animates itself — see components/journey/Journey.tsx)
  * Reduced motion: everything renders in its final state.
  */
 export function MotionDirector() {
@@ -33,11 +33,13 @@ export function MotionDirector() {
         const singles = gsap.utils.toArray<HTMLElement>(
           "[data-reveal]:not([data-reveal-group] [data-reveal])",
         );
+        // opacity rather than autoAlpha: revealed-later content stays in the accessibility
+        // tree (visibility:hidden would drop headings and break heading order for AT)
         for (const el of singles) {
           gsap.fromTo(
             el,
-            { autoAlpha: 0, y: 28 },
-            { autoAlpha: 1, y: 0, duration: 1, scrollTrigger: { trigger: el } },
+            { opacity: 0, y: 28 },
+            { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: el } },
           );
         }
         for (const group of gsap.utils.toArray<HTMLElement>(
@@ -47,9 +49,9 @@ export function MotionDirector() {
           if (!kids.length) continue;
           gsap.fromTo(
             kids,
-            { autoAlpha: 0, y: 24 },
+            { opacity: 0, y: 24 },
             {
-              autoAlpha: 1,
+              opacity: 1,
               y: 0,
               duration: 0.9,
               stagger: 0.08,
@@ -128,30 +130,6 @@ export function MotionDirector() {
               once: false,
             },
           });
-        }
-
-        // ── storyboard rows ────────────────────────────────────────────
-        for (const row of gsap.utils.toArray<HTMLElement>("[data-scene]")) {
-          const art = row.querySelector<HTMLElement>(":scope > div:last-child");
-          const copy = row.querySelector<HTMLElement>(
-            ":scope > div:first-child",
-          );
-          if (art)
-            gsap.from(art, {
-              autoAlpha: 0,
-              x: 40,
-              scale: 0.98,
-              duration: 1.1,
-              scrollTrigger: { trigger: row },
-            });
-          if (copy)
-            gsap.from(copy.children, {
-              autoAlpha: 0,
-              y: 20,
-              duration: 0.9,
-              stagger: 0.07,
-              scrollTrigger: { trigger: row },
-            });
         }
 
         // ── kit CTA gradient follows the pointer ───────────────────────

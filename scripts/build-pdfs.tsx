@@ -42,11 +42,19 @@ const manifest: Record<string, string> = existsSync(manifestPath)
   ? JSON.parse(readFileSync(manifestPath, "utf8"))
   : {};
 
-// hash of everything that influences output (model + templates + version)
+// hash of everything that influences output (model + templates + bowl renders + version)
+const bowlManifestPath = join(
+  ROOT,
+  "public",
+  "illustrations",
+  "products",
+  ".manifest.json",
+);
 const templateHash = createHash("sha1")
   .update(readFileSync(join(ROOT, "lib", "pdf", "SpecSheet.tsx")))
   .update(readFileSync(join(ROOT, "lib", "pdf", "Catalogue.tsx")))
   .update(readFileSync(join(ROOT, "lib", "pdf", "theme.ts")))
+  .update(existsSync(bowlManifestPath) ? readFileSync(bowlManifestPath) : "")
   .update(version)
   .digest("hex")
   .slice(0, 8);

@@ -119,7 +119,7 @@ export default function ProductsPage() {
                           priority={i === 0}
                           className="w-full transition-transform duration-3 ease-out-expo group-hover:-translate-y-1.5"
                         />
-                        <span className="mt-1 block font-display text-display-md leading-none">
+                        <span className="mt-2 block px-1 font-display text-display-sm">
                           {p.shortName}
                         </span>
                         {p.desiName ? (

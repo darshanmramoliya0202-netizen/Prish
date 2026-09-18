@@ -1,4 +1,5 @@
 import {
+  unlinkSync,
   mkdirSync,
   readdirSync,
   readFileSync,
@@ -42,7 +43,25 @@ export function saveLead(id: string, data: StoredLead): void {
   const p = pathFor(id);
   const tmp = `${p}.${process.pid}.tmp`;
   writeFileSync(tmp, JSON.stringify(data, null, 2));
-  renameSync(tmp, p);
+  // Windows can refuse the rename for a moment while another reader holds the file
+  // (EPERM/EBUSY); on Linux the rename is atomic and succeeds first time.
+  for (let attempt = 0; ; attempt++) {
+    try {
+      renameSync(tmp, p);
+      return;
+    } catch (e) {
+      const code = (e as NodeJS.ErrnoException).code;
+      if (attempt >= 4 || (code !== "EPERM" && code !== "EBUSY")) {
+        try {
+          unlinkSync(tmp);
+        } catch {
+          /* leave nothing behind if we can */
+        }
+        throw e;
+      }
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 40);
+    }
+  }
 }
 
 export function readLead(id: string): StoredLead | null {

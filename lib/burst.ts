@@ -111,8 +111,9 @@ export async function sampleSilhouette(
         const r = data[i]!,
           g = data[i + 1]!,
           b = data[i + 2]!;
-        // the bowl itself is near-black — skip it so the *product* bursts, not the stone
-        if (r + g + b < 120) continue;
+        // skip the stone bowl (dark, low-chroma greys) so the *product* bursts, not the dish
+        const chroma = Math.max(r, g, b) - Math.min(r, g, b);
+        if (chroma < 22 && r + g + b < 420) continue;
         all.push({
           x: (x + 0.5) / size,
           y: (y + 0.5) / size,

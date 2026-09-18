@@ -25,12 +25,11 @@ export default async function Image({
   const c = getClusterBySlug(cluster);
   if (!p || !c) return renderOg({ title: "Prish Overseas" });
   // pre-rendered by scripts/render-bowls.tsx (prebuild)
-  const svg = await readFile(
-    join(process.cwd(), "public", "illustrations", "products", `${p.slug}.svg`),
-    "utf8",
+  const png = await readFile(
+    join(process.cwd(), "public", "illustrations", "products", `${p.slug}.png`),
   ).catch(() => null);
-  const image = svg
-    ? `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}`
+  const image = png
+    ? `data:image/png;base64,${png.toString("base64")}`
     : undefined;
   const ink = p.colourWorld.ink === "light" ? "#fbf8f1" : "#14110c";
   return renderOg({
