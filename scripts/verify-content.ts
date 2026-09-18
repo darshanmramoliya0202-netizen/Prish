@@ -215,6 +215,56 @@ for (const p of products) {
     );
 }
 
+// ─── 5. India outline ──────────────────────────────────────────────────────
+// The map must follow the Survey of India boundary: Gilgit-Baltistan, the whole of
+// J&K/Ladakh and Aksai Chin inside the outline. Point-in-polygon on the projected path.
+{
+  const map = JSON.parse(
+    readFileSync(join(ROOT, "content", "generated", "india-map.json"), "utf8"),
+  ) as { path: string; scale: number; translate: [number, number] };
+  const project = ([lng, lat]: [number, number]): [number, number] => {
+    const y = Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
+    return [
+      map.scale * ((lng * Math.PI) / 180) + map.translate[0],
+      -map.scale * y + map.translate[1],
+    ];
+  };
+  const rings = map.path
+    .split("M")
+    .filter(Boolean)
+    .map((r) =>
+      r
+        .replace(/Z$/, "")
+        .split("L")
+        .map((pt) => pt.split(",").map(Number) as [number, number]),
+    );
+  const inside = ([x, y]: [number, number]) => {
+    let hit = false;
+    for (const ring of rings) {
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const [xi, yi] = ring[i]!;
+        const [xj, yj] = ring[j]!;
+        if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi)
+          hit = !hit;
+      }
+    }
+    return hit;
+  };
+  const mustBeInside: [string, [number, number]][] = [
+    ["Skardu (Gilgit-Baltistan)", [75.6, 35.3]],
+    ["Muzaffarabad", [73.5, 34.4]],
+    ["Aksai Chin", [79.2, 35.2]],
+    ["Leh", [77.6, 34.2]],
+    ["Srinagar", [74.8, 34.1]],
+    ["Rajkot", [70.8, 22.3]],
+  ];
+  for (const [name, coords] of mustBeInside)
+    if (!inside(project(coords)))
+      errors.push(
+        `india-map.json: ${name} falls outside the outline — regenerate with npm run build:india-map (Survey of India boundary)`,
+      );
+}
+
 // ─── report ────────────────────────────────────────────────────────────────
 const authored = products
   .filter((p) => p.profile.source === "authored")

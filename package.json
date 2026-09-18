@@ -20,6 +20,7 @@
     "test": "playwright test",
     "lhci": "lhci autorun",
     "smtp:check": "node scripts/smtp-check.mjs",
+    "build:india-map": "tsx scripts/build-india-map.ts",
     "render:bowls": "tsx scripts/render-bowls.tsx"
   },
   "dependencies": {
