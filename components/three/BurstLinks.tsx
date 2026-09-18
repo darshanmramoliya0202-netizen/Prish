@@ -68,7 +68,9 @@ export function BurstLinks() {
         "a[data-burst]",
       );
       if (!a) return;
-      const svg = a.querySelector<SVGSVGElement>("svg[data-bowl]");
+      const svg = a.querySelector<SVGSVGElement | HTMLImageElement>(
+        "svg[data-bowl], img[data-bowl-img]",
+      );
       const slug = a.dataset.burst!;
       const palette = window.__prishPalettes?.[slug];
       if (!svg || !palette) return; // fall back to the normal curtain navigation

@@ -1,0 +1,37 @@
+import type { Product } from "@/content/types";
+
+/**
+ * The pre-rendered bowl (`render:bowls` → public/illustrations/products/<slug>.svg) as a
+ * plain <img>. List pages show up to 27 bowls at once; inline SVG there meant ~2,000 extra
+ * DOM nodes and a 600 KB document (shipped twice — HTML + RSC payload). The file is the
+ * same markup, so the burst sampler can still read the silhouette from it.
+ * The product-page hero keeps the inline <ProductBowl> (settle target, textures).
+ */
+export function BowlImage({
+  product,
+  className = "",
+  priority = false,
+  ...rest
+}: {
+  product: Product;
+  className?: string;
+  /** above the fold: eager + high fetch priority */
+  priority?: boolean;
+} & Record<`data-${string}`, string | boolean | undefined>) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- static SVG, nothing to optimise
+    <img
+      src={`/illustrations/products/${product.slug}.svg`}
+      alt=""
+      width={1000}
+      height={1000}
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : undefined}
+      decoding="async"
+      draggable={false}
+      data-bowl-img={product.slug}
+      className={className}
+      {...rest}
+    />
+  );
+}

@@ -58,31 +58,43 @@ if (typeof window !== "undefined" && process.env.NODE_ENV !== "production")
 
 const cache = new Map<string, Sample[]>();
 
-/** Rasterise an inline SVG bowl and sample its opaque pixels (cached per slug). */
+/**
+ * Sample the opaque pixels of a bowl (cached per slug). Accepts the inline <ProductBowl>
+ * SVG (rasterised through a blob URL) or the pre-rendered <BowlImage> (drawn directly —
+ * same-origin, so the canvas stays readable).
+ */
 export async function sampleSilhouette(
-  svg: SVGSVGElement,
+  el: SVGSVGElement | HTMLImageElement,
   slug: string,
   palette: string[],
   max = 1400,
 ): Promise<Sample[]> {
   const hit = cache.get(slug);
   if (hit) return hit;
-  const clone = svg.cloneNode(true) as SVGSVGElement;
-  clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-  // external pattern images can't load inside an <img>-rendered SVG; drop them
-  clone.querySelectorAll("image").forEach((n) => n.remove());
-  const xml = new XMLSerializer().serializeToString(clone);
-  const url = URL.createObjectURL(new Blob([xml], { type: "image/svg+xml" }));
+  let url: string | null = null;
   const size = 96;
   const samples: Sample[] = [];
   try {
-    const img = new Image();
-    img.decoding = "async";
-    await new Promise<void>((res, rej) => {
-      img.onload = () => res();
-      img.onerror = () => rej(new Error("svg raster failed"));
-      img.src = url;
-    });
+    let img: HTMLImageElement;
+    if (el instanceof HTMLImageElement) {
+      img = el;
+      if (!(img.complete && img.naturalWidth > 0)) await img.decode();
+    } else {
+      const clone = el.cloneNode(true) as SVGSVGElement;
+      clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      // external pattern images can't load inside an <img>-rendered SVG; drop them
+      clone.querySelectorAll("image").forEach((n) => n.remove());
+      const xml = new XMLSerializer().serializeToString(clone);
+      url = URL.createObjectURL(new Blob([xml], { type: "image/svg+xml" }));
+      img = new Image();
+      img.decoding = "async";
+      const src = url;
+      await new Promise<void>((res, rej) => {
+        img.onload = () => res();
+        img.onerror = () => rej(new Error("svg raster failed"));
+        img.src = src;
+      });
+    }
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
@@ -115,7 +127,7 @@ export async function sampleSilhouette(
   } catch {
     return fallbackSamples(max);
   } finally {
-    URL.revokeObjectURL(url);
+    if (url) URL.revokeObjectURL(url);
   }
   const out = samples.length > 60 ? samples : fallbackSamples(max);
   cache.set(slug, out);

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Product } from "@/content/types";
 import { productPath } from "@/content";
-import { ProductBowl } from "./ProductBowl";
+import { BowlImage } from "./BowlImage";
 import { AddToKitButton } from "./AddToKitButton";
 
 /** Illustration-only card: the label lives outside the image (owner note). */
@@ -28,7 +28,7 @@ export function ProductCard({
             className="absolute inset-x-8 bottom-6 top-12 -z-10 rounded-full opacity-0 blur-2xl transition-opacity duration-4 group-hover:opacity-50"
             style={{ background: product.colourWorld.primary }}
           />
-          <ProductBowl
+          <BowlImage
             product={product}
             className="w-full transition-transform duration-3 ease-out-expo group-hover:-translate-y-1"
           />

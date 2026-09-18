@@ -187,7 +187,7 @@ export function Journey() {
       {/* copy stack */}
       <div className="container-x pointer-events-none absolute inset-x-0 bottom-0 pb-12 md:bottom-12 md:pb-0">
         <div className="max-w-2xl">
-          <p className="eyebrow text-gold-400">{home.journeyTitle}</p>
+          <h2 className="eyebrow font-sans text-gold-400">{home.journeyTitle}</h2>
           <div className="relative mt-3 min-h-44 md:min-h-40">
             {journey.scenes.map((s) => (
               <div

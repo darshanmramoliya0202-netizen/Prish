@@ -11,7 +11,8 @@ import { getLenis } from "./SmoothScroll";
  *   [data-reveal]        fade/rise in when 78% into view (once)
  *   [data-reveal-group]  children stagger
  *   [data-count]         count-up numbers ("2500+", "12–24")
- *   [data-namaste]       hero word resolves char-by-char; [data-namaste-hands] draws on
+ *   [data-namaste]       hero word resolves char-by-char; [data-namaste-hands] draws on;
+ *   [data-hero-fade]     the bits around the h1 rise in (all three start hidden via CSS)
  *   [data-rangoli]       slow rotation + scroll parallax
  *   [data-scene]         storyboard rows: art slides in
  * Reduced motion: everything renders in its final state.
@@ -79,9 +80,11 @@ export function MotionDirector() {
         }
 
         // ── hero: नमस्ते resolves, hands draw on ────────────────────────
+        // (word, hands and [data-hero-fade] sit at opacity 0 via CSS until here — no flash)
         const word = document.querySelector<HTMLElement>("[data-namaste]");
         if (word) {
           const split = new SplitText(word, { type: "chars" });
+          gsap.set(word, { autoAlpha: 1 });
           gsap.from(split.chars, {
             yPercent: 40,
             autoAlpha: 0,
@@ -94,7 +97,8 @@ export function MotionDirector() {
           const hands = document.querySelectorAll<SVGPathElement>(
             "[data-namaste-hands] path",
           );
-          if (hands.length)
+          if (hands.length) {
+            gsap.set("[data-namaste-hands]", { autoAlpha: 1 });
             gsap.from(hands, {
               drawSVG: "0%",
               duration: 1.6,
@@ -102,16 +106,13 @@ export function MotionDirector() {
               ease: "power2.inOut",
               delay: 0.1,
             });
-          const heroBits = document.querySelectorAll<HTMLElement>(
-            "[data-hero] h1, [data-hero] h1 + p, [data-hero] h1 + p + div, [data-hero] .eyebrow",
+          }
+          // the h1 is the LCP and stays visible from first paint; only the bits around it fade in
+          gsap.fromTo(
+            "[data-hero-fade]",
+            { y: 24 },
+            { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1, delay: 0.5 },
           );
-          gsap.from(heroBits, {
-            autoAlpha: 0,
-            y: 24,
-            duration: 1,
-            stagger: 0.1,
-            delay: 0.6,
-          });
         }
 
         // ── rangoli: rotate with scroll ────────────────────────────────
@@ -171,13 +172,14 @@ export function MotionDirector() {
       });
     });
 
-    // refresh once fonts are in, and again after images settle
-    const refresh = () => ScrollTrigger.refresh();
-    document.fonts?.ready.then(refresh);
-    const t = window.setTimeout(refresh, 600);
+    // refresh once fonts are in (ScrollTrigger refreshes itself on `load`)
+    let live = true;
+    document.fonts?.ready.then(() => {
+      if (live) ScrollTrigger.refresh();
+    });
     return () => {
+      live = false;
       cancelAnimationFrame(raf);
-      window.clearTimeout(t);
       ctx?.revert();
     };
   }, [pathname, reduced]);

@@ -149,14 +149,7 @@ function Seeds({ p, id }: { p: Product; id: string }) {
       : p.slug.includes("coriander")
         ? "round"
         : "cumin";
-  const n =
-    kind === "chilli"
-      ? 34
-      : kind === "finger"
-        ? 22
-        : kind === "round"
-          ? 160
-          : 190;
+  const n = kind === "chilli" ? 28 : kind === "finger" ? 18 : kind === "round" ? 96 : 120;
   const pts = scatter(p.slug + "-seeds", n, 122, 36, 200, 226);
   return (
     <g>
@@ -222,7 +215,7 @@ function Seeds({ p, id }: { p: Product; id: string }) {
 
 function Flakes({ p, id }: { p: Product; id: string }) {
   const { primary, secondary, particles } = p.colourWorld;
-  const pts = scatter(p.slug + "-flakes", 120, 124, 38, 200, 226);
+  const pts = scatter(p.slug + "-flakes", 84, 124, 38, 200, 226);
   return (
     <g>
       <defs>
@@ -252,7 +245,7 @@ function Flakes({ p, id }: { p: Product; id: string }) {
 
 function Grains({ p, id }: { p: Product; id: string }) {
   const { primary, secondary, particles } = p.colourWorld;
-  const pts = scatter(p.slug + "-grains", 260, 126, 38, 200, 226);
+  const pts = scatter(p.slug + "-grains", 160, 126, 38, 200, 226);
   return (
     <g>
       <defs>
@@ -279,7 +272,7 @@ function Grains({ p, id }: { p: Product; id: string }) {
 
 function Curls({ p, id }: { p: Product; id: string }) {
   const { primary, secondary, particles } = p.colourWorld;
-  const pts = scatter(p.slug + "-curls", 70, 122, 36, 200, 226);
+  const pts = scatter(p.slug + "-curls", 52, 122, 36, 200, 226);
   return (
     <g>
       <defs>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { orderedClusters, getProduct, productPath, home } from "@/content";
-import { ProductBowl } from "@/components/products/ProductBowl";
+import { BowlImage } from "@/components/products/BowlImage";
 import { SectionHeading } from "@/components/ui/primitives";
 
 /**
@@ -53,7 +53,7 @@ export function ProductWorld() {
                       className="absolute inset-x-6 bottom-4 top-10 -z-10 rounded-full opacity-0 blur-2xl transition-opacity duration-4 group-hover:opacity-60"
                       style={{ background: product.colourWorld.primary }}
                     />
-                    <ProductBowl
+                    <BowlImage
                       product={product}
                       className="w-full drop-shadow-2xl"
                     />

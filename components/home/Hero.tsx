@@ -5,8 +5,9 @@ import { IconArrow } from "@/components/ui/icons";
 import { NamasteHands } from "@/components/motion/NamasteHands";
 
 /**
- * Section 1 — the Namaste identity moment. LCP is text + inline SVG; no images.
- * Motion (SplitText resolve, DrawSVG hands) is attached by <HeroMotion/> in the motion phase.
+ * Section 1 — the Namaste identity moment. LCP is the h1, which is never hidden; the
+ * word, hands and [data-hero-fade] bits start at opacity 0 (globals.css) and the
+ * MotionDirector brings them in (SplitText resolve, DrawSVG hands, staggered fades).
  */
 export function Hero() {
   return (
@@ -35,7 +36,7 @@ export function Hero() {
             {accents.namaste.roman} — {accents.namaste.translation}
           </span>
         </p>
-        <p className="eyebrow mt-3 text-cream-300">
+        <p className="eyebrow mt-3 text-cream-300" data-hero-fade>
           {accents.namaste.roman} · {accents.namaste.translation}
         </p>
 
@@ -43,11 +44,17 @@ export function Hero() {
           From Indian farms to{" "}
           <span className="wonk text-gold-300">global</span> formulations.
         </h1>
-        <p className="mt-6 max-w-2xl text-lead text-cream-100/85">
+        <p
+          className="mt-6 max-w-2xl text-lead text-cream-100/85"
+          data-hero-fade
+        >
           {home.heroSub}
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <div
+          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+          data-hero-fade
+        >
           <ButtonLink href="/products" size="lg" variant="primary">
             See the products <IconArrow />
           </ButtonLink>
@@ -56,7 +63,9 @@ export function Hero() {
           </ButtonLink>
         </div>
 
-        <p className="eyebrow mt-14 text-cream-300/70">{home.heroEyebrow}</p>
+        <p className="eyebrow mt-14 text-cream-300/70" data-hero-fade>
+          {home.heroEyebrow}
+        </p>
       </div>
 
       <div

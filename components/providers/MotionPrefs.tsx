@@ -24,7 +24,7 @@ export type MotionPrefs = {
   touch: boolean;
   /** WebGL2 available in this browser */
   webgl: boolean;
-  /** local GPU tier 0–3 (null before hydration) */
+  /** local GPU tier 0–3 (null until the deferred probe has run) */
   gpuTier: number | null;
   /** convenience: allowed to mount the WebGL layer */
   canWebGL: boolean;
@@ -66,7 +66,7 @@ export function MotionPrefsProvider({ children }: { children: ReactNode }) {
       touch,
       webgl,
       gpuTier,
-      canWebGL: !reduced && webgl && gpuTier >= 2,
+      canWebGL: !reduced && webgl && gpuTier !== null && gpuTier >= 2,
     }),
     [reduced, override, touch, webgl, gpuTier],
   );

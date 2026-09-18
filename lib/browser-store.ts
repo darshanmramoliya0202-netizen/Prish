@@ -52,7 +52,11 @@ export function writeLocal(key: string, value: string | null): void {
   window.dispatchEvent(new Event(LS_EVENT));
 }
 
-let gpuCache: { webgl: boolean; tier: number } | null = null;
+type Gpu = { webgl: boolean; tier: number | null };
+
+let gpuCache: Gpu | null = null;
+const gpuListeners = new Set<() => void>();
+let gpuScheduled = false;
 
 /**
  * Local GPU heuristic (no network, no third-party benchmark download):
@@ -61,7 +65,7 @@ let gpuCache: { webgl: boolean; tier: number } | null = null;
  *   tier 2 — everything else
  *   tier 3 — desktop-class (≥8 cores and ≥8 GB)
  */
-function detectGpu(): { webgl: boolean; tier: number } {
+function detectGpu(): Gpu {
   if (gpuCache) return gpuCache;
   try {
     const c = document.createElement("canvas");
@@ -93,14 +97,42 @@ function detectGpu(): { webgl: boolean; tier: number } {
   }
 }
 
-const SERVER_GPU = { webgl: false, tier: 0 };
+/**
+ * Creating a WebGL2 context costs 50–500 ms of main thread (software GL is the slow end),
+ * so the probe waits for `load` + an idle slot instead of running during hydration.
+ */
+function scheduleGpuProbe() {
+  if (gpuCache || gpuScheduled) return;
+  gpuScheduled = true;
+  const run = () => {
+    detectGpu();
+    gpuListeners.forEach((cb) => cb());
+  };
+  const idle = () => {
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+    };
+    if (w.requestIdleCallback) w.requestIdleCallback(run, { timeout: 3000 });
+    else window.setTimeout(run, 1200);
+  };
+  if (document.readyState === "complete") idle();
+  else window.addEventListener("load", idle, { once: true });
+}
 
-/** WebGL2 availability + local GPU tier; computed once on the client, tier 0 on the server. */
-export function useGpu(): { webgl: boolean; tier: number } {
+const GPU_PENDING: Gpu = { webgl: false, tier: null };
+
+/** WebGL2 availability + local GPU tier; `tier: null` until the deferred probe has run. */
+export function useGpu(): Gpu {
   return useSyncExternalStore(
-    () => () => {},
-    detectGpu,
-    () => SERVER_GPU,
+    (cb) => {
+      gpuListeners.add(cb);
+      scheduleGpuProbe();
+      return () => {
+        gpuListeners.delete(cb);
+      };
+    },
+    () => gpuCache ?? GPU_PENDING,
+    () => GPU_PENDING,
   );
 }
 

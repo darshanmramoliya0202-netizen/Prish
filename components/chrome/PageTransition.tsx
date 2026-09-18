@@ -59,7 +59,7 @@ export function PageTransition() {
       // bowls burst instead of curtaining (BurstLinks owns those clicks)
       if (
         a.dataset.burst !== undefined &&
-        a.querySelector("svg[data-bowl]") &&
+        a.querySelector("svg[data-bowl], img[data-bowl-img]") &&
         window.__prishPalettes?.[a.dataset.burst]
       )
         return;

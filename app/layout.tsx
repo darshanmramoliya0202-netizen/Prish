@@ -7,6 +7,8 @@ import { defaultDescription, defaultTitle, getSiteUrl } from "@/lib/seo";
 import { organizationSchema } from "@/lib/schema-org";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Providers } from "@/components/providers/Providers";
+import { SealSprite } from "@/components/brand/Seal";
+import { MotionScript } from "@/components/providers/MotionScript";
 import { Shell } from "@/components/chrome/Shell";
 import { PaletteScript } from "@/components/products/PaletteScript";
 
@@ -70,6 +72,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
+        <MotionScript />
+        <SealSprite />
         <JsonLd data={organizationSchema()} />
         <PaletteScript />
         <Providers>
