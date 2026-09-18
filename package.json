@@ -2,11 +2,13 @@
   "name": "prish-overseas-website",
   "version": "3.0.0",
   "private": true,
-  "description": "Prish Overseas — Khet Se. Indian-origin ingredients for global formulations.",
-  "engines": { "node": ">=20.9.0" },
+  "description": "Prish Overseas \u00e2\u20ac\u201d Khet Se. Indian-origin ingredients for global formulations.",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run verify:content && npm run build:pdfs",
+    "prebuild": "npm run verify:content && npm run render:bowls && npm run build:pdfs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -17,7 +19,8 @@
     "analyze": "ANALYZE=true next build",
     "test": "playwright test",
     "lhci": "lhci autorun",
-    "smtp:check": "node scripts/smtp-check.mjs"
+    "smtp:check": "node scripts/smtp-check.mjs",
+    "render:bowls": "tsx scripts/render-bowls.tsx"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

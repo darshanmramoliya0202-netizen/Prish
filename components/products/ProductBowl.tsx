@@ -41,7 +41,7 @@ function scatter(seed: string, n: number, rx = 128, ry = 40, cx = 200, cy = 232)
   return pts.sort((p, q) => p.y - q.y);
 }
 
-function Heap({ p, id }: { p: Product; id: string }) {
+function Heap({ p, id, texture = true }: { p: Product; id: string; texture?: boolean }) {
   const { primary, secondary, particles } = p.colourWorld;
   const r = rng(p.slug + "-heap");
   const specks = Array.from({ length: 22 }, () => ({
@@ -66,7 +66,7 @@ function Heap({ p, id }: { p: Product; id: string }) {
       </defs>
       {/* the mound: a soft, slightly asymmetric peak; its base is hidden by the bowl's front lip */}
       <path d="M 70 262 C 96 226, 128 182, 176 158 C 196 149, 212 150, 232 160 C 274 182, 302 222, 330 262 Z" fill={`url(#${id}-heap)`} />
-      <rect x="60" y="140" width="280" height="130" fill={`url(#${id}-tex)`} opacity="0.22" clipPath={`url(#${id}-mound-clip)`} style={{ mixBlendMode: "multiply" }} />
+      {texture ? <rect x="60" y="140" width="280" height="130" fill={`url(#${id}-tex)`} opacity="0.22" clipPath={`url(#${id}-mound-clip)`} style={{ mixBlendMode: "multiply" }} /> : null}
       {/* soft shadow where the mound meets the powder surface */}
       <ellipse cx="200" cy="248" rx="112" ry="10" fill={secondary} opacity="0.35" />
       {/* highlight ridge */}
@@ -200,7 +200,7 @@ function Curls({ p, id }: { p: Product; id: string }) {
   );
 }
 
-const CONTENT: Record<ProductForm, (props: { p: Product; id: string }) => React.JSX.Element> = {
+const CONTENT: Record<ProductForm, (props: { p: Product; id: string; texture?: boolean }) => React.JSX.Element> = {
   powder: Heap,
   whole: Seeds,
   flakes: Flakes,
@@ -208,7 +208,7 @@ const CONTENT: Record<ProductForm, (props: { p: Product; id: string }) => React.
   fried: Curls,
 };
 
-export function ProductBowl({ product, className = "", decorative = true, id: idProp }: { product: Product; className?: string; decorative?: boolean; id?: string }) {
+export function ProductBowl({ product, className = "", decorative = true, id: idProp, texture = true, ...rest }: { product: Product; className?: string; decorative?: boolean; id?: string; texture?: boolean } & Record<`data-${string}`, string | boolean | undefined>) {
   const id = idProp ?? `bowl-${product.slug}`;
   const Content = CONTENT[product.form];
   return (
@@ -219,6 +219,7 @@ export function ProductBowl({ product, className = "", decorative = true, id: id
       aria-hidden={decorative || undefined}
       aria-label={decorative ? undefined : product.illustration.alt}
       data-bowl={product.slug}
+      {...rest}
     >
       <defs>
         <radialGradient id={`${id}-shadow`} cx="50%" cy="50%" r="50%">
@@ -247,7 +248,7 @@ export function ProductBowl({ product, className = "", decorative = true, id: id
       {/* inner cavity */}
       <ellipse cx="200" cy="238" rx="136" ry="42" fill={`url(#${id}-inner)`} />
       {/* contents */}
-      <Content p={product} id={id} />
+      <Content p={product} id={id} texture={texture} />
       {/* front lip — hides the base of whatever sits in the bowl */}
       <path d="M 44 236 C 44 262, 108 286, 200 286 C 292 286, 356 262, 356 236 C 356 250, 292 268, 200 268 C 108 268, 44 250, 44 236 Z" fill={`url(#${id}-rim)`} />
       {/* rim highlight */}

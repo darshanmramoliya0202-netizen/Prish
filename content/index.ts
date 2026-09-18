@@ -2,7 +2,7 @@ import { products } from "./products";
 import { clusters } from "./clusters";
 import { cropCalendar } from "./crop-calendar";
 import buyerTypesJson from "./generated/buyer-types.json";
-import flagsJson from "./generated/flags.json";
+import { flagCopy } from "./flags";
 import type { BuyerTypeId, Cluster, ClusterId, CropCalendarRow, FlagId, Product } from "./types";
 
 export { products, clusters, cropCalendar };
@@ -23,7 +23,8 @@ export const buyerTypeLabel: Record<BuyerTypeId, string> = Object.fromEntries(
   buyerTypesJson.map((b) => [b.id, b.label]),
 ) as Record<BuyerTypeId, string>;
 
-export const flagText: Record<FlagId, string> = Object.fromEntries(flagsJson.map((f) => [f.id, f.text])) as Record<FlagId, string>;
+export const flagText: Record<FlagId, string> = Object.fromEntries((Object.keys(flagCopy) as FlagId[]).map((k) => [k, flagCopy[k].text])) as Record<FlagId, string>;
+export { flagCopy };
 
 export function getProduct(id: string): Product | undefined {
   return byId.get(id);

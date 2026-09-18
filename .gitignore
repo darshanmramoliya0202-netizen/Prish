@@ -29,3 +29,4 @@ brochure/
 test-results/
 playwright-report/
 .lighthouseci/
+public/illustrations/products/.manifest.json
