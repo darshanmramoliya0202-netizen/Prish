@@ -68,6 +68,14 @@ let gpuScheduled = false;
 function detectGpu(): Gpu {
   if (gpuCache) return gpuCache;
   try {
+    // test/debug override (headless Chromium reports SwiftShader → tier 0 otherwise)
+    const forced = localStorage.getItem("prish.gpu");
+    if (forced !== null && /^[0-3]$/.test(forced))
+      return (gpuCache = { webgl: forced !== "0", tier: Number(forced) });
+  } catch {
+    /* storage unavailable */
+  }
+  try {
     const c = document.createElement("canvas");
     const gl = c.getContext("webgl2") as WebGL2RenderingContext | null;
     if (!gl) return (gpuCache = { webgl: false, tier: 0 });

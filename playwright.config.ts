@@ -12,7 +12,7 @@ export default defineConfig({
   use: { baseURL, trace: "retain-on-failure", viewport: { width: 1280, height: 800 } },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] }, testIgnore: /reduced-motion/ },
-    { name: "mobile", use: { ...devices["Pixel 7"] }, testIgnore: /reduced-motion|kit|inquiry-api/ },
+    { name: "mobile", use: { ...devices["Pixel 7"] }, testIgnore: /reduced-motion|kit|inquiry-api|burst-gl/ },
     { name: "reduced-motion", use: { ...devices["Desktop Chrome"], reducedMotion: "reduce" }, testMatch: /reduced-motion/ },
   ],
   // locally: reuse the running dev server; in CI: production server after `npm run build`

@@ -77,31 +77,48 @@ export function BurstLinks() {
       e.preventDefault();
       e.stopPropagation();
       busy = true;
-      const r = svg.getBoundingClientRect();
-      const samples = await sampleSilhouette(svg, slug, palette);
-      burstBus.pending = { slug, palette };
-      burstBus.start({
-        slug,
-        rect: { x: r.left, y: r.top, w: r.width, h: r.height },
-        samples,
-        palette,
-      });
-      gsap.to(svg, {
-        autoAlpha: 0,
-        scale: 0.9,
-        duration: 0.25,
-        ease: "power2.in",
-      });
-      track("burst", { product: slug });
-      const live = document.getElementById("burst-live");
-      if (live)
-        live.textContent = `Opening ${a.textContent?.trim().split("\n")[0] ?? slug}`;
-      transitionFlags.skipNext = true;
       const href = a.getAttribute("href")!;
-      window.setTimeout(() => {
-        router.push(href);
+      // The burst is decoration: whatever happens to it, the click must navigate,
+      // and `busy` must never stay stuck.
+      let navigated = false;
+      const go = () => {
+        if (navigated) return;
+        navigated = true;
         busy = false;
-      }, NAV_AT_MS);
+        window.clearTimeout(watchdog);
+        transitionFlags.skipNext = true;
+        try {
+          router.push(href);
+        } catch {
+          window.location.assign(href);
+        }
+      };
+      const watchdog = window.setTimeout(go, 1500);
+      try {
+        const r = svg.getBoundingClientRect();
+        const samples = await sampleSilhouette(svg, slug, palette);
+        burstBus.pending = { slug, palette };
+        burstBus.start({
+          slug,
+          rect: { x: r.left, y: r.top, w: r.width, h: r.height },
+          samples,
+          palette,
+        });
+        gsap.to(svg, {
+          autoAlpha: 0,
+          scale: 0.9,
+          duration: 0.25,
+          ease: "power2.in",
+        });
+        track("burst", { product: slug });
+        const live = document.getElementById("burst-live");
+        if (live)
+          live.textContent = `Opening ${a.textContent?.trim().split("\n")[0] ?? slug}`;
+        window.setTimeout(go, NAV_AT_MS);
+      } catch {
+        burstBus.pending = null;
+        go();
+      }
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);

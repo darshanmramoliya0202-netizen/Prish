@@ -9,6 +9,20 @@ import { Seal } from "@/components/brand/Seal";
 /** Set by the burst interaction so it can navigate without the curtain. */
 export const transitionFlags = { skipNext: false };
 
+/** slide the sheet up and park it below the viewport — with a plain-CSS fallback */
+function lift(el: HTMLDivElement) {
+  try {
+    gsap.to(el, {
+      yPercent: -100,
+      duration: 0.45,
+      ease: "power3.inOut",
+      onComplete: () => gsap.set(el, { yPercent: 100 }),
+    });
+  } catch {
+    el.style.transform = "translateY(100%)";
+  }
+}
+
 /**
  * Curtain page transition. Intercepts internal link clicks (no modifier keys, same
  * origin, not download/target), plays the curtain in, then navigates; the curtain
@@ -26,12 +40,7 @@ export function PageTransition() {
     const el = curtain.current;
     if (!el || !pending.current) return;
     pending.current = false;
-    gsap.to(el, {
-      yPercent: -100,
-      duration: 0.45,
-      ease: "power3.inOut",
-      onComplete: () => gsap.set(el, { yPercent: 100 }),
-    });
+    lift(el);
   }, [pathname]);
 
   useEffect(() => {
@@ -72,30 +81,55 @@ export function PageTransition() {
         return;
       }
       e.preventDefault();
+      const href = url.pathname + url.search;
       const el = curtain.current;
       if (!el) {
-        router.push(url.pathname + url.search);
+        router.push(href);
         return;
       }
+      // The animation is decoration: whatever happens to it, the click must navigate.
+      let navigated = false;
+      const go = () => {
+        if (navigated) return;
+        navigated = true;
+        window.clearTimeout(watchdog);
+        try {
+          router.push(href);
+        } catch {
+          window.location.assign(href);
+        }
+      };
+      const watchdog = window.setTimeout(go, 1200);
       pending.current = true;
-      gsap.set(el, { yPercent: 100 });
-      gsap.to(el, {
-        yPercent: 0,
-        duration: 0.42,
-        ease: "power3.inOut",
-        onComplete: () => router.push(url.pathname + url.search),
-      });
-      gsap.fromTo(
-        el.querySelector("[data-stamp]"),
-        { scale: 1.3, autoAlpha: 0 },
-        {
-          scale: 1,
-          autoAlpha: 1,
-          duration: 0.5,
-          ease: "back.out(1.6)",
-          delay: 0.2,
-        },
-      );
+      // and if the route never changes (failed push, offline), lift the sheet again
+      window.setTimeout(() => {
+        if (pending.current && curtain.current) {
+          pending.current = false;
+          lift(curtain.current);
+        }
+      }, 4000);
+      try {
+        gsap.set(el, { yPercent: 100 });
+        gsap.to(el, {
+          yPercent: 0,
+          duration: 0.42,
+          ease: "power3.inOut",
+          onComplete: go,
+        });
+        gsap.fromTo(
+          el.querySelector("[data-stamp]"),
+          { scale: 1.3, autoAlpha: 0 },
+          {
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.5,
+            ease: "back.out(1.6)",
+            delay: 0.2,
+          },
+        );
+      } catch {
+        go();
+      }
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);

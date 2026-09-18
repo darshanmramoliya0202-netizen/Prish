@@ -238,7 +238,9 @@ export default function BurstGL() {
           premultipliedAlpha: false,
         }}
         camera={{ position: [0, 0, 10], zoom: 1, near: 0.1, far: 100 }}
-        style={{ background: "transparent" }}
+        // R3F puts pointer-events:auto on its own wrapper, which would override the
+        // parent's `pointer-events-none` and swallow every click on the page.
+        style={{ background: "transparent", pointerEvents: "none" }}
       >
         <BurstPoints />
       </Canvas>
