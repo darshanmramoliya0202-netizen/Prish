@@ -100,7 +100,7 @@ export function SectionHeading({
   as?: "h1" | "h2" | "h3";
 }) {
   return (
-    <div className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}>
+    <div className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`} data-reveal>
       {eyebrow ? <Eyebrow className="mb-4">{eyebrow}</Eyebrow> : null}
       <Tag className={Tag === "h1" ? "text-display-xl" : "text-display-lg"}>{title}</Tag>
       {sub ? <p className="mt-5 text-lead opacity-80">{sub}</p> : null}

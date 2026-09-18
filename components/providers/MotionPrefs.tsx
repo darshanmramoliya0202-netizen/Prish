@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { useLocalValue, useMediaQuery, useWebGL2, writeLocal } from "@/lib/browser-store";
+import { createContext, useContext, useEffect, useMemo, type ReactNode } from "react";
+import { useGpu, useLocalValue, useMediaQuery, writeLocal } from "@/lib/browser-store";
 
 export type MotionPrefs = {
   /** true when the OS or the footer toggle asks for reduced motion */
@@ -13,7 +13,7 @@ export type MotionPrefs = {
   touch: boolean;
   /** WebGL2 available in this browser */
   webgl: boolean;
-  /** detect-gpu tier 0–3 (null until measured) */
+  /** local GPU tier 0–3 (null before hydration) */
   gpuTier: number | null;
   /** convenience: allowed to mount the WebGL layer */
   canWebGL: boolean;
@@ -34,28 +34,12 @@ const Ctx = createContext<MotionPrefs>({
 export function MotionPrefsProvider({ children }: { children: ReactNode }) {
   const osReduced = useMediaQuery("(prefers-reduced-motion: reduce)");
   const touch = useMediaQuery("(pointer: coarse)");
-  const webgl = useWebGL2();
+  const gpu = useGpu();
+  const webgl = gpu.webgl;
+  const gpuTier = gpu.tier;
   const stored = useLocalValue(STORAGE_KEY);
   const override = stored === "reduce" ? true : stored === "full" ? false : null;
   const reduced = override ?? osReduced;
-
-  const [gpuTier, setGpuTier] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (reduced || !webgl) return;
-    let cancelled = false;
-    import("detect-gpu")
-      .then(({ getGPUTier }) => getGPUTier())
-      .then((t) => {
-        if (!cancelled) setGpuTier(t.tier);
-      })
-      .catch(() => {
-        if (!cancelled) setGpuTier(1);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [reduced, webgl]);
 
   useEffect(() => {
     document.documentElement.dataset.motion = reduced ? "reduced" : "full";
@@ -69,7 +53,7 @@ export function MotionPrefsProvider({ children }: { children: ReactNode }) {
       touch,
       webgl,
       gpuTier,
-      canWebGL: !reduced && webgl && (gpuTier ?? 0) >= 2,
+      canWebGL: !reduced && webgl && gpuTier >= 2,
     }),
     [reduced, override, touch, webgl, gpuTier],
   );

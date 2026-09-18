@@ -14,12 +14,12 @@ export function ProductWorld() {
       <div className="container-x">
         <SectionHeading eyebrow="The product world" title={home.worldTitle} sub={home.worldSub} align="center" />
 
-        <ul className="mx-auto mt-16 grid max-w-6xl grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-6" role="list">
+        <ul className="mx-auto mt-16 grid max-w-6xl grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-6" role="list" data-reveal-group>
           {heroes.map(({ cluster, product }, i) => {
             // gentle arc: outer bowls sit lower than the centre ones
             const lift = [0, 24, 40, 40, 24, 0][i] ?? 0;
             return (
-              <li key={product.id} className="lg:translate-y-0" style={{ ["--lift" as string]: `${lift}px` }}>
+              <li key={product.id} className="lg:translate-y-0" style={{ ["--lift" as string]: `${lift}px` }} data-reveal>
                 <Link
                   href={productPath(product)}
                   data-burst={product.slug}

@@ -8,6 +8,7 @@ import { organizationSchema } from "@/lib/schema-org";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Providers } from "@/components/providers/Providers";
 import { Shell } from "@/components/chrome/Shell";
+import { PaletteScript } from "@/components/products/PaletteScript";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body>
         <JsonLd data={organizationSchema()} />
+        <PaletteScript />
         <Providers>
           <Shell>{children}</Shell>
         </Providers>

@@ -14,7 +14,7 @@ export function KitCta() {
         ["--world" as string]: "#e0a106",
         ["--world-2" as string]: "#a5133f",
         ["--world-ink" as string]: "#14110c",
-        background: "linear-gradient(120deg, var(--world) 0%, #f28a1c 45%, var(--world-2) 100%)",
+        background: "linear-gradient(120deg, var(--world) 0%, #f28a1c var(--mx, 45%), var(--world-2) 100%)",
         color: "var(--world-ink)",
       }}
     >

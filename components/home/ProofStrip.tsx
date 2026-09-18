@@ -8,9 +8,9 @@ export function ProofStrip() {
     <section data-theme="light" className="relative bg-cream-50 py-section text-ink-900">
       <div className="container-x">
         <SectionHeading eyebrow="What we will put our name on" title={home.proofTitle} sub={home.proofSub} />
-        <dl className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
           {site.stats.map((s) => (
-            <div key={s.label} className="border-t border-ink-900/15 pt-6">
+            <div key={s.label} className="border-t border-ink-900/15 pt-6" data-reveal>
               <dd className="font-display text-display-lg leading-none tabular text-forest-900">
                 <span data-count={s.value}>{s.value}</span>
                 {s.unit ? <span className="ml-2 text-display-md text-ink-500">{s.unit}</span> : null}

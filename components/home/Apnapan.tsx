@@ -12,10 +12,10 @@ export function Apnapan() {
   return (
     <section data-theme="light" className="bg-cream-50 py-section text-ink-900">
       <div className="container-x grid items-center gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-5" data-reveal>
           <Portrait person={person} />
         </div>
-        <div className="lg:col-span-7">
+        <div className="lg:col-span-7" data-reveal>
           <Accent accent={accents.apnapan} translation={accents.apnapan.translation} size="md" />
           <h2 className="mt-8 text-display-lg">{home.apnapanTitle}</h2>
           <div className="mt-6 space-y-4 text-lead text-ink-700">

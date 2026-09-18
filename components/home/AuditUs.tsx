@@ -20,16 +20,16 @@ export function AuditUs() {
             See the documents <IconArrow />
           </ButtonLink>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7" role="list">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7" role="list" data-reveal-group>
           {held.map((c) => (
-            <li key={c.id} className="rounded-lg border border-ink-900/10 bg-cream-50 p-5 shadow-paper">
+            <li key={c.id} className="rounded-lg border border-ink-900/10 bg-cream-50 p-5 shadow-paper" data-reveal>
               <p className="font-display text-display-md leading-tight">{c.name}</p>
               <p className="mt-2 text-small text-ink-500">{c.issuer}</p>
               <p className="mt-4">{c.number ? <Pill tone="ok">On file · {c.number}</Pill> : <Pill tone="muted">Held · number on request</Pill>}</p>
             </li>
           ))}
           {pending.map((c) => (
-            <li key={c.id} className="rounded-lg border border-dashed border-ink-900/20 p-5">
+            <li key={c.id} className="rounded-lg border border-dashed border-ink-900/20 p-5" data-reveal>
               <p className="font-display text-display-md leading-tight">{c.name}</p>
               <p className="mt-2 text-small text-ink-500">{c.issuer}</p>
               <p className="mt-4">

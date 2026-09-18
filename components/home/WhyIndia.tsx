@@ -17,9 +17,9 @@ export function WhyIndia() {
       <Rangoli className="pointer-events-none absolute -right-40 top-1/2 h-[120vmin] w-[120vmin] -translate-y-1/2 text-forest-900/10 md:-right-64" />
       <div className="container-x relative">
         <SectionHeading eyebrow="Origin" title={home.whyIndiaTitle} sub="India has been a trusted source of agricultural and botanical ingredients for centuries. Here is what that means in practice." />
-        <ul className="mt-14 grid gap-10 md:grid-cols-2 max-w-4xl">
+        <ul className="mt-14 grid gap-10 md:grid-cols-2 max-w-4xl" data-reveal-group>
           {reasons.map((r) => (
-            <li key={r.title} className="border-l-2 border-gold-500 pl-6">
+            <li key={r.title} className="border-l-2 border-gold-500 pl-6" data-reveal>
               <h3 className="font-display text-display-md">{r.title}</h3>
               <p className="mt-3 text-body text-ink-700">{r.text}</p>
             </li>

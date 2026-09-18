@@ -9,11 +9,11 @@ export function Families() {
     <section data-theme="light" className="bg-cream-50 py-section text-ink-900">
       <div className="container-x">
         <SectionHeading eyebrow="Products" title={home.familiesTitle} sub="Every family has its own growing belts, buyers and paperwork. Pick the one you source." />
-        <ol className="mt-14 divide-y divide-ink-900/10 border-y border-ink-900/10">
+        <ol className="mt-14 divide-y divide-ink-900/10 border-y border-ink-900/10" data-reveal-group>
           {orderedClusters.map((c) => {
             const n = productsByCluster(c.id).length;
             return (
-              <li key={c.id}>
+              <li key={c.id} data-reveal>
                 <Link href={clusterPath(c)} className="group grid items-center gap-6 py-8 md:grid-cols-12 md:py-10">
                   <div className="md:col-span-3">
                     <Accent accent={c.accent} size="sm" />
