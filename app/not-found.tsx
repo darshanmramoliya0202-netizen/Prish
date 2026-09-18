@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main data-theme="light" className="min-h-dvh grid place-items-center container-x">
+    <div data-theme="light" className="min-h-dvh grid place-items-center container-x">
       <div className="text-center max-w-xl">
         <p className="eyebrow text-ink-500">404</p>
         <h1 className="text-display-lg mt-4">This page went to the wrong port.</h1>
@@ -18,6 +18,6 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

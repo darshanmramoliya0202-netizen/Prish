@@ -72,3 +72,12 @@ export function useWebGL2(): boolean {
     () => false,
   );
 }
+
+/** true after hydration on the client, false during SSR/hydration — for client-only UI bits. */
+export function useHydrated(): boolean {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
