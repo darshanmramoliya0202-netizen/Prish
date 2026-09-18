@@ -12,4 +12,9 @@ export default defineConfig([
       "react/no-unknown-property": "off",
     },
   },
+  {
+    // @react-pdf primitives are not DOM elements
+    files: ["lib/pdf/**/*.tsx"],
+    rules: { "jsx-a11y/alt-text": "off" },
+  },
 ]);

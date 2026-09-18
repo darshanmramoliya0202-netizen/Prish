@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 
-/** Human-readable reference: PO-YYMMDD-XXXX (no ambiguous characters). */
+/** Human-readable reference: PO-YYMMDD- plus 4 random unambiguous characters. */
 export function newRef(now = new Date()): string {
   const yy = String(now.getUTCFullYear()).slice(2);
   const mm = String(now.getUTCMonth() + 1).padStart(2, "0");
