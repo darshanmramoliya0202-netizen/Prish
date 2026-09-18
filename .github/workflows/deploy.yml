@@ -1,0 +1,55 @@
+name: Check & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, v3]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Lint · typecheck · content · build (x64)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run verify:content
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://www.prishoverseas.com
+
+  deploy:
+    name: Deploy to Oracle VM (aarch64)
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull, build and reload on the VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 80.225.227.233
+          username: opc
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          script_stop: true
+          script: |
+            set -e
+            cd /var/www/prish-overseas
+            git fetch --all --tags
+            git checkout main
+            git pull --ff-only origin main
+            npm ci
+            NODE_OPTIONS=--max-old-space-size=3072 npm run build
+            pm2 reload prish-overseas --update-env
+            sleep 3
+            curl -fsS http://127.0.0.1:3000/api/health

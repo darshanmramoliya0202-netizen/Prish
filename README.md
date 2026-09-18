@@ -1,25 +1,16 @@
-# Prish Overseas Website
+# Prish Overseas — website v3 ("Khet Se")
 
-A premium, interactive website for Prish Overseas focused on Indian-origin botanical and dehydrated ingredients for global B2B markets.
+Indian-origin ingredients for global formulations. Rajkot, Gujarat.
 
-## Project Intent
-- Create a unique digital experience that does not visually replicate the brochure
-- Express Indian origin through a modern premium web language
-- Support export trust, product discovery, and inquiry conversion
+- **Stack:** Next.js 16 · React 19 · TypeScript · Tailwind v4 · GSAP · Lenis · React Three Fiber · @react-pdf/renderer
+- **Content:** typed files in `content/` generated from the owner's product master + catalogue (`scripts/generate-content.py`) and gated by `scripts/verify-content.ts`
+- **Rules:** read `docs/content-rules.md` before writing any copy
+- **Ops:** `docs/ops.md`
 
-## Planned Stack
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Framer Motion
+```bash
+npm install
+cp .env.example .env.local   # fill SMTP_* to test email locally; CRM_ENABLED=false
+npm run dev
+```
 
-## Deployment Notes
-- Set `NEXT_PUBLIC_SITE_URL` to the final production origin so canonical URLs, sitemap entries, robots host, and social metadata resolve correctly.
-- Configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `INQUIRY_FROM_EMAIL`, and `INQUIRY_TO_EMAIL` so the inquiry form delivers real email notifications.
-- `npm run lint` uses ESLint directly via flat config to stay compatible with Next.js 16.
-
-## Project Rules
-Primary project guidance lives in:
-- `.windsurf/rules/prish-overseas-website-rules.md`
-- `.windsurf/skills/prish-overseas-website-skills.md`
-- `CHANGE_LOG.md`
+`npm run build` runs `verify:content` and `build:pdfs` first.
