@@ -3,7 +3,7 @@ import { createPageMetadata, defaultDescription } from "@/lib/seo";
 import { site } from "@/content/site";
 import { Hero } from "@/components/home/Hero";
 import { ProductWorld } from "@/components/home/ProductWorld";
-import { JourneyStoryboard } from "@/components/journey/JourneyStoryboard";
+import { Journey } from "@/components/journey/Journey";
 import { ProofStrip } from "@/components/home/ProofStrip";
 import { WhyIndia } from "@/components/home/WhyIndia";
 import { Families } from "@/components/home/Families";
@@ -23,7 +23,7 @@ export default function HomePage() {
     <>
       <Hero />
       <ProductWorld />
-      <JourneyStoryboard />
+      <Journey />
       <ProofStrip />
       <WhyIndia />
       <Families />

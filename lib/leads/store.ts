@@ -46,7 +46,7 @@ export function readLead(id: string): StoredLead | null {
 
 export function listUnfinished(maxAttempts = 8): string[] {
   const d = dir();
-  return readdirSync(d)
+  return readdirSync(/* turbopackIgnore: true */ d)
     .filter((f) => f.endsWith(".json"))
     .map((f) => f.slice(0, -5))
     .filter((id) => {

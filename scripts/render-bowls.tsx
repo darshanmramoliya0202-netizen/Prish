@@ -11,7 +11,7 @@ import sharp from "sharp";
 import { products } from "../content/products";
 import { ProductBowl } from "../components/products/ProductBowl";
 
-const OUT = join(__dirname, "..", "public", "illustrations", "products");
+const OUT = join(import.meta.dirname, "..", "public", "illustrations", "products");
 mkdirSync(OUT, { recursive: true });
 const manifestPath = join(OUT, ".manifest.json");
 const manifest: Record<string, string> = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, "utf8")) : {};
