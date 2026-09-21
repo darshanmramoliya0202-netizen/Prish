@@ -17,6 +17,13 @@ export { regions, regionById } from "./regions";
 export { certificates, visibleCertificates } from "./certificates";
 export { story } from "./story";
 export { journey } from "./journey";
+export {
+  productPhotos,
+  sitePhoto,
+  photoCoverage,
+  photoCaptions,
+} from "./photos";
+export type { Photo, ProductPhotos, ProductPhotoRole } from "./photos";
 export { site } from "./site";
 export * from "./copy";
 export type * from "./types";

@@ -7,6 +7,7 @@ import { site } from "@/content/site";
 import { cta, specsDisclaimer } from "@/content/copy";
 import { ButtonLink, Pill, SectionHeading } from "@/components/ui/primitives";
 import { IconArrow, IconDownload } from "@/components/ui/icons";
+import { SitePhoto, hasSitePhoto } from "@/components/ui/SitePhoto";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Quality & documents — audit us before you buy",
@@ -14,6 +15,14 @@ export const metadata: Metadata = createPageMetadata({
     "Certificates we hold, how we process and test, what ships with every consignment, and what each market asks for. Spec sheets and catalogue to download.",
   path: "/quality",
 });
+
+/** brochure p7 packaging, photographed one by one (photos/site/pack-<id>.jpg) */
+const packaging = [
+  { id: "hdpe", name: "HDPE export bag", note: "food-grade outer" },
+  { id: "kraft", name: "BOPP / kraft paper bag", note: "" },
+  { id: "box", name: "Multi-layer laminated bulk box", note: "" },
+  { id: "drum", name: "25 kg food-grade fibre drum", note: "" },
+];
 
 const processing = [
   {
@@ -226,6 +235,41 @@ export default function QualityPage() {
           </div>
         </div>
       </section>
+
+      {packaging.some((k) => hasSitePhoto(`pack-${k.id}`)) ? (
+        <section
+          data-theme="light"
+          className="bg-cream-50 py-section text-ink-900"
+        >
+          <div className="container-x">
+            <SectionHeading
+              eyebrow="Packaging"
+              title="How it travels."
+              sub="Export packaging from the brochure — small pack sizes supported on request."
+            />
+            <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {packaging
+                .filter((k) => hasSitePhoto(`pack-${k.id}`))
+                .map((k) => (
+                  <li key={k.id}>
+                    <SitePhoto
+                      id={`pack-${k.id}`}
+                      alt={k.name}
+                      sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+                      className="aspect-square w-full rounded-lg object-cover shadow-md"
+                    />
+                    <p className="mt-4 font-display text-display-sm">
+                      {k.name}
+                    </p>
+                    {k.note ? (
+                      <p className="mt-1 text-small text-ink-500">{k.note}</p>
+                    ) : null}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
 
       <section
         data-theme="light"

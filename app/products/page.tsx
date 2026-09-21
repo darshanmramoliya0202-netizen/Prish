@@ -11,7 +11,7 @@ import {
   cta,
 } from "@/content";
 import { Accent, ButtonLink } from "@/components/ui/primitives";
-import { BowlImage } from "@/components/products/BowlImage";
+import { ProductVisual } from "@/components/products/ProductVisual";
 import { SearchPalette } from "@/components/products/SearchPalette";
 import { toSearchEntries } from "@/components/products/search-entries";
 import { IconArrow } from "@/components/ui/icons";
@@ -114,10 +114,12 @@ export default function ProductsPage() {
                         className="group block rounded-xl p-2 text-center outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
                         style={{ ["--world" as string]: p.colourWorld.primary }}
                       >
-                        <BowlImage
+                        <ProductVisual
                           product={p}
+                          chip="sm"
                           priority={i === 0}
-                          className="w-full transition-transform duration-3 ease-out-expo group-hover:-translate-y-1.5"
+                          sizes="(min-width: 1024px) 14vw, 30vw"
+                          bowlClassName="w-full transition-transform duration-3 ease-out-expo group-hover:-translate-y-1.5"
                         />
                         <span className="mt-2 block px-1 font-display text-display-sm">
                           {p.shortName}

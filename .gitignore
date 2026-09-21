@@ -23,8 +23,10 @@ Thumbs.db
 # archives of the old site live on F:, never here
 Web V2/
 Reference/
-photos/
+/photos/
 brochure/
+# photo originals stay on F: (owner drops them here, runs photos:prep, commits public/photos)
+assets-src/photos/
 # playwright / lighthouse
 test-results/
 playwright-report/

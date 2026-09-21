@@ -13,6 +13,8 @@ import { clusters } from "../content/clusters";
 import { cropCalendar } from "../content/crop-calendar";
 import { certificates } from "../content/certificates";
 import { regions } from "../content/regions";
+import { accents } from "../content/copy";
+import { productPhotos, photoCoverage } from "../content/photos";
 
 const ROOT = join(import.meta.dirname, "..");
 const errors: string[] = [];
@@ -47,6 +49,13 @@ for (const c of certificates) {
 }
 if (regions.length !== 4)
   errors.push(`expected 4 regions, got ${regions.length}`);
+
+// ─── 1b. Devanagari animation units ────────────────────────────────────────
+// The hero animates नमस्ते per akshara; the split must reassemble to the word exactly.
+if (accents.namaste.aksharas.join("") !== accents.namaste.text)
+  errors.push(
+    `copy.accents.namaste: aksharas ${JSON.stringify(accents.namaste.aksharas)} do not join to "${accents.namaste.text}"`,
+  );
 
 // ─── 2. colour-world contrast (WCAG AA 4.5:1 for body text) ────────────────
 function luminance(hex: string): number {
@@ -213,6 +222,25 @@ for (const p of products) {
     errors.push(
       `${p.id}: missing pre-rendered illustration ${missing.join(", ")} — run npm run render:bowls`,
     );
+}
+
+// ─── 4b. photography (optional, reported) ──────────────────────────────────
+// Real photos are drop-in (docs/photo-brief.md). Missing ones are not errors — the
+// render + no chip is the designed fallback — but a referenced file must exist.
+{
+  const cov = photoCoverage();
+  warnings.push(
+    `photos: ${cov.withBowl}/${products.length} bowls, ${cov.withMacro}/${products.length} "actual product" macros supplied (see docs/photo-brief.md)`,
+  );
+  for (const p of products) {
+    const ph = productPhotos(p.slug);
+    for (const [role, photo] of Object.entries(ph)) {
+      if (photo && !existsSync(join(ROOT, "public", photo.src)))
+        errors.push(
+          `${p.id}: photos.json lists ${role} at ${photo.src} but the file is missing — run npm run photos:prep`,
+        );
+    }
+  }
 }
 
 // ─── 5. India outline ──────────────────────────────────────────────────────

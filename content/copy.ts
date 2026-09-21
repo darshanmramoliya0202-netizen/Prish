@@ -6,9 +6,15 @@ export const accents = {
   namaste: {
     script: "deva",
     text: "नमस्ते",
+    /**
+     * Orthographic syllables (akshara) — the only safe animation unit for Devanagari.
+     * Splitting by code point tears the halant and the े matra off their consonants and
+     * the word shatters mid-animation; स्ते must stay one cluster. Must join to `text`.
+     */
+    aksharas: ["न", "म", "स्ते"],
     roman: "Namaste",
     lang: "hi",
-    translation: "Hello, with respect",
+    translation: "I bow to the divine in you",
   },
   apnapan: {
     script: "deva",

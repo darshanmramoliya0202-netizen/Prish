@@ -10,6 +10,7 @@ import {
   SectionHeading,
 } from "@/components/ui/primitives";
 import { Portrait } from "@/components/story/Portrait";
+import { SitePhoto } from "@/components/ui/SitePhoto";
 import { Worldview } from "@/components/home/Worldview";
 import { SpiceRouteMap } from "@/components/story/SpiceRouteMap";
 import { IconArrow, IconWhatsApp } from "@/components/ui/icons";
@@ -60,6 +61,12 @@ export default function StoryPage() {
           <ol className="mt-14 grid gap-8 md:grid-cols-4">
             {h.seasons.map((s, i) => (
               <li key={s.key} className="border-t-2 border-gold-500 pt-6">
+                <SitePhoto
+                  id={`season-${s.key}`}
+                  alt=""
+                  sizes="(min-width: 768px) 22vw, 90vw"
+                  className="mb-6 aspect-[4/3] w-full rounded-lg object-cover"
+                />
                 <p className="font-display text-display-lg text-forest-900 leading-none">
                   0{i + 1}
                 </p>

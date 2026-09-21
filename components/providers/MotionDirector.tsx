@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { gsap, ScrollTrigger, SplitText, DrawSVGPlugin } from "@/lib/gsap";
+import { gsap, ScrollTrigger, DrawSVGPlugin } from "@/lib/gsap";
 import { useMotionPrefs } from "./MotionPrefs";
 import { getLenis } from "./SmoothScroll";
 
@@ -11,7 +11,7 @@ import { getLenis } from "./SmoothScroll";
  *   [data-reveal]        fade/rise in when 78% into view (once)
  *   [data-reveal-group]  children stagger
  *   [data-count]         count-up numbers ("2500+", "12–24")
- *   [data-namaste]       hero word resolves char-by-char; [data-namaste-hands] draws on;
+ *   [data-namaste]       hero word written akshara by akshara; [data-namaste-hands] join + draw on;
  *   [data-hero-fade]     the bits around the h1 rise in (all three start hidden via CSS)
  *   [data-rangoli]       slow rotation + scroll parallax
  * (the Farm → Port → World strip animates itself — see components/journey/Journey.tsx)
@@ -81,39 +81,65 @@ export function MotionDirector() {
           });
         }
 
-        // ── hero: नमस्ते resolves, hands draw on ────────────────────────
+        // ── hero: the Namaste gesture ───────────────────────────────────
         // (word, hands and [data-hero-fade] sit at opacity 0 via CSS until here — no flash)
+        // Two hands slide in from either side and meet at the seam while their lines draw
+        // on; the joined hands dip in a slight bow; नमस्ते is then written one akshara at a
+        // time (न · म · स्ते) — never per code point, which tears matras off consonants.
         const word = document.querySelector<HTMLElement>("[data-namaste]");
+        const hands = document.querySelector<SVGSVGElement>(
+          "[data-namaste-hands]",
+        );
         if (word) {
-          const split = new SplitText(word, { type: "chars" });
-          gsap.set(word, { autoAlpha: 1 });
-          gsap.from(split.chars, {
-            yPercent: 40,
-            autoAlpha: 0,
-            filter: "blur(8px)",
-            duration: 1.1,
-            stagger: 0.06,
-            ease: "expo.out",
-            delay: 0.15,
-          });
-          const hands = document.querySelectorAll<SVGPathElement>(
-            "[data-namaste-hands] path",
-          );
-          if (hands.length) {
-            gsap.set("[data-namaste-hands]", { autoAlpha: 1 });
-            gsap.from(hands, {
-              drawSVG: "0%",
-              duration: 1.6,
-              stagger: 0.05,
-              ease: "power2.inOut",
-              delay: 0.1,
-            });
+          const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+          if (hands) {
+            tl.set(hands, { autoAlpha: 1 }, 0)
+              .from(
+                hands.querySelectorAll("[data-hand='l']"),
+                { x: -26, autoAlpha: 0, duration: 1.1 },
+                0.1,
+              )
+              .from(
+                hands.querySelectorAll("[data-hand='r']"),
+                { x: 26, autoAlpha: 0, duration: 1.1 },
+                0.1,
+              )
+              .from(
+                hands.querySelectorAll("[data-hand] path"),
+                {
+                  drawSVG: "0%",
+                  duration: 1.3,
+                  stagger: 0.03,
+                  ease: "power2.inOut",
+                },
+                0.1,
+              )
+              .from(
+                hands.querySelectorAll("[data-seam]"),
+                { drawSVG: "50% 50%", duration: 0.5, ease: "power2.out" },
+                1.05,
+              )
+              // the bow: a small dip once the palms have met
+              .to(hands, { y: 7, duration: 0.45, ease: "power2.inOut" }, 1.2)
+              .to(hands, { y: 0, duration: 0.7, ease: "power2.out" }, 1.65);
           }
+          tl.set(word, { autoAlpha: 1 }, 0).from(
+            word.querySelectorAll("[data-akshara]"),
+            {
+              yPercent: 24,
+              autoAlpha: 0,
+              filter: "blur(6px)",
+              duration: 0.9,
+              stagger: 0.17,
+            },
+            hands ? 1.25 : 0.15,
+          );
           // the h1 is the LCP and stays visible from first paint; only the bits around it fade in
-          gsap.fromTo(
+          tl.fromTo(
             "[data-hero-fade]",
             { y: 24 },
-            { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1, delay: 0.5 },
+            { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1 },
+            hands ? 1.9 : 0.6,
           );
         }
 

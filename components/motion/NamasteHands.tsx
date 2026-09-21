@@ -1,6 +1,9 @@
 /**
- * Single-stroke line-art of joined hands (Namaste / Anjali Mudra), drawn as strokes so
- * DrawSVG can animate them in the motion phase. currentColor.
+ * Namaste — Anjali Mudra as a monoline pictogram in the style of the classic Indian
+ * greeting: palms pressed upright at the heart, thumbs crossed high along the index
+ * fingers, forearms angled out in kurta sleeves. Strokes only (currentColor), so the
+ * motion phase can slide the two hands together, draw the lines on (DrawSVG) and dip
+ * the whole gesture in a slight bow. Each hand is its own [data-hand] group.
  */
 export function NamasteHands({ className = "" }: { className?: string }) {
   return (
@@ -9,28 +12,43 @@ export function NamasteHands({ className = "" }: { className?: string }) {
       className={className}
       fill="none"
       stroke="currentColor"
-      strokeWidth="3"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
       data-namaste-hands
     >
-      {/* left hand */}
-      <path d="M100 26 C 92 44, 84 70, 82 96 C 80 118, 76 136, 66 150 C 58 162, 50 176, 48 194 C 47 206, 52 216, 62 222" />
-      <path d="M82 96 C 74 92, 66 92, 60 98" />
-      <path d="M80 112 C 70 108, 60 110, 54 118" />
-      <path d="M76 128 C 66 126, 58 130, 52 138" />
-      <path d="M68 146 C 60 146, 54 152, 50 160" />
-      {/* right hand (mirror) */}
-      <path d="M100 26 C 108 44, 116 70, 118 96 C 120 118, 124 136, 134 150 C 142 162, 150 176, 152 194 C 153 206, 148 216, 138 222" />
-      <path d="M118 96 C 126 92, 134 92, 140 98" />
-      <path d="M120 112 C 130 108, 140 110, 146 118" />
-      <path d="M124 128 C 134 126, 142 130, 148 138" />
-      <path d="M132 146 C 140 146, 146 152, 150 160" />
-      {/* seam where palms meet */}
-      <path d="M100 26 L 100 176" strokeDasharray="2 6" strokeWidth="2" />
-      {/* wrists */}
-      <path d="M62 222 C 74 230, 88 232, 100 232 C 112 232, 126 230, 138 222" />
+      {/* viewer's right hand */}
+      <g data-hand="r">
+        {/* fingertip cap and the outer edge of the hand down to the wrist */}
+        <path d="M100 34 C100 24 116 24 116.5 34 C118 62 121 92 125 118 C128 138 132 156 135 170" />
+        {/* forearm in a sleeve, angled down and out */}
+        <path d="M135 170 L158 198" />
+        <path d="M100 176 L124 206" />
+        {/* cuff */}
+        <path d="M158 198 L124 206" />
+        <path d="M152 191 L119 199" strokeOpacity=".6" />
+        {/* this hand's thumb crosses in front of the other */}
+        <path d="M95 74 C90 66 98 58 105 65 C112 78 119 100 124 124 C125 130 120 133 117 128 C111 110 104 90 95 74 Z" />
+        <path d="M100 68 C102 67 105 67 107 69" strokeOpacity=".4" />
+      </g>
+      {/* viewer's left hand (mirrored) */}
+      <g data-hand="l">
+        <g transform="translate(200 0) scale(-1 1)">
+          <path d="M100 34 C100 24 116 24 116.5 34 C118 62 121 92 125 118 C128 138 132 156 135 170" />
+          <path d="M135 170 L158 198" />
+          <path d="M100 176 L124 206" />
+          <path d="M158 198 L124 206" />
+          <path d="M152 191 L119 199" strokeOpacity=".6" />
+          {/* the thumb behind: only its upper edge shows */}
+          <path
+            d="M105 84 C102 76 108 70 114 76 C120 88 125 106 128 126"
+            strokeOpacity=".55"
+          />
+        </g>
+      </g>
+      {/* the seam where the palms meet — appears once the hands have joined */}
+      <path d="M100 34 L100 176" strokeOpacity=".75" data-seam />
     </svg>
   );
 }

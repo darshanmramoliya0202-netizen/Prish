@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Product } from "@/content/types";
 import { productPath } from "@/content";
-import { BowlImage } from "./BowlImage";
+import { ProductVisual } from "./ProductVisual";
 import { AddToKitButton } from "./AddToKitButton";
 
-/** Illustration-only card: the label lives outside the image (owner note). */
+/** Bowl (+ real-product chip) card: the label lives outside the image (owner note). */
 export function ProductCard({
   product,
   showKit = true,
@@ -22,17 +22,17 @@ export function ProductCard({
         data-burst={product.slug}
         className="block rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
       >
-        <div className="relative">
+        <ProductVisual
+          product={product}
+          chip="sm"
+          bowlClassName="w-full transition-transform duration-3 ease-out-expo group-hover:-translate-y-1"
+        >
           <div
             aria-hidden
             className="absolute inset-x-8 bottom-6 top-12 -z-10 rounded-full opacity-0 blur-2xl transition-opacity duration-4 group-hover:opacity-50"
             style={{ background: product.colourWorld.primary }}
           />
-          <BowlImage
-            product={product}
-            className="w-full transition-transform duration-3 ease-out-expo group-hover:-translate-y-1"
-          />
-        </div>
+        </ProductVisual>
         <h3 className="mt-1 font-display text-display-md leading-tight">
           {product.shortName}
         </h3>

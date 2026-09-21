@@ -28,3 +28,7 @@ large layer of invented claims. `scripts/verify-content.ts` enforces most of the
     ("specification-ready", "documentation discipline"). Cheeky lines live only in
     `content/copy.ts › loaderLines` and the 404.
 12. **Desi words** always appear with romanisation + translation and a `lang` attribute.
+
+## Photography
+
+Real photos are optional drop-ins, never placeholders: `assets-src/photos/**` → `npm run photos:prep` → `public/photos/**` + `content/generated/photos.json` (commit both outputs; originals stay on F:). Product bowls, the "Actual product" chips, origin photos and the site slots all read the manifest through `content/photos.ts`. The honesty line, house style, shot list and prompts are in [`photo-brief.md`](photo-brief.md); per-SKU prompts are generated into [`photo-prompts-products.md`](photo-prompts-products.md) by `npm run photos:prompts`. Anything that makes a claim about Prish itself (people, documents, facilities, the "actual product" macros) must be a real photograph.

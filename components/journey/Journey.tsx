@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import type { Photo } from "@/content/photos";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useMotionPrefs } from "@/components/providers/MotionPrefs";
 import { useRegionStore } from "@/stores/region";
@@ -52,9 +54,15 @@ const nearest = (s: HTMLElement) => {
  * It is a native scroller (snap points, swipe, trackpad, drag, arrows, buttons), so the
  * page keeps scrolling vertically past it — nobody is forced through all six to get on.
  * With motion on, each scene's three layers parallax as it slides and the world map's
- * arcs draw from Rajkot the first time the last scene comes into view.
+ * arcs draw from Rajkot the first time the last scene comes into view. A scene renders
+ * its real photograph (photos/site/journey-<id>.jpg) when one has been supplied.
  */
-export function Journey() {
+export function Journey({
+  photos = {},
+}: {
+  /** real photographs per scene id (photos/site/journey-<id>.jpg), from the page */
+  photos?: Partial<Record<string, Photo>>;
+}) {
   const { reduced } = useMotionPrefs();
   const region = useRegionStore((s) => s.region);
   const strip = useRef<HTMLDivElement>(null);
@@ -320,6 +328,7 @@ export function Journey() {
       >
         {journey.scenes.map((s, i) => {
           const Art = s.id === "world" ? null : ART[s.id as keyof typeof ART];
+          const photo = s.id === "world" ? null : photos[s.id];
           return (
             <div
               key={s.id}
@@ -331,7 +340,22 @@ export function Journey() {
             >
               {/* art: stacked above the copy on phones, full-bleed behind it from md */}
               <div className="relative aspect-[16/10] md:absolute md:inset-0 md:aspect-auto">
-                {Art ? (
+                {photo ? (
+                  // a real photograph replaces the code-drawn scene; it still parallaxes as the bg layer
+                  <div
+                    data-layer="bg"
+                    className="absolute -inset-x-8 inset-y-0"
+                  >
+                    <Image
+                      src={photo.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 62vw, 86vw"
+                      quality={78}
+                      className="object-cover"
+                    />
+                  </div>
+                ) : Art ? (
                   <Art className="h-full w-full" />
                 ) : (
                   <div className="grid h-full w-full place-items-center bg-forest-950 p-5 md:p-10 md:pb-44">

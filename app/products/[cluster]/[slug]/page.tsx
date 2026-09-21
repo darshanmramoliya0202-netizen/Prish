@@ -14,8 +14,13 @@ import {
   flagText,
   cta,
   hsDisclaimer,
+  productPhotos,
+  photoCaptions,
 } from "@/content";
+import Image from "next/image";
+import type { ProductPhotoRole } from "@/content/photos";
 import { BowlImage } from "@/components/products/BowlImage";
+import { ProductGallery } from "@/components/products/ProductGallery";
 import { OriginMap } from "@/components/products/OriginMap";
 import { SpecTable, GradeTable } from "@/components/products/SpecTable";
 import { ComplianceTabs } from "@/components/products/ComplianceTabs";
@@ -65,6 +70,16 @@ export default async function ProductPage({
     .slice(0, 4);
   const row = calendarFor(p.id);
   const inkLight = p.colourWorld.ink === "light";
+  const photos = productPhotos(p.slug);
+  // real photographs for the hero chip / gallery — only roles that exist
+  const gallery = (["macro", "source"] as ProductPhotoRole[]).flatMap(
+    (role) => {
+      const photo = photos[role];
+      return photo
+        ? [{ role, photo, caption: photo.caption ?? photoCaptions[role] }]
+        : [];
+    },
+  );
   const specPdf = `/downloads/spec-sheets/${p.slug}.pdf`;
 
   return (
@@ -209,13 +224,19 @@ export default async function ProductPage({
             </div>
           </div>
           <div className="lg:col-span-6">
-            <BowlImage
-              product={p}
-              decorative={false}
-              priority
-              className="mx-auto w-full max-w-lg drop-shadow-2xl"
-              data-hero-bowl
-            />
+            <div className="relative mx-auto w-full max-w-lg">
+              <BowlImage
+                product={p}
+                decorative={false}
+                priority
+                sizes="(min-width: 1024px) 40vw, 90vw"
+                className="w-full drop-shadow-2xl"
+                data-hero-bowl
+              />
+              {gallery.length ? (
+                <ProductGallery name={p.name} slug={p.slug} photos={gallery} />
+              ) : null}
+            </div>
           </div>
         </div>
       </section>
@@ -239,11 +260,34 @@ export default async function ProductPage({
             <p className="mt-6 text-body text-ink-700">{p.profile.science}</p>
           </div>
           <div className="lg:col-span-7">
-            <OriginMap
-              origins={p.originRegions}
-              accent={p.colourWorld.primary}
-              className="mx-auto w-full max-w-md text-forest-900"
-            />
+            {photos.source ? (
+              <div className="grid items-center gap-6 sm:grid-cols-2">
+                <figure className="overflow-hidden rounded-xl shadow-deep">
+                  <Image
+                    src={photos.source.src}
+                    alt={`${p.name} — ${(photos.source.caption ?? photoCaptions.source).toLowerCase()}`}
+                    width={photos.source.width}
+                    height={photos.source.height}
+                    sizes="(min-width: 1024px) 30vw, 90vw"
+                    className="aspect-[4/3] w-full object-cover"
+                  />
+                  <figcaption className="bg-cream-100 px-4 py-2 text-small text-ink-500">
+                    {photos.source.caption ?? photoCaptions.source}
+                  </figcaption>
+                </figure>
+                <OriginMap
+                  origins={p.originRegions}
+                  accent={p.colourWorld.primary}
+                  className="mx-auto w-full max-w-sm text-forest-900"
+                />
+              </div>
+            ) : (
+              <OriginMap
+                origins={p.originRegions}
+                accent={p.colourWorld.primary}
+                className="mx-auto w-full max-w-md text-forest-900"
+              />
+            )}
           </div>
         </div>
       </section>

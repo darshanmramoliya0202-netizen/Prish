@@ -7,6 +7,7 @@ import {
 } from "@/content";
 import { Accent, SectionHeading } from "@/components/ui/primitives";
 import { IconArrow } from "@/components/ui/icons";
+import { SitePhoto, hasSitePhoto } from "@/components/ui/SitePhoto";
 
 /** Section 6 — six family rows with Gujarati accents. */
 export function Families() {
@@ -24,16 +25,27 @@ export function Families() {
         >
           {orderedClusters.map((c) => {
             const n = productsByCluster(c.id).length;
+            const photo = hasSitePhoto(`family-${c.slug}`);
             return (
               <li key={c.id} data-reveal>
                 <Link
                   href={clusterPath(c)}
                   className="group grid items-center gap-6 py-8 md:grid-cols-12 md:py-10"
                 >
-                  <div className="md:col-span-3">
+                  {photo ? (
+                    <div className="md:col-span-2">
+                      <SitePhoto
+                        id={`family-${c.slug}`}
+                        alt=""
+                        sizes="(min-width: 768px) 16vw, 90vw"
+                        className="aspect-[3/2] w-full rounded-lg object-cover shadow-md transition-transform duration-3 ease-out-expo group-hover:scale-[1.03]"
+                      />
+                    </div>
+                  ) : null}
+                  <div className={photo ? "md:col-span-2" : "md:col-span-3"}>
                     <Accent accent={c.accent} size="sm" />
                   </div>
-                  <div className="md:col-span-6">
+                  <div className={photo ? "md:col-span-5" : "md:col-span-6"}>
                     <h3 className="font-display text-display-md group-hover:underline decoration-gold-500 underline-offset-8">
                       {c.name}
                     </h3>

@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { burstBus, sampleSilhouette } from "@/lib/burst";
+import { burstBus, sampleSilhouette, FORM_PROFILES } from "@/lib/burst";
+import type { ProductForm } from "@/content/types";
 import { transitionFlags } from "@/components/chrome/PageTransition";
 import { useMotionPrefs } from "@/components/providers/MotionPrefs";
 import { gsap } from "@/lib/gsap";
@@ -18,9 +19,10 @@ declare global {
 const NAV_AT_MS = 520;
 
 /**
- * Signature interaction 1 — click a bowl (any <a data-burst>) and it bursts into its
- * product's colours, the route changes mid-flight, and the particles settle into the
- * destination hero. Keyboard (Enter/Space) triggers the same path.
+ * Signature interaction 1 — click a bowl (any <a data-burst>) and it bursts into
+ * fragments of the product itself (dust for powders, tumbling pieces for seeds, flakes
+ * and grain), the route changes mid-flight, and the pieces settle into the destination
+ * hero. Keyboard (Enter/Space) triggers the same path.
  */
 export function BurstLinks() {
   const router = useRouter();
@@ -96,15 +98,24 @@ export function BurstLinks() {
       const watchdog = window.setTimeout(go, 1500);
       try {
         const r = svg.getBoundingClientRect();
-        const samples = await sampleSilhouette(svg, slug, palette);
+        const form = (svg.dataset.form as ProductForm | undefined) ?? "powder";
+        const profile = FORM_PROFILES[form] ?? FORM_PROFILES.powder;
+        const { samples, texture } = await sampleSilhouette(
+          svg,
+          slug,
+          profile.count,
+        );
         burstBus.pending = { slug, palette };
         burstBus.start({
           slug,
+          form,
           rect: { x: r.left, y: r.top, w: r.width, h: r.height },
           samples,
+          texture,
           palette,
         });
-        gsap.to(svg, {
+        // the bowl (and its real-product chip) leave together
+        gsap.to([svg, ...a.querySelectorAll("[data-product-chip]")], {
           autoAlpha: 0,
           scale: 0.9,
           duration: 0.25,

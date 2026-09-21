@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { createPageMetadata, defaultDescription } from "@/lib/seo";
 import { site } from "@/content/site";
+import { journey } from "@/content/journey";
+import { sitePhoto } from "@/content/photos";
 import { Hero } from "@/components/home/Hero";
 import { ProductWorld } from "@/components/home/ProductWorld";
 import { Journey } from "@/components/journey/Journey";
@@ -19,11 +21,17 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function HomePage() {
+  const journeyPhotos = Object.fromEntries(
+    journey.scenes.flatMap((s) => {
+      const p = sitePhoto(`journey-${s.id}`);
+      return p ? [[s.id, p]] : [];
+    }),
+  );
   return (
     <>
       <Hero />
       <ProductWorld />
-      <Journey />
+      <Journey photos={journeyPhotos} />
       <ProofStrip />
       <WhyIndia />
       <Families />

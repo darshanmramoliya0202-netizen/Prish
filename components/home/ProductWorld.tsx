@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { orderedClusters, getProduct, productPath, home } from "@/content";
-import { BowlImage } from "@/components/products/BowlImage";
+import { ProductVisual } from "@/components/products/ProductVisual";
 import { SectionHeading } from "@/components/ui/primitives";
 
 /**
@@ -47,17 +47,18 @@ export function ProductWorld() {
                   className="group block rounded-xl p-2 text-center outline-none transition-transform duration-3 ease-out-expo hover:-translate-y-2 focus-visible:ring-2 focus-visible:ring-gold-500 lg:-translate-y-[var(--lift)] lg:hover:-translate-y-[calc(var(--lift)+8px)]"
                   style={{ ["--world" as string]: product.colourWorld.primary }}
                 >
-                  <div className="relative">
+                  <ProductVisual
+                    product={product}
+                    chip="md"
+                    bowlClassName="w-full drop-shadow-2xl"
+                    sizes="(min-width: 1024px) 16vw, 45vw"
+                  >
                     <div
                       aria-hidden
                       className="absolute inset-x-6 bottom-4 top-10 -z-10 rounded-full opacity-0 blur-2xl transition-opacity duration-4 group-hover:opacity-60"
                       style={{ background: product.colourWorld.primary }}
                     />
-                    <BowlImage
-                      product={product}
-                      className="w-full drop-shadow-2xl"
-                    />
-                  </div>
+                  </ProductVisual>
                   <p className="mt-2 font-display text-display-md leading-none">
                     {product.shortName}
                   </p>

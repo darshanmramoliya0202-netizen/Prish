@@ -22,7 +22,9 @@ export function BurstLayer() {
     const load = () => {
       if (cancelled) return;
       cancelled = true; // only once
-      import("./BurstGL").then((m) => setGLComp(() => m.default)).catch(() => {});
+      import("./BurstGL")
+        .then((m) => setGLComp(() => m.default))
+        .catch(() => {});
     };
     const onIntent = (e: Event) => {
       const t = e.target as HTMLElement | null;
@@ -31,9 +33,16 @@ export function BurstLayer() {
     document.addEventListener("pointerover", onIntent, { passive: true });
     document.addEventListener("focusin", onIntent);
     // late idle fallback so keyboard/touch users without hover still get WebGL eventually
-    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
     let timer = 0;
-    const idle = w.requestIdleCallback ? w.requestIdleCallback(() => (timer = window.setTimeout(load, 4000)), { timeout: 8000 }) : (timer = window.setTimeout(load, 8000));
+    const idle = w.requestIdleCallback
+      ? w.requestIdleCallback(() => (timer = window.setTimeout(load, 4000)), {
+          timeout: 8000,
+        })
+      : (timer = window.setTimeout(load, 8000));
     return () => {
       cancelled = true;
       document.removeEventListener("pointerover", onIntent);
