@@ -30,6 +30,7 @@ const ROOT = join(import.meta.dirname, "..");
 const OUT = join(ROOT, "public", "downloads");
 const SHEETS = join(OUT, "spec-sheets");
 const ILLUS = join(ROOT, "public", "illustrations", "products");
+const PHOTOS = join(ROOT, "public", "photos", "products");
 const SITE = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.prishoverseas.com"
 ).replace(/\/+$/, "");
@@ -81,7 +82,11 @@ async function sheetFor(p: (typeof products)[number]): Promise<SpecSheetProps> {
     flagText,
     buyerTypeLabel,
     sealPng,
-    bowlPng: png(join(ILLUS, `${p.slug}.png`)),
+    bowlPng: png(
+      existsSync(join(PHOTOS, p.slug, "bowl.png"))
+        ? join(PHOTOS, p.slug, "bowl.png")
+        : join(ILLUS, `${p.slug}.png`),
+    ),
     qrPng: await qr(url),
     url,
     version,

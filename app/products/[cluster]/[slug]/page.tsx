@@ -137,7 +137,8 @@ export default async function ProductPage({
         ]}
       />
 
-      {/* 1 — farm-view hero in the product's colour world */}
+      {/* 1 — farm-view hero in the product's colour world; a photographed scene of the
+             product, when there is one, fills the right of the frame */}
       <section
         data-theme="world"
         data-product-hero={p.slug}
@@ -150,7 +151,43 @@ export default async function ProductPage({
           color: inkLight ? "#fbf8f1" : "#14110c",
         }}
       >
-        <div className="container-x grid gap-10 lg:grid-cols-12 lg:items-center">
+        {photos.scene ? (
+          <>
+            <Image
+              src={photos.scene.src}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              quality={76}
+              className="pointer-events-none object-cover object-[70%_50%] md:object-right"
+            />
+            {/* scrim: the colour world holds the copy side, the photograph the other */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 md:hidden"
+              style={{
+                background: `linear-gradient(to bottom, ${p.colourWorld.primary} 38%, color-mix(in oklab, ${p.colourWorld.primary} 55%, transparent) 62%, transparent 100%)`,
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 hidden md:block"
+              style={{
+                background: `linear-gradient(to right, ${p.colourWorld.primary} 30%, color-mix(in oklab, ${p.colourWorld.primary} 78%, transparent) 50%, transparent 82%)`,
+              }}
+            />
+            {/* where a burst from the previous page settles */}
+            <div
+              aria-hidden
+              data-burst-target
+              className="pointer-events-none absolute right-[6%] bottom-[8%] hidden h-[70%] w-[40%] md:block"
+            />
+          </>
+        ) : null}
+        <div
+          className={`container-x relative grid gap-10 lg:grid-cols-12 lg:items-center ${photos.scene ? "min-h-[70vh] md:min-h-[78vh]" : ""}`}
+        >
           <div className="lg:col-span-6">
             <nav aria-label="Breadcrumb" className="text-small opacity-75">
               <Link
@@ -223,21 +260,28 @@ export default async function ProductPage({
               </a>
             </div>
           </div>
-          <div className="lg:col-span-6">
-            <div className="relative mx-auto w-full max-w-lg">
-              <BowlImage
-                product={p}
-                decorative={false}
-                priority
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="w-full drop-shadow-2xl"
-                data-hero-bowl
-              />
-              {gallery.length ? (
-                <ProductGallery name={p.name} slug={p.slug} photos={gallery} />
-              ) : null}
+          {photos.scene ? (
+            <div className="lg:col-span-6" aria-hidden>
+              {/* the scene is the picture; on phones the bowl settles here after a burst */}
+              <div data-burst-target className="mx-auto h-[38vh] w-full max-w-lg md:hidden" />
             </div>
-          </div>
+          ) : (
+            <div className="lg:col-span-6">
+              <div className="relative mx-auto w-full max-w-lg">
+                <BowlImage
+                  product={p}
+                  decorative={false}
+                  priority
+                  sizes="(min-width: 1024px) 40vw, 90vw"
+                  className="w-full drop-shadow-2xl"
+                  data-hero-bowl
+                />
+                {gallery.length ? (
+                  <ProductGallery name={p.name} slug={p.slug} photos={gallery} />
+                ) : null}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

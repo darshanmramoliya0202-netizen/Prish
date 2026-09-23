@@ -1,12 +1,14 @@
 "use client";
 
 /**
- * Burst event bus + silhouette sampler shared by the WebGL and Canvas-2D renderers.
- * A burst is: particles seeded from the clicked bowl's opaque pixels — each one a real
- * fragment of the bowl image (the product photo when one exists, the render otherwise) —
- * flung outwards, then (after navigation) drawn back into the new hero. The product's
- * form decides how the pieces behave: powders leave as dust, seeds / flakes / grains
- * tumble as pieces.
+ * Burst event bus + samplers shared by the WebGL and Canvas-2D renderers.
+ *
+ * A burst is what happens when a bowl is hit: the loose crop beside it — the real fruit,
+ * seeds and leaves cut from the photograph (`pieces`, a sprite atlas built by
+ * scripts/prep-photos.mjs) — lifts off and tumbles away, and the contents of the bowl
+ * leave as dust made of fragments of the image itself. After navigation the lot is drawn
+ * back into the destination hero. The product's form decides how the dust behaves:
+ * powders drift, seeds / flakes / grain tumble.
  */
 
 import type { ProductForm } from "@/content/types";
@@ -15,13 +17,36 @@ export type Rect = { x: number; y: number; w: number; h: number };
 /** x,y in [0,1] of the rect (also the texture coordinate); r,g,b the pixel's own colour */
 export type Sample = { x: number; y: number; r: number; g: number; b: number };
 
+/** one loose piece of the composition: where it sits in the bowl image, and its atlas cell */
+export interface Piece {
+  /** position and size in the bowl image, normalised 0..1 */
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** its rectangle in the atlas, normalised 0..1 (top-left origin) */
+  sx: number;
+  sy: number;
+  sw: number;
+  sh: number;
+}
+
+export interface PiecesInfo {
+  atlas: HTMLImageElement;
+  items: Piece[];
+}
+
 export interface BurstStart {
   slug: string;
   form: ProductForm;
   rect: Rect;
+  /** the bowl's own box inside the image, normalised (null → the whole image) */
+  anchor: Rect | null;
   samples: Sample[];
-  /** the bowl image, square, for texture fragments (null → flat colour particles) */
+  /** the bowl image, square, for dust fragments (null → flat colour particles) */
   texture: HTMLCanvasElement | null;
+  /** the loose pieces to fling (null → dust only) */
+  pieces: PiecesInfo | null;
   palette: [string, string, string, string];
 }
 export interface BurstSettle {
@@ -31,7 +56,7 @@ export interface BurstSettle {
 
 /** particle behaviour per product form */
 export interface FormProfile {
-  /** particles for the GL renderer (2D uses ~1/6 of this) */
+  /** dust particles for the GL renderer (2D uses ~1/6 of this) */
   count: number;
   /** base point size (css px) and random spread */
   size: [number, number];
@@ -102,9 +127,29 @@ export const FORM_PROFILES: Record<ProductForm, FormProfile> = {
   },
 };
 
+/** the flung pieces: heavier and livelier than dust */
+export const PIECE_PHYSICS = {
+  /** total flying pieces (the real ones once each, then copies from inside the bowl) */
+  min: 14,
+  max: 44,
+  perPiece: 3,
+  gravity: 1.9,
+  spin: [2.5, 6.5] as [number, number],
+  /** scale of the copies relative to the real piece */
+  copyScale: [0.45, 0.85] as [number, number],
+  /** launch speed multiplier vs dust */
+  speed: 1.25,
+};
+
 type Handler<T> = (e: T) => void;
 /** debug counters (exposed as window.__prishBurst in the browser) */
-export const stats = { starts: 0, settles: 0, lastSamples: 0, listeners: 0 };
+export const stats = {
+  starts: 0,
+  settles: 0,
+  lastSamples: 0,
+  lastPieces: 0,
+  listeners: 0,
+};
 if (typeof window !== "undefined")
   (window as unknown as { __prishBurst: typeof stats }).__prishBurst = stats;
 const starts = new Set<Handler<BurstStart>>();
@@ -119,6 +164,7 @@ export const burstBus = {
   start: (e: BurstStart) => {
     stats.starts += 1;
     stats.lastSamples = e.samples.length;
+    stats.lastPieces = e.pieces?.items.length ?? 0;
     stats.listeners = starts.size;
     starts.forEach((h) => h(e));
   },
@@ -138,6 +184,96 @@ if (typeof window !== "undefined" && process.env.NODE_ENV !== "production")
   (window as unknown as { __prishBurstBus: typeof burstBus }).__prishBurstBus =
     burstBus;
 
+/* ────────────────────────── per-product photo metadata ─────────────────── */
+
+/** compact per-slug data injected by <PaletteScript/> (see components/products/PaletteScript.tsx) */
+export interface BurstMeta {
+  palette: [string, string, string, string];
+  /** bowl box, normalised [x, y, w, h] */
+  anchor?: [number, number, number, number];
+  pieces?: {
+    src: string;
+    cell: number;
+    cols: number;
+    rows: number;
+    /** [x, y, w, h] per piece, normalised to the bowl image */
+    items: [number, number, number, number][];
+  };
+}
+declare global {
+  interface Window {
+    __prishPalettes?: Record<string, [string, string, string, string]>;
+    __prishBurstMeta?: Record<string, BurstMeta>;
+  }
+}
+
+export function burstMeta(slug: string): BurstMeta | null {
+  if (typeof window === "undefined") return null;
+  const m = window.__prishBurstMeta?.[slug];
+  if (m) return m;
+  const palette = window.__prishPalettes?.[slug];
+  return palette ? { palette } : null;
+}
+
+const piecesCache = new Map<string, Promise<PiecesInfo | null>>();
+
+/**
+ * Load a product's piece atlas (once per slug). Resolves null when the product has no
+ * pieces — the burst is then dust only. Safe to call early (on hover) to warm the cache.
+ */
+export function loadPieces(slug: string): Promise<PiecesInfo | null> {
+  const hit = piecesCache.get(slug);
+  if (hit) return hit;
+  const meta = burstMeta(slug);
+  const p = meta?.pieces;
+  if (!p || !p.items.length) {
+    const none = Promise.resolve(null);
+    piecesCache.set(slug, none);
+    return none;
+  }
+  const job = (async () => {
+    try {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = p.src;
+      await img.decode();
+      const aw = p.cols * p.cell;
+      const ah = p.rows * p.cell;
+      const items: Piece[] = p.items.map(([x, y, w, h], i) => {
+        // the sprite is centred and fitted in its cell (scripts/prep-photos.mjs)
+        const col = i % p.cols;
+        const row = Math.floor(i / p.cols);
+        const inner = p.cell - 8;
+        // the piece's pixel size in the 1600² bowl image
+        const pw = w * 1600;
+        const ph = h * 1600;
+        const scale = Math.min(inner / pw, inner / ph, 1);
+        const tw = Math.max(1, Math.round(pw * scale));
+        const th = Math.max(1, Math.round(ph * scale));
+        const left = col * p.cell + Math.floor((p.cell - tw) / 2);
+        const top = row * p.cell + Math.floor((p.cell - th) / 2);
+        return {
+          x,
+          y,
+          w,
+          h,
+          sx: left / aw,
+          sy: top / ah,
+          sw: tw / aw,
+          sh: th / ah,
+        };
+      });
+      return { atlas: img, items };
+    } catch {
+      return null;
+    }
+  })();
+  piecesCache.set(slug, job);
+  return job;
+}
+
+/* ────────────────────────────── dust sampler ───────────────────────────── */
+
 export interface Silhouette {
   samples: Sample[];
   texture: HTMLCanvasElement | null;
@@ -147,7 +283,8 @@ const cache = new Map<string, Silhouette>();
 const TEX = 512;
 
 /**
- * Sample the opaque *product* pixels of a bowl image (cached per slug) and keep a
+ * Sample the pixels of a bowl image that should leave as dust — the contents of the
+ * bowl, not the dish and not the loose pieces (those fly whole). Cached per slug. Keeps a
  * 512² copy of the image as the fragment texture. Accepts the inline <ProductBowl> SVG
  * (rasterised through a blob URL) or any same-origin <img> (photo or pre-rendered SVG).
  */
@@ -155,6 +292,7 @@ export async function sampleSilhouette(
   el: SVGSVGElement | HTMLImageElement,
   slug: string,
   max = 1400,
+  opts: { anchor?: Rect | null; exclude?: Rect[] } = {},
 ): Promise<Silhouette> {
   const hit = cache.get(slug);
   if (hit) return hit;
@@ -197,18 +335,33 @@ export async function sampleSilhouette(
     if (!ctx) return { samples: fallbackSamples(max), texture: null };
     ctx.drawImage(img, 0, 0, size, size);
     const { data } = ctx.getImageData(0, 0, size, size);
+    // where the contents sit: the upper part of the bowl's box (a heap seen from the
+    // front or from above) — low-chroma pixels outside it are the dish and are skipped
+    const a = opts.anchor ?? { x: 0, y: 0, w: 1, h: 1 };
+    const heap = {
+      x0: a.x + a.w * 0.12,
+      x1: a.x + a.w * 0.88,
+      y0: a.y,
+      y1: a.y + a.h * 0.6,
+    };
+    const excl = opts.exclude ?? [];
     const all: Sample[] = [];
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
         const i = (y * size + x) * 4;
         if (data[i + 3]! < 90) continue;
+        const nx = (x + 0.5) / size;
+        const ny = (y + 0.5) / size;
+        if (excl.some((e) => nx >= e.x && nx <= e.x + e.w && ny >= e.y && ny <= e.y + e.h))
+          continue;
         const r = data[i]!,
           g = data[i + 1]!,
           b = data[i + 2]!;
-        // skip the stone bowl (dark, low-chroma greys) so the *product* bursts, not the dish
         const chroma = Math.max(r, g, b) - Math.min(r, g, b);
-        if (chroma < 22 && r + g + b < 420) continue;
-        all.push({ x: (x + 0.5) / size, y: (y + 0.5) / size, r, g, b });
+        const inHeap = nx >= heap.x0 && nx <= heap.x1 && ny >= heap.y0 && ny <= heap.y1;
+        // the dish: greys (dark stone or white ceramic) outside the heap area
+        if (chroma < 22 && !inHeap) continue;
+        all.push({ x: nx, y: ny, r, g, b });
       }
     }
     // thin to `max` evenly
@@ -240,6 +393,69 @@ function fallbackSamples(n: number): Sample[] {
       g: 162,
       b: 76,
     });
+  }
+  return out;
+}
+
+/**
+ * Lay out the flying pieces for a burst: every real piece once, from where it sits, then
+ * copies launched from inside the bowl at a smaller scale. Positions are css px.
+ */
+export interface FlyingPiece {
+  /** start centre (css px) */
+  x: number;
+  y: number;
+  /** size (css px) */
+  w: number;
+  h: number;
+  /** launch vector (css px, y down) */
+  dx: number;
+  dy: number;
+  seed: number;
+  spin: number;
+  piece: Piece;
+}
+
+export function layoutPieces(
+  pieces: PiecesInfo,
+  rect: Rect,
+  anchor: Rect | null,
+  reach: number,
+): FlyingPiece[] {
+  const items = pieces.items;
+  if (!items.length) return [];
+  const total = Math.min(
+    PIECE_PHYSICS.max,
+    Math.max(PIECE_PHYSICS.min, items.length * PIECE_PHYSICS.perPiece),
+  );
+  const a = anchor ?? { x: 0.2, y: 0.2, w: 0.6, h: 0.6 };
+  // the bowl's centre in css px — what everything flies away from
+  const cx = rect.x + (a.x + a.w / 2) * rect.w;
+  const cy = rect.y + (a.y + a.h * 0.55) * rect.h;
+  const out: FlyingPiece[] = [];
+  const launch = (x: number, y: number, scale: number, p: Piece) => {
+    const ang = Math.atan2(y - cy, x - cx) + (Math.random() - 0.5) * 1.1;
+    const dist = (120 + Math.random() * reach) * PIECE_PHYSICS.speed;
+    out.push({
+      x,
+      y,
+      w: p.w * rect.w * scale,
+      h: p.h * rect.h * scale,
+      dx: Math.cos(ang) * dist,
+      dy: Math.sin(ang) * dist - 160 * Math.random(),
+      seed: Math.random(),
+      spin: rand(PIECE_PHYSICS.spin) * (Math.random() < 0.5 ? -1 : 1),
+      piece: p,
+    });
+  };
+  for (const p of items)
+    launch(rect.x + (p.x + p.w / 2) * rect.w, rect.y + (p.y + p.h / 2) * rect.h, 1, p);
+  for (let i = items.length; i < total; i++) {
+    const p = items[Math.floor(Math.random() * items.length)]!;
+    // from inside the heap
+    const x = rect.x + (a.x + a.w * (0.25 + Math.random() * 0.5)) * rect.w;
+    const y = rect.y + (a.y + a.h * (0.15 + Math.random() * 0.4)) * rect.h;
+    launch(x, y, rand(PIECE_PHYSICS.copyScale), p);
   }
   return out;
 }

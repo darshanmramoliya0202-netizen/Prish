@@ -230,12 +230,13 @@ for (const p of products) {
 {
   const cov = photoCoverage();
   warnings.push(
-    `photos: ${cov.withBowl}/${products.length} bowls, ${cov.withMacro}/${products.length} "actual product" macros supplied (see docs/photo-brief.md)`,
+    `photos: ${cov.withBowl}/${products.length} bowls (${cov.withPieces} with burst pieces), ${cov.withScene} hero scenes, ${cov.withMacro}/${products.length} "actual product" macros supplied (see docs/photo-brief.md)`,
   );
   for (const p of products) {
     const ph = productPhotos(p.slug);
     for (const [role, photo] of Object.entries(ph)) {
-      if (photo && !existsSync(join(ROOT, "public", photo.src)))
+      if (role === "anchor") continue;
+      if (photo && "src" in photo && !existsSync(join(ROOT, "public", photo.src)))
         errors.push(
           `${p.id}: photos.json lists ${role} at ${photo.src} but the file is missing — run npm run photos:prep`,
         );

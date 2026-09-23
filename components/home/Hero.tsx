@@ -19,14 +19,16 @@ export function Hero() {
       className="relative isolate min-h-dvh overflow-hidden grain bg-forest-950 text-cream-50"
     >
       {/* optional photographic backdrop (photos/site/hero-dawn.jpg), kept very dark so the
-          greeting and the h1 stay the subject */}
+          greeting and the h1 stay the subject — decorative, so it loads eagerly but at low
+          priority and low quality (the h1 is the LCP) */}
       <SitePhoto
         id="hero-dawn"
         alt=""
         fill
-        priority
-        sizes="100vw"
-        quality={70}
+        loading="eager"
+        fetchPriority="low"
+        sizes="(min-width: 1536px) 1536px, 100vw"
+        quality={45}
         className="pointer-events-none -z-20 object-cover opacity-[.32] [mask-image:linear-gradient(to_bottom,black_40%,transparent_95%)]"
       />
       {/* radial glow behind the word */}

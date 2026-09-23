@@ -206,7 +206,7 @@ export default function QualityPage() {
         className="bg-cream-50 py-section text-ink-900"
       >
         <div className="container-x grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+          <div className={hasSitePhoto("quality-lab") ? "lg:col-span-4" : "lg:col-span-5"}>
             <SectionHeading
               eyebrow="Testing & customisation"
               title="Tested, and specified to your destination."
@@ -214,7 +214,20 @@ export default function QualityPage() {
             />
             <p className="mt-6 text-small text-ink-500">{specsDisclaimer}</p>
           </div>
-          <div className="lg:col-span-7">
+          {hasSitePhoto("quality-lab") ? (
+            <figure className="lg:col-span-3">
+              <SitePhoto
+                id="quality-lab"
+                alt="Sieve and moisture checks on a powder sample"
+                sizes="(min-width: 1024px) 24vw, 90vw"
+                className="aspect-[3/4] w-full rounded-xl object-cover shadow-paper"
+              />
+              <figcaption className="mt-3 text-small text-ink-500">
+                Mesh and moisture, checked lot by lot.
+              </figcaption>
+            </figure>
+          ) : null}
+          <div className={hasSitePhoto("quality-lab") ? "lg:col-span-5" : "lg:col-span-7"}>
             <p className="eyebrow text-ink-500">
               What ships with your consignment
             </p>

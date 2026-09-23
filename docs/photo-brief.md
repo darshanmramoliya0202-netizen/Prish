@@ -8,25 +8,34 @@ Companion file: [`photo-prompts-products.md`](photo-prompts-products.md) — the
 
 ## 0. Where the site stands
 
-Today the site has **no photography at all** — the seal logo and a grain texture are the only raster images. Everything else is code-drawn: product bowls, journey scenes, maps, the rangoli. That is why it reads "not practical": a buyer who sources chilli powder wants to see chilli powder.
+**As of 23 Sept 2026 the site runs on the owner's own archive imagery** — the "powder in a bowl with the fruit beside it" set made for the earlier site, the dark-slate product scenes, and the eight field / lab / loading scenes generated on 20 Sept. `scripts/photos-import-archive.mjs` copies them from `F:\Prish Overseas\archive` and `product-photos\webphotos` into `assets-src/photos/` (cropping baked-in labels, collage halves and the generator's corner mark); `npm run photos:prep` knocks the bowls out, cuts the loose fruit / seeds / leaves into a sprite atlas for the burst, and writes the manifest. **Real photographs dropped into the same slots replace them with no code change** — the importer never overwrites a newer file.
 
-What is now wired and waiting for files (every slot is optional — nothing renders until the file exists, never a placeholder):
+What each product has today (19 of 27 bowls are photographs; the other 8 render in the same white bowl until shot):
 
-| Where | What appears when supplied | File |
+| Product | bowl | burst pieces | hero scene | origin photo |
+|---|---|---|---|---|
+| jamun, beetroot, sea buckthorn, turmeric powder, turmeric finger | ✓ | ✓ | ✓ dark slate | — |
+| chilli powder | ✓ | ✓ | ✓ | ✓ (whole chillies) |
+| dry red chilli | render | — | ✓ | ✓ |
+| coriander, cumin, spinach, mulberry, raw mango, ginger, lemon | ✓ | ✓ | — | — |
+| apple, pineapple, guava, orange, tomato | ✓ | dust only | — | — |
+| garlic powder | ✓ | dust only | ✓ (wood table) | — |
+| garlic flakes | render | — | ✓ | — |
+| onion powder, onion flakes, fried onion | render | — | — | ✓ (Mahuva onion field) |
+| moringa, basmati 1121, basmati 1509 | render | — | — | — |
+
+Site slots filled: `hero-dawn` (five bowls on slate, behind the Namaste), `journey-soil / harvest / sun / mill / coast`, `season-sowing / tending / harvest / trade`, `quality-lab`. Still empty: `family-*` (six), `sample-kit`, `pack-*` (four), Yash's portrait, certificate scans, every "Actual product" macro.
+
+Roles, per product (`assets-src/photos/products/<slug>/`):
+
+| File | What appears | Notes |
 |---|---|---|
-| Every bowl (home arc, family grids, cards, product hero) | the real product in the house bowl replaces the render; the burst becomes fragments of that photo | `products/<slug>/bowl` |
-| Beside every bowl | the **"Actual product"** chip — a small round close-up; on the product hero it opens a gallery | `products/<slug>/macro` |
-| Product page → Origin | the raw ingredient / field it comes from, next to the origin map | `products/<slug>/source` |
-| Home → hero | a very dark photographic backdrop behind the Namaste | `site/hero-dawn` |
-| Home → Farm → Port → World | a photograph per scene replaces the drawn scene (still parallaxes) | `site/journey-soil` … `journey-coast` |
-| Home → six families | a small 3:2 photo at the start of each family row | `site/family-<family slug>` |
-| Home → sample-kit CTA | the kit itself, left of the copy | `site/sample-kit` |
-| Story → Heritage in seasons | a 4:3 photo above each of the four seasons | `site/season-sowing` … `season-trade` |
-| Quality → Packaging (new strip) | the four brochure packaging formats | `site/pack-hdpe` `pack-kraft` `pack-box` `pack-drum` |
-| Home + Story → Director | Yash's portrait (duotone treatment already built) | `public/images/people/yash-talaviya.jpg` — **real photo only** |
-| Quality → Certificates | certificate scans (`preview` field in `content/certificates.ts`) | `public/images/certificates/*` — **real scans only** |
+| `bowl.*` | the product in its bowl **with the raw crop beside it**, on a plain sweep → knocked out; the pieces beside the bowl become the burst | square-ish, 1000 px or more; dark bowl or white bowl both fine; label text at the bottom is erased when a sibling `bowl.json` says `{ "text": true }` |
+| `scene.*` | full photograph behind the product hero (replaces the bowl there) | any aspect; the copy side gets a colour-world scrim |
+| `macro.*` | the **"Actual product"** chip + gallery — **real photo only** | square close-up |
+| `source.*` | the origin section, beside the map | 4:3 |
 
----
+Site slots (`assets-src/photos/site/<id>.*`) are unchanged — see §4.
 
 ## 1. The honesty line
 
@@ -193,13 +202,13 @@ All four: same setup, image-edit from the first so they match. 1:1, 1600×1600.
 
 ```
 assets-src/photos/
-  products/<slug>/bowl.png|jpg     macro.jpg     source.jpg     (+ optional bowl.txt / macro.txt / source.txt captions)
-  site/<id>.jpg                                                 (+ optional <id>.txt caption)
+  products/<slug>/bowl.png|jpg   scene.jpg   macro.jpg   source.jpg   (+ optional <role>.txt caption, bowl.json options)
+  site/<id>.jpg                                                       (+ optional <id>.txt caption)
 ```
 
 - `<slug>` is the product slug used in the URL (`chilli-powder`, `cumin-seeds`, `basmati-rice-1121` …) — listed at the top of each block in the prompts file.
 - `<id>` is exactly the id in §4 (`journey-soil`, `family-raw-whole-spices`, `pack-drum` …). Kebab-case only.
-- Any input size / format. Transparent PNG is best for `bowl`; a white sweep also works (the script knocks it out and keeps the ground shadow as real transparency).
+- Any input size / format. For `bowl`: a plain white or pale sweep works (the script knocks it out and keeps the ground shadow as real transparency); transparent PNG is trusted as-is. Put the fruit / seeds **beside** the bowl with a little space around each piece — touching pieces fly as one.
 
 Then:
 
@@ -207,16 +216,13 @@ Then:
 npm run photos:prep
 ```
 
-writes `public/photos/**` (web-sized, graded) and `content/generated/photos.json`, and the slots light up on the next dev reload / build. `npm run build` runs it automatically. Commit `public/photos/**` and `content/generated/photos.json`; the originals in `assets-src/photos/` are git-ignored (keep them on F: with the other sources).
+writes `public/photos/**` (web-sized, graded, plus the burst atlas and a PNG bowl for OG images and PDFs) and `content/generated/photos.json`, and the slots light up on the next dev reload / build. `npm run build` runs it automatically. Commit `public/photos/**` and `content/generated/photos.json`; the originals in `assets-src/photos/` are git-ignored (keep them on F: with the other sources).
 
-`npm run verify:content` reports photo coverage (bowls / macros per product) so you can see what is still missing.
-
----
+`npm run verify:content` reports photo coverage (bowls / pieces / scenes / macros) so you can see what is still missing. `node scripts/qa/seg-debug.mjs <photo> out.png` shows how a bowl photo will be cut before you commit to a setup.
 
 ## 6. Suggested order
 
-1. **Six family-hero bowls + their macros** (jamun, turmeric, onion powder, cumin, moringa, 1121 basmati) — the home page arc changes character immediately.
-2. **Remaining 21 bowls + macros**, `sample-kit`, Yash's portrait.
-3. **`journey-*` five scenes** and the six **`family-*`** photos — the home page becomes a place.
-4. **`source` for all 27**, the four **`season-*`**, the four **`pack-*`**.
-5. `hero-dawn` last — check Lighthouse before and after; drop it if LCP suffers.
+1. **Real bowls for the eight still rendered** — onion powder, onion flakes, fried onion, garlic flakes, moringa, 1121 and 1509 basmati, dry red chilli (whole). Same setup as §3: white bowl, white sheet, one window, the raw crop beside the bowl.
+2. **The 27 "Actual product" macros** — the only slot that must be a real photograph, and the most credible image on each page.
+3. Yash's portrait, `sample-kit`, the six `family-*` photos, the four `pack-*`.
+4. Re-shoot any bowl you want to replace: drop the file over the imported one and run the prep again.

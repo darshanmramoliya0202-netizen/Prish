@@ -5,9 +5,12 @@ import {
   burstBus,
   easeOut,
   FORM_PROFILES,
+  PIECE_PHYSICS,
+  layoutPieces,
   rand,
   type BurstSettle,
   type BurstStart,
+  type FlyingPiece,
 } from "@/lib/burst";
 
 type P = {
@@ -27,13 +30,14 @@ type P = {
 
 const EXPLODE_MS = 900;
 const SETTLE_MS = 700;
-const SPRITE = 24; // atlas cell (px)
+const SPRITE = 24; // dust atlas cell (px)
 
 /**
  * Canvas-2D burst (the fallback for no-WebGL / low-tier devices, and the reference
- * behaviour). A few hundred particles, each a real fragment of the bowl image: at burst
- * start every particle's patch is cut from the image once into a sprite atlas (soft disc
- * for powders, hard ellipse for pieces), then the frame loop only draws sprites.
+ * behaviour). The loose pieces of the composition fly as sprites from the product's
+ * piece atlas; a few hundred dust particles, each a real fragment of the bowl image, are
+ * cut once into a sprite atlas (soft disc for powders, hard ellipse for seeds), then the
+ * frame loop only draws sprites.
  */
 export function Burst2D({ max = 420 }: { max?: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -53,6 +57,8 @@ export function Burst2D({ max = 420 }: { max?: number }) {
     addEventListener("resize", resize);
 
     let parts: P[] = [];
+    let flying: (FlyingPiece & { x1: number; y1: number })[] = [];
+    let atlasImg: HTMLImageElement | null = null;
     let atlas: HTMLCanvasElement | null = null;
     let cols = 1;
     let gravity = 1;
@@ -69,10 +75,13 @@ export function Burst2D({ max = 420 }: { max?: number }) {
       let alive = false;
       ctx.save();
       ctx.scale(dpr, dpr);
+      const k = easeOut(Math.min(1, t / EXPLODE_MS));
+      const sk = easeOut(Math.min(1, t / SETTLE_MS));
+
+      // dust
       for (const p of parts) {
         let x: number, y: number, a: number, s: number;
         if (phase === "explode" || phase === "hold") {
-          const k = easeOut(Math.min(1, t / EXPLODE_MS));
           const g = (t / 1000) ** 2 * 380 * gravity;
           const curl = Math.sin(p.seed * 12.9 + t * 0.004) * 18 * k * drift;
           x = p.x0 + p.dx * k + curl;
@@ -80,22 +89,20 @@ export function Burst2D({ max = 420 }: { max?: number }) {
           a = phase === "hold" ? 0.55 : 1 - Math.max(0, (t - 500) / 600);
           s = p.r * (1 + k * 0.6);
           if (phase === "explode" && t > EXPLODE_MS) {
-            phase = "hold";
             p.x1 = x;
             p.y1 = y;
           }
           alive = true;
         } else {
-          const k = easeOut(Math.min(1, t / SETTLE_MS));
           const tx =
             settleTo!.rect.x + settleTo!.rect.w * (0.5 + (p.seed - 0.5) * 0.62);
           const ty =
             settleTo!.rect.y +
             settleTo!.rect.h * (0.45 + (((p.seed * 7919) % 1) - 0.5) * 0.3);
-          x = p.x1 + (tx - p.x1) * k;
-          y = p.y1 + (ty - p.y1) * k;
-          a = 0.6 * (1 - k * 0.9);
-          s = p.r * (1 - k * 0.5);
+          x = p.x1 + (tx - p.x1) * sk;
+          y = p.y1 + (ty - p.y1) * sk;
+          a = 0.6 * (1 - sk * 0.9);
+          s = p.r * (1 - sk * 0.5);
           alive = t < SETTLE_MS;
         }
         if (a <= 0.01) continue;
@@ -124,13 +131,68 @@ export function Burst2D({ max = 420 }: { max?: number }) {
           ctx.fill();
         }
       }
+
+      // the pieces: the real fruit, tumbling
+      if (atlasImg) {
+        const aw = atlasImg.naturalWidth;
+        const ah = atlasImg.naturalHeight;
+        for (const f of flying) {
+          let x: number, y: number, a: number, sc: number;
+          if (phase === "explode" || phase === "hold") {
+            const g = (t / 1000) ** 2 * 380 * 0.6 * PIECE_PHYSICS.gravity;
+            const curl = Math.sin(f.seed * 12.9 + t * 0.003) * 10 * k;
+            x = f.x + f.dx * k + curl;
+            y = f.y + f.dy * k + g;
+            a = phase === "hold" ? 0.9 : 1;
+            sc = 1 + 0.14 * Math.sin(k * Math.PI);
+            if (phase === "explode" && t > EXPLODE_MS) {
+              f.x1 = x;
+              f.y1 = y;
+            }
+            alive = true;
+          } else {
+            const tx =
+              settleTo!.rect.x + settleTo!.rect.w * (0.5 + (f.seed - 0.5) * 0.5);
+            const ty =
+              settleTo!.rect.y +
+              settleTo!.rect.h * (0.5 + (((f.seed * 7919) % 1) - 0.5) * 0.3);
+            x = f.x1 + (tx - f.x1) * sk;
+            y = f.y1 + (ty - f.y1) * sk;
+            a = 1 - sk * 0.9;
+            sc = 1 - 0.6 * sk;
+            alive = alive || t < SETTLE_MS;
+          }
+          if (a <= 0.01) continue;
+          ctx.globalAlpha = Math.max(0, Math.min(1, a));
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(f.seed * Math.PI * 2 + (t / 1000) * f.spin);
+          const w = f.w * sc;
+          const h = f.h * sc;
+          ctx.drawImage(
+            atlasImg,
+            f.piece.sx * aw,
+            f.piece.sy * ah,
+            f.piece.sw * aw,
+            f.piece.sh * ah,
+            -w / 2,
+            -h / 2,
+            w,
+            h,
+          );
+          ctx.restore();
+        }
+      }
       ctx.restore();
+      if (phase === "explode" && t > EXPLODE_MS) phase = "hold";
       if (phase === "hold" && t > 6000) alive = false; // give up waiting for the destination
       if (alive || phase === "hold") raf = requestAnimationFrame(draw);
       else {
         phase = "idle";
         parts = [];
+        flying = [];
         atlas = null;
+        atlasImg = null;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
     };
@@ -139,9 +201,11 @@ export function Burst2D({ max = 420 }: { max?: number }) {
       const profile = FORM_PROFILES[e.form] ?? FORM_PROFILES.powder;
       gravity = profile.gravity;
       drift = profile.drift;
-      const cx = e.rect.x + e.rect.w / 2;
-      const cy = e.rect.y + e.rect.h * 0.55;
-      const step = Math.max(1, e.samples.length / max);
+      const anc = e.anchor ?? { x: 0, y: 0, w: 1, h: 1 };
+      const cx = e.rect.x + (anc.x + anc.w / 2) * e.rect.w;
+      const cy = e.rect.y + (anc.y + anc.h * 0.55) * e.rect.h;
+      const budget = e.pieces ? Math.round(max * 0.7) : max;
+      const step = Math.max(1, e.samples.length / budget);
       parts = [];
       const chosen: number[] = [];
       for (let i = 0; i < e.samples.length; i += step) {
@@ -168,7 +232,7 @@ export function Burst2D({ max = 420 }: { max?: number }) {
         chosen.push(idx);
       }
 
-      // sprite atlas: one real fragment per particle, masked once
+      // dust sprite atlas: one real fragment per particle, masked once
       atlas = null;
       if (e.texture) {
         cols = Math.ceil(Math.sqrt(chosen.length));
@@ -179,7 +243,7 @@ export function Burst2D({ max = 420 }: { max?: number }) {
         const actx = a.getContext("2d");
         if (actx) {
           const tex = e.texture;
-          const patch = profile.patch * tex.width; // px of the texture per sprite
+          const patch = profile.patch * tex.width;
           chosen.forEach((idx, n) => {
             const s = e.samples[idx]!;
             const sx = (n % cols) * SPRITE;
@@ -209,12 +273,10 @@ export function Burst2D({ max = 420 }: { max?: number }) {
               SPRITE,
               SPRITE,
             );
-            // fill any transparent part of the patch with the pixel's own colour
             actx.globalCompositeOperation = "destination-over";
             actx.fillStyle = `rgb(${s.r},${s.g},${s.b})`;
             actx.fillRect(-SPRITE / 2, -SPRITE / 2, SPRITE, SPRITE);
             if (profile.soft) {
-              // dust: fade the edge
               actx.globalCompositeOperation = "destination-in";
               const g = actx.createRadialGradient(0, 0, 0, 0, 0, SPRITE / 2);
               g.addColorStop(0.35, "rgba(0,0,0,1)");
@@ -228,6 +290,17 @@ export function Burst2D({ max = 420 }: { max?: number }) {
         atlas = a;
       }
 
+      // the pieces
+      atlasImg = e.pieces?.atlas ?? null;
+      flying = e.pieces
+        ? layoutPieces(
+            e.pieces,
+            e.rect,
+            e.anchor,
+            Math.max(innerWidth, innerHeight) * 0.35,
+          ).map((f) => ({ ...f, x1: f.x, y1: f.y }))
+        : [];
+
       phase = "explode";
       t0 = performance.now();
       cancelAnimationFrame(raf);
@@ -236,8 +309,16 @@ export function Burst2D({ max = 420 }: { max?: number }) {
     const offSettle = burstBus.onSettle((e) => {
       if (phase !== "hold" && phase !== "explode") return;
       settleTo = e;
-      for (const p of parts)
-        if (phase === "explode") ((p.x1 = p.x0 + p.dx), (p.y1 = p.y0 + p.dy));
+      if (phase === "explode") {
+        for (const p of parts) {
+          p.x1 = p.x0 + p.dx;
+          p.y1 = p.y0 + p.dy;
+        }
+        for (const f of flying) {
+          f.x1 = f.x + f.dx;
+          f.y1 = f.y + f.dy;
+        }
+      }
       phase = "settle";
       t0 = performance.now();
     });

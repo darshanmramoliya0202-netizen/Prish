@@ -24,10 +24,15 @@ export default async function Image({
   const p = getProductBySlug(slug);
   const c = getClusterBySlug(cluster);
   if (!p || !c) return renderOg({ title: "Prish Overseas" });
+  // the photographed bowl (scripts/prep-photos.mjs) when there is one, else the render
   // pre-rendered by scripts/render-bowls.tsx (prebuild)
-  const png = await readFile(
-    join(process.cwd(), "public", "illustrations", "products", `${p.slug}.png`),
-  ).catch(() => null);
+  const png =
+    (await readFile(
+      join(process.cwd(), "public", "photos", "products", p.slug, "bowl.png"),
+    ).catch(() => null)) ??
+    (await readFile(
+      join(process.cwd(), "public", "illustrations", "products", `${p.slug}.png`),
+    ).catch(() => null));
   const image = png
     ? `data:image/png;base64,${png.toString("base64")}`
     : undefined;

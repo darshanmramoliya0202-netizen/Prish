@@ -19,8 +19,10 @@ large layer of invented claims. `scripts/verify-content.ts` enforces most of the
 7. **People:** Yash Talaviya — Director. No other names unless the owner adds them to
    `content/story.ts › people`. No testimonials; anonymised stories only.
 8. **Imagery:** nothing AI-generated is ever captioned as a real place, person, lot,
-   lab or facility. Alt text for illustrations starts with "Illustration of".
-   The only real photo is the founder's. The PM portrait carries credit + licence.
+   lab or facility, and nothing generated is ever labelled "Actual product". Alt text
+   for illustrations starts with "Illustration of". The founder's portrait, certificate
+   scans and the "Actual product" macros must be real photographs. The PM portrait
+   carries credit + licence.
 9. **Specs are "typical values"** — every spec table carries
    "Typical values — lot-specific COA on request". Grade tables are ranges, not promises.
 10. **Commercial terms:** Incoterms FOB and CIF only. Samples: "Samples available — ask us."
@@ -31,4 +33,4 @@ large layer of invented claims. `scripts/verify-content.ts` enforces most of the
 
 ## Photography
 
-Real photos are optional drop-ins, never placeholders: `assets-src/photos/**` → `npm run photos:prep` → `public/photos/**` + `content/generated/photos.json` (commit both outputs; originals stay on F:). Product bowls, the "Actual product" chips, origin photos and the site slots all read the manifest through `content/photos.ts`. The honesty line, house style, shot list and prompts are in [`photo-brief.md`](photo-brief.md); per-SKU prompts are generated into [`photo-prompts-products.md`](photo-prompts-products.md) by `npm run photos:prompts`. Anything that makes a claim about Prish itself (people, documents, facilities, the "actual product" macros) must be a real photograph.
+Photos are drop-ins, never placeholders: `assets-src/photos/**` → `npm run photos:prep` → `public/photos/**` + `content/generated/photos.json` (commit both outputs; originals stay on F:). Product bowls (knocked out, with the loose crop cut into a burst atlas), hero scenes, the "Actual product" chips, origin photos and the site slots all read the manifest through `content/photos.ts`. The current set is the owner's archive imagery, imported by `scripts/photos-import-archive.mjs`; real photographs in the same slots replace it. The honesty line, house style, shot list and prompts are in [`photo-brief.md`](photo-brief.md); per-SKU prompts are generated into [`photo-prompts-products.md`](photo-prompts-products.md) by `npm run photos:prompts`. Anything that makes a claim about Prish itself (people, documents, facilities, the "actual product" macros) must be a real photograph.

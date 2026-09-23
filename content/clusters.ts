@@ -56,7 +56,7 @@ export const clusters: Cluster[] = [
     promise: "From Mahuva, the belt the world’s dehydrated onion comes from.",
     description:
       "Onion and garlic as powder, flakes, kibbled and granules, plus crispy fried onion — the strongest credibility-to-volume line in Gujarat’s own backyard.",
-    heroProductId: "dehydrated_onion_powder",
+    heroProductId: "garlic_powder",
     colourWorld: {
       primary: "#efe3c8",
       secondary: "#c9862b",

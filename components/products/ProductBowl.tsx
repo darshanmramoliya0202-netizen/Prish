@@ -1,7 +1,7 @@
 import type { Product, ProductForm } from "@/content/types";
 
 /**
- * Procedural product illustration: a shallow dark stone bowl holding the product, drawn
+ * Procedural product illustration: a shallow white ceramic bowl holding the product, drawn
  * deterministically from the product's colour world and form and lit like a photograph —
  * one key light from the top-left, matte surfaces broken up with turbulence grain and
  * mottle, irregular powder edges (displacement), per-piece cast shadows for whole goods,
@@ -191,7 +191,7 @@ function HeapLight({ id, ring = true }: { id: string; ring?: boolean }) {
           r="150"
         >
           <stop offset="0.55" stopColor="#000" stopOpacity="0" />
-          <stop offset="1" stopColor="#000" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.35" />
         </radialGradient>
       </defs>
       <g clipPath={`url(#${id}-cavclip)`}>
@@ -220,7 +220,7 @@ function WallRing({ id }: { id: string }) {
       fill="none"
       stroke="#000"
       strokeWidth="18"
-      opacity="0.55"
+      opacity="0.3"
       filter={`url(#${id}-soft)`}
     />
   );
@@ -798,7 +798,7 @@ export function ProductBowl({
           <feColorMatrix
             in="n"
             type="matrix"
-            values={greyAlpha(0.2)}
+            values={greyAlpha(0.07)}
             result="g"
           />
           <feBlend in="g" in2="SourceGraphic" mode="overlay" result="b" />
@@ -806,19 +806,19 @@ export function ProductBowl({
         </filter>
         {/* key light top-left: body, bevelled rim, far wall */}
         <linearGradient id={`${id}-body`} x1="0.1" y1="0" x2="0.9" y2="1">
-          <stop offset="0" stopColor="#3d352e" />
-          <stop offset="0.45" stopColor="#1a1612" />
-          <stop offset="1" stopColor="#070605" />
+          <stop offset="0" stopColor="#fbfaf7" />
+          <stop offset="0.45" stopColor="#e4e0d6" />
+          <stop offset="1" stopColor="#b6b0a3" />
         </linearGradient>
         <linearGradient id={`${id}-rim`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#5a5047" />
-          <stop offset="0.5" stopColor="#2a2420" />
-          <stop offset="1" stopColor="#14110e" />
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="0.5" stopColor="#efece5" />
+          <stop offset="1" stopColor="#cbc5b9" />
         </linearGradient>
         <linearGradient id={`${id}-wall`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#2e2823" />
-          <stop offset="0.55" stopColor="#100d0b" />
-          <stop offset="1" stopColor="#070605" />
+          <stop offset="0" stopColor="#ebe7de" />
+          <stop offset="0.55" stopColor="#cdc7bb" />
+          <stop offset="1" stopColor="#b0a99c" />
         </linearGradient>
       </defs>
 
@@ -855,7 +855,7 @@ export function ProductBowl({
         rx="56"
         ry="26"
         fill="#fff"
-        opacity="0.06"
+        opacity="0.4"
         filter={`url(#${id}-soft)`}
       />
       {/* rim, bevelled */}
@@ -872,8 +872,8 @@ export function ProductBowl({
         cy="237"
         rx="146"
         ry="46"
-        fill="#0c0a08"
-        opacity="0.55"
+        fill="#8c857a"
+        opacity="0.35"
       />
       {/* far inner wall */}
       <ellipse cx="200" cy="238" rx="136" ry="42" fill={`url(#${id}-wall)`} />
@@ -911,7 +911,7 @@ export function ProductBowl({
         d="M 64 246 C 100 262, 150 270, 200 270 C 250 270, 300 262, 336 246"
         fill="none"
         stroke="#000"
-        strokeOpacity="0.35"
+        strokeOpacity="0.2"
         strokeWidth="6"
         filter={`url(#${id}-soft)`}
       />

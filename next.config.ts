@@ -6,7 +6,9 @@ const withBundleAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === "tr
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  images: { formats: ["image/avif", "image/webp"] },
+  // qualities must be listed or Next 16 serves everything at 75 (the low ones are for
+  // decorative backdrops such as the hero photo)
+  images: { formats: ["image/avif", "image/webp"], qualities: [45, 60, 75, 82, 86] },
   async redirects() {
     return [{ source: "/about", destination: "/story", permanent: true }];
   },

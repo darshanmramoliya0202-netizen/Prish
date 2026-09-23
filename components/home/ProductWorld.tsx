@@ -27,7 +27,7 @@ export function ProductWorld() {
         />
 
         <ul
-          className="mx-auto mt-16 grid max-w-6xl grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-6"
+          className="mx-auto mt-12 grid max-w-6xl grid-cols-3 gap-x-2 gap-y-8 sm:gap-x-4 md:mt-16 lg:grid-cols-6"
           role="list"
           data-reveal-group
         >
@@ -51,7 +51,7 @@ export function ProductWorld() {
                     product={product}
                     chip="md"
                     bowlClassName="w-full drop-shadow-2xl"
-                    sizes="(min-width: 1024px) 16vw, 45vw"
+                    sizes="(min-width: 1024px) 16vw, 30vw"
                   >
                     <div
                       aria-hidden
@@ -59,7 +59,7 @@ export function ProductWorld() {
                       style={{ background: product.colourWorld.primary }}
                     />
                   </ProductVisual>
-                  <p className="mt-2 font-display text-display-md leading-none">
+                  <p className="mt-2 font-display text-display-sm leading-none md:text-display-md">
                     {product.shortName}
                   </p>
                   <p className="eyebrow mt-2 opacity-60">{cluster.shortName}</p>
