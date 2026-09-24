@@ -9,6 +9,7 @@
  *   assets-src/photos/products/<slug>/macro.*  → public/photos/products/<slug>/macro.jpg    (1200², square crop — "actual product", real only)
  *   assets-src/photos/products/<slug>/source.* → public/photos/products/<slug>/source.jpg   (≤1600 wide — origin section)
  *   assets-src/photos/site/<id>.*              → public/photos/site/<id>.jpg                (≤2400 wide)
+ *   assets-src/photos/products/<slug>/bowl-2.* → more pieces for the same atlas (the same bowl generated again)
  *   a sibling <name>.txt                       → caption;   <name>.json → options ({ "text": true })
  *
  * `bowl` — the product in its bowl with the raw crop / fruit beside it, on a plain sweep.
@@ -33,10 +34,10 @@ import {
   unlinkSync,
   writeFileSync,
 } from "node:fs";
-import { extname, join } from "node:path";
+import { basename, extname, join } from "node:path";
 import sharp from "sharp";
 
-const PIPELINE = "v7"; // bump to reprocess every file
+const PIPELINE = "v9"; // bump to reprocess every file
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "assets-src", "photos");
 const OUT = join(ROOT, "public", "photos");
@@ -51,7 +52,7 @@ const BOWL_FIT = 1480; // content box inside it
 const WORK = 2200; // working resolution for the knock-out
 const CELL = 192; // atlas cell (px)
 const COLS = 6;
-const MAX_PIECES = 24;
+const MAX_PIECES = 36;
 
 const manifest = { products: {}, site: {} };
 const stamps = existsSync(STAMPS)
@@ -184,7 +185,7 @@ function knockOut(data, w, h, { text = false } = {}) {
   // a source that already carries real transparency is trusted as-is
   let transparent = 0;
   for (let i = 3; i < data.length; i += 4) if (data[i] < 8) transparent++;
-  if (transparent > N / 50) return data;
+  if (transparent > N / 50) return { out: data, sweep: null };
 
   const model = borderModel(data, w, h);
   const est = [0, 0, 0];
@@ -322,7 +323,7 @@ function knockOut(data, w, h, { text = false } = {}) {
     }
   }
   if (erased) paint();
-  return out;
+  return { out, sweep: model.global };
 }
 
 /** connected components (4-neighbour) of pixels with alpha > threshold */
@@ -467,7 +468,7 @@ const bboxArea = (s) => (s.x1 - s.x0 + 1) * (s.y1 - s.y0 + 1);
  * a heavier one on the biggest part peels off fruit leaning against the bowl. The bowl
  * is the largest part plus anything big that sits inside its box.
  */
-function findPieces(rgba, w, h) {
+function findPieces(rgba, w, h, sweep = null) {
   const N = w * h;
   const solid = new Uint8Array(N);
   for (let p = 0; p < N; p++) solid[p] = rgba[p * 4 + 3] > 160 ? 1 : 0;
@@ -543,67 +544,96 @@ function findPieces(rgba, w, h) {
       }
     return n ? [r / n, g / n, b / n] : [0, 0, 0];
   };
-  // safety first: a piece that flies must read as a thing — coloured or dark, solid,
-  // and never a chunk of the bowl (pale, low-chroma, or simply too big)
+  // safety first: a piece that flies must read as a thing — never a sliver of the
+  // sweep, never a chunk of the white bowl, never a huge blob. Coloured sprigs may be
+  // thin; grey/white things (onion, garlic, rice) count only when they clearly differ
+  // from the sweep (shoot those on the grey sweep).
+  const sweepLum = sweep ? lumOf(sweep[0], sweep[1], sweep[2]) : null;
   const pieces = stats
     .filter((s) => !bowlIds.has(s.id))
     .filter((s) => s.area >= N * 0.0005 && s.area <= N * 0.08)
     .filter((s) => s.x1 - s.x0 < w * 0.55 && s.y1 - s.y0 < h * 0.55)
-    .filter((s) => s.area / bboxArea(s) >= 0.35)
     .filter((s) => {
       const [r, g, b] = mean(s);
       const chroma = Math.max(r, g, b) - Math.min(r, g, b);
       const lum = lumOf(r, g, b);
-      if (chroma < 16) return lum < 120; // grey: only if clearly dark (a seed, a jamun)
-      return !(lum > 190 && chroma < 28); // pale rim / sweep sliver
+      const fill = s.area / bboxArea(s);
+      const pw = s.x1 - s.x0 + 1;
+      const ph = s.y1 - s.y0 + 1;
+      const aspect = Math.max(pw, ph) / Math.min(pw, ph);
+      if (fill < (chroma >= 30 ? 0.2 : 0.35)) return false; // arcs, hairlines
+      if (aspect > 5 && s.area < N * 0.004) return false; // a sliver
+      if (
+        sweep &&
+        Math.abs(r - sweep[0]) < 30 &&
+        Math.abs(g - sweep[1]) < 30 &&
+        Math.abs(b - sweep[2]) < 30
+      )
+        return false; // a remnant of the sweep
+      const lightSweep = sweepLum === null || sweepLum > 200;
+      if (chroma < 16) {
+        if (lum > 200 && s.area > N * 0.02) return false; // a chunk of the bowl
+        // grey/white things count only on the grey sweep, where they stand apart
+        return lum < 120 || (!lightSweep && Math.abs(lum - sweepLum) >= 30);
+      }
+      // pale low-chroma bits on a white sweep are rim or sweep, never a piece
+      return !(lightSweep && lum > 190 && chroma < 28);
     })
     .slice(0, MAX_PIECES);
   return { label, bowl, pieces };
 }
 
-/** the sprite atlas: every piece cut from the bowl image by its label, fitted in a cell */
-async function buildAtlas(rgba, w, h, label, pieces) {
-  const rows = Math.ceil(pieces.length / COLS);
+/** one piece cut from its canvas by label, fitted into an atlas cell */
+async function spriteOf(rgba, w, label, s) {
+  const pw = s.x1 - s.x0 + 1;
+  const ph = s.y1 - s.y0 + 1;
+  const buf = Buffer.alloc(pw * ph * 4);
+  for (let y = 0; y < ph; y++)
+    for (let x = 0; x < pw; x++) {
+      const p = (s.y0 + y) * w + (s.x0 + x);
+      if (label[p] !== s.id) continue;
+      const o = (y * pw + x) * 4;
+      const q = p * 4;
+      buf[o] = rgba[q];
+      buf[o + 1] = rgba[q + 1];
+      buf[o + 2] = rgba[q + 2];
+      buf[o + 3] = rgba[q + 3];
+    }
+  const inner = CELL - 8;
+  const scale = Math.min(inner / pw, inner / ph, 1);
+  const tw = Math.max(1, Math.round(pw * scale));
+  const th = Math.max(1, Math.round(ph * scale));
+  const png = await sharp(buf, { raw: { width: pw, height: ph, channels: 4 } })
+    .resize(tw, th, { fit: "fill" })
+    .png()
+    .toBuffer();
+  return { png, tw, th };
+}
+
+/**
+ * The sprite atlas. `entries` = [{ sprite, box }] where `box` is the piece's place in
+ * the main bowl image (normalised). Sprites from extra sheets (bowl-2.*, …) are mapped
+ * into the main image's space by the ratio of the two bowls' widths.
+ */
+async function packAtlas(entries) {
+  const rows = Math.ceil(entries.length / COLS);
   const comps = [];
   const items = [];
-  for (let i = 0; i < pieces.length; i++) {
-    const s = pieces[i];
-    const pw = s.x1 - s.x0 + 1;
-    const ph = s.y1 - s.y0 + 1;
-    const buf = Buffer.alloc(pw * ph * 4);
-    for (let y = 0; y < ph; y++)
-      for (let x = 0; x < pw; x++) {
-        const p = (s.y0 + y) * w + (s.x0 + x);
-        if (label[p] !== s.id) continue;
-        const o = (y * pw + x) * 4;
-        const q = p * 4;
-        buf[o] = rgba[q];
-        buf[o + 1] = rgba[q + 1];
-        buf[o + 2] = rgba[q + 2];
-        buf[o + 3] = rgba[q + 3];
-      }
-    const inner = CELL - 8;
-    const scale = Math.min(inner / pw, inner / ph, 1);
-    const tw = Math.max(1, Math.round(pw * scale));
-    const th = Math.max(1, Math.round(ph * scale));
-    const sprite = await sharp(buf, { raw: { width: pw, height: ph, channels: 4 } })
-      .resize(tw, th, { fit: "fill" })
-      .png()
-      .toBuffer();
+  entries.forEach((e, i) => {
     const col = i % COLS;
     const row = Math.floor(i / COLS);
     comps.push({
-      input: sprite,
-      left: col * CELL + Math.floor((CELL - tw) / 2),
-      top: row * CELL + Math.floor((CELL - th) / 2),
+      input: e.sprite.png,
+      left: col * CELL + Math.floor((CELL - e.sprite.tw) / 2),
+      top: row * CELL + Math.floor((CELL - e.sprite.th) / 2),
     });
     items.push({
-      x: +(s.x0 / w).toFixed(4),
-      y: +(s.y0 / h).toFixed(4),
-      w: +(pw / w).toFixed(4),
-      h: +(ph / h).toFixed(4),
+      x: +e.box.x.toFixed(4),
+      y: +e.box.y.toFixed(4),
+      w: +e.box.w.toFixed(4),
+      h: +e.box.h.toFixed(4),
     });
-  }
+  });
   const atlas = await sharp({
     create: {
       width: COLS * CELL,
@@ -626,7 +656,7 @@ async function processBowl(from, opts) {
     .ensureAlpha()
     .raw()
     .toBuffer({ resolveWithObject: true });
-  const cut = knockOut(data, info.width, info.height, opts);
+  const { out: cut, sweep } = knockOut(data, info.width, info.height, opts);
   const fitted = await sharp(cut, {
     raw: { width: info.width, height: info.height, channels: 4 },
   })
@@ -643,7 +673,7 @@ async function processBowl(from, opts) {
     .composite([{ input: fitted, left, top }])
     .raw()
     .toBuffer();
-  const { label, bowl, pieces } = findPieces(canvasRaw, BOWL, BOWL);
+  const { label, bowl, pieces } = findPieces(canvasRaw, BOWL, BOWL, sweep);
   const bowlImg = await sharp(canvasRaw, {
     raw: { width: BOWL, height: BOWL, channels: 4 },
   })
@@ -656,21 +686,46 @@ async function processBowl(from, opts) {
     .resize(720, 720)
     .png({ compressionLevel: 9, palette: true, quality: 90, effort: 8 })
     .toBuffer();
-  const { atlas, items, rows } = pieces.length
-    ? await buildAtlas(canvasRaw, BOWL, BOWL, label, pieces)
-    : { atlas: null, items: [], rows: 0 };
-  return {
-    bowlImg,
-    bowlPng,
-    atlas,
-    pieces: { cell: CELL, cols: COLS, rows, items },
-    anchor: {
-      x: +(bowl.x0 / BOWL).toFixed(4),
-      y: +(bowl.y0 / BOWL).toFixed(4),
-      w: +((bowl.x1 - bowl.x0 + 1) / BOWL).toFixed(4),
-      h: +((bowl.y1 - bowl.y0 + 1) / BOWL).toFixed(4),
-    },
+  const anchor = {
+    x: bowl.x0 / BOWL,
+    y: bowl.y0 / BOWL,
+    w: (bowl.x1 - bowl.x0 + 1) / BOWL,
+    h: (bowl.y1 - bowl.y0 + 1) / BOWL,
   };
+  const entries = [];
+  for (const s of pieces)
+    entries.push({
+      sprite: await spriteOf(canvasRaw, BOWL, label, s),
+      box: {
+        x: s.x0 / BOWL,
+        y: s.y0 / BOWL,
+        w: (s.x1 - s.x0 + 1) / BOWL,
+        h: (s.y1 - s.y0 + 1) / BOWL,
+      },
+    });
+  return { bowlImg, bowlPng, anchor, entries };
+}
+
+/**
+ * Extra sheets (bowl-2.*, bowl-3.* — the same bowl generated again with other pieces
+ * around it) only contribute pieces. Their boxes are mapped into the main image by the
+ * ratio of bowl widths and re-centred on the main bowl.
+ */
+function remapEntries(extra, mainAnchor) {
+  const k = mainAnchor.w / Math.max(0.05, extra.anchor.w);
+  const mcx = mainAnchor.x + mainAnchor.w / 2;
+  const mcy = mainAnchor.y + mainAnchor.h / 2;
+  const ecx = extra.anchor.x + extra.anchor.w / 2;
+  const ecy = extra.anchor.y + extra.anchor.h / 2;
+  return extra.entries.map((e) => {
+    const w = e.box.w * k;
+    const h = e.box.h * k;
+    let cx = mcx + (e.box.x + e.box.w / 2 - ecx) * k;
+    let cy = mcy + (e.box.y + e.box.h / 2 - ecy) * k;
+    cx = Math.max(w / 2 + 0.02, Math.min(0.98 - w / 2, cx));
+    cy = Math.max(h / 2 + 0.02, Math.min(0.98 - h / 2, cy));
+    return { sprite: e.sprite, box: { x: cx - w / 2, y: cy - h / 2, w, h } };
+  });
 }
 
 /* ────────────────────────────── driver ────────────────────────────────── */
@@ -692,6 +747,11 @@ async function processProduct(slug, dir) {
   const files = readdirSync(dir).filter((f) => IMG.test(f));
   const entry = {};
   const outDir = join(OUT, "products", slug);
+  // extra sheets contribute more pieces to the same atlas
+  const extraSheets = files
+    .filter((f) => /^bowl-\d+\./i.test(f))
+    .sort()
+    .map((f) => join(dir, f));
   for (const role of ["bowl", "macro", "source", "scene"]) {
     const src = files.find(
       (f) => f.slice(0, -extname(f).length).toLowerCase() === role,
@@ -703,19 +763,41 @@ async function processProduct(slug, dir) {
     const ext = role === "bowl" ? "webp" : "jpg";
     const target = join(outDir, `${role}.${ext}`);
     const key = `products/${slug}/${role}`;
-    const h = hashOf(from, JSON.stringify(opts));
+    const extraHash = extraSheets
+      .map((f) => hashOf(f, JSON.stringify(sidecar(dir, basename(f, extname(f))).opts)))
+      .join("+");
+    const h = hashOf(from, JSON.stringify(opts) + extraHash);
     const metaPath = join(outDir, `${role}.json`);
     if (stamps[key] !== h || !existsSync(target) || (role === "bowl" && !existsSync(metaPath))) {
       if (role === "bowl") {
         const r = await processBowl(from, opts);
         await writeOut(r.bowlImg, target);
         await writeOut(r.bowlPng, join(outDir, "bowl.png"));
+        let entries = r.entries;
+        for (const f of extraSheets) {
+          const x = await processBowl(f, sidecar(dir, basename(f, extname(f))).opts);
+          entries = entries.concat(remapEntries(x, r.anchor));
+        }
+        entries = entries.slice(0, MAX_PIECES);
         const atlasPath = join(outDir, "pieces.webp");
-        if (r.atlas) await writeOut(r.atlas, atlasPath);
+        const packed = entries.length
+          ? await packAtlas(entries)
+          : { atlas: null, items: [], rows: 0 };
+        if (packed.atlas) await writeOut(packed.atlas, atlasPath);
         else if (existsSync(atlasPath)) unlinkSync(atlasPath); // no loose pieces any more
+        const anchor = Object.fromEntries(
+          Object.entries(r.anchor).map(([k, v]) => [k, +v.toFixed(4)]),
+        );
         writeFileSync(
           metaPath,
-          JSON.stringify({ anchor: r.anchor, pieces: r.pieces }, null, 2) + "\n",
+          JSON.stringify(
+            {
+              anchor,
+              pieces: { cell: CELL, cols: COLS, rows: packed.rows, items: packed.items },
+            },
+            null,
+            2,
+          ) + "\n",
         );
       } else if (role === "macro") {
         await writeOut(

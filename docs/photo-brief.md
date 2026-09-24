@@ -35,7 +35,7 @@ Roles, per product (`assets-src/photos/products/<slug>/`):
 | `macro.*` | the **"Actual product"** chip + gallery — **real photo only** | square close-up |
 | `source.*` | the origin section, beside the map | 4:3 |
 
-Site slots (`assets-src/photos/site/<id>.*`) are unchanged — see §4.
+Site slots (`assets-src/photos/site/<id>.*`) are unchanged — see §4. The image-by-image verdict (keep / replace / generate) is in [`photo-review.md`](photo-review.md).
 
 ## 1. The honesty line
 
@@ -94,31 +94,25 @@ Generator notes: use the tool's **image-edit / reference-image** mode wherever c
 
 ---
 
-## 3. The product set — 27 SKUs × 3
+## 3. The product set — one sheet per SKU
 
-Per-SKU prompts: [`photo-prompts-products.md`](photo-prompts-products.md). Three files per product:
+Every product gets **one generated image** that covers everything the site needs from it: the house bowl with the product in it, and around it — each piece separate — the real crop it comes from (the fruit whole and cut open to show the pulp, its leaves and seeds; the spice whole and broken). `npm run photos:prep` knocks the sweep out, shows the composition as the pot, and lifts every loose piece into the burst. The per-product ingredient lines and finished prompts are in [`photo-prompts-products.md`](photo-prompts-products.md); the verdict on what exists is in [`photo-review.md`](photo-review.md).
 
-### `bowl` — the product in the house bowl
+**The house bowl (in every prompt):**
 
-**Best route (recommended): shoot it for real.** One bowl, one white sheet, one window, one phone, 27 samples. Same spot on the table, same phone position (mark the tripod / phone stand with tape), same time of day. This gives perfectly consistent bowls, it is the honest article, and the knock-out script handles the white background.
+> a plain matte white ceramic bowl — low and wide, thin slightly uneven rim, unglazed foot — the same bowl in every image, seen three-quarter from about 25° above, centred
 
-**Generated route:** make the **master bowl** once, then use image-edit with the master and each SKU's bowl prompt so all 27 are the same object.
+**The sweep (background):** flat, seamless, no gradient, no vignette, no horizon line. **Pure white (#FFFFFF)** for coloured products; **mid warm grey (#BFBAB2)** for pale ones (onion, garlic, rice, lemon, apple) so white powder and white cloves stay separable. One soft window light from the upper left; only a small contact shadow under each object.
 
-Master bowl prompt:
+**The layout:** pieces about a finger's width from the bowl and from each other, none touching, none overlapping, none cut by the frame; the whole arrangement compact, filling about four fifths of the square. Touching pieces fly as one lump; a piece touching the bowl does not fly at all.
 
-> A single empty hand-thrown matte charcoal stoneware bowl — low and wide, unglazed rough exterior, softer dark glaze inside, slightly uneven rim — three-quarter view from about 25° above, centred, on a plain seamless pure-white sweep. One soft window light from the upper left, a gentle grounded shadow to the lower right. Editorial product photography, honest and unretouched-looking, real texture, no text, no labels, no props. Square, 2048×2048.
+**More pieces:** generate the same prompt again ("a different arrangement of the same things") and save it as `bowl-2.png` (`bowl-3.png` …). Only the pieces are taken from those; the pot stays `bowl.png`.
 
-Requirements for either route: **dark matte bowl** (not glass, not white ceramic — the knock-out keeps dark objects and treats light low-chroma pixels near the ground as shadow), plain white or transparent background, product heaped naturally (slightly higher on one side, a little dusting on the rim for powders, a few pieces fallen beside the bowl for seeds / flakes), square frame, 2048 px or more.
+**Real bowls (recommended in the long run):** one white bowl, one white sheet (or a grey card for the pale products), one window, one phone, 27 samples and the raw crop from the market — same layout rules. The pipeline treats a photograph and a generation identically.
 
-### `macro` — the "Actual product" chip — **real photos**
+**`macro` — the "Actual product" chip — real photos only.** A spoonful of the sample on a black slate tile (powders, rice) or a white plate (dark seeds, chillies), phone 15–20 cm above pointing straight down, window light, no flash, fill the frame. Never generated: the label says *actual*.
 
-Phone guide: put a spoonful of the sample on a **black slate tile** (powders, rice) or a **white ceramic plate** (dark seeds, chillies), by a window, phone 15–20 cm above pointing straight down, tap to focus, no flash, no filter. Fill the frame with product. Shoot square if the phone allows; the script crops square anyway. Aim for the grain to be visible: fineness of a powder, ridges on a cumin seed, curl of an onion flake — that is exactly what a buyer is judging.
-
-### `source` — where it comes from (may be generated)
-
-Field / orchard / yard scenes for the product page's Origin section, 4:3, 2048×1536, style preamble (documentary) + the SKU's scene from the prompts file. These are the images that make "Khet Se" true.
-
----
+**`scene` (optional)** — the dark-slate still life behind the product hero; prompt per product in the prompts file. **`source` (optional)** — the origin photo; prompt per product in the prompts file.
 
 ## 4. The site set — shot list with prompts
 
@@ -129,17 +123,17 @@ All documentary style (§2 preamble + negative prompt). Sizes are the *minimum*;
 **`hero-dawn`** · hero backdrop · 16:9, 2400×1350 · *optional — it costs a little LCP; try it and check Lighthouse.* Kept at ~30 % opacity behind the Namaste, so it needs a dark, quiet composition.
 > Saurashtra plain at first light: flat black-cotton-soil fields to a far horizon, a thin line of neem trees, a faint band of orange at the horizon under a deep green-black sky. Very dark, quiet, wide, cinematic but honest. Nothing in the foreground.
 
-**`journey-soil`** · scene 01 "Soil & seed" · 12:7, 2400×1400
-> Freshly ploughed black cotton soil in Saurashtra at dawn, furrows running toward a low sun, a few cumin or groundnut seedlings breaking through in the near rows, dew on clods. Low angle, honest, no people.
+**`journey-soil`** · scene 01 "Soil & seed" · 12:7, 2400×1400 · *today's file is a harvest scene — replace*
+> Freshly ploughed black cotton soil in Saurashtra at first light, furrows running toward a low orange sun, a few cumin seedlings breaking through in the nearest row, dew on the clods, a neem tree small on the horizon. Low camera, honest, no people, no machinery.
 
 **`journey-harvest`** · scene 02 "Harvest" · 12:7
 > A farmer's weathered hands (no face) holding a double handful of freshly picked red chillies over a jute sack in a Guntur field, plants behind, hard morning light, dust in the air.
 
-**`journey-sun`** · scene 03 "Sun & drying" · 12:7
-> Open-air drying yard: turmeric fingers and red chillies spread in broad strips on tarpaulins under a white-hot noon sun, receding to the horizon, heat haze, a lone wooden rake, no people.
+**`journey-sun`** · scene 03 "Sun & drying" · 12:7 · *today's file is hands holding grain — replace*
+> Open-air drying yard under a white-hot noon sun: broad strips of red chillies and ochre turmeric fingers spread on tarpaulins, receding to the horizon, heat haze, a lone wooden rake lying across one strip, no people, no signage.
 
-**`journey-mill`** · scene 04 "Milling & packing" · 12:7 · *framed as the trade's standard packaging, not a facility of ours*
-> Export packaging ready to ship, photographed generically: plain 25 kg food-grade fibre drums and unprinted white HDPE bags on a wooden pallet in soft daylight from a large doorway, no signage, no machinery, no people, no logos.
+**`journey-mill`** · scene 04 "Milling & packing" · 12:7 · *framed as the trade's standard packaging, not a facility of ours; today's file (sacks and a truck in a field) is a placeholder*
+> Export packaging ready to ship, photographed generically: plain 25 kg food-grade fibre drums, unprinted white HDPE bags and one plain brown bulk carton on a wooden pallet in soft daylight from a large doorway, a light dusting of turmeric on the floor, no signage, no machinery, no people, no logos.
 
 **`journey-coast`** · scene 05 "The Gujarat coast" · 12:7
 > Shipping containers stacked at a Gujarat port yard at golden hour, gantry cranes as silhouettes, a haze over the sea beyond, dust and warm light; no readable container markings, no logos, no people.
@@ -167,8 +161,8 @@ All documentary style (§2 preamble + negative prompt). Sizes are the *minimum*;
 
 ### Story
 
-**`season-sowing`** · 4:3, 1600×1200
-> Hands (no face) dropping seed into a shallow furrow in dark black-cotton soil, Saurashtra, low morning sun raking across the field.
+**`season-sowing`** · 4:3, 1600×1200 · *today's file is an aerial view of fields — replace*
+> A farmer's weathered hands (no face) dropping cumin seed into a shallow furrow in dark black-cotton soil, Saurashtra, low morning sun raking across the field, the next furrows soft behind.
 
 **`season-tending`** · 4:3
 > Young cumin plants in neat rows on sandy soil under a wide sky, a farmer's feet and the hem of a dhoti at the edge of frame, irrigation channel glinting, afternoon light.
