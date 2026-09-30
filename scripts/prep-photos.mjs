@@ -37,7 +37,7 @@ import {
 import { basename, extname, join } from "node:path";
 import sharp from "sharp";
 
-const PIPELINE = "v9"; // bump to reprocess every file
+const PIPELINE = "v22"; // bump to reprocess every file
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "assets-src", "photos");
 const OUT = join(ROOT, "public", "photos");
@@ -180,7 +180,8 @@ function estimateAt(model, w, h, x, y, out) {
  * shadow, 255 subject, anti-aliased rim). Also erases the corner mark and, with
  * `text`, everything that starts in the bottom band (a baked-in label).
  */
-function knockOut(data, w, h, { text = false } = {}) {
+function knockOut(data, w, h, opts = {}) {
+  const text = opts.text ?? false;
   const N = w * h;
   // a source that already carries real transparency is trusted as-is
   let transparent = 0;
@@ -208,6 +209,9 @@ function knockOut(data, w, h, { text = false } = {}) {
     push(y * w);
     push(y * w + w - 1);
   }
+  // extra entry points: the ground at the bowl's foot, fenced in by the crop, is reached
+  // from a ring just outside the bowl (see processBowl)
+  if (opts.seeds) for (const p of opts.seeds) push(p);
   while (sp) {
     const p = stack[--sp];
     const i = p * 4;
@@ -220,6 +224,7 @@ function knockOut(data, w, h, { text = false } = {}) {
     const d2 = dr * dr + dg * dg + db * db;
     let kind = 0;
     if (d2 <= TOL) kind = 1;
+    else if (opts.bowl && lightSweepAt(est, data, i)) kind = 1;
     else {
       const lum = lumOf(data[i], data[i + 1], data[i + 2]);
       const lumE = lumOf(est[0], est[1], est[2]);
@@ -229,11 +234,13 @@ function knockOut(data, w, h, { text = false } = {}) {
       const chromaE = Math.max(est[0], est[1], est[2]) - Math.min(est[0], est[1], est[2]);
       // a soft cast shadow on the sweep: a little darker, no more colourful than the
       // sweep, on the ground. Kept light enough that a bowl's own shaded underside
-      // (much darker) stays part of the bowl.
+      // (much darker) stays part of the bowl. On a white sweep the fruit bounces its
+      // colour into its own shadow (a warm halo by an orange, a pink one by a tomato):
+      // allow that tint, or it stays behind as an opaque pale smear around the piece.
       if (
         lum < lumE - 4 &&
         lum > lumE * 0.68 &&
-        chroma <= chromaE + 10 &&
+        chroma <= chromaE + (lumE > 225 ? 30 : opts.bowl ? 16 : 10) &&
         y > h * 0.3
       ) {
         kind = 2;
@@ -268,10 +275,39 @@ function knockOut(data, w, h, { text = false } = {}) {
         dg = data[i + 1] - est[1],
         db = data[i + 2] - est[2];
       if (dr * dr + dg * dg + db * db <= TIGHT) pocket[p] = 1;
+      // with a known bowl, fenced-in ground counts too (it is lit unevenly, so it does
+      // not match the border tightly)
+      else if (opts.bowl && lightSweepAt(est, data, i)) pocket[p] = 1;
     }
-    for (const c of components(data, w, h, 0, pocket))
-      if (c.area >= 30 && c.area <= N * 0.04)
+    // A real pocket is a blob of sweep walled in by the crop: the pixels round it are
+    // clearly not sweep (a fruit's edge, a shadow). A patch of lit glaze or of a garlic
+    // bulb also matches the sweep, but what surrounds it is more glaze or skin — close
+    // to the sweep — so it stays. A thin arc is the bowl's lit rim and stays too.
+    const WALL = 30 * 30 * 3;
+    for (const c of components(data, w, h, 0, pocket)) {
+      if (c.area < 30 || c.area > N * 0.04) continue;
+      if (c.area < 0.2 * (c.x1 - c.x0 + 1) * (c.y1 - c.y0 + 1)) continue;
+      let ring = 0,
+        wall = 0;
+      for (const p of c.pixels) {
+        const x = p % w;
+        for (const q of [x > 0 ? p - 1 : -1, x < w - 1 ? p + 1 : -1, p - w, p + w]) {
+          if (q < 0 || q >= N || pocket[q]) continue;
+          ring++;
+          const i = q * 4;
+          const qx = q % w;
+          estimateAt(model, w, h, qx, (q - qx) / w, est);
+          const dr = data[i] - est[0],
+            dg = data[i + 1] - est[1],
+            db = data[i + 2] - est[2];
+          if (cls[q] === 2 || dr * dr + dg * dg + db * db > WALL) wall++;
+        }
+      }
+      // a wide pocket is ground whatever walls it (pale garlic on the grey sweep); the
+      // wall test is for small patches that could be the skin of a bulb
+      if (c.area > N * 0.0025 || (ring && wall / ring >= 0.35))
         for (const p of c.pixels) cls[p] = 1;
+    }
   }
 
   const out = Buffer.from(data); // copy
@@ -463,15 +499,193 @@ function split(mask, w, h, k, minSeed) {
 const bboxArea = (s) => (s.x1 - s.x0 + 1) * (s.y1 - s.y0 + 1);
 
 /**
+ * The house bowl seen three-quarter: a rim ellipse on top, the body below narrowing to
+ * the foot. `box.bowl` = [x0, y0, x1, y1] in percent of the 1600² canvas, measured by
+ * eye (rim ends left/right, back rim top, foot bottom); `mound` = how far the heap may
+ * rise above the rim, in rim half-widths.
+ */
+function bowlShape(box, w, h, padFrac = 0.006) {
+  const [x0, y0, x1, y1] = box.bowl.map((v, i) => (v / 100) * (i % 2 ? h : w));
+  const a = (x1 - x0) / 2;
+  const cx = x0 + a;
+  const b = a * (box.ra ?? 0.3);
+  const cy = y0 + b; // the rim line (its left and right ends)
+  const depth = Math.max(1, y1 - cy);
+  const ft = box.foot ?? 0.55;
+  const pad = w * padFrac;
+  return {
+    cx,
+    cy,
+    a,
+    b,
+    x0,
+    y0,
+    x1,
+    y1,
+    mound: (box.mound ?? 0.45) * a,
+    inside(x, y) {
+      const dx = (x - cx) / (a + pad);
+      if (dx <= -1 || dx >= 1) return false;
+      if (y < cy - (b + pad) * Math.sqrt(1 - dx * dx)) return false; // above the back rim
+      const u = (y - cy) / (depth + pad);
+      if (u <= 0) return true;
+      if (u >= 1) return false;
+      // the sides taper from the rim to the foot; the foot is itself an ellipse seen
+      // from above, so the bottom edge dips in the middle and rises at the sides
+      const half = 1 - (1 - ft) * u * u;
+      if (Math.abs(dx) > half) return false;
+      const f = dx / ft;
+      return u <= 1 - 0.12 * Math.min(1, f * f);
+    },
+  };
+}
+
+const meanOf = (rgba, w, label) => (s) => {
+  let r = 0,
+    g = 0,
+    b = 0,
+    n = 0;
+  for (let y = s.y0; y <= s.y1; y += 2)
+    for (let x = s.x0; x <= s.x1; x += 2) {
+      const p = y * w + x;
+      if (label[p] !== s.id) continue;
+      r += rgba[p * 4];
+      g += rgba[p * 4 + 1];
+      b += rgba[p * 4 + 2];
+      n++;
+    }
+  return n ? [r / n, g / n, b / n] : [0, 0, 0];
+};
+
+/**
+ * Pieces for a sheet whose bowl box is known: the bowl is the silhouette plus the heap
+ * mounded above the rim; everything else is loose crop. Fruit leaning on the bowl is
+ * cut along the bowl's outline instead of being swallowed by it, and pale pieces
+ * (onion, garlic, lemon flesh) count because they cannot be rim.
+ */
+function findPiecesAround(rgba, w, h, solid, sweep, box) {
+  const N = w * h;
+  const sh = bowlShape(box, w, h);
+  const bowlMask = new Uint8Array(N);
+  let bx0 = w,
+    by0 = h,
+    bx1 = 0,
+    by1 = 0;
+  const mark = (p, x, y) => {
+    bowlMask[p] = 1;
+    if (x < bx0) bx0 = x;
+    if (x > bx1) bx1 = x;
+    if (y < by0) by0 = y;
+    if (y > by1) by1 = y;
+  };
+  const ya = Math.max(0, Math.floor(sh.y0 - 12));
+  const yb = Math.min(h - 1, Math.ceil(sh.y1 + 12));
+  const xa = Math.max(0, Math.floor(sh.x0 - 12));
+  const xb = Math.min(w - 1, Math.ceil(sh.x1 + 12));
+  for (let y = ya; y <= yb; y++)
+    for (let x = xa; x <= xb; x++) if (sh.inside(x, y)) mark(y * w + x, x, y);
+  // the heap above the rim: solid pixels over the inner part of the rim, grown upward
+  // row by row from the silhouette, capped at `mound`
+  const top = Math.max(0, Math.floor(sh.cy - sh.b - sh.mound));
+  const half = sh.a * 0.86;
+  const l = Math.max(1, Math.ceil(sh.cx - half));
+  const r = Math.min(w - 2, Math.floor(sh.cx + half));
+  for (let y = Math.floor(sh.cy); y >= top; y--) {
+    for (let x = l; x <= r; x++) {
+      const p = y * w + x;
+      if (!bowlMask[p] && solid[p] && bowlMask[p + w]) mark(p, x, y);
+    }
+    for (let x = l + 1; x <= r; x++) {
+      const p = y * w + x;
+      if (!bowlMask[p] && solid[p] && bowlMask[p - 1]) mark(p, x, y);
+    }
+    for (let x = r - 1; x >= l; x--) {
+      const p = y * w + x;
+      if (!bowlMask[p] && solid[p] && bowlMask[p + 1]) mark(p, x, y);
+    }
+  }
+  const loose = new Uint8Array(N);
+  for (let p = 0; p < N; p++) loose[p] = solid[p] && !bowlMask[p] ? 1 : 0;
+  const { label, stats: first } = split(loose, w, h, Math.max(2, Math.round(w / 400)), 40);
+  // the crop is often arranged overlapping (orange halves, fanned beet slices): a part too
+  // big to fly as one piece is split again with heavier erosion, up to three times
+  const tooBig = (s) => s.area > N * 0.045 || s.x1 - s.x0 > w * 0.3 || s.y1 - s.y0 > h * 0.3;
+  let stats = first;
+  let nextId = stats.reduce((m, s) => Math.max(m, s.id), 0) + 1;
+  for (const k of [Math.round(w / 60), Math.round(w / 32), Math.round(w / 20)]) {
+    const keep = [];
+    for (const big of stats) {
+      if (!tooBig(big)) {
+        keep.push(big);
+        continue;
+      }
+      const mask = new Uint8Array(N);
+      for (let y = big.y0; y <= big.y1; y++)
+        for (let x = big.x0; x <= big.x1; x++) if (label[y * w + x] === big.id) mask[y * w + x] = 1;
+      const sub = split(mask, w, h, k, N * 0.002);
+      if (sub.stats.length < 2) {
+        keep.push(big);
+        continue;
+      }
+      const ids = new Map(sub.stats.map((t) => [t.id, nextId++]));
+      for (let y = big.y0; y <= big.y1; y++)
+        for (let x = big.x0; x <= big.x1; x++) {
+          const p = y * w + x;
+          if (label[p] !== big.id) continue;
+          label[p] = sub.label[p] ? ids.get(sub.label[p]) : 0; // necks between parts drop
+        }
+      for (const t of sub.stats) keep.push({ ...t, id: ids.get(t.id) });
+    }
+    stats = keep.sort((a, b) => b.area - a.area);
+  }
+  // hugging the bowl: glaze left along the outline, a chunk of the foot
+  const near = (s) => {
+    const dx = (s.cx - sh.cx) / (sh.a * 1.12);
+    const dy = (s.cy - sh.cy) / ((sh.y1 - sh.cy) * 1.15);
+    return dx * dx + dy * dy < 1;
+  };
+  const mean = meanOf(rgba, w, label);
+  const pieces = stats
+    .filter((s) => s.area >= N * 0.0005 && s.area <= N * 0.08)
+    .filter((s) => s.x1 - s.x0 < w * 0.55 && s.y1 - s.y0 < h * 0.55)
+    .filter((s) => {
+      const [r, g, b] = mean(s);
+      const chroma = Math.max(r, g, b) - Math.min(r, g, b);
+      const lum = lumOf(r, g, b);
+      const fill = s.area / bboxArea(s);
+      const pw = s.x1 - s.x0 + 1;
+      const ph = s.y1 - s.y0 + 1;
+      const aspect = Math.max(pw, ph) / Math.min(pw, ph);
+      if (fill < (chroma >= 30 ? 0.2 : 0.3)) return false; // arcs, hairlines
+      if (aspect > 5 && s.area < N * 0.004) return false; // a sliver
+      if (
+        sweep &&
+        Math.abs(r - sweep[0]) < 16 &&
+        Math.abs(g - sweep[1]) < 16 &&
+        Math.abs(b - sweep[2]) < 16
+      )
+        return false; // a remnant of the sweep
+      if (near(s) && chroma < 20 && lum > 150) return false; // glaze
+      // mid-grey and colourless: a scrap of the grey ground, not crop (white onion and
+      // garlic are brighter, dark seeds darker, everything else has colour)
+      if (chroma < 14 && lum > 120 && lum < 195) return false;
+      return true;
+    })
+    .slice(0, MAX_PIECES);
+  return { label, bowl: { x0: bx0, y0: by0, x1: bx1, y1: by1, id: -1 }, pieces };
+}
+
+/**
  * Loose pieces of the composition — the fruit, the seeds, the leaves; everything that is
  * not the bowl. Two passes: a light erosion separates parts touching at a point, then
  * a heavier one on the biggest part peels off fruit leaning against the bowl. The bowl
  * is the largest part plus anything big that sits inside its box.
  */
-function findPieces(rgba, w, h, sweep = null) {
+function findPieces(rgba, w, h, sweep = null, box = null) {
   const N = w * h;
   const solid = new Uint8Array(N);
   for (let p = 0; p < N; p++) solid[p] = rgba[p * 4 + 3] > 160 ? 1 : 0;
+  if (box) return findPiecesAround(rgba, w, h, solid, sweep, box);
 
   // pass 1 — light
   let { label, stats } = split(solid, w, h, Math.max(2, Math.round(w / 400)), 40);
@@ -632,6 +846,10 @@ async function packAtlas(entries) {
       y: +e.box.y.toFixed(4),
       w: +e.box.w.toFixed(4),
       h: +e.box.h.toFixed(4),
+      // the sprite's own size in its cell: differs from the box for extra sheets,
+      // whose boxes are rescaled into the main bowl's space
+      tw: e.sprite.tw,
+      th: e.sprite.th,
     });
   });
   const atlas = await sharp({
@@ -649,6 +867,33 @@ async function packAtlas(entries) {
 }
 
 /** knock-out → trim → fit 1600² → pieces + atlas */
+/**
+ * Generated sweeps (white and grey) are brighter in the middle than at the edges, so
+ * the ground by the bowl reads brighter than the border estimate and would stay as
+ * opaque off-white patches. Anything as bright as the estimate and no more colourful is
+ * ground. Only used when the bowl box is known: this also eats the lit glaze, which
+ * processBowl then restores from the original inside the bowl's silhouette.
+ */
+/** the ceiling for "ground" on the grey sweep, in luminance above the edge estimate:
+ * the generated ground is barely brighter, the shaded side of a white onion ~16 more */
+const GREY_CAP = 12;
+
+function lightSweepAt(est, data, i, cap = GREY_CAP) {
+  const lumE = lumOf(est[0], est[1], est[2]);
+  const r = data[i],
+    g = data[i + 1],
+    b = data[i + 2];
+  const lum = lumOf(r, g, b);
+  const chroma = Math.max(r, g, b) - Math.min(r, g, b);
+  const chromaE = Math.max(est[0], est[1], est[2]) - Math.min(est[0], est[1], est[2]);
+  // the generated sweeps warm towards the middle (beige on the grey one)
+  if (lum < lumE - 4 || chroma > chromaE + 26) return false;
+  // on the grey sweep the pale crop (white onion, garlic, rice) is far brighter than
+  // the ground ever gets: cap how much brighter "ground" may be
+  return lumE > 225 || lum <= lumE + cap;
+}
+
+
 async function processBowl(from, opts) {
   const { data, info } = await sharp(from)
     .rotate()
@@ -656,24 +901,84 @@ async function processBowl(from, opts) {
     .ensureAlpha()
     .raw()
     .toBuffer({ resolveWithObject: true });
-  const { out: cut, sweep } = knockOut(data, info.width, info.height, opts);
-  const fitted = await sharp(cut, {
-    raw: { width: info.width, height: info.height, channels: 4 },
-  })
-    .trim({ threshold: 24, background: TRANSPARENT })
+  const raw = { raw: { width: info.width, height: info.height, channels: 4 } };
+  const trimOf = (buf) =>
+    sharp(buf, raw)
+      .trim({ threshold: 24, background: TRANSPARENT })
+      .png()
+      .toBuffer({ resolveWithObject: true });
+  let { out: cut, sweep } = knockOut(data, info.width, info.height, opts);
+  let { data: trimmed, info: ti } = await trimOf(cut);
+  if (opts.bowl) {
+    // second pass, seeded from a ring just outside the bowl's silhouette, mapped from
+    // canvas percent back to source pixels through this pass's trim and fit
+    const scale = Math.min(BOWL_FIT / ti.width, BOWL_FIT / ti.height);
+    const fw = Math.round(ti.width * scale);
+    const fh = Math.round(ti.height * scale);
+    const l0 = Math.floor((BOWL - fw) / 2);
+    const t0 = Math.floor((BOWL - fh) / 2);
+    const outer = bowlShape(opts, BOWL, BOWL, 0.03);
+    const inner = bowlShape(opts, BOWL, BOWL, 0.015);
+    const seeds = [];
+    for (let y = Math.floor(outer.y0 - 60); y <= Math.ceil(outer.y1 + 60); y += 2)
+      for (let x = Math.floor(outer.x0 - 60); x <= Math.ceil(outer.x1 + 60); x += 2) {
+        if (y < outer.cy || !outer.inside(x, y) || inner.inside(x, y)) continue; // lower half
+        const sx = Math.round((x - l0) / scale - (ti.trimOffsetLeft ?? 0));
+        const sy = Math.round((y - t0) / scale - (ti.trimOffsetTop ?? 0));
+        if (sx >= 0 && sy >= 0 && sx < info.width && sy < info.height)
+          seeds.push(sy * info.width + sx);
+      }
+    ({ out: cut, sweep } = knockOut(data, info.width, info.height, { ...opts, seeds }));
+    ({ data: trimmed, info: ti } = await trimOf(cut));
+  }
+  const fitted = await sharp(trimmed)
     .resize(BOWL_FIT, BOWL_FIT, { fit: "inside", withoutEnlargement: false })
     .png()
     .toBuffer();
   const fm = await sharp(fitted).metadata();
   const left = Math.floor((BOWL - fm.width) / 2);
   const top = Math.floor((BOWL - fm.height) / 2);
-  const canvasRaw = await sharp({
-    create: { width: BOWL, height: BOWL, channels: 4, background: TRANSPARENT },
-  })
-    .composite([{ input: fitted, left, top }])
-    .raw()
-    .toBuffer();
-  const { label, bowl, pieces } = findPieces(canvasRaw, BOWL, BOWL, sweep);
+  const onCanvas = (input) =>
+    sharp({
+      create: { width: BOWL, height: BOWL, channels: 4, background: TRANSPARENT },
+    })
+      .composite([{ input, left, top }])
+      .raw()
+      .toBuffer();
+  const canvasRaw = await onCanvas(fitted);
+  if (opts.bowl) {
+    // the bowl is solid ceramic: inside its silhouette every pixel is the photograph,
+    // whatever the knock-out thought of lit glaze or the shaded band under the rim
+    const orig = await sharp(data, raw)
+      .extract({
+        left: -(ti.trimOffsetLeft ?? 0),
+        top: -(ti.trimOffsetTop ?? 0),
+        width: ti.width,
+        height: ti.height,
+      })
+      .resize(fm.width, fm.height, { fit: "fill" })
+      .png()
+      .toBuffer();
+    const origRaw = await onCanvas(orig);
+    const [x0, y0, x1, y1] = opts.bowl;
+    const inset = 0.5; // percent: keep off the outline, where the box is least sure
+    const sh = bowlShape(
+      { ...opts, bowl: [x0 + inset, y0 + inset, x1 - inset, y1 - inset] },
+      BOWL,
+      BOWL,
+      0,
+    );
+    for (let y = Math.floor(sh.y0); y <= Math.ceil(sh.y1); y++)
+      for (let x = Math.floor(sh.x0); x <= Math.ceil(sh.x1); x++) {
+        if (!sh.inside(x, y)) continue;
+        const i = (y * BOWL + x) * 4;
+        canvasRaw[i] = origRaw[i];
+        canvasRaw[i + 1] = origRaw[i + 1];
+        canvasRaw[i + 2] = origRaw[i + 2];
+        canvasRaw[i + 3] = 255;
+      }
+  }
+  const { label, bowl, pieces } = findPieces(canvasRaw, BOWL, BOWL, sweep, opts.bowl ? opts : null);
   const bowlImg = await sharp(canvasRaw, {
     raw: { width: BOWL, height: BOWL, channels: 4 },
   })

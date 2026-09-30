@@ -7,10 +7,30 @@ import { IconClose } from "@/components/ui/icons";
 import { track } from "@/lib/analytics";
 
 /**
- * Product hero: the real-photo chip is a button that opens the actual photographs —
+ * Product hero: the round chip is a button that opens the product's photographs —
  * close-up of the product, the raw ingredient it comes from — in a native <dialog>.
  * Content is plain data (src/caption) so the server page decides what exists.
  */
+
+// The chip's words follow the photo it shows: only a real macro may say "actual"
+// (owner rule) — the field shots are generated, so they get a plain "where it grows".
+const CHIP: Record<
+  ProductPhotoRole,
+  { lines: [string, string]; aria: (name: string) => string }
+> = {
+  macro: {
+    lines: ["Actual", "product"],
+    aria: (name) => `See the actual ${name}: photographs`,
+  },
+  source: {
+    lines: ["Where it", "grows"],
+    aria: (name) => `See where ${name} grows`,
+  },
+  // not passed by the page today; neutral wording so they can never read as the real lot
+  bowl: { lines: ["More", "photos"], aria: (name) => `See photos of ${name}` },
+  scene: { lines: ["More", "photos"], aria: (name) => `See photos of ${name}` },
+};
+
 export function ProductGallery({
   name,
   slug,
@@ -22,15 +42,17 @@ export function ProductGallery({
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [active, setActive] = useState(0);
-  const macro = photos.find((p) => p.role === "macro") ?? photos[0];
-  if (!macro) return null;
+  // lead with the macro when one exists, else whatever the page sent first
+  const lead = photos.find((p) => p.role === "macro") ?? photos[0];
+  if (!lead) return null;
+  const chip = CHIP[lead.role];
 
   const open = () => {
-    setActive(photos.indexOf(macro));
+    setActive(photos.indexOf(lead));
     ref.current?.showModal();
     track("gallery_open", { product: slug });
   };
-  const current = photos[active] ?? macro;
+  const current = photos[active] ?? lead;
 
   return (
     <>
@@ -38,11 +60,11 @@ export function ProductGallery({
         type="button"
         onClick={open}
         className="group/chip absolute right-[4%] bottom-[6%] block size-24 overflow-hidden rounded-full shadow-deep ring-2 ring-cream-50/90 outline-none transition-transform duration-3 ease-out-expo hover:scale-105 focus-visible:ring-4 focus-visible:ring-gold-400 md:size-28"
-        aria-label={`See the actual ${name}: photographs`}
+        aria-label={chip.aria(name)}
         data-product-chip
       >
         <Image
-          src={macro.photo.src}
+          src={lead.photo.src}
           alt=""
           width={224}
           height={224}
@@ -52,9 +74,9 @@ export function ProductGallery({
           className="size-full object-cover"
         />
         <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/75 to-transparent px-2 pt-7 pb-2.5 text-center text-[9px] leading-[1.15] font-semibold tracking-wide text-cream-50 uppercase">
-          Actual
+          {chip.lines[0]}
           <br />
-          product
+          {chip.lines[1]}
         </span>
       </button>
 

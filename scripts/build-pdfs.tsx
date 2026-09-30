@@ -2,7 +2,7 @@
  * Build-time PDFs via @react-pdf/renderer (pure JS — no browser on the aarch64 VM).
  *   public/downloads/spec-sheets/<slug>.pdf   (27)
  *   public/downloads/prish-overseas-catalogue.pdf
- * Skips unchanged output using a content hash of the product model + templates.
+ * Skips unchanged output via a content hash of the model, templates and bowl images.
  */
 import React from "react";
 import { createHash } from "node:crypto";
@@ -73,6 +73,12 @@ async function qr(url: string) {
   return { data: buf, format: "png" as const };
 }
 
+// the photographed bowl wherever the photo pipeline made one, else the drawn render
+function bowlFor(slug: string) {
+  const photo = join(PHOTOS, slug, "bowl.png");
+  return png(existsSync(photo) ? photo : join(ILLUS, `${slug}.png`));
+}
+
 async function sheetFor(p: (typeof products)[number]): Promise<SpecSheetProps> {
   const url = `${SITE}${productPath(p)}`;
   return {
@@ -82,11 +88,7 @@ async function sheetFor(p: (typeof products)[number]): Promise<SpecSheetProps> {
     flagText,
     buyerTypeLabel,
     sealPng,
-    bowlPng: png(
-      existsSync(join(PHOTOS, p.slug, "bowl.png"))
-        ? join(PHOTOS, p.slug, "bowl.png")
-        : join(ILLUS, `${p.slug}.png`),
-    ),
+    bowlPng: bowlFor(p.slug),
     qrPng: await qr(url),
     url,
     version,
@@ -102,9 +104,11 @@ async function main() {
   for (const p of products) {
     const props = await sheetFor(p);
     sheets.set(p.id, props);
+    // the bowl's bytes too — a photo-pipeline rerun must rebuild the sheet
     const hash = createHash("sha1")
       .update(JSON.stringify(p))
       .update(templateHash)
+      .update(props.bowlPng.data)
       .digest("hex")
       .slice(0, 12);
     const out = join(SHEETS, `${p.slug}.pdf`);
@@ -113,24 +117,23 @@ async function main() {
     manifest[p.slug] = hash;
     rendered++;
   }
-  const catHash = createHash("sha1")
+  // cover: the hero bowl of the first four families
+  const coverBowls = clusters
+    .slice(0, 4)
+    .map((c) => bowlFor(products.find((p) => p.id === c.heroProductId)!.slug));
+  // clusters pick the cover heroes and regions are printed, so both count
+  const catHasher = createHash("sha1")
     .update(JSON.stringify(products))
+    .update(JSON.stringify(clusters))
+    .update(JSON.stringify(regions))
     .update(JSON.stringify(certificates))
-    .update(templateHash)
-    .digest("hex")
-    .slice(0, 12);
+    .update(templateHash);
+  // image bytes, so new photos rebuild it: the cover four plus every embedded sheet's
+  for (const b of coverBowls) catHasher.update(b.data);
+  for (const sp of sheets.values()) catHasher.update(sp.bowlPng.data);
+  const catHash = catHasher.digest("hex").slice(0, 12);
   const catOut = join(OUT, "prish-overseas-catalogue.pdf");
   if (manifest.catalogue !== catHash || !existsSync(catOut)) {
-    const coverBowls = clusters
-      .slice(0, 4)
-      .map((c) =>
-        png(
-          join(
-            ILLUS,
-            `${products.find((p) => p.id === c.heroProductId)!.slug}.png`,
-          ),
-        ),
-      );
     await renderToFile(
       <CatalogueDocument
         clusters={clusters}

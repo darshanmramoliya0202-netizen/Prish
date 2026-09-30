@@ -22,7 +22,10 @@ export function PaletteScript() {
           cell: ph.pieces.cell,
           cols: ph.pieces.cols,
           rows: ph.pieces.rows,
-          items: ph.pieces.items.map((b) => [b.x, b.y, b.w, b.h]),
+          // the sprite size rides along when the manifest has it (see content/photos.ts › PieceBox)
+          items: ph.pieces.items.map((b) =>
+            b.tw && b.th ? [b.x, b.y, b.w, b.h, b.tw, b.th] : [b.x, b.y, b.w, b.h],
+          ),
         };
       return [p.slug, m];
     }),

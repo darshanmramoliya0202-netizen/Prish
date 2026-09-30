@@ -97,6 +97,12 @@
   --duration-3: 480ms;
   --duration-4: 900ms;
   --duration-scene: 1600ms;
+  /* Tailwind's duration-* utilities read --transition-duration-*; without these the
+     bare number wins and duration-3 compiles to 3ms (every hover was instant) */
+  --transition-duration-1: 120ms;
+  --transition-duration-2: 240ms;
+  --transition-duration-3: 480ms;
+  --transition-duration-4: 900ms;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);

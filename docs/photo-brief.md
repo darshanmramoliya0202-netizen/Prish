@@ -8,21 +8,11 @@ Companion file: [`photo-prompts-products.md`](photo-prompts-products.md) — the
 
 ## 0. Where the site stands
 
-**As of 23 Sept 2026 the site runs on the owner's own archive imagery** — the "powder in a bowl with the fruit beside it" set made for the earlier site, the dark-slate product scenes, and the eight field / lab / loading scenes generated on 20 Sept. `scripts/photos-import-archive.mjs` copies them from `F:\Prish Overseas\archive` and `product-photos\webphotos` into `assets-src/photos/` (cropping baked-in labels, collage halves and the generator's corner mark); `npm run photos:prep` knocks the bowls out, cuts the loose fruit / seeds / leaves into a sprite atlas for the burst, and writes the manifest. **Real photographs dropped into the same slots replace them with no code change** — the importer never overwrites a newer file.
+**As of 30 Sept 2026 every product runs on the owner's own product sheets** — 27 generated collages (bowl sheet on top; dark-slate bowl, field and close-up tiles below) in `F:\Prish Overseas\product-photos\webphotos\products photos\products photos\`. `scripts/photos-import-archive.mjs` (`SHEETS`) crops each collage into `bowl` (plus `bowl-2` where the sheet has two) and `source` (the field tile), and writes the hand-measured bowl box (§5); the nine large dark-slate `scene`s still come from `F:\Prish Overseas\archive`. `npm run photos:prep` knocks the bowls out, cuts the loose crop into the burst atlas, and writes the manifest. **Real photographs dropped into the same slots replace them with no code change** — the importer never overwrites a newer file.
 
-What each product has today (19 of 27 bowls are photographs; the other 8 render in the same white bowl until shot):
+What each product has today: **27 / 27 photographed bowls (26 with burst pieces; onion flakes bursts as dust), 27 / 27 origin (field) photos, 9 / 27 dark-slate hero scenes, 0 / 27 macros.** Basmati 1509 uses the 1121 sheet, mirrored. The small dark-slate and close-up tiles in each collage are not used: the first are too small for the full-bleed hero (~460 px), the second are generated and so can never be the "Actual product" chip. Six extra sheets (blackberry, blueberry, cranberry, raspberry and strawberry powder, ajwain, fennel) are on hold — they are not in the 27-product catalogue.
 
-| Product | bowl | burst pieces | hero scene | origin photo |
-|---|---|---|---|---|
-| jamun, beetroot, sea buckthorn, turmeric powder, turmeric finger | ✓ | ✓ | ✓ dark slate | — |
-| chilli powder | ✓ | ✓ | ✓ | ✓ (whole chillies) |
-| dry red chilli | render | — | ✓ | ✓ |
-| coriander, cumin, spinach, mulberry, raw mango, ginger, lemon | ✓ | ✓ | — | — |
-| apple, pineapple, guava, orange, tomato | ✓ | dust only | — | — |
-| garlic powder | ✓ | dust only | ✓ (wood table) | — |
-| garlic flakes | render | — | ✓ | — |
-| onion powder, onion flakes, fried onion | render | — | — | ✓ (Mahuva onion field) |
-| moringa, basmati 1121, basmati 1509 | render | — | — | — |
+Where the photos appear: the bowl everywhere a product is shown (home arc, family pages, cards, OG image, spec sheet, catalogue cover) and in the burst; the field photo in the origin section, the hero chip ("Where it grows"), softly behind the bowl on the 18 product heroes without a scene, and as a glow behind the home arc when its bowl is hovered.
 
 Site slots filled: `hero-dawn` (five bowls on slate, behind the Namaste), `journey-soil / harvest / sun / mill / coast`, `season-sowing / tending / harvest / trade`, `quality-lab`. Still empty: `family-*` (six), `sample-kit`, `pack-*` (four), Yash's portrait, certificate scans, every "Actual product" macro.
 
@@ -203,6 +193,7 @@ assets-src/photos/
 - `<slug>` is the product slug used in the URL (`chilli-powder`, `cumin-seeds`, `basmati-rice-1121` …) — listed at the top of each block in the prompts file.
 - `<id>` is exactly the id in §4 (`journey-soil`, `family-raw-whole-spices`, `pack-drum` …). Kebab-case only.
 - Any input size / format. For `bowl`: a plain white or pale sweep works (the script knocks it out and keeps the ground shadow as real transparency); transparent PNG is trusted as-is. Put the fruit / seeds **beside** the bowl with a little space around each piece — touching pieces fly as one.
+- **Tell the script where the bowl is.** `bowl.json` → `{ "bowl": [x0, y0, x1, y1] }` in percent of the processed 1600² bowl image (rim ends left/right, back of the rim, bottom of the foot — read them off `public/photos/products/<slug>/bowl.webp`). With it, the bowl is always kept whole (no bites out of lit glaze), fruit leaning on the bowl is cut along its outline and flies, and the uneven ground of a generated sweep is knocked out. Optional: `mound` (how high the heap rises above the rim, in rim half-widths, default 0.45 — raise it for a bowl heaped with whole chillies or turmeric fingers), `ra` (rim ellipse height/width, 0.3), `foot` (foot width/rim width, 0.55). The importer (`scripts/photos-import-archive.mjs`, `SHEETS`) writes these for the owner's sheets.
 
 Then:
 

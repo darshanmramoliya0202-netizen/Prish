@@ -78,12 +78,20 @@ export function CatalogueDocument(c: CatalogueProps) {
             >
               Product catalogue · {c.date.slice(0, 4)}
             </Text>
+            {/* the photo bowls are cut out for a cream page: on the dark cover a
+                cream tile keeps knock-out gaps (garlic skin) from showing green */}
             <View style={{ flexDirection: "row", marginTop: 28 }}>
               {c.coverBowls.map((b, i) => (
                 <Image
                   key={i}
                   src={b}
-                  style={{ width: 110, height: 110, marginRight: 6 }}
+                  style={{
+                    width: 110,
+                    height: 110,
+                    marginRight: 6,
+                    backgroundColor: C.cream,
+                    borderRadius: 8,
+                  }}
                 />
               ))}
             </View>

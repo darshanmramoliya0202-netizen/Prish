@@ -31,6 +31,13 @@ export interface NormBox {
   h: number;
 }
 
+/**
+ * one loose piece: its box in the bowl image, plus the sprite's real pixel size in its
+ * atlas cell. The size can't be rebuilt from the box for pieces cut from an extra sheet
+ * (bowl-2.*) — their box was rescaled into the main bowl's space. Older manifests lack it.
+ */
+export type PieceBox = NormBox & { tw?: number; th?: number };
+
 /** sprite atlas of the loose pieces of a bowl composition */
 export interface Pieces {
   src: string;
@@ -39,7 +46,7 @@ export interface Pieces {
   cols: number;
   rows: number;
   /** where each piece sits in the bowl image (same order as the atlas cells) */
-  items: NormBox[];
+  items: PieceBox[];
 }
 
 export type ProductPhotoRole = "bowl" | "macro" | "source" | "scene";

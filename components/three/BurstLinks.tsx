@@ -35,11 +35,21 @@ export function BurstLinks() {
     const p = burstBus.pending;
     if (!p) return;
     burstBus.pending = null;
-    const hero = document.querySelector<HTMLElement>(
+    // The hero can carry a desktop target (hidden on phones) ahead of a phone-only one;
+    // a display:none match measures 0x0 at the top-left, so take the first one with a box.
+    let hero: HTMLElement | null = null;
+    let r: DOMRect | null = null;
+    for (const el of document.querySelectorAll<HTMLElement>(
       `[data-product-hero="${p.slug}"] :is([data-burst-target], ${BOWL_SEL})`,
-    );
-    if (!hero) return;
-    const r = hero.getBoundingClientRect();
+    )) {
+      const box = el.getBoundingClientRect();
+      if (box.width > 0 && box.height > 0) {
+        hero = el;
+        r = box;
+        break;
+      }
+    }
+    if (!hero || !r) return;
     const fade = hero.matches(BOWL_SEL) ? hero : null;
     if (fade) gsap.set(fade, { autoAlpha: 0 });
     burstBus.settle({

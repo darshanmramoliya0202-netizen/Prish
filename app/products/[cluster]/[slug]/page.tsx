@@ -71,7 +71,8 @@ export default async function ProductPage({
   const row = calendarFor(p.id);
   const inkLight = p.colourWorld.ink === "light";
   const photos = productPhotos(p.slug);
-  // real photographs for the hero chip / gallery — only roles that exist
+  // photographs for the hero chip / gallery — only roles that exist; the chip says
+  // "Actual product" only for a real macro (ProductGallery)
   const gallery = (["macro", "source"] as ProductPhotoRole[]).flatMap(
     (role) => {
       const photo = photos[role];
@@ -138,7 +139,8 @@ export default async function ProductPage({
       />
 
       {/* 1 — farm-view hero in the product's colour world; a photographed scene of the
-             product, when there is one, fills the right of the frame */}
+             product, when there is one, fills the right of the frame; otherwise the crop's
+             field sits blurred behind the bowl */}
       <section
         data-theme="world"
         data-product-hero={p.slug}
@@ -184,6 +186,39 @@ export default async function ProductPage({
               className="pointer-events-none absolute right-[6%] bottom-[8%] hidden h-[70%] w-[40%] md:block"
             />
           </>
+        ) : photos.source ? (
+          // no scene: the crop's own field, blurred far back behind the bowl. Atmosphere, not
+          // a claim, so no caption. It sits where the bowl sits (under the copy until the grid
+          // splits at lg, then the right side) and the mask fades it in from nothing so it
+          // never shows a seam against the gradient. Priority because at this size it can be
+          // the largest paint, and the file is small.
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_45%)] lg:inset-y-0 lg:left-auto lg:h-auto lg:w-[55%] lg:[mask-image:linear-gradient(to_right,transparent,black_55%)]"
+          >
+            <Image
+              src={photos.source.src}
+              alt=""
+              fill
+              priority
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              quality={45}
+              className="scale-120 object-cover blur-lg"
+            />
+            {/* tint towards the colour world so the bowl in front stays the subject */}
+            <div
+              className="absolute inset-0 lg:hidden"
+              style={{
+                background: `linear-gradient(to bottom, ${p.colourWorld.primary} 0%, color-mix(in oklab, ${p.colourWorld.primary} 72%, transparent) 40%, color-mix(in oklab, ${p.colourWorld.primary} 50%, transparent) 100%)`,
+              }}
+            />
+            <div
+              className="absolute inset-0 hidden lg:block"
+              style={{
+                background: `linear-gradient(to right, ${p.colourWorld.primary} 0%, color-mix(in oklab, ${p.colourWorld.primary} 72%, transparent) 40%, color-mix(in oklab, ${p.colourWorld.primary} 50%, transparent) 100%)`,
+              }}
+            />
+          </div>
         ) : null}
         <div
           className={`container-x relative grid gap-10 lg:grid-cols-12 lg:items-center ${photos.scene ? "min-h-[70vh] md:min-h-[78vh]" : ""}`}

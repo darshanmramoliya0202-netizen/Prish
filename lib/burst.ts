@@ -186,6 +186,14 @@ if (typeof window !== "undefined" && process.env.NODE_ENV !== "production")
 
 /* ────────────────────────── per-product photo metadata ─────────────────── */
 
+/**
+ * one piece: [x, y, w, h] normalised to the bowl image, then — when the manifest has it —
+ * the sprite's real size in its atlas cell, [.., tw, th] in px
+ */
+export type PieceTuple =
+  | [number, number, number, number]
+  | [number, number, number, number, number, number];
+
 /** compact per-slug data injected by <PaletteScript/> (see components/products/PaletteScript.tsx) */
 export interface BurstMeta {
   palette: [string, string, string, string];
@@ -196,8 +204,7 @@ export interface BurstMeta {
     cell: number;
     cols: number;
     rows: number;
-    /** [x, y, w, h] per piece, normalised to the bowl image */
-    items: [number, number, number, number][];
+    items: PieceTuple[];
   };
 }
 declare global {
@@ -216,6 +223,21 @@ export function burstMeta(slug: string): BurstMeta | null {
 }
 
 const piecesCache = new Map<string, Promise<PiecesInfo | null>>();
+
+/**
+ * Older manifests: rebuild a sprite's size in its cell from its box, the way
+ * scripts/prep-photos.mjs fits it (downscale only, into cell − 8). Only right for pieces
+ * cut from the main bowl — an extra sheet's box was rescaled, so the manifest now
+ * carries the real size.
+ */
+function spriteSize(w: number, h: number, cell: number): [number, number] {
+  const inner = cell - 8;
+  // the piece's pixel size in the 1600² bowl image
+  const pw = w * 1600;
+  const ph = h * 1600;
+  const scale = Math.min(inner / pw, inner / ph, 1);
+  return [Math.max(1, Math.round(pw * scale)), Math.max(1, Math.round(ph * scale))];
+}
 
 /**
  * Load a product's piece atlas (once per slug). Resolves null when the product has no
@@ -239,17 +261,12 @@ export function loadPieces(slug: string): Promise<PiecesInfo | null> {
       await img.decode();
       const aw = p.cols * p.cell;
       const ah = p.rows * p.cell;
-      const items: Piece[] = p.items.map(([x, y, w, h], i) => {
+      const items: Piece[] = p.items.map((item, i) => {
+        const [x, y, w, h] = item;
         // the sprite is centred and fitted in its cell (scripts/prep-photos.mjs)
         const col = i % p.cols;
         const row = Math.floor(i / p.cols);
-        const inner = p.cell - 8;
-        // the piece's pixel size in the 1600² bowl image
-        const pw = w * 1600;
-        const ph = h * 1600;
-        const scale = Math.min(inner / pw, inner / ph, 1);
-        const tw = Math.max(1, Math.round(pw * scale));
-        const th = Math.max(1, Math.round(ph * scale));
+        const [tw, th] = item.length === 6 ? [item[4], item[5]] : spriteSize(w, h, p.cell);
         const left = col * p.cell + Math.floor((p.cell - tw) / 2);
         const top = row * p.cell + Math.floor((p.cell - th) / 2);
         return {

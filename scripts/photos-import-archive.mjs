@@ -41,70 +41,92 @@ const MARK = { right: 0.06, bottom: 0.03, portraitBottom: 0.11 };
  * text: a product name is baked into the bottom band — prep drops components there
  * mark: crop the generator's corner mark (default true for archive images)
  */
-const PRODUCTS = {
-  "jamun-powder": {
-    bowl: { file: join(OLD, "products", "jamun-powder-bowl.png") },
-    scene: { file: join(OLD, "products", "jamun-powder.png") },
-  },
-  "cumin-seeds": { bowl: { file: join(OLD, "products", "cumin-powder-bowl.png") } },
-  "coriander-seeds": {
-    bowl: { file: join(OLD, "products", "coriander-powder-bowl.png") },
-  },
-  "apple-powder": { bowl: { file: join(OLD, "products", "apple-powder-white.png") } },
-  "pineapple-powder": { bowl: { file: join(OLD, "products", "pineapple-powder.png") } },
-  "chilli-powder": {
-    // a two-photo collage: the bowl is the top half, the heap of whole chillies the bottom
-    bowl: { file: join(OLD, "products", "red-chilli-collage.png"), crop: [0.04, 0, 0.92, 0.485], mark: false },
-    scene: { file: join(OLD, "products", "red-chilli-powder.png") },
-    source: { file: join(OLD, "products", "red-chilli-collage.png"), crop: [0, 0.515, 1, 0.485] },
-  },
-  "dry-red-chilli": {
-    scene: { file: join(OLD, "products", "red-chilli-powder.png") },
-    source: { file: join(OLD, "products", "red-chilli-collage.png"), crop: [0, 0.515, 1, 0.485] },
-  },
-  "turmeric-powder": {
-    bowl: { file: join(OLD, "products", "turmeric-product.jpg"), text: true },
-    scene: { file: join(OLD, "products", "turmeric-product.png") },
-  },
-  "turmeric-finger": {
-    bowl: { file: join(OLD, "products", "turmeric-raw.jpg"), text: true },
-    scene: { file: join(OLD, "products", "turmeric-product.png") },
-  },
-  "beetroot-powder": {
-    bowl: { file: join(OLD, "products", "beetroot-powder.jpg"), text: true },
-    scene: { file: join(OLD, "products", "beetroot-powder.png") },
-  },
-  "sea-buckthorn-powder": {
-    bowl: { file: join(OLD, "products", "sea-buckthorn-powder.jpg"), text: true },
-    scene: { file: join(OLD, "products", "sea-buckthorn-powder.png") },
-  },
-  "lemon-powder": { bowl: { file: join(OLD, "products", "lemon-powder.jpg"), text: true } },
-  "orange-powder": { bowl: { file: join(OLD, "products", "orange-powder.jpg"), text: true } },
-  "tomato-powder": { bowl: { file: join(OLD, "products", "tomato-powder.jpg"), text: true } },
-  "spinach-powder": { bowl: { file: join(OLD, "products", "spinach-powder.jpg"), text: true } },
-  "ginger-powder": { bowl: { file: join(OLD, "products", "ginger-powder.jpg"), text: true } },
-  "mulberry-powder": { bowl: { file: join(OLD, "products", "mulberry-powder.jpg"), text: true } },
-  "guava-powder": { bowl: { file: join(OLD, "products", "guava-powder.jpg"), text: true } },
-  "raw-mango-powder-amchur": {
-    bowl: { file: join(OLD, "products", "raw-mango-powder.jpg"), text: true },
-  },
-  "dehydrated-garlic-powder": {
-    bowl: { file: join(OLD, "products", "garlic.jpg"), text: true },
-    scene: { file: join(OLD, "products", "garlic-rustic.png") },
-  },
-  "dehydrated-garlic-flakes": {
-    scene: { file: join(OLD, "products", "garlic-rustic.png") },
-  },
-  "dehydrated-onion-powder": {
-    source: { file: join(WEB, "Gemini_Generated_Image_9zyvj29zyvj29zyv.png") },
-  },
-  "dehydrated-onion-flakes": {
-    source: { file: join(WEB, "Gemini_Generated_Image_6o7lty6o7lty6o7l.png") },
-  },
-  "fried-onion": {
-    source: { file: join(WEB, "Gemini_Generated_Image_9zyvj29zyvj29zyv.png") },
-  },
+/**
+ * The product sheets the owner generated on 2026-09-30 (product-photos/webphotos/products
+ * photos): each file is a 1254² collage — the bowl sheet across the top (two side by side
+ * for apple, pineapple, raw mango and jamun), then a dark-slate bowl, the crop in the field
+ * and a close-up. Boxes are pixels [left, top, width, height] measured on the 1254² frame.
+ * The top sheet becomes the bowl (a second sheet → bowl-2, more burst pieces); the field
+ * tile becomes the source. The dark tiles (~460 px) are too small for the full-bleed hero
+ * and the close-ups are generated, so neither is imported (macro stays real-only).
+ */
+const SET = join(WEB, "products photos", "products photos");
+const S = 1254;
+const px = ([l, t, w, h]) => [l / S, t / S, w / S, h / S];
+const sheet = (file, bowl, source, bowl2, box) => ({
+  bowl: { file: join(SET, file), crop: px(bowl), mark: false, box },
+  ...(bowl2 ? { "bowl-2": { file: join(SET, file), crop: px(bowl2), mark: false } } : {}),
+  source: { file: join(SET, file), crop: px(source), mark: false },
+});
+/** mirror a product's sheet (the box is in canvas percent, so it mirrors too) */
+const flip = (roles) =>
+  Object.fromEntries(
+    Object.entries(roles).map(([k, v]) => [
+      k,
+      {
+        ...v,
+        flip: true,
+        box: v.box && { ...v.box, bowl: [100 - v.box.bowl[2], v.box.bowl[1], 100 - v.box.bowl[0], v.box.bowl[3]] },
+      },
+    ]),
+  );
+/** the common layout: sheet down to the tile row, field tile in the middle column */
+const std = (file, top, x0, x1, box) =>
+  sheet(file, [0, 0, S, top - 8], [x0, top, x1 - x0, S - top], null, box);
+
+const SHEETS = {
+  "apple-powder": sheet("apple powder.png", [0, 0, 709, 638], [494, 647, 423, 607], [717, 0, 537, 638], { bowl: [28, 29, 74, 61] }),
+  "basmati-rice-1121": std("1121 Basmati Rice.png", 698, 472, 882, { bowl: [34, 29, 74, 65] }),
+  // no 1509 sheet: the grains read the same in a prop bowl (owner, 2026-09-30)
+  "basmati-rice-1509": flip(std("1121 Basmati Rice.png", 698, 472, 882, { bowl: [34, 29, 74, 65] })),
+  "beetroot-powder": std("beetroot powder.png", 696, 461, 874, { bowl: [34, 38, 71, 66] }),
+  "chilli-powder": std("chilli powder.png", 696, 474, 884, { bowl: [34, 32, 74, 61] }),
+  "coriander-seeds": std("coriander seeds.png", 710, 470, 873, { bowl: [36, 32, 74, 64] }),
+  "cumin-seeds": std("cumin seeds.png", 697, 473, 884, { bowl: [34, 33, 75, 64] }),
+  "dry-red-chilli": std("dry red chilli.png", 738, 481, 887, { bowl: [31, 41, 74, 65], mound: 1.1 }),
+  "fried-onion": std("fried onion .png", 698, 474, 878, { bowl: [34, 35, 72, 66] }),
+  "dehydrated-garlic-flakes": std("garlic flakes.png", 698, 470, 880, { bowl: [34, 33, 72, 65] }),
+  "dehydrated-garlic-powder": std("garlic powder.png", 698, 479, 879, { bowl: [33, 33, 70, 66] }),
+  "ginger-powder": std("ginger powder.png", 705, 476, 873, { bowl: [34, 37, 69, 65] }),
+  "guava-powder": std("guava powder.png", 725, 474, 897, { bowl: [34, 37, 68, 64] }),
+  "jamun-powder": sheet("jamun powder.png", [0, 0, 745, 598], [685, 606, 569, 356], [750, 0, 504, 598], { bowl: [26, 25, 76, 60] }),
+  "lemon-powder": std("lemon powder.png", 704, 467, 854, { bowl: [33, 35, 68, 64] }),
+  "moringa-leaf-powder": std("moringa leaf powder.png", 713, 469, 870, { bowl: [35, 35, 73, 67] }),
+  "mulberry-powder": std("mulberry powder.png", 658, 530, 896, { bowl: [33, 34, 72, 64] }),
+  "orange-powder": std("orange powder.png", 708, 506, 886, { bowl: [33, 36, 69, 62] }),
+  "pineapple-powder": sheet("pineapple powder.png", [0, 0, 642, 620], [474, 628, 410, 626], [646, 0, 608, 620], { bowl: [33, 37, 82, 77] }),
+  "raw-mango-powder-amchur": sheet("raw mango powder.png", [0, 0, 628, 651], [467, 659, 407, 595], [632, 0, 622, 651], { bowl: [30, 23, 75, 58] }),
+  "sea-buckthorn-powder": std("seabuckthone powder.png", 697, 472, 882, { bowl: [34, 36, 69, 64] }),
+  "spinach-powder": std("spinach powder.png", 702, 466, 884, { bowl: [33, 37, 68, 64] }),
+  "turmeric-powder": std("termaric powder.png", 698, 470, 872, { bowl: [35, 36, 72, 64] }),
+  "tomato-powder": std("tomato powder.png", 697, 488, 900, { bowl: [33, 35, 69, 64] }),
+  "turmeric-finger": std("tumric finger .png", 696, 469, 880, { bowl: [32, 30, 74, 62], mound: 0.8 }),
+  "dehydrated-onion-flakes": std("white onion flakes .png", 698, 474, 878, { bowl: [35, 35, 72, 65] }),
+  "dehydrated-onion-powder": std("white onion powder.png", 698, 472, 877, { bowl: [34, 36, 71, 66] }),
 };
+
+/**
+ * Earlier archive imagery: only the large dark-slate scenes are still used (the product
+ * hero backdrop needs ~2000 px); bowls and sources now come from SHEETS.
+ */
+const SCENES = {
+  "jamun-powder": { file: join(OLD, "products", "jamun-powder.png") },
+  "chilli-powder": { file: join(OLD, "products", "red-chilli-powder.png") },
+  "dry-red-chilli": { file: join(OLD, "products", "red-chilli-powder.png") },
+  "turmeric-powder": { file: join(OLD, "products", "turmeric-product.png") },
+  "turmeric-finger": { file: join(OLD, "products", "turmeric-product.png") },
+  "beetroot-powder": { file: join(OLD, "products", "beetroot-powder.png") },
+  "sea-buckthorn-powder": { file: join(OLD, "products", "sea-buckthorn-powder.png") },
+  "dehydrated-garlic-powder": { file: join(OLD, "products", "garlic-rustic.png") },
+  "dehydrated-garlic-flakes": { file: join(OLD, "products", "garlic-rustic.png") },
+};
+
+const PRODUCTS = Object.fromEntries(
+  [...new Set([...Object.keys(SHEETS), ...Object.keys(SCENES)])].map((slug) => [
+    slug,
+    { ...SHEETS[slug], ...(SCENES[slug] ? { scene: SCENES[slug] } : {}) },
+  ]),
+);
 
 const SITE = {
   "hero-dawn": { file: join(OLD, "hero", "hero-spice-bowls.png") },
@@ -121,13 +143,7 @@ const SITE = {
 };
 
 /** captions the site shows under the photo (optional; the role default otherwise) */
-const CAPTIONS = {
-  "chilli-powder/source": "Dried red chillies — the raw material",
-  "dry-red-chilli/source": "Dried red chillies, sorted before milling",
-  "dehydrated-onion-powder/source": "Mahuva-belt onions at harvest",
-  "dehydrated-onion-flakes/source": "Onions lifted for dehydration",
-  "fried-onion/source": "Onions before slicing and frying",
-};
+const CAPTIONS = {};
 
 async function place(src, dest, spec, meta) {
   if (!existsSync(src)) {
@@ -160,8 +176,12 @@ async function place(src, dest, spec, meta) {
   if (DRY) return true;
   mkdirSync(join(dest, ".."), { recursive: true });
   const whole = box.left === 0 && box.top === 0 && box.width === m.width && box.height === m.height;
-  if (whole && !spec.text) copyFileSync(src, dest);
-  else await sharp(src).extract(box).png().toFile(dest);
+  if (whole && !spec.text && !spec.flip) copyFileSync(src, dest);
+  else {
+    let img = sharp(src).extract(box);
+    if (spec.flip) img = img.flop();
+    await img.png().toFile(dest);
+  }
   if (meta) writeFileSync(dest.replace(/\.[a-z]+$/i, ".json"), JSON.stringify(meta, null, 2) + "\n");
   return true;
 }
@@ -171,10 +191,17 @@ for (const [slug, roles] of Object.entries(PRODUCTS)) {
   console.log(`products/${slug}`);
   for (const [role, spec] of Object.entries(roles)) {
     const dest = join(OUT, "products", slug, `${role}.png`);
-    const ok = await place(spec.file, dest, spec, spec.text ? { text: true } : null);
+    // bowls always get a sidecar so a stale one (e.g. an old text band) is overwritten
+    const meta = role.startsWith("bowl")
+      ? { ...(spec.text ? { text: true } : {}), ...(spec.box ?? {}) }
+      : spec.text
+        ? { text: true }
+        : null;
+    const ok = await place(spec.file, dest, spec, meta);
     if (ok) n++;
     const cap = CAPTIONS[`${slug}/${role}`];
-    if (ok && cap && !DRY) writeFileSync(join(OUT, "products", slug, `${role}.txt`), cap + "\n");
+    const txt = join(OUT, "products", slug, `${role}.txt`);
+    if (ok && !DRY && (cap || existsSync(txt))) writeFileSync(txt, cap ? cap + "\n" : ""); // blank = role default
   }
 }
 console.log("site");

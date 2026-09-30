@@ -90,3 +90,19 @@ Images in the archive that must **not** be used: the two lab photos with a face 
 2. Generate the three replacement site scenes (`journey-soil`, `journey-sun`, `season-sowing`) and the six `family-*` stills (brief §4).
 3. Shoot the 27 macros, Yash's portrait and the sample kit for real.
 4. Drop everything into `assets-src/photos/…`, run `npm run photos:prep`, and look at `pieces.webp` per product — if a piece is missing, it was touching something; regenerate with more space.
+
+---
+
+## 30 September 2026 — the product sheets are in
+
+The owner generated one collage per SKU (33 files; 27 used, 6 non-catalogue extras on hold). Every bowl verdict above is now settled: **all 27 products show the same white bowl with the right contents** (seeds for the seed products, dried fingers for turmeric finger, cream apple powder), the crop beside it, and **26 of 27 have pieces that fly in the burst** (onion flakes bursts as dust sampled from its photo: its flakes lie on one connected patch of grey ground). Basmati 1509 uses the 1121 sheet, mirrored. Every product also has an origin photo (the field tile).
+
+| Slot | Now | Notes |
+|---|---|---|
+| `bowl` | 27 / 27, from the sheets | bowl box hand-measured per sheet (brief §5) |
+| burst pieces | 26 / 27 | apple, pineapple, raw mango and jamun also use their second sheet; onion flakes is dust only |
+| `source` | 27 / 27, the field tile | generated: shown uncaptioned or with the neutral role caption, never as a real place |
+| `scene` | 9 / 27, unchanged | the collage's dark tile (~460 px) is too small for a full-bleed hero; a separate full-size dark-slate image per product would fill the other 18 |
+| `macro` | 0 / 27 | the collage close-ups are generated, so they cannot be the "Actual product" chip; real phone macros still needed |
+
+**Still imperfect — regenerate if you want them flawless:** the pale products shot on the grey sweep (garlic powder and flakes, onion powder and flakes, basmati, apple, lemon) keep a little grey ground under the arrangement, and the garlic bulbs and the cut onion by the fried onion have small bites where their shaded side matches the ground. The fix is in the source, not the code: generate those sheets on a **flat charcoal sweep** (pale crop on dark separates cleanly). Orange and garlic flakes have few flying pieces, and onion flakes none, because the crop overlaps or sits on connected ground; a sheet with more space between pieces gives more.
