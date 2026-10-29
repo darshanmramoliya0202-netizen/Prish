@@ -37,7 +37,7 @@ import {
 import { basename, extname, join } from "node:path";
 import sharp from "sharp";
 
-const PIPELINE = "v22"; // bump to reprocess every file
+const PIPELINE = "v24"; // bump to reprocess every file
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "assets-src", "photos");
 const OUT = join(ROOT, "public", "photos");
@@ -55,6 +55,22 @@ const COLS = 6;
 const MAX_PIECES = 36;
 
 const manifest = { products: {}, site: {} };
+
+/**
+ * One grade for every photograph that is shown as a photograph (origin and site
+ * slots), so generated sets from different sessions read as one documentary series:
+ * a little less saturation, a touch warmer, lifted blacks and softer highlights.
+ * Bowls are cut-outs and keep their own colour.
+ */
+const grade = (img) =>
+  img
+    .modulate({ saturation: 0.84 })
+    .recomb([
+      [1.03, 0.02, 0],
+      [0, 1.0, 0],
+      [0, 0.02, 0.93],
+    ])
+    .linear(0.93, 9);
 const stamps = existsSync(STAMPS)
   ? JSON.parse(readFileSync(STAMPS, "utf8"))
   : {};
@@ -894,6 +910,70 @@ function lightSweepAt(est, data, i, cap = GREY_CAP) {
 }
 
 
+/**
+ * `ground: true` in bowl.json — for sheets whose generated sweep left pale grey ground
+ * stuck under the crop (2026-10-29 audit: jamun, lemon, raw mango). Floods from the
+ * transparent background into pale, colourless pixels outside the bowl's silhouette and
+ * clears them. Coloured crop stops the flood at its edge; the bowl itself is protected.
+ * Not for sheets whose crop is itself white (garlic, onion, rice) — those need a
+ * regenerated sheet on a charcoal sweep.
+ */
+function eatGround(rgba, w, h, opts) {
+  const sh = bowlShape(opts, w, h, 0.01);
+  const N = w * h;
+  const seen = new Uint8Array(N);
+  const stack = new Int32Array(N);
+  let sp = 0;
+  const pale = (p) => {
+    const i = p * 4;
+    if (rgba[i + 3] < 16) return true; // already background: keep flooding through it
+    const x = p % w;
+    const y = (p - x) / w;
+    if (sh.inside(x, y)) return false;
+    const r = rgba[i],
+      g = rgba[i + 1],
+      b = rgba[i + 2];
+    const chroma = Math.max(r, g, b) - Math.min(r, g, b);
+    return chroma < (opts.groundChroma ?? 28) && lumOf(r, g, b) > (opts.groundLum ?? 135);
+  };
+  for (let p = 0; p < N; p++)
+    if (rgba[p * 4 + 3] < 16) {
+      seen[p] = 1;
+      stack[sp++] = p;
+    }
+  let cleared = 0;
+  while (sp) {
+    const p = stack[--sp];
+    const x = p % w;
+    const y = (p - x) / w;
+    const nb = [x > 0 ? p - 1 : -1, x < w - 1 ? p + 1 : -1, y > 0 ? p - w : -1, y < h - 1 ? p + w : -1];
+    for (const q of nb) {
+      if (q < 0 || seen[q]) continue;
+      seen[q] = 1;
+      if (!pale(q)) continue;
+      if (rgba[q * 4 + 3] >= 16) {
+        rgba[q * 4 + 3] = 0;
+        cleared++;
+      }
+      stack[sp++] = q;
+    }
+  }
+  // soften the new edge: opaque pixels next to cleared ground get a partial alpha
+  for (let p = 0; p < N; p++) {
+    if (rgba[p * 4 + 3] < 200) continue;
+    const x = p % w;
+    const y = (p - x) / w;
+    if (sh.inside(x, y)) continue;
+    let bg = 0;
+    if (x > 0 && rgba[(p - 1) * 4 + 3] === 0) bg++;
+    if (x < w - 1 && rgba[(p + 1) * 4 + 3] === 0) bg++;
+    if (y > 0 && rgba[(p - w) * 4 + 3] === 0) bg++;
+    if (y < h - 1 && rgba[(p + w) * 4 + 3] === 0) bg++;
+    if (bg >= 2) rgba[p * 4 + 3] = 150;
+  }
+  return cleared;
+}
+
 async function processBowl(from, opts) {
   const { data, info } = await sharp(from)
     .rotate()
@@ -978,6 +1058,7 @@ async function processBowl(from, opts) {
         canvasRaw[i + 3] = 255;
       }
   }
+  if (opts.bowl && opts.ground) eatGround(canvasRaw, BOWL, BOWL, opts);
   const { label, bowl, pieces } = findPieces(canvasRaw, BOWL, BOWL, sweep, opts.bowl ? opts : null);
   const bowlImg = await sharp(canvasRaw, {
     raw: { width: BOWL, height: BOWL, channels: 4 },
@@ -1114,10 +1195,11 @@ async function processProduct(slug, dir) {
         );
       } else {
         await writeOut(
-          sharp(from)
-            .rotate()
-            .resize({ width: role === "scene" ? 2000 : 1600, withoutEnlargement: true })
-            .jpeg({ quality: 82, mozjpeg: true }),
+          grade(
+            sharp(from)
+              .rotate()
+              .resize({ width: role === "scene" ? 2000 : 1600, withoutEnlargement: true }),
+          ).jpeg({ quality: 82, mozjpeg: true }),
           target,
         );
       }
@@ -1157,10 +1239,10 @@ async function processSite(dir) {
     const h = hashOf(from);
     if (stamps[key] !== h || !existsSync(target)) {
       await writeOut(
-        sharp(from)
-          .rotate()
-          .resize({ width: 2400, withoutEnlargement: true })
-          .jpeg({ quality: 82, mozjpeg: true }),
+        grade(sharp(from).rotate().resize({ width: 2400, withoutEnlargement: true })).jpeg({
+          quality: 82,
+          mozjpeg: true,
+        }),
         target,
       );
       stamps[key] = h;

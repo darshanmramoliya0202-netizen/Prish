@@ -89,13 +89,13 @@ const SHEETS = {
   "dehydrated-garlic-powder": std("garlic powder.png", 698, 479, 879, { bowl: [33, 33, 70, 66] }),
   "ginger-powder": std("ginger powder.png", 705, 476, 873, { bowl: [34, 37, 69, 65] }),
   "guava-powder": std("guava powder.png", 725, 474, 897, { bowl: [34, 37, 68, 64] }),
-  "jamun-powder": sheet("jamun powder.png", [0, 0, 745, 598], [685, 606, 569, 356], [750, 0, 504, 598], { bowl: [26, 25, 76, 60] }),
-  "lemon-powder": std("lemon powder.png", 704, 467, 854, { bowl: [33, 35, 68, 64] }),
+  "jamun-powder": sheet("jamun powder.png", [0, 0, 745, 598], [685, 606, 569, 356], [750, 0, 504, 598], { bowl: [25, 24, 77, 61], ground: true }),
+  "lemon-powder": std("lemon powder.png", 704, 467, 854, { bowl: [33, 35, 68, 64], ground: true }),
   "moringa-leaf-powder": std("moringa leaf powder.png", 713, 469, 870, { bowl: [35, 35, 73, 67] }),
   "mulberry-powder": std("mulberry powder.png", 658, 530, 896, { bowl: [33, 34, 72, 64] }),
   "orange-powder": std("orange powder.png", 708, 506, 886, { bowl: [33, 36, 69, 62] }),
   "pineapple-powder": sheet("pineapple powder.png", [0, 0, 642, 620], [474, 628, 410, 626], [646, 0, 608, 620], { bowl: [33, 37, 82, 77] }),
-  "raw-mango-powder-amchur": sheet("raw mango powder.png", [0, 0, 628, 651], [467, 659, 407, 595], [632, 0, 622, 651], { bowl: [30, 23, 75, 58] }),
+  "raw-mango-powder-amchur": sheet("raw mango powder.png", [0, 0, 628, 651], [467, 659, 407, 595], [632, 0, 622, 651], { bowl: [30, 22, 76, 59], ground: true }),
   "sea-buckthorn-powder": std("seabuckthone powder.png", 697, 472, 882, { bowl: [34, 36, 69, 64] }),
   "spinach-powder": std("spinach powder.png", 702, 466, 884, { bowl: [33, 37, 68, 64] }),
   "turmeric-powder": std("termaric powder.png", 698, 470, 872, { bowl: [35, 36, 72, 64] }),
@@ -106,20 +106,11 @@ const SHEETS = {
 };
 
 /**
- * Earlier archive imagery: only the large dark-slate scenes are still used (the product
- * hero backdrop needs ~2000 px); bowls and sources now come from SHEETS.
+ * The dark-slate hero scenes are retired (2026-10-29 audit): only 9 of 27 products had
+ * one, three were shared between two products and garlic's broke the slate look, so the
+ * product hero now uses one template for all 27 (the crop's field behind the bowl).
  */
-const SCENES = {
-  "jamun-powder": { file: join(OLD, "products", "jamun-powder.png") },
-  "chilli-powder": { file: join(OLD, "products", "red-chilli-powder.png") },
-  "dry-red-chilli": { file: join(OLD, "products", "red-chilli-powder.png") },
-  "turmeric-powder": { file: join(OLD, "products", "turmeric-product.png") },
-  "turmeric-finger": { file: join(OLD, "products", "turmeric-product.png") },
-  "beetroot-powder": { file: join(OLD, "products", "beetroot-powder.png") },
-  "sea-buckthorn-powder": { file: join(OLD, "products", "sea-buckthorn-powder.png") },
-  "dehydrated-garlic-powder": { file: join(OLD, "products", "garlic-rustic.png") },
-  "dehydrated-garlic-flakes": { file: join(OLD, "products", "garlic-rustic.png") },
-};
+const SCENES = {};
 
 const PRODUCTS = Object.fromEntries(
   [...new Set([...Object.keys(SHEETS), ...Object.keys(SCENES)])].map((slug) => [
@@ -134,11 +125,11 @@ const SITE = {
   "journey-harvest": { file: join(WEB, "Gemini_Generated_Image_6o7lty6o7lty6o7l.png") },
   "journey-sun": { file: join(OLD, "sections", "farm-sourcing.png") },
   "journey-mill": { file: join(WEB, "Gemini_Generated_Image_9tduax9tduax9tdu.png") },
-  "journey-coast": { file: join(WEB, "Gemini_Generated_Image_dyps8ydyps8ydyps.png") },
-  "season-sowing": { file: join(OLD, "sections", "farm-sourcing.jpg") },
-  "season-tending": { file: join(WEB, "Gemini_Generated_Image_9zyvj29zyvj29zyv.png") },
-  "season-harvest": { file: join(WEB, "Gemini_Generated_Image_cjfcebcjfcebcjfc.png") },
-  "season-trade": { file: join(WEB, "Gemini_Generated_Image_9tduax9tduax9tdu.png") },
+  // the left 40% is a blank white wall: crop to the container doorway
+  "journey-coast": { file: join(WEB, "Gemini_Generated_Image_dyps8ydyps8ydyps.png"), crop: [0.38, 0, 0.62, 1] },
+  // season-* removed (2026-10-29 audit): harvest and trade were the journey's soil and mill
+  // photos again, sowing was an aerial paddy in another style. The story's seasons show
+  // text until real or regenerated season photos exist (docs/photo-brief.md §4).
   "quality-lab": { file: join(WEB, "Gemini_Generated_Image_rk2yyjrk2yyjrk2y.png") },
 };
 

@@ -278,11 +278,6 @@
         "src": "/photos/products/beetroot-powder/source.jpg",
         "width": 413,
         "height": 558
-      },
-      "scene": {
-        "src": "/photos/products/beetroot-powder/scene.jpg",
-        "width": 1444,
-        "height": 2449
       }
     },
     "chilli-powder": {
@@ -397,11 +392,6 @@
         "src": "/photos/products/chilli-powder/source.jpg",
         "width": 410,
         "height": 558
-      },
-      "scene": {
-        "src": "/photos/products/chilli-powder/scene.jpg",
-        "width": 1444,
-        "height": 2449
       }
     },
     "coriander-seeds": {
@@ -664,11 +654,6 @@
         "src": "/photos/products/dehydrated-garlic-flakes/source.jpg",
         "width": 410,
         "height": 556
-      },
-      "scene": {
-        "src": "/photos/products/dehydrated-garlic-flakes/scene.jpg",
-        "width": 2000,
-        "height": 1375
       }
     },
     "dehydrated-garlic-powder": {
@@ -719,11 +704,6 @@
         "src": "/photos/products/dehydrated-garlic-powder/source.jpg",
         "width": 400,
         "height": 556
-      },
-      "scene": {
-        "src": "/photos/products/dehydrated-garlic-powder/scene.jpg",
-        "width": 2000,
-        "height": 1375
       }
     },
     "dehydrated-onion-flakes": {
@@ -898,11 +878,6 @@
         "src": "/photos/products/dry-red-chilli/source.jpg",
         "width": 406,
         "height": 516
-      },
-      "scene": {
-        "src": "/photos/products/dry-red-chilli/scene.jpg",
-        "width": 1444,
-        "height": 2449
       }
     },
     "fried-onion": {
@@ -1126,16 +1101,16 @@
         "height": 1600
       },
       "anchor": {
-        "x": 0.2544,
-        "y": 0.2356,
-        "w": 0.5119,
-        "h": 0.3706
+        "x": 0.2444,
+        "y": 0.2344,
+        "w": 0.5319,
+        "h": 0.3819
       },
       "pieces": {
         "src": "/photos/products/jamun-powder/pieces.webp",
         "cell": 192,
         "cols": 6,
-        "rows": 5,
+        "rows": 4,
         "items": [
           {
             "x": 0.04,
@@ -1154,11 +1129,11 @@
             "th": 85
           },
           {
-            "x": 0.7856,
+            "x": 0.7869,
             "y": 0.2531,
-            "w": 0.1681,
+            "w": 0.1638,
             "h": 0.2569,
-            "tw": 120,
+            "tw": 117,
             "th": 184
           },
           {
@@ -1179,19 +1154,19 @@
           },
           {
             "x": 0.0769,
-            "y": 0.3362,
+            "y": 0.3375,
             "w": 0.1156,
-            "h": 0.1056,
+            "h": 0.1044,
             "tw": 184,
-            "th": 168
+            "th": 166
           },
           {
-            "x": 0.1806,
-            "y": 0.245,
-            "w": 0.0988,
-            "h": 0.1081,
-            "tw": 158,
-            "th": 173
+            "x": 0.1819,
+            "y": 0.2462,
+            "w": 0.0894,
+            "h": 0.1069,
+            "tw": 143,
+            "th": 171
           },
           {
             "x": 0.3906,
@@ -1202,14 +1177,6 @@
             "th": 118
           },
           {
-            "x": 0.3656,
-            "y": 0.5725,
-            "w": 0.1894,
-            "h": 0.0488,
-            "tw": 184,
-            "th": 47
-          },
-          {
             "x": 0.3269,
             "y": 0.6969,
             "w": 0.07,
@@ -1218,122 +1185,122 @@
             "th": 100
           },
           {
-            "x": 0.4823,
+            "x": 0.4812,
             "y": 0.02,
-            "w": 0.2617,
-            "h": 0.3192,
+            "w": 0.2719,
+            "h": 0.3317,
             "tw": 151,
             "th": 184
           },
           {
-            "x": 0.1437,
-            "y": 0.6981,
-            "w": 0.2344,
-            "h": 0.2581,
+            "x": 0.1293,
+            "y": 0.7118,
+            "w": 0.2435,
+            "h": 0.2682,
             "tw": 167,
             "th": 184
           },
           {
-            "x": 0.1106,
-            "y": 0.0324,
-            "w": 0.1991,
-            "h": 0.1467,
+            "x": 0.095,
+            "y": 0.0216,
+            "w": 0.2069,
+            "h": 0.1524,
             "tw": 184,
             "th": 136
           },
           {
-            "x": 0.7957,
-            "y": 0.7268,
-            "w": 0.1618,
-            "h": 0.1697,
+            "x": 0.8069,
+            "y": 0.7432,
+            "w": 0.1681,
+            "h": 0.1763,
             "tw": 175,
             "th": 184
           },
           {
-            "x": 0.8146,
-            "y": 0.3221,
-            "w": 0.1654,
-            "h": 0.1704,
+            "x": 0.8082,
+            "y": 0.3226,
+            "w": 0.1718,
+            "h": 0.177,
             "tw": 179,
             "th": 184
           },
           {
-            "x": 0.1264,
-            "y": 0.4759,
-            "w": 0.1402,
-            "h": 0.2099,
+            "x": 0.1114,
+            "y": 0.4825,
+            "w": 0.1457,
+            "h": 0.2181,
             "tw": 123,
             "th": 184
           },
           {
-            "x": 0.6361,
-            "y": 0.6787,
-            "w": 0.151,
-            "h": 0.1488,
+            "x": 0.641,
+            "y": 0.6931,
+            "w": 0.1569,
+            "h": 0.1546,
             "tw": 184,
             "th": 181
           },
           {
-            "x": 0.7576,
-            "y": 0.1416,
-            "w": 0.1165,
-            "h": 0.2135,
+            "x": 0.7673,
+            "y": 0.1351,
+            "w": 0.121,
+            "h": 0.2219,
             "tw": 100,
             "th": 184
           },
           {
-            "x": 0.3421,
+            "x": 0.3355,
             "y": 0.02,
-            "w": 0.1934,
-            "h": 0.0942,
+            "w": 0.2009,
+            "h": 0.0979,
             "tw": 184,
             "th": 90
           },
           {
-            "x": 0.1242,
-            "y": 0.2811,
-            "w": 0.128,
-            "h": 0.1215,
+            "x": 0.1092,
+            "y": 0.28,
+            "w": 0.133,
+            "h": 0.1262,
             "tw": 178,
             "th": 169
           },
           {
-            "x": 0.7677,
-            "y": 0.5557,
-            "w": 0.1215,
-            "h": 0.138,
+            "x": 0.7777,
+            "y": 0.5654,
+            "w": 0.1262,
+            "h": 0.1434,
             "tw": 162,
             "th": 184
           },
           {
-            "x": 0.268,
-            "y": 0.1697,
-            "w": 0.1323,
-            "h": 0.128,
+            "x": 0.2586,
+            "y": 0.1642,
+            "w": 0.1375,
+            "h": 0.133,
             "tw": 184,
             "th": 178
           },
           {
-            "x": 0.4248,
-            "y": 0.7434,
-            "w": 0.1524,
-            "h": 0.1078,
+            "x": 0.4214,
+            "y": 0.7603,
+            "w": 0.1584,
+            "h": 0.1121,
             "tw": 184,
             "th": 130
           },
           {
-            "x": 0.5513,
-            "y": 0.8397,
-            "w": 0.0949,
-            "h": 0.087,
+            "x": 0.5529,
+            "y": 0.8604,
+            "w": 0.0986,
+            "h": 0.0904,
             "tw": 132,
             "th": 121
           },
           {
-            "x": 0.4018,
-            "y": 0.6621,
-            "w": 0.156,
-            "h": 0.0374,
+            "x": 0.3975,
+            "y": 0.6759,
+            "w": 0.1621,
+            "h": 0.0388,
             "tw": 184,
             "th": 44
           }
@@ -1343,11 +1310,6 @@
         "src": "/photos/products/jamun-powder/source.jpg",
         "width": 569,
         "height": 356
-      },
-      "scene": {
-        "src": "/photos/products/jamun-powder/scene.jpg",
-        "width": 1444,
-        "height": 2449
       }
     },
     "lemon-powder": {
@@ -1824,15 +1786,15 @@
       },
       "anchor": {
         "x": 0.2944,
-        "y": 0.1288,
-        "w": 0.4619,
-        "h": 0.4575
+        "y": 0.1163,
+        "w": 0.4719,
+        "h": 0.48
       },
       "pieces": {
         "src": "/photos/products/raw-mango-powder-amchur/pieces.webp",
         "cell": 192,
         "cols": 6,
-        "rows": 3,
+        "rows": 2,
         "items": [
           {
             "x": 0.3056,
@@ -1851,28 +1813,20 @@
             "th": 184
           },
           {
-            "x": 0.5138,
-            "y": 0.5887,
-            "w": 0.1588,
-            "h": 0.0981,
+            "x": 0.4788,
+            "y": 0.5869,
+            "w": 0.2087,
+            "h": 0.1013,
             "tw": 184,
-            "th": 114
+            "th": 89
           },
           {
-            "x": 0.7188,
-            "y": 0.1469,
-            "w": 0.0563,
-            "h": 0.1462,
-            "tw": 71,
+            "x": 0.7281,
+            "y": 0.155,
+            "w": 0.0462,
+            "h": 0.1256,
+            "tw": 68,
             "th": 184
-          },
-          {
-            "x": 0.5,
-            "y": 0.0975,
-            "w": 0.1906,
-            "h": 0.0313,
-            "tw": 184,
-            "th": 30
           },
           {
             "x": 0.6944,
@@ -1883,58 +1837,58 @@
             "th": 51
           },
           {
-            "x": 0.6544,
-            "y": 0.481,
-            "w": 0.3256,
-            "h": 0.2991,
+            "x": 0.6473,
+            "y": 0.4825,
+            "w": 0.3327,
+            "h": 0.3055,
             "tw": 184,
             "th": 169
           },
           {
-            "x": 0.8281,
-            "y": 0.2657,
-            "w": 0.1519,
-            "h": 0.2668,
+            "x": 0.8248,
+            "y": 0.2625,
+            "w": 0.1552,
+            "h": 0.2726,
             "tw": 105,
             "th": 184
           },
           {
-            "x": 0.695,
-            "y": 0.1206,
-            "w": 0.285,
-            "h": 0.1493,
+            "x": 0.6888,
+            "y": 0.1142,
+            "w": 0.2912,
+            "h": 0.1525,
             "tw": 184,
             "th": 96
           },
           {
-            "x": 0.4717,
-            "y": 0.6412,
-            "w": 0.1675,
-            "h": 0.1025,
+            "x": 0.4756,
+            "y": 0.6461,
+            "w": 0.1711,
+            "h": 0.1047,
             "tw": 184,
             "th": 113
           },
           {
-            "x": 0.6122,
-            "y": 0.5424,
-            "w": 0.1175,
-            "h": 0.0796,
+            "x": 0.6191,
+            "y": 0.5452,
+            "w": 0.1201,
+            "h": 0.0813,
             "tw": 184,
             "th": 125
           },
           {
-            "x": 0.5763,
-            "y": 0.649,
-            "w": 0.1118,
-            "h": 0.1311,
+            "x": 0.5824,
+            "y": 0.6541,
+            "w": 0.1142,
+            "h": 0.1339,
             "tw": 157,
             "th": 184
           },
           {
-            "x": 0.7292,
-            "y": 0.5398,
-            "w": 0.0291,
-            "h": 0.025,
+            "x": 0.7386,
+            "y": 0.5425,
+            "w": 0.0298,
+            "h": 0.0255,
             "tw": 56,
             "th": 48
           }
@@ -2018,11 +1972,6 @@
         "src": "/photos/products/sea-buckthorn-powder/source.jpg",
         "width": 410,
         "height": 557
-      },
-      "scene": {
-        "src": "/photos/products/sea-buckthorn-powder/scene.jpg",
-        "width": 1444,
-        "height": 2449
       }
     },
     "spinach-powder": {
@@ -2269,11 +2218,6 @@
         "src": "/photos/products/turmeric-finger/source.jpg",
         "width": 411,
         "height": 558
-      },
-      "scene": {
-        "src": "/photos/products/turmeric-finger/scene.jpg",
-        "width": 1444,
-        "height": 2449
       }
     },
     "turmeric-powder": {
@@ -2340,11 +2284,6 @@
         "src": "/photos/products/turmeric-powder/source.jpg",
         "width": 402,
         "height": 556
-      },
-      "scene": {
-        "src": "/photos/products/turmeric-powder/scene.jpg",
-        "width": 1444,
-        "height": 2449
       }
     }
   },
@@ -2356,8 +2295,8 @@
     },
     "journey-coast": {
       "src": "/photos/site/journey-coast.jpg",
-      "width": 2400,
-      "height": 1382
+      "width": 1541,
+      "height": 1490
     },
     "journey-harvest": {
       "src": "/photos/site/journey-harvest.jpg",
@@ -2383,26 +2322,6 @@
       "src": "/photos/site/quality-lab.jpg",
       "width": 1684,
       "height": 2136
-    },
-    "season-harvest": {
-      "src": "/photos/site/season-harvest.jpg",
-      "width": 2256,
-      "height": 1738
-    },
-    "season-sowing": {
-      "src": "/photos/site/season-sowing.jpg",
-      "width": 2256,
-      "height": 1553
-    },
-    "season-tending": {
-      "src": "/photos/site/season-tending.jpg",
-      "width": 2400,
-      "height": 1351
-    },
-    "season-trade": {
-      "src": "/photos/site/season-trade.jpg",
-      "width": 2400,
-      "height": 1382
     }
   }
 }

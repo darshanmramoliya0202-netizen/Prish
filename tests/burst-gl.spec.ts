@@ -26,7 +26,8 @@ test("full-viewport burst canvas does not intercept clicks", async ({
 }) => {
   test.skip(browserName !== "chromium", "GL layer is Chromium-only in CI");
   await page.addInitScript(() => localStorage.setItem("prish.gpu", "3"));
-  await page.goto("/products");
+  // wait for hydration: the hover listener that loads the GL layer is attached client-side
+  await page.goto("/products", { waitUntil: "networkidle" });
   // load the GL layer on intent, then verify hit-testing at the bowl's centre resolves to the page
   await page.hover("a[data-burst='cumin-seeds'] img");
   await page.waitForTimeout(2500);
